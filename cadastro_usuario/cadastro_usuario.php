@@ -17,7 +17,7 @@
 
         $senha = PasswordEncrypt($usuario, $email, $senha);
 
-        $query = "INSERT INTO usuario VALUES ('$usuario', '$email', '$senha')";
+        $query = "INSERT INTO usuario VALUES (null, '$usuario', '$email', '$senha')";
         
         $result = mysqli_query($conexao, $query);
 
