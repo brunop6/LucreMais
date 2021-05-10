@@ -11,8 +11,10 @@
         <label for="btn-menu">&#9776;</label>
         <nav class="menu">
             <ul>
-                <li><a href="">Cadastro</a></li>
-                <li><a href="">Login</a></li>
+                <li><a href="">Estoque</a></li>
+                <li><a href="">Receitas</a></li>
+                <li><a href="">Configurações</a></li>
             </ul>
         </nav>
     </header>
+</body>
