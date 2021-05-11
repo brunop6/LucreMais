@@ -9,13 +9,18 @@
     <section class="login">
         <input type="checkbox" id="btn-menu">
         <label for="btn-menu">&#9776;</label>
-        <form action="" method="POST">
+        <form action="./autenticacao_usuario.php" method="POST">
+            <img src="./../Logo.png" alt="Logo do site" width="90%">
             <h2>Login</h2>
-            <p><input type="email" name="email" placeholder="Email" id="em"></p>
+            <p><input type="text" name="usuario" placeholder="Usuário" id="em"></p>
             <p><input type="password" name="senha" placeholder="Senha"></p>
-            <p><input type="button" value="Cadastrar-se" onclick="window.location.href='../cadastros/cadastrar_usuario.html'"> 
+            <p><input type="button" value="Cadastrar-se" onclick="window.location.href='./../cadastro_usuario/cadastro.php'"> 
                 <input type="submit" value="Entrar"></p>
         </form>
     </section>
+    <aside>
+        <!-- Espaço para escrever a explicação do site, o que é o site? Para que serve? -->
+        <h1 style="color: yellow;">Texto explicativo sobre o site</h1>
+    </aside>
 </body>
 </html>

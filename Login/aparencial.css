@@ -4,24 +4,32 @@
     font-family: sans-serif;
     text-decoration: none;
 }
+body{
+    background-color: #002D55;
+}
+input::placeholder{
+    color: black;
+}
 form{
     border: 1px solid black;
     width: 300px;
     height: 100%;
-    padding: 150px 40px;
+    padding: 10px 40px;
     text-align: center;
     position: fixed;
     transform: translate(-100%);
     left: 100%;
+    transition: 1s;
+    background-color: #002D55;
 }
 h2{
     font-weight: 500;
 }
-input[type="email"], input[type="password"]{
+input[type="email"], input[type="password"], input[type="text"]{
     outline: none;
-    border: 2px solid rgb(209, 205, 205);
+    border: 2px solid rgb(41, 39, 39);
     border-radius: 5px;
-    background: none;
+    background-color: rgb(113, 116, 255);
     display: block;
     margin: 30px auto;
     text-align: left;
@@ -30,25 +38,25 @@ input[type="email"], input[type="password"]{
     color: black;
     transition: .5s;
 }
-input[type="email"]:focus, input[type="password"]:focus{
+input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focus{
     width: 250px;
     border-color: rgb(32, 32, 32);
-    box-shadow: 0 0 5px rgb(0, 0, 0);
+    box-shadow: 0 0 5px rgb(113, 116, 255);
 }
 input[type="submit"], input[type="button"], input[type="reset"]{
     outline: none;
     border: 2px solid rgb(209, 205, 205);
-    background-color: rgb(224, 224, 224);
+    background-color: rgb(113, 116, 255);
     border-radius: 5px;
     padding: 10px 10px;
     margin: 20px;
-    margin-top: 100px;
+    margin-top: 10px;
     transition: .5s;
     text-decoration: none;
 }
 input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover{
-    background-color: rgb(54, 54, 54);
-    color: white;
+    background-color: yellow;
+    color: #002D55;
     padding: 15px 15px;
     box-shadow: 0 0 5px rgb(54, 54, 54);
 }
@@ -62,13 +70,29 @@ label{
     padding: 5px 10px;
     width: 20px;
     display: none;
+    left: 100%;
+    transform: translateX(-100%);
+    position: relative;
+}
+.cadastro form{
+    border: none;
+    padding: 10px 0px;
+    text-align: center;
+    position: fixed;
+    transform: translate(-50%);
+    left: 50%;
+    background-color: #002D55;
 }
 @media screen and (max-width:2560px) and (orientation:portrait) {
     label{
         display: block;
         left: 100%;
     }
-    #btn-menu:checked ~ .menu ul{
+    #btn-menu:checked ~ form {
         margin-left: 0;
+        left: 100%;
+    }
+    form{
+        left: 200%;
     }
 }
