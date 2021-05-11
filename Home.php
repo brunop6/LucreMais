@@ -1,3 +1,6 @@
+<?php
+    include 'includes/validacao_cookies.inc';
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -13,7 +16,7 @@
             <ul>
                 <li><a href="">Estoque</a></li>
                 <li><a href="">Receitas</a></li>
-                <li><a href="">Configurações</a></li>
+                <li><a href="logoff.php">Logoff</a></li>
             </ul>
         </nav>
     </header>
