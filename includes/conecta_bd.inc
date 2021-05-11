@@ -1,5 +1,5 @@
 <?php
-  $conexao = mysqli_connect("localhost", "root", "", "db_nomeBanco");
+  $conexao = mysqli_connect("localhost", "root", "", "lucreMais");
   
   if(mysqli_connect_errno($conexao)){
     echo "Problemas para conectar no banco. Erro:";
