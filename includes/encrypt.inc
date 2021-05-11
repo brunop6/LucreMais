@@ -1,6 +1,6 @@
 <?php
     //Função de encriptação e decriptação de senhas
-    function EncryptPassword($usuario, $email, $senha){
+    function encryptPassword($usuario, $email, $senha){
         //Chave da criptografia
         $salt = $email.strlen($usuario).$usuario.strlen($email);
         

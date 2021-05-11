@@ -15,7 +15,7 @@
         $email = $_POST['email'];
         $senha = $_POST['senha'];
 
-        $senha = PasswordEncrypt($usuario, $email, $senha);
+        $senha = encryptPassword($usuario, $email, $senha);
 
         $query = "INSERT INTO usuario VALUES (null, '$usuario', '$email', '$senha')";
         
