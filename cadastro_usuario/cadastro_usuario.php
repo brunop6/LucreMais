@@ -20,9 +20,9 @@
 
         $query = "INSERT INTO usuario VALUES (null, '$usuario', '$email', '$senha')";
         
-        $result = mysqli_query($conexao, $query);
+        $resultado = mysqli_query($conexao, $query);
 
-        if($result){
+        if($resultado){
             echo '<h2>Cadastro realizado com sucesso!</h2>';
             echo "<p><a href='../Login/login.php'><button>Retornar ao login</button></a></p>";
         }else{
