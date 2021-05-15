@@ -1,14 +1,6 @@
 <?php
     class Estoque{
-        private Item $item;
 
-        function __construct(Item $item)
-        {
-            require_once 'Item.php';
-
-            $this->item = $item;
-        }
-        
         public function retornar_itens_em_falta(){
             include '../includes/conecta_bd.inc';
 
@@ -28,5 +20,9 @@
             else{
                 return null;
             }
+        }
+
+        public function gerar_lista_compras(){
+            header('Location: ../listaCompras/lista_compras_pdf.php');
         }
     }
