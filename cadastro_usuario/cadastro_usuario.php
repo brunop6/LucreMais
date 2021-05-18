@@ -9,28 +9,23 @@
 </head>
 <body>
     <?php
-        include '../includes/conecta_bd.inc';
-        include '../includes/encrypt.inc';
+        include_once '../classes/Usuario.php';
 
-        $usuario = $_POST['usuario'];
+        $nomeUsuario = $_POST['usuario'];
         $email = $_POST['email'];
         $senha = $_POST['senha'];
 
-        $senha = encryptPassword($usuario, $email, $senha);
+        $usuario = new Usuario($nomeUsuario, $email, $senha);
 
-        $query = "INSERT INTO usuario VALUES (null, '$usuario', '$email', '$senha')";
-        
-        $resultado = mysqli_query($conexao, $query);
+        $resultado = $usuario->cadastrarUsuario();
 
-        if($resultado){
-            echo '<h2>Cadastro realizado com sucesso!</h2>';
-            echo "<p><a href='../Login/login.php'><button>Retornar ao login</button></a></p>";
+        if($resultado == "Cadastro realizado com sucesso!"){
+            echo "<h2>$resultado</h2> <br>";
         }else{
             echo '<h2>Erro ao realizar cadastro...</h2> <br>';
-            echo "<p lang='en'>".mysqli_error($conexao)."</p>";
-            echo "<p><a href='../Login/login.php'><button>Retornar ao login</button></a></p>";  
+            echo "<p lang='en'>".$resultado."</p>";  
         }
-        mysqli_close($conexao);
+        echo "<p><a href='../Login/login.php'><button>Retornar ao login</button></a></p>";
     ?>
 </body>
 </html>
