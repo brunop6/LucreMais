@@ -19,7 +19,7 @@
             
             $query = "SELECT id FROM usuario WHERE nomeUsuario = '$nomeUsuario'";
 
-            $resultado = (mysqli_query($conexao, $query));
+            $resultado = mysqli_query($conexao, $query);
 
             if(mysqli_num_rows($resultado) > 0){
                 while($row = mysqli_fetch_array($resultado)){
