@@ -15,12 +15,12 @@
         }
 
         public static function selectId($nomeUsuario){
-            include_once '../includes/conecta_bd.inc';
+            include '../includes/conecta_bd.inc';
             
             $query = "SELECT id FROM usuario WHERE nomeUsuario = '$nomeUsuario'";
 
             $resultado = mysqli_query($conexao, $query);
-
+            
             if(mysqli_num_rows($resultado) > 0){
                 while($row = mysqli_fetch_array($resultado)){
                     $id = $row['id'];
@@ -33,7 +33,7 @@
         }
         
         public function cadastrarUsuario(){
-            include_once '../includes/conecta_bd.inc';
+            include '../includes/conecta_bd.inc';
 
             $query = "INSERT INTO usuario (nomeUsuario, email, senha) VALUES ('$this->nomeUsuario', '$this->email', '$this->senha')";
         
@@ -46,7 +46,7 @@
         }
 
         public function editarConta($nomeUsuario, $senha){
-            include_once '../includes/conecta_bd.inc';
+            include '../includes/conecta_bd.inc';
 
             $id = Usuario::selectId($this->nomeUsuario);
             $senha = encryptPassword($nomeUsuario, $this->email, $senha);
