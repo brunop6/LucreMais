@@ -36,25 +36,25 @@
   <h1>Cadastrar Itens<br></h1>
 
   <form action="cadastrar_itens.php" method="POST">
-    <p><input type="text" name="nome" placeholder="Nome do Item"></p>
+    <p><input type="text" name="nome" placeholder="Nome do Item" required></p>
     
-    <p><input type="text" name="categoria" placeholder="Tipo de item" list="categorias"></p>
+    <p><input type="text" name="categoria" placeholder="Tipo de item" list="categorias" required></p>
     <datalist id="categorias">
       <?php
         echo atualizarCategorias();
       ?>
     </datalist>
 
-    <p><input type="text" name="fornecedor" placeholder="Fornecedor" list="fornecedores"></input></p>
+    <p><input type="text" name="fornecedor" placeholder="Fornecedor" list="fornecedores" required></input></p>
     <datalist id="fornecedores">
       <?php
         echo atualizarFornecedores();
       ?>
     </datalist>
     
-    <p><input type="number" name="quantidade" placeholder="Quantidade" step="0.1"></p>
+    <p><input type="number" name="quantidade" placeholder="Quantidade" step="0.1" required></p>
 
-    <select name="unidade_de_medida">
+    <select name="unidade_de_medida" required>
       <option value="unidade_de_medida">Unidade de Medida</option> 
       <option value="ml">ML</option>
       <option value="grama">Grama</option>
@@ -64,11 +64,11 @@
       <option value="xicara">Xícara</option>
     </select>
 
-    <p><input type="number" name="preco" placeholder="Preço" step="0.01"></p>
+    <p><input type="number" name="preco" placeholder="Preço" step="0.01" required></p>
 
-    <p><input type="number" name="quantMinima" placeholder="Quant. Mínima" step="0.1"></p>
+    <p><input type="number" name="quantMinima" placeholder="Quant. Mínima" step="0.1" required></p>
 
-    <p><input type="number" name="lote" placeholder="Lote"></p>
+    <p><input type="number" name="lote" placeholder="Lote" required></p>
 
     <h3>Status:</h3>
     <p><input type="radio" name="status" value="ativo" checked>Ativo</input></p>

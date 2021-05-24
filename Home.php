@@ -14,10 +14,10 @@
         <label for="btn-menu">&#9776;</label>
         <nav class="menu">
             <ul>
+                <li><a href="./fornecedor/cadastro_fornecedor.php">Cadastrar fornecedor</a></li>
+                <li><a href="./cadastro_item/cadastro_de_itens.php">Cadastrar itens</a></li>
                 <li><a href="">Estoque</a></li>
                 <li><a href="./Receitas/cadastrar_receitas.php">Receitas</a></li>
-                <li><a href="./cadastro_item/cadastro_de_itens.php">Cadastrar itens</a></li>
-                <li><a href="./fornecedor/cadastro_fornecedor.php">Cadastrar fornecedor</a></li>
                 <li><a href="logoff.php">Logoff</a></li>
             </ul>
         </nav>

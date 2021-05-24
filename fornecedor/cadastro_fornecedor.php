@@ -13,11 +13,11 @@ include "../includes/conecta_bd.inc";
     <h1>Cadastro de Fornecedor<br></h1>
 
     <form action="cadastrar_fornecedor.php" method="POST">
-        <p><input type="text" name="nomeFornecedor" placeholder="*Nome do Fornecedor*" id="em"></p>
+        <p><input type="text" name="nomeFornecedor" placeholder="*Nome do Fornecedor*" id="em" required></p>
             
         <p><input type="email" name="email" placeholder="Email Fornecedor"></p>
 
-        <p><input type="text" name="telefone" placeholder="*Telefone*"></p>
+        <p><input type="text" name="telefone" placeholder="*Telefone*" required></p>
 
         <p><input type="text" name="cnpj" placeholder="CNPJ"></p>
 
