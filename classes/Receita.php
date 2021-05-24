@@ -26,7 +26,7 @@
             return $nomeReceita;
         }
 
-        public static function selectId($descricaoCategoria){
+        public static function selectId($nomeReceita){
             include '../includes/conecta_bd.inc';
 
             $query = "SELECT id FROM receita WHERE nomeReceita = '$nomeReceita'";
