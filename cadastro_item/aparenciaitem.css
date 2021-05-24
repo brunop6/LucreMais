@@ -13,7 +13,7 @@ input::placeholder{
 }
 
 
- input[type="text"], input[type="text"], input[type="text"], input[type="text"]{
+ input[type="text"], input[type="number"], select{
     outline: none;
     border: 2px solid rgb(41, 39, 39);
     border-radius: 5px;
@@ -26,13 +26,13 @@ input::placeholder{
     color: black;
     transition: .5s;
 }
-input[type="text"]:focus, input[type="text"]:focus, input[type="text"]:focus, input[type="text"]:focus{
+input[type="text"]:focus, input[type="number"]:focus, select:focus{
     width: 250px;
     border-color: rgb(32, 32, 32);
     box-shadow: 0 0 5px rgb(113, 116, 255);
 }
 
-input[type="submit"], input[type="button"], input[type="reset"]{
+input[type="submit"], input[type="button"], input[type="reset"], button{
     outline: none;
     border: 2px solid rgb(209, 205, 205);
     background-color: rgb(113, 116, 255);
@@ -43,7 +43,7 @@ input[type="submit"], input[type="button"], input[type="reset"]{
     transition: .5s;
     text-decoration: none;
 }
-input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover{
+input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover, button:hover{
     background-color: yellow;
     color: #002D55;
     padding: 15px 15px;
@@ -64,7 +64,6 @@ input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hove
     color: black;
     transition: .5s;
 }
-
 
 label{
     color: black;
