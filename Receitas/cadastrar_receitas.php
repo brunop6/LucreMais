@@ -19,6 +19,7 @@
         <p><input type="number" name="quantidade" placeholder="Quantidade" required></p>
         <select id="unidade_de_medida" >
             <option value="unidade_de_medida">Unidade de Medida</option> 
+            <option value="unidade">Unidade</option>
             <option value="ml">ML</option>
             <option value="grama">Grama</option>
             <option value="colher_de_sopa">Colher de Sopa</option>

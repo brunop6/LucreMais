@@ -12,7 +12,7 @@ body{
     display: none;
 }
 
-header{
+header, li ul{
     background-color: rgb(113, 116, 255);
     font-weight: 600;
 }
@@ -39,6 +39,11 @@ header label:hover{
     transition: all 1s;
 }
 
+.menu li ul{
+    position: absolute;
+    display: none;
+}
+
 .menu li a{
     color: black;
     text-decoration: none;
@@ -49,6 +54,10 @@ header label:hover{
 
 .menu li a:hover{
     background-color: yellow;
+}
+
+.menu li:hover ul{
+    display: block;
 }
 
 @media screen and (max-width:2560px) and (orientation:portrait) {

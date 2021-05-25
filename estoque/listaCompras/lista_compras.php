@@ -8,7 +8,7 @@
 </head>
 <body>
     <?php
-        require_once '../classes/Estoque.php';
+        require_once '../../classes/Estoque.php';
         $estoque = new Estoque();
 
         /*Verificação da variável opt
@@ -23,7 +23,7 @@
         }
 
         if($estoque->retornar_itens_em_falta() != null){
-            echo '<h1>Itens em Falta no Estoque</h1> <hr>';
+            echo '<h1>Lista de Compras</h1> <hr>';
 
             $itens = $estoque->retornar_itens_em_falta();
 
@@ -43,7 +43,7 @@
             echo '
                 <h2>Seu Estoque está em dia!</h2>
                 <br>
-                <a href="../Home.php">Voltar para página principal</a>
+                <a href="../../Home.php">Voltar para página principal</a>
             ';
         }
     ?>

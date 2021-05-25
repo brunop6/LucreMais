@@ -55,7 +55,8 @@
     <p><input type="number" name="quantidade" placeholder="Quantidade" step="0.1" required></p>
 
     <select name="unidade_de_medida" required>
-      <option value="unidade_de_medida">Unidade de Medida</option> 
+      <option value="unidade_de_medida">Unidade de Medida</option>
+      <option value="unidade">Unidade</option> 
       <option value="ml">ML</option>
       <option value="grama">Grama</option>
       <option value="colher_de_sopa">Colher de Sopa</option>
