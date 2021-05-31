@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 11-Maio-2021 às 23:13
+-- Tempo de geração: 31-Maio-2021 às 21:56
 -- Versão do servidor: 10.4.18-MariaDB
 -- versão do PHP: 8.0.5
 
@@ -38,6 +38,25 @@ CREATE TABLE `categoria` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `estoque`
+--
+
+CREATE TABLE `estoque` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `idUsuario` int(10) UNSIGNED NOT NULL,
+  `idFornecedor` int(10) UNSIGNED NOT NULL,
+  `idItem` int(10) UNSIGNED NOT NULL,
+  `quantidade` double NOT NULL,
+  `preco` double NOT NULL,
+  `lote` int(11) NOT NULL,
+  `statusItem` enum('0','1') DEFAULT '1' COMMENT '0 - Inativo, 1 - Ativo',
+  `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
+  `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `fornecedor`
 --
 
@@ -45,7 +64,7 @@ CREATE TABLE `fornecedor` (
   `id` int(10) UNSIGNED NOT NULL,
   `idUsuario` int(10) UNSIGNED NOT NULL,
   `nomeFornecedor` varchar(50) NOT NULL,
-  `email` varchar(150) NOT NULL,
+  `email` varchar(150) DEFAULT NULL,
   `telefone` varchar(15) NOT NULL,
   `cnpj` varchar(50) DEFAULT NULL,
   `endereco` varchar(150) DEFAULT NULL,
@@ -62,14 +81,12 @@ CREATE TABLE `fornecedor` (
 CREATE TABLE `item` (
   `id` int(10) UNSIGNED NOT NULL,
   `idUsuario` int(10) UNSIGNED NOT NULL,
-  `idFornecedor` int(10) UNSIGNED NOT NULL,
   `idCategoria` int(10) UNSIGNED NOT NULL,
+  `marca` varchar(50) NOT NULL,
   `nome` varchar(50) NOT NULL,
-  `quantidade` int(11) NOT NULL,
+  `quantidade` double NOT NULL,
+  `quantidadeMinima` double NOT NULL,
   `unidadeMedida` varchar(10) NOT NULL,
-  `preco` double NOT NULL,
-  `quantidadeMinima` int(11) NOT NULL,
-  `lote` int(11) NOT NULL,
   `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
   `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -101,6 +118,15 @@ ALTER TABLE `categoria`
   ADD KEY `categoria_ibfk_1` (`idUsuario`);
 
 --
+-- Índices para tabela `estoque`
+--
+ALTER TABLE `estoque`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `estoque_ibfk_1` (`idUsuario`),
+  ADD KEY `estoque_ibfk_2` (`idFornecedor`),
+  ADD KEY `estoque_ibfk_3` (`idItem`);
+
+--
 -- Índices para tabela `fornecedor`
 --
 ALTER TABLE `fornecedor`
@@ -115,7 +141,6 @@ ALTER TABLE `fornecedor`
 ALTER TABLE `item`
   ADD PRIMARY KEY (`id`),
   ADD KEY `item_ibfk_1` (`idUsuario`),
-  ADD KEY `item_ibfk_2` (`idFornecedor`),
   ADD KEY `item_ibfk_3` (`idCategoria`);
 
 --
@@ -133,6 +158,12 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de tabela `categoria`
 --
 ALTER TABLE `categoria`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `estoque`
+--
+ALTER TABLE `estoque`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -164,6 +195,14 @@ ALTER TABLE `categoria`
   ADD CONSTRAINT `categoria_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE;
 
 --
+-- Limitadores para a tabela `estoque`
+--
+ALTER TABLE `estoque`
+  ADD CONSTRAINT `estoque_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `estoque_ibfk_2` FOREIGN KEY (`idFornecedor`) REFERENCES `fornecedor` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `estoque_ibfk_3` FOREIGN KEY (`idItem`) REFERENCES `item` (`id`) ON UPDATE CASCADE;
+
+--
 -- Limitadores para a tabela `fornecedor`
 --
 ALTER TABLE `fornecedor`
@@ -174,7 +213,6 @@ ALTER TABLE `fornecedor`
 --
 ALTER TABLE `item`
   ADD CONSTRAINT `item_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `item_ibfk_2` FOREIGN KEY (`idFornecedor`) REFERENCES `fornecedor` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `item_ibfk_3` FOREIGN KEY (`idCategoria`) REFERENCES `categoria` (`id`) ON UPDATE CASCADE;
 COMMIT;
 
