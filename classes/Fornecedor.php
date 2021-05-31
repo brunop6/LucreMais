@@ -61,6 +61,10 @@
             include '../includes/conecta_bd.inc';
 
             $query = "INSERT INTO fornecedor (idUsuario, nomeFornecedor, email, telefone, cnpj, endereco) VALUES ('$this->idUsuario', '$this->nome', '$this->email', '$this->telefone', '$this->cnpj', '$this->endereco')";
+            
+            if(strlen($this->cnpj) < 14){
+                $query = "INSERT INTO fornecedor (idUsuario, nomeFornecedor, email, telefone, endereco) VALUES ('$this->idUsuario', '$this->nome', '$this->email', '$this->telefone', '$this->endereco')";
+            }
 
             $resultado = mysqli_query($conexao, $query);
 
