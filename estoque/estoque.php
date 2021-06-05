@@ -42,6 +42,7 @@
         <label for="btn-menu">&#9776;</label>
         <nav class="menu">
             <ul>
+                <li><a href="../cadastro_estoque/cadastro_estoque.php">Cadastrar Estoque</a></li>
                 <li><a href="">Lista de Compras</a>
                     <ul>
                         <li><a href="./listaCompras/lista_compras.php">Visualizar no navegador</a></li>
