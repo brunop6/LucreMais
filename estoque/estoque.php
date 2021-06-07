@@ -8,13 +8,13 @@
         function preencherEstoque(){
             include_once '../classes/Estoque.php';
 
-            list($nomeItem, $marca, $categoria, $fornecedor, $quantidadeEstoque, $unidadeMedida, $preco, $quantidadeItem, $lote, $dataCadastro, $dataAtualizacao, $nomeUsuario) = Estoque::retornar_itens_estoque('1');
+            list($id, $nomeItem, $marca, $categoria, $fornecedor, $quantidadeEstoque, $unidadeMedida, $preco, $quantidadeItem, $lote, $dataCadastro, $dataAtualizacao, $nomeUsuario) = Estoque::retornar_itens_estoque('1');
 
             if(!empty($nomeItem)){
                 $i = 0;
                 foreach($nomeItem as $nome){
                     echo "<tr>";
-
+                    
                     echo "<td>$nome $marca[$i]</td>";
                     echo "<td>$categoria[$i]</td>";
                     echo "<td>$fornecedor[$i]</td>";

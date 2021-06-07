@@ -52,7 +52,7 @@
         public static function retornar_itens_estoque($status){
             include '../includes/conecta_bd.inc';
 
-            $query = "SELECT i.nome, i.marca, c.descricaoCategoria, f.nomeFornecedor, e.quantidade AS quantidadeEstoque, i.unidadeMedida, e.preco, i.quantidade AS quantidadeItem, e.lote, DATE_FORMAT(e.dataCadastro, '%d/%m/%Y %H:%i') AS dataCadastro, DATE_FORMAT(e.dataAtualizacao, '%d/%m/%Y %H:%i') AS dataAtualizacao, u.nomeUsuario 
+            $query = "SELECT i.id, i.nome, i.marca, c.descricaoCategoria, f.nomeFornecedor, e.quantidade AS quantidadeEstoque, i.unidadeMedida, e.preco, i.quantidade AS quantidadeItem, e.lote, DATE_FORMAT(e.dataCadastro, '%d/%m/%Y %H:%i') AS dataCadastro, DATE_FORMAT(e.dataAtualizacao, '%d/%m/%Y %H:%i') AS dataAtualizacao, u.nomeUsuario 
             FROM item i, usuario u, categoria c, estoque e, fornecedor f
             WHERE i.idUsuario = u.id 
                 AND i.idCategoria = c.id 
@@ -67,6 +67,7 @@
             if($linhas > 0){
                 $i = 0;
                 while($row = mysqli_fetch_array($resultado)){
+                    $id[$i] = $row['id'];
                     $nome[$i] = $row['nome'];
                     $marca[$i] = $row['marca'];
                     $categoria[$i] = $row['descricaoCategoria'];
@@ -81,7 +82,7 @@
                     $nomeUsuario[$i] = $row['nomeUsuario'];
                     $i++; 
                 }
-                return array($nome, $marca, $categoria, $fornecedor, $quantidadeEstoque, $unidadeMedida, $preco, $quantidadeItem, $lote, $dataCadastro, $dataAtualizacao, $nomeUsuario);
+                return array($id, $nome, $marca, $categoria, $fornecedor, $quantidadeEstoque, $unidadeMedida, $preco, $quantidadeItem, $lote, $dataCadastro, $dataAtualizacao, $nomeUsuario);
             }
             return null;
         }
