@@ -52,7 +52,7 @@
         public static function retornar_itens_estoque($status){
             include '../includes/conecta_bd.inc';
 
-            $query = "SELECT i.id, i.nome, i.marca, c.descricaoCategoria, f.nomeFornecedor, e.quantidade AS quantidadeEstoque, i.unidadeMedida, e.preco, i.quantidade AS quantidadeItem, e.lote, DATE_FORMAT(e.dataCadastro, '%d/%m/%Y %H:%i') AS dataCadastro, DATE_FORMAT(e.dataAtualizacao, '%d/%m/%Y %H:%i') AS dataAtualizacao, u.nomeUsuario 
+            $query = "SELECT e.id, i.nome, i.marca, c.descricaoCategoria, f.nomeFornecedor, e.quantidade AS quantidadeEstoque, i.unidadeMedida, e.preco, i.quantidade AS quantidadeItem, e.lote, DATE_FORMAT(e.dataCadastro, '%d/%m/%Y %H:%i') AS dataCadastro, DATE_FORMAT(e.dataAtualizacao, '%d/%m/%Y %H:%i') AS dataAtualizacao, u.nomeUsuario 
             FROM item i, usuario u, categoria c, estoque e, fornecedor f
             WHERE i.idUsuario = u.id 
                 AND i.idCategoria = c.id 
@@ -87,6 +87,36 @@
             return null;
         }
 
+        public static function selectEstoque($id){
+            include '../includes/conecta_bd.inc';
+
+            $query = "SELECT i.nome, i.marca, i.unidadeMedida, f.nomeFornecedor, e.quantidade AS quantidadeEstoque, e.preco, e.lote, e.statusItem
+            FROM item i, estoque e, fornecedor f
+            WHERE i.id = e.idItem 
+                AND e.idFornecedor = f.id
+                AND e.id = $id
+            ";
+
+            $resultado = mysqli_query($conexao, $query);
+
+            if(mysqli_num_rows($resultado) > 0){
+                while($row = mysqli_fetch_array($resultado)){
+                    $nome = $row['nome'];
+                    $marca = $row['marca'];
+                    $unidadeMedida = $row['unidadeMedida'];
+                    $fornecedor = $row['nomeFornecedor'];
+                    $quantidade = $row['quantidadeEstoque'];
+                    $preco = number_format($row['preco'], 2);
+                    $lote = $row['lote'];
+                    $statusItem = $row['statusItem'];
+                }
+            }
+
+            mysqli_close($conexao);
+
+            return array($nome, $marca, $unidadeMedida, $fornecedor, $quantidade, $preco, $lote, $statusItem);
+        }
+
         public static function gerar_lista_compras(){
             header('Location: ../listaCompras/lista_compras_pdf.php');
         }
@@ -100,6 +130,18 @@
 
             if($resultado){
                 return 'Cadastro realizado com sucesso!';
+            }
+            return mysqli_error($conexao);
+        }
+        public function editar_estoque($id){
+            include '../includes/conecta_bd.inc';
+
+            $query = "UPDATE estoque SET idUsuario = $this->idUsuario, idFornecedor = $this->idFornecedor, idItem = $this->idItem, quantidade = $this->quantidade, preco = $this->preco, lote = $this->lote, statusItem = '$this->statusItem' WHERE id = $id";
+
+            $resultado = mysqli_query($conexao, $query);
+
+            if($resultado){
+                return true;
             }
             return mysqli_error($conexao);
         }
