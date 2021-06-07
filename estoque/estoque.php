@@ -24,11 +24,16 @@
             foreach($nomeItem as $nome){
                 echo "<tr>";
 
-                echo "<td>$nome</td>";
-                echo "<td>$quantidade[$i]</td>";
-                echo "<td>$unidadeMedida[$i]</td>";
-                echo "<td>$preco[$i]</td>";
+                echo "<td>$nome $marca[$i]</td>";
+                echo "<td>$categoria[$i]</td>";
+                echo "<td>$fornecedor[$i]</td>";
+                echo "<td>$quantidadeEstoque[$i] $unidadeMedida[$i]</td>";
+                echo "<td>R$ $preco[$i]</td>";
+                echo "<td>$quantidadeItem[$i] $unidadeMedida[$i]</td>";
                 echo "<td>$lote[$i]</td>";
+                echo "<td>$dataCadastro[$i]</td>";
+                echo "<td>$dataAtualizacao[$i]</td>";
+                echo "<td>$nomeUsuario[$i]</td>";
 
                 echo "</tr>";
                 $i++;
@@ -58,11 +63,15 @@
         <table style="width:100%; margin-top: 10px">
             <tr>
                 <th>Item</th>
-                <th>Quantidade</th>
-                <th>Un. Medida</th>
+                <th>Categoria</th>
+                <th>Fornecedor</th>
+                <th>Quant. Estoque</th>
                 <th>Preço</th>
-                <th>Quant. Mínima</th>
+                <th>Quant. Item</th>
                 <th>Lote</th>
+                <th>Data Cadastro</th>
+                <th>Data Atualização</th>
+                <th>Usuário</th>
             </tr>
             <?php
                 preencherEstoque();

@@ -6,6 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="estoque.css">
     <title>Document</title>
+    <?php
+        function preencherEstoque(){
+            include_once '../classes/Estoque.php';
+
+            list($nomeItem, $marca, $categoria, $fornecedor, $quantidadeEstoque, $unidadeMedida, $preco, $quantidadeItem, $lote, $dataCadastro, $dataAtualizacao, $nomeUsuario) = Estoque::retornar_itens_estoque('1');
+
+            $i = 0;
+            foreach($nomeItem as $nome){
+                echo "<tr>";
+
+                echo "<td>$nome $marca[$i]</td>";
+                echo "<td>$categoria[$i]</td>";
+                echo "<td>$fornecedor[$i]</td>";
+                echo "<td>$quantidadeEstoque[$i] $unidadeMedida[$i]</td>";
+                echo "<td>R$ $preco[$i]</td>";
+                echo "<td>$quantidadeItem[$i] $unidadeMedida[$i]</td>";
+                echo "<td>$lote[$i]</td>";
+                echo "<td>$dataCadastro[$i]</td>";
+                echo "<td>$dataAtualizacao[$i]</td>";
+                echo "<td>$nomeUsuario[$i]</td>";
+
+                echo "</tr>";
+                $i++;
+            }
+        }
+    ?>
 </head>
 <body>
 <img src="./../Logo.png" alt="Logo do site" width="14%">
@@ -35,7 +61,9 @@
                 <th>Quant. Mínima</th>
                 <th>Lote</th>
             </tr>
-           
+            <?php
+                preencherEstoque();
+            ?>
         </table>
     
 

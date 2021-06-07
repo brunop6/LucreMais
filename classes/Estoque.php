@@ -52,7 +52,7 @@
         public static function retornar_itens_estoque($status){
             include '../includes/conecta_bd.inc';
 
-            $query = "SELECT i.nome, i.marca, c.descricaoCategoria, f.nomeFornecedor, e.quantidade AS quantidadeEstoque, i.unidadeMedida, e.preco, i.quantidade AS quantidadeItem, DATE_FORMAT(e.dataCadastro, '%d/%m/%Y %H:%i') AS dataCadastro, DATE_FORMAT(e.dataAtualizacao, '%d/%m/%Y %H:%i') AS dataAtualizacao, u.nomeUsuario 
+            $query = "SELECT i.nome, i.marca, c.descricaoCategoria, f.nomeFornecedor, e.quantidade AS quantidadeEstoque, i.unidadeMedida, e.preco, i.quantidade AS quantidadeItem, e.lote, DATE_FORMAT(e.dataCadastro, '%d/%m/%Y %H:%i') AS dataCadastro, DATE_FORMAT(e.dataAtualizacao, '%d/%m/%Y %H:%i') AS dataAtualizacao, u.nomeUsuario 
             FROM item i, usuario u, categoria c, estoque e, fornecedor f
             WHERE i.idUsuario = u.id 
                 AND i.idCategoria = c.id 
@@ -70,10 +70,10 @@
                     $nome[$i] = $row['nome'];
                     $marca[$i] = $row['marca'];
                     $categoria[$i] = $row['descricaoCategoria'];
-                    $fornecedor[$i] = $row['nomeForncecedor'];
+                    $fornecedor[$i] = $row['nomeFornecedor'];
                     $quantidadeEstoque[$i] = $row['quantidadeEstoque'];
                     $unidadeMedida[$i] = $row['unidadeMedida'];
-                    $preco[$i] = $row['preco'];
+                    $preco[$i] = number_format($row['preco'], 2);
                     $quantidadeItem[$i] = $row['quantidadeItem'];
                     $lote[$i] = $row['lote'];
                     $dataCadastro[$i] = $row['dataCadastro'];
