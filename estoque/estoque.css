@@ -1,0 +1,68 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    text-decoration: none;
+}
+body{
+    background-color: #002D55;
+    text-align: center;
+}
+table, th, td{
+    color: yellow;
+    border-color: black;
+    border-collapse: collapse;
+    text-align: 20px;
+}
+
+#btn-menu{
+    display: none;
+}
+
+header, li ul{
+    background-color: rgb(113, 116, 255);
+    font-weight: 600;
+}
+
+header label{
+    color: black;
+    font-size: 25px;
+    display: block;
+    padding: 5px 10px;
+    width: 20px;
+    display: none;
+}
+
+header label:hover{
+    background-color: #002D55;
+}
+
+.menu ul{
+    list-style: none;
+    margin: 0px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    transition: all 1s;
+}
+
+.menu li ul{
+    position: absolute;
+    display: none;
+}
+
+.menu li a{
+    color: black;
+    text-decoration: none;
+    padding: 10px 100px;
+    display: block;
+    border-right: 1px solid #002D55;
+}
+
+.menu li a:hover{
+    background-color: yellow;
+}
+
+.menu li:hover ul{
+    display: block;
+}
