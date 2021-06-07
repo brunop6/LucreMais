@@ -66,3 +66,28 @@ header label:hover{
 .menu li:hover ul{
     display: block;
 }
+@media screen and (max-width:2560px) and (orientation:portrait) {
+    body{
+        background-image:url("Logo.png");
+        background-color: #002D55;
+    }
+    header label{
+        display: block;
+    }
+    
+    .menu ul{
+        position: absolute;
+        width: 70%;
+        flex-direction: column;
+        margin-left: -100%;
+    }
+    
+    .menu li a{
+        border-top: 1px solid rgb(255, 242, 182);
+        background:rgb(113, 116, 255);
+    }
+    
+    #btn-menu:checked ~ .menu ul{
+        margin-left: 0;
+    }
+}

@@ -75,8 +75,10 @@
             }
         }
     ?>
+    <link rel="stylesheet" href="../cadastro_item/aparenciaitem.css">
 </head>
 <body>
+    <img src="../Logo.png" alt="Logo do site" width="14%">
     <form action="" method="POST">
         <p><input type="text" name="fornecedor" placeholder="Fornecedor" list="fornecedores" required>
             <?php
