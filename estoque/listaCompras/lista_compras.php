@@ -9,7 +9,6 @@
 <body>
     <?php
         require_once '../../classes/Estoque.php';
-        $estoque = new Estoque();
 
         /*Verificação da variável opt
         *   
@@ -22,10 +21,10 @@
             $opt = $_GET['opt'];
         }
 
-        if($estoque->retornar_itens_em_falta() != null){
+        if(Estoque::retornar_itens_em_falta() != null){
             echo '<h1>Lista de Compras</h1> <hr>';
 
-            $itens = $estoque->retornar_itens_em_falta();
+            $itens = Estoque::retornar_itens_em_falta();
 
             foreach($itens as $i => $row){
                 echo "
@@ -37,7 +36,7 @@
             }
 
             if($opt == 2){
-                $estoque->gerar_lista_compras();
+                Estoque::gerar_lista_compras();
             }
         }else{
             echo '

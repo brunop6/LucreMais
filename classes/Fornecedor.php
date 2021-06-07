@@ -10,11 +10,18 @@
         function __construct($idUsuario, $nome, $email, $telefone, $cnpj, $endereco)
         {
             $this->idUsuario = $idUsuario;
-            $this->nome = $nome;
-            $this->email = $email;
+            $this->nome = strtoupper($nome);
+            $this->email = strtolower($email);
             $this->telefone = $telefone;
             $this->cnpj = $cnpj;
             $this->endereco = $endereco;
+
+            if(strlen($this->email) < 10){
+                $this->email = NULL;
+            }
+            if(strlen($this->endereco) < 10){
+                $this->endereco = NULL;
+            }
         }
         
         /**
@@ -62,6 +69,7 @@
 
             $query = "INSERT INTO fornecedor (idUsuario, nomeFornecedor, email, telefone, cnpj, endereco) VALUES ('$this->idUsuario', '$this->nome', '$this->email', '$this->telefone', '$this->cnpj', '$this->endereco')";
             
+            //Formato CNPJ XX. XXX. XXX/0001-XX
             if(strlen($this->cnpj) < 14){
                 $query = "INSERT INTO fornecedor (idUsuario, nomeFornecedor, email, telefone, endereco) VALUES ('$this->idUsuario', '$this->nome', '$this->email', '$this->telefone', '$this->endereco')";
             }

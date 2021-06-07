@@ -57,5 +57,45 @@
             }
             return mysqli_error($conexao);
         }
+        
+        public static function verificaItem($idItem, $idReceita){
+            include '../includes/conecta_bd.inc';
+
+            $query = "SELECT unidadeMedida, quantidade FROM item WHERE id = '$idItem'";
+
+            $resultado = mysqli_query($conexao, $query);
+            
+            $unimedItem = null;
+            $quantidadeItem = null;
+            if(mysqli_num_rows($resultado) > 0){
+                while($row = mysqli_fetch_array($resultado)){
+                    $unimedItem = $row['unidadedeMedida'];
+                    $quantidadeItem = $row['quantidade'];                    
+                }
+            }
+            
+            $query = "SELECT unidadeMedida, quantidade FROM receita_item WHERE idItem = '$idItem' and idReceita = '$idReceita'";
+
+            $resultado = mysqli_query($conexao, $query);
+            
+            $unimedRec = null;
+            $quantidadeRec = null;
+            if(mysqli_num_rows($resultado) > 0){
+                while($row = mysqli_fetch_array($resultado)){
+                    $unimedRec = $row['unidadedeMedida'];
+                    $quantidadeRec = $row['quantidade'];  
+                }
+            }
+            
+            if ($unimedItem != $unimedRec){
+                $quantidadeRec = Receita_Item::converterMedidas($unimedItem, $unimedRec, $quantidadeRec);
+            }
+            
+            mysqli_close($conexao);
+            
+            $verifica = ($quantidadeItem >= $quantidadeRec)
+
+            return $verifica;
+        }
     }
 ?>
