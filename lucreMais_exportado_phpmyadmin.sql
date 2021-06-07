@@ -86,7 +86,7 @@ CREATE TABLE `item` (
   `nome` varchar(50) NOT NULL,
   `quantidade` double NOT NULL,
   `quantidadeMinima` double NOT NULL,
-  `unidadeMedida` varchar(10) NOT NULL,
+  `unidadeMedida` varchar(20) NOT NULL,
   `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
   `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
