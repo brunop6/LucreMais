@@ -25,7 +25,8 @@
             $query = "SELECT i.nome, i.marca 
             FROM item i, estoque e 
             WHERE i.id = e.idItem 
-                AND e.quantidade < i.quantidadeMinima 
+                AND e.quantidade < i.quantidadeMinima
+                AND e.statusItem = '1' 
             ORDER BY e.lote, i.nome, i.marca";
 
             $resultado = mysqli_query($conexao, $query);
