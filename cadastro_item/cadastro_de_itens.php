@@ -37,7 +37,7 @@
   <h1>Cadastrar Itens<br></h1>
   <section class="cadastro">
   
-  <form action="cadastrar_itens.php" method="POST" onSubmit = "validar_unidade_medida()" >
+  <form action="cadastrar_itens.php" method="POST">
   
     <p><input type="text" name="nome" placeholder="Nome do Item" required></p>
     <p><input type="text" name="marca" placeholder="Marca" required></p>
@@ -51,12 +51,13 @@
 
     <p><input type="number" name="quantidade" placeholder="Quantidade" step="0.1" required></p>
    
-    <select name="unidade_de_medida" required>
+    <select name="unidade_de_medida" id="unidadeMedida" required>
     
-    <option value="unidade_de_medida">Unidade de Medida</option>
-      <option value="unidade">Unidade</option> 
-      <option value="ml" >ML</option>
-      <option value="grama"  >Grama</option>
+    <option value="unidade_de_medida" onkeyup="validar_unidade_medida()">Unidade de Medida</option>
+      <option value="unidade(s)">Unidade(s)</option>
+      <option value="litro(s)">Litro(s)</option> 
+      <option value="ml">ml</option>
+      <option value="gramas">Gramas</option>
       <option value="colher_de_sopa" >Colher de Sopa</option>
       <option value="colher_de_cha" >Colher de Chá</option>
       <option value="colher_de_cafe">Colher de Café</option>
@@ -64,7 +65,7 @@
     </select>
    
    
-    <p><input type="number" name="quantidadeMinima" placeholder="Quant. Mínima" step="0.1" required></p>
+    <p><input type="number" name="quantidadeMinima" placeholder="Quant. Mínima" step="0.1" onfocus="validar_unidade_medida()" required></p>
 
    
 

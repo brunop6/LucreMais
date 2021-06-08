@@ -1,14 +1,16 @@
 <?php
     include '../includes/conecta_bd.inc';
     include_once '../classes/Estoque.php';
+    include_once '../classes/Usuario.php';
 
     if(!isset($_GET['id']) || !isset($_GET['idFornecedor']) || !isset($_GET['idItem']) || !isset($_GET['quantidade']) || !isset($_GET['preco']) || !isset($_GET['lote']) || !isset($_GET['status'])){
-        header('Location: cadastro_estoque.php');
+        header('Location: ./estoque.php');
         die();
     }
 
+    session_start();
     $id = $_GET['id'];
-    $idUsuario = $_SESSION['nome_usuario'];
+    $idUsuario = Usuario::selectId($_SESSION['nome_usuario']);
     $idFornecedor = $_GET['idFornecedor'];
     $idItem = $_GET['idItem'];
     $quantidade = $_GET['quantidade'];

@@ -14,6 +14,11 @@ table, th, td{
     border-collapse: collapse;
     text-align: 20px;
 }
+select{
+    margin-top: 10px;
+    display: block;
+    background-color: rgb(113, 116, 255);
+}
 
 #btn-menu{
     display: none;

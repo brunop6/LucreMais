@@ -1,4 +1,8 @@
 <?php
+    include '../includes/conecta_bd.inc';
+    include_once '../classes/Fornecedor.php';
+    include_once '../classes/Item.php';
+
     //Validação de Fornecedor e Item inseridos no formulário
     if(isset($_POST['cadastrar'])){
         $fornecedor = strtoupper($_POST['fornecedor']);
@@ -9,16 +13,15 @@
 
         $fornecedores = Fornecedor::selectFornecedores();
         $idFornecedor = null;
-
+        
         //Buscando o fornecedor inserido no banco de dados
         foreach($fornecedores as $nomeFornecedor){
             //Caso encontre o nome de um fornecedor cadastrado no texto inserido, a função não retornará false
-            if(strpos($fornecedor, $nomeFornecedor)){
+            if(strpos($fornecedor, $nomeFornecedor) !== false){
                 $idFornecedor = Fornecedor::selectId($nomeFornecedor);
                 break;
             }
         }
-
         list($marca, $nome) = Item::selectItens();
 
         $i = 0;
@@ -26,9 +29,9 @@
 
         //Buscando o item inserido no banco de dados
         foreach($nome as $nomeItem){
-            if(strpos($item, $nomeItem)){
-                if(strpos($item, $marca[$i])){
-                    $idItem = Item::selectId($marca[$i], $nomeItem);
+            if(strpos($item, $nomeItem) !== false){
+                if(strpos($item, $marca[$i]) !== false){
+                    $idItem = Item::selectId($nomeItem, $marca[$i]);
                     break;
                 }
             }
@@ -50,10 +53,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro Estoque</title>
     <?php
-        include '../includes/conecta_bd.inc';
-        include_once '../classes/Fornecedor.php';
-        include_once '../classes/Item.php';
-
         function atualizarFornecedores(){
             $fornecedores = Fornecedor::selectFornecedores();
 
@@ -66,7 +65,7 @@
         function atualizarItens(){
             list($marca, $nome) = Item::selectItens();
 
-            if(!empty($itens)){
+            if(!empty($marca)){
                 $i = 0;
                 foreach($nome as $nomeItem){
                     echo "<option value='$nomeItem $marca[$i]'></option>";
@@ -108,7 +107,7 @@
         </p>
         <datalist id="itens">
             <?php
-                //atualizarItens();
+                atualizarItens();
             ?>
         </datalist>
         

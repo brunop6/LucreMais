@@ -59,7 +59,7 @@
                 AND i.id = e.idItem 
                 AND e.idFornecedor = f.id
                 AND e.statusItem = '$status'
-            ORDER BY i.nome, i.marca";
+            ORDER BY i.nome, i.marca, e.lote";
                
             $resultado = mysqli_query($conexao, $query);
             $linhas = mysqli_num_rows($resultado);

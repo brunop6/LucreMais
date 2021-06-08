@@ -10,8 +10,8 @@
         function __construct($idUsuario, $nome, $email, $telefone, $cnpj, $endereco)
         {
             $this->idUsuario = $idUsuario;
-            $this->nome = strtoupper($nome);
-            $this->email = strtolower($email);
+            $this->nome = mb_strtoupper($nome, mb_internal_encoding());
+            $this->email = mb_strtolower($email, mb_internal_encoding());
             $this->telefone = $telefone;
             $this->cnpj = $cnpj;
             $this->endereco = $endereco;
@@ -66,7 +66,7 @@
 
         public function cadastrarFornecedor(){
             include '../includes/conecta_bd.inc';
-
+            echo $this->nome;
             $query = "INSERT INTO fornecedor (idUsuario, nomeFornecedor, email, telefone, cnpj, endereco) VALUES ('$this->idUsuario', '$this->nome', '$this->email', '$this->telefone', '$this->cnpj', '$this->endereco')";
             
             //Formato CNPJ XX. XXX. XXX/0001-XX

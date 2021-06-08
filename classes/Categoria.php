@@ -6,7 +6,7 @@
         function __construct($idUsuario, $descricaoCategoria)
         {
             $this->idUsuario = $idUsuario;
-            $this->descricaoCategoria = strtoupper($descricaoCategoria);
+            $this->descricaoCategoria = mb_strtoupper($descricaoCategoria, mb_internal_encoding());
         }
 
         /**

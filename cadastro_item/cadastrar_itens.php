@@ -15,7 +15,7 @@
         include_once '../classes/Categoria.php';
         $marca = $_POST['marca'];
         $nome = $_POST['nome'];
-        $descricaoCategoria = $_POST['categoria'];
+        $descricaoCategoria = mb_strtoupper($_POST['categoria'], mb_internal_encoding());
       /*  $nomeFornecedor = $_POST['fornecedor'];*/
         $quantidade = $_POST['quantidade'];
         $unidadeMedida = $_POST['unidade_de_medida'];

@@ -5,10 +5,16 @@
     <link rel="stylesheet" href="./estoque.css">
     <title>Estoque</title>
     <?php
-        function preencherEstoque(){
+        if(isset($_GET['status'])){
+            $status = $_GET['status'];
+        }else{
+            $status = 1;
+        }
+
+        function preencherEstoque($status){
             include_once '../classes/Estoque.php';
 
-            list($id, $nomeItem, $marca, $categoria, $fornecedor, $quantidadeEstoque, $unidadeMedida, $preco, $quantidadeItem, $lote, $dataCadastro, $dataAtualizacao, $nomeUsuario) = Estoque::retornar_itens_estoque('1');
+            list($id, $nomeItem, $marca, $categoria, $fornecedor, $quantidadeEstoque, $unidadeMedida, $preco, $quantidadeItem, $lote, $dataCadastro, $dataAtualizacao, $nomeUsuario) = Estoque::retornar_itens_estoque($status);
 
             if(!empty($nomeItem)){
                 $i = 0;
@@ -33,6 +39,13 @@
             }
         }
     ?>
+    <script>
+        function alterarExibicao(){
+            var status = document.getElementById('status').value;
+
+            window.location.href = "?status="+status;
+        }
+    </script>
 </head>
 <body>
     <header>
@@ -53,6 +66,22 @@
         </nav>
     </header>
     <main>
+        <select id="status" onchange="alterarExibicao()">
+            <?php
+                if($status == 1){
+                    echo "
+                    <option value='1'>Ativos</option>
+                    <option value='0'>Inativos</option>
+                    ";
+                }else{
+                    echo "
+                    <option value='0'>Inativos</option>
+                    <option value='1'>Ativos</option>
+                    ";
+                }
+            ?>
+        </select>
+
         <table style="width:100%; margin-top: 10px"; border="1px">
             <tr>
                 <th>Item</th>
@@ -68,7 +97,7 @@
                 </a><th>Editar</th>
             </tr>
             <?php
-                preencherEstoque();
+                preencherEstoque($status);
             ?>
         </table>
     </main>

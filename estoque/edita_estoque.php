@@ -27,7 +27,7 @@
         //Buscando o fornecedor inserido no banco de dados
         foreach($fornecedores as $nomeFornecedor){
             //Caso encontre o nome de um fornecedor cadastrado no texto inserido, a função não retornará false
-            if(strpos($fornecedor, $nomeFornecedor)){
+            if(strpos($fornecedor, $nomeFornecedor) !== false){
                 $idFornecedor = Fornecedor::selectId($nomeFornecedor);
                 break;
             }
@@ -40,9 +40,9 @@
 
         //Buscando o item inserido no banco de dados
         foreach($nome as $nomeItem){
-            if(strpos($item, $nomeItem)){
-                if(strpos($item, $marca[$i])){
-                    $idItem = Item::selectId($marca[$i], $nomeItem);
+            if(strpos($item, $nomeItem) !== false){
+                if(strpos($item, $marca[$i]) !== false){
+                    $idItem = Item::selectId($nomeItem, $marca[$i]);
                     break;
                 }
             }
@@ -76,7 +76,7 @@
         function atualizarItens(){
             list($marca, $nome) = Item::selectItens();
 
-            if(!empty($itens)){
+            if(!empty($marca)){
                 $i = 0;
                 foreach($nome as $nomeItem){
                     echo "<option value='$nomeItem $marca[$i]'></option>";
@@ -121,7 +121,7 @@
         </p>
         <datalist id="itens">
             <?php
-                //atualizarItens();
+                atualizarItens();
             ?>
         </datalist>
         
@@ -136,7 +136,7 @@
         
         <h3>Status:</h3>
 
-        <p><input type="radio" name="status" value="ativo" 
+        <p><input type="radio" name="status" value="1" 
             <?php 
                 if($estoqueStatus == "1"){
                     echo "checked";
@@ -144,7 +144,7 @@
             ?>
         >Ativo</input></p>
 
-        <p><input type="radio" name="status" value="inativo"
+        <p><input type="radio" name="status" value="0"
             <?php 
                 if($estoqueStatus == "0"){
                     echo "checked";
