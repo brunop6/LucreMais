@@ -31,6 +31,22 @@
             return $descricaoCategoria;
         }
 
+        public static function selectCategoria($categoria){
+            include '../includes/conecta_bd.inc';
+            $query = "SELECT descricaoCategoria FROM categoria WHERE descricaoCategoria LIKE '%$categoria%'";
+
+            $resultado = mysqli_query($conexao, $query);
+            $descricaoCategoria = null;
+            if(mysqli_num_rows($resultado) > 0){
+                while($row = mysqli_fetch_array($resultado)){
+                    $descricaoCategoria = $row['descricaoCategoria'];
+                }
+            }
+            mysqli_close($conexao);
+
+            return $descricaoCategoria;
+        }
+
         public static function selectId($descricaoCategoria){
             include '../includes/conecta_bd.inc';
 

@@ -24,12 +24,46 @@
         $categorias = Categoria::selectCategorias();
 
         if(!empty($categorias)){
+          $i = 0;
           foreach($categorias as $value){
-            echo "<option value='$value'></option>";
+            $json[] = $value;
+            $i++;
           }
         }
+        echo json_encode($json);
       }
     ?>
+    <script>
+      function atualizarCategorias(){
+        var inputCategoria = document.getElementById('categoria').value;
+
+        if(inputCategoria.length >= 3){
+          var categoria = <?php atualizarCategorias() ?>;
+          var datalist = document.getElementById('categorias');
+          var options = datalist.children; //Elementos filhos do datalist categorias
+          var option = [];
+          
+          for1:
+          for(var i = 0; i < categoria.length; i++){
+            for2:
+            for(var j = 0; j < options.length; j++){
+              /**
+               * Se a categoria a ser apresentada for igual a uma categoria já apresentada nas opções anteriores
+               * a adição não sera refeita
+               */
+              if(categoria[i] == options[j].value) break for1;
+            }
+            
+            option[i] = document.createElement('option');
+            option[i].value = categoria[i];
+            option[i].id = 'opt';
+            datalist.appendChild(option[i]);
+          }
+        }else{
+          document.getElementById('opt').remove();
+        }
+      }
+    </script>
 </head>
 <body>
   
@@ -42,13 +76,10 @@
     <p><input type="text" name="nome" placeholder="Nome do Item" required></p>
     <p><input type="text" name="marca" placeholder="Marca" required></p>
     
-    <p><input type="text" name="categoria" placeholder="Tipo de item" list="categorias" required></p>
-    <datalist id="categorias">
-      <?php
-        echo atualizarCategorias();
-      ?>
-    </datalist>
-
+    <p id="pCategoria"><input type="text" name="categoria" placeholder="Tipo de item" id="categoria" list="categorias" oninput="atualizarCategorias()" required></p>
+      <datalist id="categorias">
+      
+      </datalist>
     <p><input type="number" name="quantidade" placeholder="Quantidade" step="0.1" required></p>
    
     <select name="unidade_de_medida" id="unidadeMedida" required>
