@@ -51,35 +51,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script type="text/javascript" src="cadastro_estoque.js"></script>
     <title>Cadastro Estoque</title>
-    <?php
-        function atualizarFornecedores(){
-            $fornecedores = Fornecedor::selectFornecedores();
-
-            if(!empty($fornecedores)){
-                foreach($fornecedores as $value){
-                    echo "<option value='$value'></option>";
-                }
-            }
-        }
-        function atualizarItens(){
-            list($marca, $nome) = Item::selectItens();
-
-            if(!empty($marca)){
-                $i = 0;
-                foreach($nome as $nomeItem){
-                    echo "<option value='$nomeItem $marca[$i]'></option>";
-                    $i++;
-                }
-            }
-        }
-    ?>
     <link rel="stylesheet" href="../cadastro_item/aparenciaitem.css">
 </head>
 <body>
     <img src="../Logo.png" alt="Logo do site" width="14%">
     <form action="" method="POST">
-        <p><input type="text" name="fornecedor" placeholder="Fornecedor" list="fornecedores" required>
+        <p><input type="text" name="fornecedor" id="fornecedor" placeholder="Fornecedor" list="fornecedores" oninput="preencherFornecedores()" required>
             <?php
                 if(isset($idFornecedor) && $idFornecedor == null){
                     echo '
@@ -90,11 +70,9 @@
             ?> 
         </p>
         <datalist id="fornecedores">
-            <?php
-                atualizarFornecedores();
-            ?>
+        
         </datalist>
-        <p><input type="text" name="item" placeholder="Item" list="itens" required>
+        <p><input type="text" name="item" id="item" placeholder="Item" list="itens" oninput="preencherItens()" required>
             
             <?php
                 if(isset($idItem) && $idItem == null){
@@ -106,16 +84,14 @@
             ?>
         </p>
         <datalist id="itens">
-            <?php
-                atualizarItens();
-            ?>
+        
         </datalist>
         
-
         <p><input type="number" name="quantidade" placeholder="Quantidade Estoque" step="0.1" required></p>
         <p><input type="number" name="preco" placeholder="Preço R$" step="0.01" required></p>
         <p><input type="number" name="lote" placeholder="Lote" required></p>
         <p><input type="submit" value="Cadastrar" name="cadastrar"></p>
+        <p><input type="button" value="Voltar" onclick="window.location.href='../estoque/estoque.php'"></p>
     </form>
 </body>
 </html>

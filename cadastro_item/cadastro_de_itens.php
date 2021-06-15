@@ -2,68 +2,10 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Cadastro de Itens</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script type="text/javascript" src="./cadastro_item.js"></script>
+    <title>Cadastro de Itens</title>
     <link rel="stylesheet" href="aparenciaitem.css">
-    <?php
-      include "../includes/conecta_bd.inc";
-      include_once '../classes/Fornecedor.php';
-      include_once '../classes/Categoria.php';
-
-      function atualizarFornecedores(){
-        $fornecedores = Fornecedor::selectFornecedores();
-
-        if(!empty($fornecedores)){
-          foreach($fornecedores as $value){
-            echo "<option value='$value'></option>";
-          }
-        }
-      }
-
-      function atualizarCategorias(){
-        $categorias = Categoria::selectCategorias();
-
-        if(!empty($categorias)){
-          $i = 0;
-          foreach($categorias as $value){
-            $json[] = $value;
-            $i++;
-          }
-        }
-        echo json_encode($json);
-      }
-    ?>
-    <script>
-      function atualizarCategorias(){
-        var inputCategoria = document.getElementById('categoria').value;
-
-        if(inputCategoria.length >= 3){
-          var categoria = <?php atualizarCategorias() ?>;
-          var datalist = document.getElementById('categorias');
-          var options = datalist.children; //Elementos filhos do datalist categorias
-          var option = [];
-          
-          for1:
-          for(var i = 0; i < categoria.length; i++){
-            for2:
-            for(var j = 0; j < options.length; j++){
-              /**
-               * Se a categoria a ser apresentada for igual a uma categoria já apresentada nas opções anteriores
-               * a adição não sera refeita
-               */
-              if(categoria[i] == options[j].value) break for1;
-            }
-            
-            option[i] = document.createElement('option');
-            option[i].value = categoria[i];
-            option[i].id = 'opt';
-            datalist.appendChild(option[i]);
-          }
-        }else{
-          document.getElementById('opt').remove();
-        }
-      }
-    </script>
 </head>
 <body>
   
@@ -76,7 +18,7 @@
     <p><input type="text" name="nome" placeholder="Nome do Item" required></p>
     <p><input type="text" name="marca" placeholder="Marca" required></p>
     
-    <p id="pCategoria"><input type="text" name="categoria" placeholder="Tipo de item" id="categoria" list="categorias" oninput="atualizarCategorias()" required></p>
+    <p><input type="text" name="categoria" placeholder="Tipo de item" id="categoria" list="categorias" oninput="preencherCategorias()" required></p>
       <datalist id="categorias">
       
       </datalist>

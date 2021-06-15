@@ -46,6 +46,24 @@
             return $nomeFornecedor;
         }
 
+        public static function selectFornecedor($busca){
+            include '../includes/conecta_bd.inc';
+
+            $query = "SELECT nomeFornecedor FROM fornecedor WHERE nomeFornecedor LIKE '%$busca%'";
+
+            $resultado = mysqli_query($conexao, $query);
+            $nomeFornecedor = null;
+            if(mysqli_num_rows($resultado) > 0){
+                $i = 0;
+                while($row = mysqli_fetch_array($resultado)){
+                    $nomeFornecedor[$i] = $row['nomeFornecedor'];
+                    $i++;
+                }
+            }
+            mysqli_close($conexao);
+
+            return $nomeFornecedor;
+        }
         public static function selectId($nomeFornecedor){
             include '../includes/conecta_bd.inc';
 

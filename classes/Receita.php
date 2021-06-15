@@ -93,7 +93,7 @@
             
             mysqli_close($conexao);
             
-            $verifica = ($quantidadeItem >= $quantidadeRec)
+            $verifica = ($quantidadeItem >= $quantidadeRec);
 
             return $verifica;
         }

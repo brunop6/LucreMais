@@ -31,15 +31,17 @@
             return $descricaoCategoria;
         }
 
-        public static function selectCategoria($categoria){
+        public static function selectCategoria($busca){
             include '../includes/conecta_bd.inc';
-            $query = "SELECT descricaoCategoria FROM categoria WHERE descricaoCategoria LIKE '%$categoria%'";
+            $query = "SELECT descricaoCategoria FROM categoria WHERE descricaoCategoria LIKE '%$busca%'";
 
             $resultado = mysqli_query($conexao, $query);
             $descricaoCategoria = null;
             if(mysqli_num_rows($resultado) > 0){
+                $i = 0;
                 while($row = mysqli_fetch_array($resultado)){
-                    $descricaoCategoria = $row['descricaoCategoria'];
+                    $descricaoCategoria[$i] = $row['descricaoCategoria'];
+                    $i++;
                 }
             }
             mysqli_close($conexao);
