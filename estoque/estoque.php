@@ -94,7 +94,7 @@
                 <th>Data Cadastro</th>
                 <th>Data Atualização</th>
                 <th>Usuário</th>
-                </a><th>Editar</th>
+                <th>Editar</th>
             </tr>
             <?php
                 preencherEstoque($status);

@@ -44,7 +44,7 @@
 
     <p><input type="submit" value="Cadastrar Item"></p>
 
-    <p><input type="button" value="Voltar" onclick="window.location.href='./../Home.php'"></p>
+    <p><input type="button" value="Voltar" onclick="window.location.href='./../item/item.php'"></p>
   </form>
   </section>
 </body>  
