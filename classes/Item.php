@@ -59,6 +59,27 @@
 
     return array ($marca,$nome);
 }
+
+public static function selectItem($busca){
+  include '../includes/conecta_bd.inc';
+
+  $query = "SELECT nome, marca FROM item WHERE nome LIKE'%$busca%' OR marca LIKE'%$busca%'";
+
+  $resultado = mysqli_query($conexao, $query);
+  $marca = null;
+  $nome = null;
+  if(mysqli_num_rows($resultado) > 0){
+      $i = 0;
+      while($row = mysqli_fetch_array($resultado)){
+          $marca[$i]= $row['marca'];
+          $nome[$i] = $row['nome'];
+          $i++;
+      }
+  }
+  mysqli_close($conexao);
+
+  return array ($marca,$nome);
+}
  
 
 
@@ -79,11 +100,11 @@
 
    public function editar_item(){
     include '../includes/conecta_bd.inc';
-    $id = Item::selectId($this->nome);
       
-      $query = ("UPDATE item 
-      SET idCategoria = '$idCategoria', marca = '$marca', nome = '$nome', quantidade = '$quantidade', unidadeMedida = $unidadeMedida, quantidadeMinima = $quantidadeMinima  
-      where id = $this->id");
+      $query = "UPDATE item 
+      SET idCategoria = '$idCategoria', marca = '$marca', nome = '$nome', quantidade = '$quantidade',
+       unidadeMedida = $unidadeMedida, quantidadeMinima = $quantidadeMinima  
+      where id = $this->id";
   
       $resultado = mysqli_query($conexao, $query);
   
@@ -104,8 +125,8 @@
     }
   }
 
-   /* public function excluir_item(){
-      $query = ("delete from item where id = $id");
+     public function excluir_item(){
+      $query = "delete from item where id = $id";
   
       $resultado = mysqli_query($conexao,$query);
       
@@ -114,21 +135,12 @@
       }else{
           echo "<center>Erro ao excluir item!</center>";
       }
-    }*/
-  
+      
+      public function listar_item(){
+        $query = "select * from item";
+      }
 
-   /* public function status_item($id = null){
-      $query = ("select idUsuario, idFornecedor, idCategoria, nome, quantidade, unidadeMedida, preco, quantMinima, lote, status  from item where id = $this->id");
-      if($query != null){
-        if($query->ativo == 1){
-          $dados['ativo' = 0];
-        }else{
-          $dados['ativo'] = 1;
-        }
-      }else{
-        redirect('/');
-      }*/
-    
-           
+
+  
   }
 ?>
