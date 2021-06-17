@@ -19,7 +19,7 @@
 
         <p><input type="text" name="endereco" placeholder="Endereço Fornecedor" required></p>
            
-        <p><input type="submit" value="Salvar" name="Salvar"></p>
+        <p><input type="submit" value="Salvar" name="Salvar Alterações"></p>
         
         <input type="button" value="Cancelar" onclick="window.location.href='./fornecedor.php'">
     </form>
