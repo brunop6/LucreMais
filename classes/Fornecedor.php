@@ -46,7 +46,7 @@
             return $nomeFornecedor;
         }
 
-        public static function selectFornecedor($busca){
+        public static function buscarFornecedor($busca){
             include '../includes/conecta_bd.inc';
 
             $query = "SELECT nomeFornecedor FROM fornecedor WHERE nomeFornecedor LIKE '%$busca%'";

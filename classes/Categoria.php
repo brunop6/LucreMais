@@ -13,17 +13,42 @@
          * retorno do tipo matriz de strings
          */
         public static function selectCategorias(){
-            include '../includes/conecta_bd.inc';
+            include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "SELECT descricaoCategoria FROM categoria";
+            $query = "SELECT c.id, c.descricaoCategoria, DATE_FORMAT(c.dataCadastro, '%d/%m/%Y %H:%i') AS dataCadastro, DATE_FORMAT(c.dataAtualizacao, '%d/%m/%Y %H:%i') AS dataAtualizacao, u.nomeUsuario  
+            FROM categoria c, usuario u
+            WHERE c.idUsuario = u.id";
 
             $resultado = mysqli_query($conexao, $query);
             $descricaoCategoria = null;
             if(mysqli_num_rows($resultado) > 0){
                 $i = 0;
                 while($row = mysqli_fetch_array($resultado)){
+                    $id[$i] = $row['id'];
                     $descricaoCategoria[$i] = $row['descricaoCategoria'];
+                    $dataCadastro[$i] = $row['dataCadastro'];
+                    $dataAtualizacao[$i] = $row['dataAtualizacao'];
+                    $nomeUsuario[$i] = $row['nomeUsuario'];
                     $i++;
+                }
+            }
+            mysqli_close($conexao);
+
+            return array($id, $descricaoCategoria, $dataCadastro, $dataAtualizacao, $nomeUsuario);
+        }
+
+        public static function selectCategoria($id){
+            include __DIR__.'/../includes/conecta_bd.inc';
+
+            $query = "SELECT descricaoCategoria
+            FROM categoria
+            WHERE id = $id";
+
+            $resultado = mysqli_query($conexao, $query);
+            $descricaoCategoria = null;
+            if(mysqli_num_rows($resultado) > 0){
+                while($row = mysqli_fetch_array($resultado)){
+                    $descricaoCategoria = $row['descricaoCategoria'];
                 }
             }
             mysqli_close($conexao);
@@ -31,8 +56,8 @@
             return $descricaoCategoria;
         }
 
-        public static function selectCategoria($busca){
-            include '../includes/conecta_bd.inc';
+        public static function buscarCategoria($busca){
+            include __DIR__.'/../includes/conecta_bd.inc';
             $query = "SELECT descricaoCategoria FROM categoria WHERE descricaoCategoria LIKE '%$busca%'";
 
             $resultado = mysqli_query($conexao, $query);
@@ -72,6 +97,19 @@
             include '../includes/conecta_bd.inc';
 
             $query = "INSERT INTO categoria (idUsuario, descricaoCategoria) VALUES ('$this->idUsuario', '$this->descricaoCategoria')";
+
+            $resultado = mysqli_query($conexao, $query);
+
+            if($resultado){
+                return true;
+            }
+            return mysqli_error($conexao);
+        }
+
+        public function editarCategoria($id){
+            include __DIR__.'./../includes/conecta_bd.inc';
+
+            $query = "UPDATE categoria SET idUsuario = $this->idUsuario, descricaoCategoria = '$this->descricaoCategoria' WHERE id = $id";
 
             $resultado = mysqli_query($conexao, $query);
 

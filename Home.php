@@ -14,7 +14,7 @@
         <label for="btn-menu">&#9776;</label>
         <nav class="menu">
             <ul>
-                <li><a href="./cadastro_fornecedor/cadastro_fornecedor.php">Cadastrar fornecedor</a></li>
+                <li><a href="./fornecedor/fornecedor.php">Fornecedores</a></li>
                 <li><a href="./item/item.php">Itens</a></li>
                 <li><a href="./estoque/estoque.php">Estoque</a></li>
                 <li><a href="./Receitas/cadastrar_receitas.php">Receitas</a></li>

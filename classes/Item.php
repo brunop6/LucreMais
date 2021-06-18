@@ -29,16 +29,15 @@
       $resultado = mysqli_query($conexao, $query);
       
       if(mysqli_num_rows($resultado) > 0){
-          while($row = mysqli_fetch_array($resultado)){
-              $id = $row['id'];
-          }
+        while($row = mysqli_fetch_array($resultado)){
+          $id = $row['id'];
+        }
       }
     
-
       mysqli_close($conexao);
       
       return $id;
-  }
+    }
   public static function selectItens(){
     include '../includes/conecta_bd.inc';
 
@@ -58,57 +57,55 @@
     mysqli_close($conexao);
 
     return array ($marca,$nome);
-}
+  }
 
-public static function selectItem($busca){
-  include '../includes/conecta_bd.inc';
+  public static function selectItem($busca){
+    include '../includes/conecta_bd.inc';
 
-  $query = "SELECT nome, marca FROM item WHERE nome LIKE'%$busca%' OR marca LIKE'%$busca%'";
+    $query = "SELECT nome, marca FROM item WHERE nome LIKE'%$busca%' OR marca LIKE'%$busca%'";
 
-  $resultado = mysqli_query($conexao, $query);
-  $marca = null;
-  $nome = null;
-  if(mysqli_num_rows($resultado) > 0){
+    $resultado = mysqli_query($conexao, $query);
+    $marca = null;
+    $nome = null;
+    if(mysqli_num_rows($resultado) > 0){
       $i = 0;
       while($row = mysqli_fetch_array($resultado)){
-          $marca[$i]= $row['marca'];
-          $nome[$i] = $row['nome'];
-          $i++;
+        $marca[$i]= $row['marca'];
+        $nome[$i] = $row['nome'];
+        $i++;
       }
+    }
+    mysqli_close($conexao);
+
+    return array ($marca,$nome);
   }
-  mysqli_close($conexao);
-
-  return array ($marca,$nome);
-}
  
+  public function cadastrar_item(){
+    include '../includes/conecta_bd.inc';
 
+    //Para acrescentar: idFornecedor e idCategoria
+    $query = "INSERT INTO item (idUsuario, idCategoria, marca, nome, quantidade, unidadeMedida, quantidadeMinima) VALUES ('$this->idUsuario','$this->idCategoria','$this->marca','$this->nome', '$this->quantidade', '$this->unidadeMedida','$this->quantidadeMinima')";
+    
+    $resultado = mysqli_query($conexao, $query);
 
-    public function cadastrar_item(){
-      include '../includes/conecta_bd.inc';
-
-      //Para acrescentar: idFornecedor e idCategoria
-      $query = "INSERT INTO item (idUsuario, idCategoria, marca, nome, quantidade, unidadeMedida, quantidadeMinima) VALUES ('$this->idUsuario','$this->idCategoria','$this->marca','$this->nome', '$this->quantidade', '$this->unidadeMedida','$this->quantidadeMinima')";
-      
-      $resultado = mysqli_query($conexao, $query);
-
-      if($resultado){
-          return 'Cadastro realizado com sucesso!';
-      }
-
-      return mysqli_error($conexao);
+    if($resultado){
+        return 'Cadastro realizado com sucesso!';
     }
 
-   public function editar_item(){
+    return mysqli_error($conexao);
+  }
+
+  public function editar_item(){
     include '../includes/conecta_bd.inc';
       
-      $query = "UPDATE item 
-      SET idCategoria = '$idCategoria', marca = '$marca', nome = '$nome', quantidade = '$quantidade',
-       unidadeMedida = $unidadeMedida, quantidadeMinima = $quantidadeMinima  
-      where id = $this->id";
-  
-      $resultado = mysqli_query($conexao, $query);
-  
-      while($row = mysqli_fetch_array($resultado)){
+    $query = "UPDATE item 
+    SET idCategoria = '$idCategoria', marca = '$marca', nome = '$nome', quantidade = '$quantidade',
+      unidadeMedida = $unidadeMedida, quantidadeMinima = $quantidadeMinima  
+    where id = $this->id";
+
+    $resultado = mysqli_query($conexao, $query);
+
+    while($row = mysqli_fetch_array($resultado)){
       $id= $row["id"];
       $idUsuario = $row["idUsuario"];
       $idCategoria = $row["idCategoria"];
@@ -117,30 +114,27 @@ public static function selectItem($busca){
       $quantidade = $row["quantidade"];
       $unidadeMedida = $row["unidadeMedida"];
       $quantidadeMinima = $row["quantidadeMinima"];
-
-      if($resultado){
-        return 'Edição realizada com sucesso!';
     }
+    if($resultado){
+      return 'Edição realizada com sucesso!';
+    } 
     return mysqli_error($conexao);
+  }
+
+  public function excluir_item(){
+    include '../includes/conecta_bd.inc';
+    $query = "delete from item where id = $id";
+
+    $resultado = mysqli_query($conexao ,$query);
+    
+    if($resultado){
+        echo "<center>Item excluído com sucesso!</center>";
+    }else{
+        echo "<center>Erro ao excluir item!</center>";
     }
   }
-
-     public function excluir_item(){
-      $query = "delete from item where id = $id";
-  
-      $resultado = mysqli_query($conexao,$query);
-      
-      if($resultado){
-          echo "<center>Item excluído com sucesso!</center>";
-      }else{
-          echo "<center>Erro ao excluir item!</center>";
-      }
-      
-      public function listar_item(){
-        $query = "select * from item";
-      }
-
-
-  
-  }
+  public function listar_item(){
+    $query = "select * from item";
+  } 
+}
 ?>
