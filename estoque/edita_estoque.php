@@ -21,7 +21,7 @@
         $lote = $_POST['lote'];
         $status = $_POST['status'];
 
-        $fornecedores = Fornecedor::selectFornecedores();
+        list($id, $fornecedores, $email, $telefone, $cnpj, $endereco, $dataCadastro, $dataAtualizacao, $nomeUsuario) = Fornecedor::selectFornecedores();
         $idFornecedor = null;
 
         //Buscando o fornecedor inserido no banco de dados
