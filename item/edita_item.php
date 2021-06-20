@@ -6,7 +6,8 @@
 </head>
 <body>
     <img src="../Logo.png" alt="Logo do site" width="14%">
-    <form action="" method="POST">
+    <form action="editar_item.php" method="POST" >     
+        <?php $id = $_GET['id'];?>
         <h3>Marca: </h3>
         <p><input type="text" name="marca" list="marcas" required></p>
         <datalist id="marcas">
@@ -22,7 +23,7 @@
         <h3>Quantidade: </h3>
         <p><input type="number" name="quantidade" step="0.1" required></p>
         <h3>Quantidade mínima: </h3>
-        <p><input type="number" name="quantidade minima" step="0.1" required></p>
+        <p><input type="number" name="quantidadeMinima" step="0.1" required></p>
         <h3>Unidade de medida: </h3>
         <select name="unidade_de_medida" id="unidadeMedida" required>
             <option value="unidade_de_medida">Unidade de Medida</option>
@@ -36,9 +37,10 @@
             <option value="xicara">Xícara</option>
         </select>
         <p>
-            <input type="submit" value="Salvar" name="salvar">
+            <input type="submit" value="Salvar" name="salvar" >
             <input type="button" value="Cancelar" onclick="window.location.href='./item.php'">
         </p>
     </form>
+    
 </body>
 </html>

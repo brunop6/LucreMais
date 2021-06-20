@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../estoque/estoque.css">
-    <title>Estoque</title>
+    <title>Item</title>
 </head>
 <body>
     <header>
@@ -18,17 +18,49 @@
         </nav>
     </header>
     <main>
-        <table style="width:100%; margin-top: 10px"; border="1px">
+            <?php
+             include_once '../classes/Item.php';
+            
+            $id = $_GET['id']; 
+            function preencherItem($id){
+
+            list($id,$nomeItem, $quantidade, $idCategoria, $quantidadeMinima, $idUsuario) = Item::selectItensLista($id);
+
+            if(!empty($nomeItem)){
+                 
+                $i = 0;
+                foreach($nomeItem as $nome){
+                    echo "<tr>";
+                    echo "<td>$id[$i]</td>";
+                    echo "<td>$nome</td>";
+                    echo "<td>$quantidade[$i]";
+                    echo "<td>$idCategoria[$i]</td>";
+                    echo "<td>$quantidadeMinima[$i]</td>";
+                    echo "<td>$idUsuario[$i]</td>";
+                    echo "<td><a href='./edita_item.php?id=$id[$i]' style='color:rgb(173,144,0)'>Editar</a></td>";
+
+                    echo "</tr>";
+                    $i++;
+                }
+            }
+        }
+    ?>
+ 
+    
+        <table style="width:100%; margin-top: 10px"; border="1px";>
             <tr>
+                <th>Id</th>
                 <th>Item</th>
                 <th>Quantidade</th>
                 <th>Categoria</th>
                 <th>Quantidade mínima</th>
-                <th>Data de cadastro</th>
-                <th>Data de atualização</th>
                 <th>Usuário</th>
                 <th>Editar</th>
-            </tr>
+            </tr>     
+        <?php   
+                
+                preencherItem($id);
+            ?>
         </table>
     </main>
 </body>
