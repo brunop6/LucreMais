@@ -30,23 +30,34 @@
         public static function selectFornecedores(){
             include '../includes/conecta_bd.inc';
 
-            $query = "SELECT nomeFornecedor FROM fornecedor";
+            $query = "SELECT f.id, f.nomeFornecedor, f.email, f.telefone, f.cnpj, f.endereco, DATE_FORMAT(f.dataCadastro, '%d/%m/%Y %H:%i') AS dataCadastro, DATE_FORMAT(f.dataAtualizacao, '%d/%m/%Y %H:%i') AS dataAtualizacao, u.nomeUsuario 
+            FROM fornecedor f, usuario u
+            WHERE f.idUsuario = u.id
+            ORDER BY f.nomeFornecedor, f.endereco, f.id";
 
             $resultado = mysqli_query($conexao, $query);
             $nomeFornecedor = null;
             if(mysqli_num_rows($resultado) > 0){
                 $i = 0;
                 while($row = mysqli_fetch_array($resultado)){
+                    $id[$i] = $row['id'];
                     $nomeFornecedor[$i] = $row['nomeFornecedor'];
+                    $email[$i] = $row['email'];
+                    $telefone[$i] = $row['telefone'];
+                    $cnpj[$i] = $row['cnpj'];
+                    $endereco[$i] = $row['endereco'];
+                    $dataCadastro[$i] = $row['dataCadastro'];
+                    $dataAtualizacao[$i] = $row['dataAtualizacao'];
+                    $nomeUsuario[$i] = $row['nomeUsuario'];
                     $i++;
                 }
             }
             mysqli_close($conexao);
 
-            return $nomeFornecedor;
+            return array($id, $nomeFornecedor, $email, $telefone, $cnpj, $endereco, $dataCadastro, $dataAtualizacao, $nomeUsuario);
         }
 
-        public static function selectFornecedor($busca){
+        public static function buscarFornecedor($busca){
             include '../includes/conecta_bd.inc';
 
             $query = "SELECT nomeFornecedor FROM fornecedor WHERE nomeFornecedor LIKE '%$busca%'";
@@ -82,6 +93,27 @@
             return $id;
         }
 
+        public static function selectFornecedor($id){
+            include __DIR__.'./../includes/conecta_bd.inc';
+
+            $query = "SELECT nomeFornecedor, email, telefone, cnpj, endereco FROM fornecedor WHERE id = $id";
+
+            $resultado = mysqli_query($conexao, $query);
+
+            if(mysqli_num_rows($resultado) > 0){
+                while($row = mysqli_fetch_array($resultado)){
+                    $nomeFornecedor = $row['nomeFornecedor'];
+                    $email = $row['email'];
+                    $telefone = $row['telefone'];
+                    $cnpj = $row['cnpj'];
+                    $endereco = $row['endereco'];
+                }
+            }
+            mysqli_close($conexao);
+
+            return array($nomeFornecedor, $email, $telefone, $cnpj, $endereco);
+        }
+
         public function cadastrarFornecedor(){
             include '../includes/conecta_bd.inc';
             echo $this->nome;
@@ -96,6 +128,19 @@
 
             if($resultado){
                 return 'Cadastro realizado com sucesso!';
+            }
+            return mysqli_error($conexao);
+        }
+
+        public function editarFornecedor($id){
+            include __DIR__.'./../includes/conecta_bd.inc';
+
+            $query = "UPDATE fornecedor SET idUsuario = $this->idUsuario, nomeFornecedor = '$this->nome', email = '$this->email', telefone = '$this->telefone', cnpj = '$this->cnpj', endereco = '$this->endereco' WHERE id = $id";
+
+            $resultado = mysqli_query($conexao, $query);
+
+            if($resultado){
+                return true;
             }
             return mysqli_error($conexao);
         }

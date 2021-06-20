@@ -11,7 +11,7 @@
         $preco = $_POST['preco'];
         $lote = $_POST['lote'];
 
-        $fornecedores = Fornecedor::selectFornecedores();
+        list($id, $fornecedores, $email, $telefone, $cnpj, $endereco, $dataCadastro, $dataAtualizacao, $nomeUsuario) = Fornecedor::selectFornecedores();
         $idFornecedor = null;
         
         //Buscando o fornecedor inserido no banco de dados

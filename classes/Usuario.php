@@ -1,5 +1,5 @@
 <?php
-    include_once '../includes/encrypt.inc';
+    include_once __DIR__.'./../includes/encrypt.inc';
          
     class Usuario{
         private $nomeUsuario;
@@ -15,7 +15,7 @@
         }
 
         public static function selectId($nomeUsuario){
-            include '../includes/conecta_bd.inc';
+            include __DIR__.'./../includes/conecta_bd.inc';
             
             $query = "SELECT id FROM usuario WHERE nomeUsuario = '$nomeUsuario'";
 

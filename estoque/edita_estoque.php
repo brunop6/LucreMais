@@ -21,7 +21,7 @@
         $lote = $_POST['lote'];
         $status = $_POST['status'];
 
-        $fornecedores = Fornecedor::selectFornecedores();
+        list($id, $fornecedores, $email, $telefone, $cnpj, $endereco, $dataCadastro, $dataAtualizacao, $nomeUsuario) = Fornecedor::selectFornecedores();
         $idFornecedor = null;
 
         //Buscando o fornecedor inserido no banco de dados
@@ -63,35 +63,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro Estoque</title>
-    <?php
-        function atualizarFornecedores(){
-            $fornecedores = Fornecedor::selectFornecedores();
-
-            if(!empty($fornecedores)){
-                foreach($fornecedores as $value){
-                    echo "<option value='$value'></option>";
-                }
-            }
-        }
-        function atualizarItens(){
-            list($marca, $nome) = Item::selectItens();
-
-            if(!empty($marca)){
-                $i = 0;
-                foreach($nome as $nomeItem){
-                    echo "<option value='$nomeItem $marca[$i]'></option>";
-                    $i++;
-                }
-            }
-        }
-    ?>
     <link rel="stylesheet" href="../cadastro_item/aparenciaitem.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script type="text/javascript" src="./edita_estoque.js"></script>
 </head>
 <body>
     <img src="../Logo.png" alt="Logo do site" width="14%">
     <form action="" method="POST">
         <h3>Fornecedor: </h3>
-        <p><input type="text" name="fornecedor" value="<?php echo $estoqueFornecedor?>" list="fornecedores" required>
+        <p><input type="text" name="fornecedor" id="fornecedor" value="<?php echo $estoqueFornecedor?>" list="fornecedores" oninput="preencherFornecedores()" required>
             <?php
                 if(isset($idFornecedor) && $idFornecedor == null){
                     echo '
@@ -102,13 +82,10 @@
             ?> 
         </p>
         <datalist id="fornecedores">
-            <?php
-                atualizarFornecedores();
-            ?>
         </datalist>
         
         <h3>Item: </h3>
-        <p><input type="text" name="item" value="<?php echo $estoqueNome.' '.$estoqueMarca?>" list="itens" required>
+        <p><input type="text" name="item" id="item" value="<?php echo $estoqueNome.' '.$estoqueMarca?>" list="itens" oninput="preencherItens()" required>
             
             <?php
                 if(isset($idItem) && $idItem == null){
@@ -120,9 +97,6 @@
             ?>
         </p>
         <datalist id="itens">
-            <?php
-                atualizarItens();
-            ?>
         </datalist>
         
         <h3>Quant. Estoque (<?php echo $estoqueUnMedida?>):</h3>
