@@ -16,8 +16,8 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Edita Fornecedor</title>
-    <link rel="stylesheet" href="fornecedor.css">
+    <title>Fornecedor</title>
+    <link rel="stylesheet" href="./fornecedor.css">
     <?php
         function preencherFornecedores(){
             include_once '../classes/Fornecedor.php';
@@ -56,8 +56,17 @@
     ?>
 </head>
 <body>
-<img src="./../Logo.png" alt="Logo do site" width="14%">
-    <h1>Listagem de Fornecedor<br></h1>
+<header>
+        <input type="checkbox" id="btn-menu">
+        <label for="btn-menu">&#9776;</label>
+        <nav class="menu">
+            <ul>
+                <li><a href="../cadastro_fornecedor/cadastro_fornecedor.php">Cadastrar fornecedor</a></li>
+                <li><a href="../Home.php">Página Principal</a></li>
+            </ul>
+        </nav>
+    </header>
+    <h1 style="color: yellow;">Listagem de Fornecedores<br></h1>
     <main>
         <table style="width:100%; margin-top: 10px"; border="1px">
             <tr>
