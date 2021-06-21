@@ -60,51 +60,11 @@
 
     return array ($marca,$nome);
   }
-<<<<<<< HEAD
-
-
-  public static function selectItensLista(){
-    include '../includes/conecta_bd.inc';
-
-    $query = "SELECT id, nome, quantidade, idCategoria, quantidadeMinima, idUsuario FROM item  ";
-
-    $resultado = mysqli_query($conexao, $query);
-    $id = null;
-    $quantidade = null;
-    $nome = null;
-    $idCategoria = null;
-    $quantidadeMinima = null;
-    $idUsuario = null;
-    if(mysqli_num_rows($resultado) > 0){
-        $i = 0;
-        while($row = mysqli_fetch_array($resultado)){
-            $id[$i] = $row['id'];
-            $nome[$i] = $row['nome'];
-            $quantidade[$i]= $row['quantidade'];
-            $idCategoria[$i] = $row['idCategoria'];
-            $quantidadeMinima[$i] = $row['quantidadeMinima'];
-            $idUsuario[$i] = $row['idUsuario'];
-            $i++;
-        }
-    }
-    mysqli_close($conexao);
-
-    return array ($id, $nome,$quantidade,$idCategoria,$quantidadeMinima, $idUsuario);
-  }
-  
-
-
-public static function selectItem($busca){
-  include '../includes/conecta_bd.inc';
-  $id = $_GET['id'];
-  $query = "SELECT nome, marca FROM item WHERE nome LIKE'%$busca%' OR marca LIKE'%$busca%'";
-=======
 
   public static function selectItem($busca){
     include '../includes/conecta_bd.inc';
 
     $query = "SELECT nome, marca FROM item WHERE nome LIKE'%$busca%' OR marca LIKE'%$busca%'";
->>>>>>> 59f196caa205ef0abb72fe53f12b8862ded75fbd
 
     $resultado = mysqli_query($conexao, $query);
     $marca = null;
@@ -133,23 +93,6 @@ public static function selectItem($busca){
     if($resultado){
         return 'Cadastro realizado com sucesso!';
     }
-<<<<<<< HEAD
-  
-    
-   public function editar_item($id){
-    include '../includes/conecta_bd.inc';
-      $id = $_GET['id'];
-       $query = "UPDATE item 
-      SET marca = '$this->marca', nome = '$this->nome', idCategoria = '$this->idCategoria',
-      quantidade = '$this->quantidade',
-      unidadeMedida = '$this->unidadeMedida', quantidadeMinima ='$this->quantidadeMinima' WHERE id = '$id'";
-   //  $query = "UPDATE item SET nome = '$this->nome'"; 
-
-    $resultado = mysqli_query($conexao, $query);
-
-    if($resultado){
-    return true;
-=======
 
     return mysqli_error($conexao);
   }
@@ -173,19 +116,11 @@ public static function selectItem($busca){
       $quantidade = $row["quantidade"];
       $unidadeMedida = $row["unidadeMedida"];
       $quantidadeMinima = $row["quantidadeMinima"];
->>>>>>> 59f196caa205ef0abb72fe53f12b8862ded75fbd
     }
     if($resultado){
       return 'Edição realizada com sucesso!';
     } 
     return mysqli_error($conexao);
-<<<<<<< HEAD
-      
-  }
-  
-  }
-?>    
-=======
   }
 
   public function excluir_item(){
@@ -205,4 +140,3 @@ public static function selectItem($busca){
   } 
 }
 ?>
->>>>>>> 59f196caa205ef0abb72fe53f12b8862ded75fbd

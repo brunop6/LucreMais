@@ -14,6 +14,11 @@
             <h4>Rumo ao lucro certo, graças a escolha certa!</h4>
             <p><input type="text" name="usuario" placeholder="Usuário" id="em" required></p>
             <p><input type="email" name="email" placeholder="Email" required></p>
+            <p><input type="text" name="nivelUsuario" placeholder="Nível de Acesso" list="niveis" required></p>
+            <datalist id="niveis">
+                <option value="Administrador"></option>
+                <option value="Estoquista"></option>
+            </datalist>
             <p><input type="password" name="senha" placeholder="Senha" id="s" onchange="confirmar_senha()" required></p>
             <p><input type="password" placeholder="Confirme sua senha" id="sc" onkeyup="confirmar_senha()" required></p>
             <p><input type="submit" value="Cadastrar-se"> 
