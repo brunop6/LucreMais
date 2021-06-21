@@ -13,9 +13,14 @@
 
         $nomeUsuario = $_POST['usuario'];
         $email = $_POST['email'];
+        $idNivel = Usuario::selectIdNivel($_POST['nivelUsuario']);
+
+        if(empty($idNivel)){
+            header('Location: ./cadastro.php');
+        }
         $senha = $_POST['senha'];
 
-        $usuario = new Usuario($nomeUsuario, $email, $senha);
+        $usuario = new Usuario($idNivel, $nomeUsuario, $email, $senha);
 
         $resultado = $usuario->cadastrarUsuario();
 

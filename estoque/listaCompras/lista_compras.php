@@ -42,7 +42,7 @@
             echo '
                 <h2>Seu Estoque está em dia!</h2>
                 <br>
-                <a href="../../Home.php">Voltar para página principal</a>
+                <a href="http://localhost/LucreMais/Home.php">Voltar para página principal</a>
             ';
         }
     ?>
