@@ -77,6 +77,8 @@
         public static function selectId($descricaoCategoria){
             include '../includes/conecta_bd.inc';
 
+            $descricaoCategoria = mb_strtoupper($descricaoCategoria, mb_internal_encoding());
+
             $query = "SELECT id FROM categoria WHERE descricaoCategoria = '$descricaoCategoria'";
 
             $resultado = mysqli_query($conexao, $query);

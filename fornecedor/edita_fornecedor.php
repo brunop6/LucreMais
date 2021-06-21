@@ -1,4 +1,17 @@
 <?php
+    define('menu', 'Fornecedores');
+    include_once "../classes/Usuario.php";
+
+    if (session_status() !== PHP_SESSION_ACTIVE) {
+        session_start();
+    }
+    $idUsuario = Usuario::selectId($_SESSION['nome_usuario']);
+
+    if(!Usuario::verificarMenu($idUsuario, menu)){
+        header("Location: ./../Home.php");
+        die();
+    }
+    
     include_once '../classes/Fornecedor.php';
 
     if(isset($_GET['id'])){

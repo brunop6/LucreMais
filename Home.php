@@ -1,5 +1,12 @@
 <?php
     include 'includes/validacao_cookies.inc';
+    include_once './classes/Usuario.php';
+    if (session_status() !== PHP_SESSION_ACTIVE) {
+        session_start();
+    }
+    $nomeUsuario = $_SESSION['nome_usuario'];
+
+    $idUsuario = Usuario::selectId($nomeUsuario);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -14,10 +21,20 @@
         <label for="btn-menu">&#9776;</label>
         <nav class="menu">
             <ul>
-                <li><a href="./fornecedor/fornecedor.php">Fornecedores</a></li>
-                <li><a href="./item/item.php">Itens</a></li>
-                <li><a href="./estoque/estoque.php">Estoque</a></li>
-                <li><a href="./Receitas/cadastrar_receitas.php">Receitas</a></li>
+                <?php
+                    if(Usuario::verificarMenu($idUsuario, "Fornecedores")){
+                        echo '<li><a href="./fornecedor/fornecedor.php">Fornecedores</a></li>';
+                    }
+                    if(Usuario::verificarMenu($idUsuario, "Itens")){
+                        echo '<li><a href="./item/item.php">Itens</a></li>';
+                    }
+                    if(Usuario::verificarMenu($idUsuario, "Estoque")){
+                        echo '<li><a href="./estoque/estoque.php">Estoque</a></li>';
+                    }
+                    if(Usuario::verificarMenu($idUsuario, "Receitas")){
+                        echo '<li><a href="./Receitas/cadastrar_receitas.php">Receitas</a></li>';
+                    }
+                ?>      
                 <li><a href="logoff.php">Logoff</a></li>
             </ul>
         </nav>

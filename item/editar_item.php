@@ -11,7 +11,6 @@
     session_start();
     $nomeUsuario = $_SESSION['nome_usuario'];
     $idUsuario = Usuario::selectId($nomeUsuario);
-    session_start();
     $id = $_GET['id'];
     $marca = $_POST['marca'];
     $nome = $_POST['nome'];
@@ -20,10 +19,9 @@
     $quantidade = $_POST['quantidade'];
     $quantidadeMinima = $_POST['quantidadeMinima'];
     $unidadeMedida = $_POST['unidade_de_medida'];
-    $nomeUsuario = $_SESSION['nome_usuario'];
 
-    $item = new Item($idUsuario, $idCategoria, $marca, $nome, $quantidade,$unidadeMedida, $quantidadeMinima);
-
+    $item = new Item($idUsuario, $idCategoria, $marca, $nome, $quantidade, $unidadeMedida, $quantidadeMinima);
+    
     if($item->editar_item($id)){
         header("Location: ./item.php");
     }else{

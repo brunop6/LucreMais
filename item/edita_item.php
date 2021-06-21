@@ -1,3 +1,18 @@
+<?php
+    define('menu', 'Itens');
+    include_once "../classes/Usuario.php";
+
+    if (session_status() !== PHP_SESSION_ACTIVE) {
+        session_start();
+    }
+    $idUsuario = Usuario::selectId($_SESSION['nome_usuario']);
+
+    if(!Usuario::verificarMenu($idUsuario, menu)){
+        header("Location: ./../Home.php");
+        die();
+    }
+    $id =  $_GET['id']
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -6,8 +21,7 @@
 </head>
 <body>
     <img src="../Logo.png" alt="Logo do site" width="14%">
-    <form action="editar_item.php?id=<?php echo $_GET['id'] ?>" method="POST" >     
-    <?php $id =  $_GET['id']?>
+    <form action="editar_item.php?id=<?php echo $id ?>" method="POST" >     
         <h3>Marca: </h3>
         <p><input type="text" name="marca" list="marcas" required></p>
         <datalist id="marcas">

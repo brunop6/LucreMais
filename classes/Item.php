@@ -64,7 +64,7 @@
       include '../includes/conecta_bd.inc';
 
       $query = "SELECT i.id, i.nome, i.quantidade, i.quantidadeMinima, u.nomeUsuario, c.descricaoCategoria 
-      FROM item i, usuario u, categoria c WHERE c.id = u.id AND i.idUsuario = u.id ";
+      FROM item i, usuario u, categoria c WHERE c.id = i.idCategoria AND i.idUsuario = u.id";
 
       $resultado = mysqli_query($conexao, $query);
 
@@ -129,14 +129,13 @@
       include '../includes/conecta_bd.inc';
       
       $query = "UPDATE item 
-      SET  marca = '$this->marca', nome = '$this->nome', idCategoria = '$this->idCategoria',
-      quantidade = '$this->quantidade',
-      unidadeMedida = '$this->unidadeMedida', quantidadeMinima ='$this->quantidadeMinima' WHERE id = '$id'";
+      SET  marca = '$this->marca', nome = '$this->nome', idCategoria = $this->idCategoria, quantidade = $this->quantidade, unidadeMedida = '$this->unidadeMedida', quantidadeMinima =$this->quantidadeMinima 
+      WHERE id = $id";
 
       $resultado = mysqli_query($conexao, $query);
 
       if($resultado){
-        return 'Edição realizada com sucesso!';
+        return true;
       } 
       return mysqli_error($conexao);
     }

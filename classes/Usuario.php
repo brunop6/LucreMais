@@ -34,6 +34,27 @@
             return $id;
         }
 
+        public static function selectNivel($idUsuario){
+            include __DIR__.'./../includes/conecta_bd.inc';
+
+            $query = "SELECT n.descricao
+            FROM nivelusuario n, usuario u
+            WHERE n.id = u.idNivelUsuario
+                AND u.id = $idUsuario";
+
+            $resultado = mysqli_query($conexao, $query);
+
+            $descricao = null;
+            if(mysqli_num_rows($resultado) > 0){
+                while($row = mysqli_fetch_array($resultado)){
+                    $descricao = $row['descricao'];
+                }
+            }
+            mysqli_close($conexao);
+
+            return $descricao;
+        } 
+
         public static function selectIdNivel($descricao){
             include __DIR__.'./../includes/conecta_bd.inc';
 
@@ -50,25 +71,31 @@
             mysqli_close($conexao);
 
             return $idNivel;
-        }
+        } 
 
-        public static function selectPermissao($idNivel){
+        public static function selectPermissoes($idUsuario){
             include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "SELECT n.descricao AS nivel, m.descricao AS menu, a.Inserir, a.editar, a.excluir, a.consultar
-            FROM usuario u, nivelusuario n, menu m, acao a, permissao p
+            $query = "SELECT m.descricao, a.inserir, a.editar, a.excluir, a.consultar
+            FROM menu m, usuario u, nivelusuario n, permissao p, acao a
             WHERE u.idNivelUsuario = n.id
                 AND p.idNivelUsuario = n.id
                 AND p.idMenu = m.id
-                AND a.idPermissao = p.id";
+                AND a.idPermissao = p.id
+                AND u.id = $idUsuario";
 
             $resultado = mysqli_query($conexao, $query);
+
+            $menu = null;
+            $inserir = null;
+            $editar = null;
+            $excluir = null;
+            $consultar = null;
 
             if(mysqli_num_rows($resultado) > 0){
                 $i = 0;
                 while($row = mysqli_fetch_array($resultado)){
-                    $nivel = $row['nivel'];
-                    $menu[$i] = $row['menu'];
+                    $menu[$i] = $row['descricao'];
                     $inserir[$i] = $row['inserir'];
                     $editar[$i] = $row['editar'];
                     $excluir[$i] = $row['excluir'];
@@ -77,10 +104,10 @@
                 }
             }
             mysqli_close($conexao);
-            
-            return array($nivel, $menu, $inserir, $editar, $excluir, $consultar);
-        }   
-        
+
+            return array($menu, $inserir, $editar, $excluir, $consultar);
+        }
+
         public function cadastrarUsuario(){
             include '../includes/conecta_bd.inc';
 
@@ -105,5 +132,19 @@
                 return 'Edição realizada com sucesso!';
             }
             return mysqli_error($conexao);
+        }
+
+        public static function verificarMenu($idUsuario, $menu){
+            list($menus, $inserir, $editar, $excluir, $consultar) = Usuario::selectPermissoes($idUsuario);
+
+            $permissão = false;
+
+            foreach($menus as $value){
+                if(strpos($value, $menu) !== false){
+                    $permissão = true;
+                    break;
+                }
+            }
+            return $permissão;
         }
     }
