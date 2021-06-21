@@ -2,7 +2,7 @@
     include_once '../classes/Fornecedor.php';
     include_once '../classes/Usuario.php';
 
-    if(!isset($_GET['id']) || !isset($_POST['nomeFornecedor']) || !isset($_POST['email']) || !isset($_POST['telefone']) || !isset($_POST['cnpj']) || !isset($_POST['endereco'])){
+    if(!isset($_GET['id']) || !isset($_POST['nomeFornecedor']) || !isset($_POST['telefone'])){
         header('Location: fornecedor.php');
         die();
     }
@@ -15,7 +15,6 @@
     $telefone = $_POST['telefone'];
     $cnpj = $_POST['cnpj'];
     $endereco = $_POST['endereco'];
-
     $fornecedor = new Fornecedor($idUsuario, $nomeFornecedor, $email, $telefone, $cnpj, $endereco);
 
     if($fornecedor->editarFornecedor($id)){

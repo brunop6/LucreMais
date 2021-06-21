@@ -10,6 +10,7 @@
         $quantidade = $_POST['quantidade'];
         $preco = $_POST['preco'];
         $lote = $_POST['lote'];
+        $validade = $_POST['validade'];
 
         list($id, $fornecedores, $email, $telefone, $cnpj, $endereco, $dataCadastro, $dataAtualizacao, $nomeUsuario) = Fornecedor::selectFornecedores();
         $idFornecedor = null;
@@ -40,7 +41,7 @@
 
         //Fomulário só será enviado quando houver a inserção de fornecedor e item válido no sistema
         if($idItem != null && $idFornecedor != null){
-            header("Location: cadastrar_estoque.php?idFornecedor=$idFornecedor&idItem=$idItem&quantidade=$quantidade&preco=$preco&lote=$lote");
+            header("Location: cadastrar_estoque.php?idFornecedor=$idFornecedor&idItem=$idItem&quantidade=$quantidade&preco=$preco&lote=$lote&validade=$validade");
             die();
         }
     }
@@ -90,6 +91,7 @@
         <p><input type="number" name="quantidade" placeholder="Quantidade Estoque" step="0.1" required></p>
         <p><input type="number" name="preco" placeholder="Preço R$" step="0.01" required></p>
         <p><input type="number" name="lote" placeholder="Lote" required></p>
+        <p><input type="date" name="validade" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" required></p>
         <p><input type="submit" value="Cadastrar" name="cadastrar"></p>
         <p><input type="button" value="Voltar" onclick="window.location.href='../estoque/estoque.php'"></p>
     </form>

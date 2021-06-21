@@ -7,6 +7,11 @@
         header('Location: ./estoque.php');
         die();
     }
+    if(isset($_GET['tipo'])){
+        $tipo = $_GET['tipo'];
+    }else{
+        $tipo = null;
+    }
 
     session_start();
     $id = $_GET['id'];
@@ -16,11 +21,11 @@
     $quantidade = $_GET['quantidade'];
     $preco = $_GET['preco'];
     $lote = $_GET['lote'];
+    $validade = $_GET['validade'];
     $status = $_GET['status'];
+    $estoque = new Estoque($idUsuario, $idFornecedor, $idItem, $quantidade, $preco, $lote, $validade, $status);
 
-    $estoque = new Estoque($idUsuario, $idFornecedor, $idItem, $quantidade, $preco, $lote, $status);
-
-    if($estoque->editar_estoque($id)){
+    if($estoque->editar_estoque($id, $tipo)){
         header("Location: ./estoque.php");
     }else{
         echo '<h2>Erro ao realizar edição...</h2> <br>';

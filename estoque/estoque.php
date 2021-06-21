@@ -14,7 +14,7 @@
         function preencherEstoque($status){
             include_once '../classes/Estoque.php';
 
-            list($id, $nomeItem, $marca, $categoria, $fornecedor, $quantidadeEstoque, $unidadeMedida, $preco, $quantidadeItem, $lote, $dataCadastro, $dataAtualizacao, $nomeUsuario) = Estoque::retornar_itens_estoque($status);
+            list($id, $nomeItem, $marca, $categoria, $fornecedor, $quantidadeEstoque, $unidadeMedida, $preco, $quantidadeItem, $lote, $validade, $dataCadastro, $dataAtualizacao, $nomeUsuario) = Estoque::retornar_itens_estoque($status);
 
             if(!empty($nomeItem)){
                 $i = 0;
@@ -28,6 +28,7 @@
                     echo "<td>R$ $preco[$i]</td>";
                     echo "<td>$quantidadeItem[$i] $unidadeMedida[$i]</td>";
                     echo "<td>$lote[$i]</td>";
+                    echo "<td>$validade[$i]</td>";
                     echo "<td>$dataCadastro[$i]</td>";
                     echo "<td>$dataAtualizacao[$i]</td>";
                     echo "<td>$nomeUsuario[$i]</td>";
@@ -91,6 +92,7 @@
                 <th>Preço</th>
                 <th>Quant. Item</th>
                 <th>Lote</th>
+                <th>Validade</th>
                 <th>Data Cadastro</th>
                 <th>Data Atualização</th>
                 <th>Usuário</th>

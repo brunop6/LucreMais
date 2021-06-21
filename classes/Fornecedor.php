@@ -116,7 +116,6 @@
 
         public function cadastrarFornecedor(){
             include '../includes/conecta_bd.inc';
-            echo $this->nome;
             $query = "INSERT INTO fornecedor (idUsuario, nomeFornecedor, email, telefone, cnpj, endereco) VALUES ('$this->idUsuario', '$this->nome', '$this->email', '$this->telefone', '$this->cnpj', '$this->endereco')";
             
             //Formato CNPJ XX. XXX. XXX/0001-XX
@@ -135,8 +134,15 @@
         public function editarFornecedor($id){
             include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "UPDATE fornecedor SET idUsuario = $this->idUsuario, nomeFornecedor = '$this->nome', email = '$this->email', telefone = '$this->telefone', cnpj = '$this->cnpj', endereco = '$this->endereco' WHERE id = $id";
+            $query = "UPDATE fornecedor 
+            SET idUsuario = $this->idUsuario, nomeFornecedor = '$this->nome', email = '$this->email', telefone = '$this->telefone', cnpj = '$this->cnpj', endereco = '$this->endereco' 
+            WHERE id = $id";
 
+            if(strlen($this->cnpj) < 14){
+                $query = "UPDATE fornecedor 
+                SET idUsuario = $this->idUsuario, nomeFornecedor = '$this->nome', email = '$this->email', telefone = '$this->telefone', cnpj = NULL, endereco = '$this->endereco' 
+                 WHERE id = $id";
+            }
             $resultado = mysqli_query($conexao, $query);
 
             if($resultado){

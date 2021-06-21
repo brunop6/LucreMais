@@ -5,8 +5,8 @@
     include_once '../classes/Estoque.php';
 
     if(isset($_GET['id'])){
-        $id = $_GET['id'];
-        list($estoqueNome, $estoqueMarca, $estoqueUnMedida, $estoqueFornecedor, $estoqueQuantidade, $estoquePreco, $estoqueLote, $estoqueStatus) = Estoque::selectEstoque($id);
+        $idEstoque = $_GET['id'];
+        list($estoqueNome, $estoqueMarca, $estoqueUnMedida, $estoqueFornecedor, $estoqueQuantidade, $estoquePreco, $estoqueLote, $estoqueValidade, $estoqueStatus) = Estoque::selectEstoque($idEstoque);
     }else{
         header("Location: ./estoque.php");
         die();
@@ -19,8 +19,16 @@
         $quantidade = $_POST['quantidade'];
         $preco = $_POST['preco'];
         $lote = $_POST['lote'];
+        $validade = $_POST['validade'];
         $status = $_POST['status'];
 
+        if($estoqueQuantidade < $quantidade){
+            $quantidadeMovimento = $quantidade - $estoqueQuantidade;
+            $tipoOperação = "E"; //Entrada
+        }elseif($estoqueQuantidade > $quantidade){
+            $quantidadeMovimento = $estoqueQuantidade - $quantidade;
+            $tipoOperação = "S"; //Saída
+        }
         list($id, $fornecedores, $email, $telefone, $cnpj, $endereco, $dataCadastro, $dataAtualizacao, $nomeUsuario) = Fornecedor::selectFornecedores();
         $idFornecedor = null;
 
@@ -51,8 +59,13 @@
 
         //Fomulário só será enviado quando houver a inserção de fornecedor e item válido no sistema
         if($idItem != null && $idFornecedor != null){
-            header("Location: editar_estoque.php?id=$id&idFornecedor=$idFornecedor&idItem=$idItem&quantidade=$quantidade&preco=$preco&lote=$lote&status=$status");
+            if(!isset($quantidadeMovimento)){
+                header("Location: editar_estoque.php?id=$idEstoque&idFornecedor=$idFornecedor&idItem=$idItem&quantidade=$quantidade&preco=$preco&lote=$lote&validade=$validade&status=$status");
+                die();
+            }else{
+                header("Location: editar_estoque.php?id=$idEstoque&idFornecedor=$idFornecedor&idItem=$idItem&quantidade=$quantidadeMovimento&tipo=$tipoOperação&preco=$preco&lote=$lote&validade=$validade&status=$status");
             die();
+            }
         }
     }
 ?>
@@ -108,8 +121,10 @@
         <h3>Lote: </h3>
         <p><input type="number" name="lote" value="<?php echo $estoqueLote?>" required></p>
         
+        <h3>Validade:</h3>
+        <p><input type="date" name="validade" value="<?php echo $estoqueValidade ?>" required></p>
+        
         <h3>Status:</h3>
-
         <p><input type="radio" name="status" value="1" 
             <?php 
                 if($estoqueStatus == "1"){
