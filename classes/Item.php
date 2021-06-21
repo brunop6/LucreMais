@@ -60,37 +60,45 @@
 
     return array ($marca,$nome);
   }
-<<<<<<< HEAD
 
 
   public static function selectItensLista(){
     include '../includes/conecta_bd.inc';
 
-    $query = "SELECT id, nome, quantidade, idCategoria, quantidadeMinima, idUsuario FROM item  ";
+ /*   $query = "SELECT nome, quantidade, quantidadeMinima, idCategoria, idUsuario
+    FROM item";*/
+    $query = "SELECT i.nome, i.quantidade, i.quantidadeMinima, u.nomeUsuario, c.descricaoCategoria 
+    FROM item i, usuario u, categoria c WHERE c.id = u.id AND i.idUsuario = u.id ";
 
     $resultado = mysqli_query($conexao, $query);
-    $id = null;
+   
     $quantidade = null;
     $nome = null;
-    $idCategoria = null;
+   // $idCategoria = null;
+   $descricaoCategoria = null;
     $quantidadeMinima = null;
-    $idUsuario = null;
+  //  $idUsuario = null;
+  $nomeUsuario = null;
     if(mysqli_num_rows($resultado) > 0){
         $i = 0;
         while($row = mysqli_fetch_array($resultado)){
-            $id[$i] = $row['id'];
+        
             $nome[$i] = $row['nome'];
             $quantidade[$i]= $row['quantidade'];
-            $idCategoria[$i] = $row['idCategoria'];
+     //       $idCategoria[$i] = $row['idCategoria'];
+            $descricaoCategoria[$i] = $row['descricaoCategoria'];
             $quantidadeMinima[$i] = $row['quantidadeMinima'];
-            $idUsuario[$i] = $row['idUsuario'];
+       //     $idUsuario[$i] = $row['idUsuario']; 
+            $nomeUsuario[$i] = $row['nomeUsuario'];
             $i++;
         }
     }
     mysqli_close($conexao);
 
-    return array ($id, $nome,$quantidade,$idCategoria,$quantidadeMinima, $idUsuario);
+  //  return array ($nome,$quantidade,$idCategoria,$quantidadeMinima, $idUsuario);
+       return array ($nome,$quantidade,$descricaoCategoria,$quantidadeMinima, $nomeUsuario);
   }
+
   
 
 
@@ -98,13 +106,6 @@ public static function selectItem($busca){
   include '../includes/conecta_bd.inc';
   $id = $_GET['id'];
   $query = "SELECT nome, marca FROM item WHERE nome LIKE'%$busca%' OR marca LIKE'%$busca%'";
-=======
-
-  public static function selectItem($busca){
-    include '../includes/conecta_bd.inc';
-
-    $query = "SELECT nome, marca FROM item WHERE nome LIKE'%$busca%' OR marca LIKE'%$busca%'";
->>>>>>> 59f196caa205ef0abb72fe53f12b8862ded75fbd
 
     $resultado = mysqli_query($conexao, $query);
     $marca = null;
@@ -133,76 +134,27 @@ public static function selectItem($busca){
     if($resultado){
         return 'Cadastro realizado com sucesso!';
     }
-<<<<<<< HEAD
   
-    
+  }    
+
    public function editar_item($id){
     include '../includes/conecta_bd.inc';
-      $id = $_GET['id'];
+      
        $query = "UPDATE item 
-      SET marca = '$this->marca', nome = '$this->nome', idCategoria = '$this->idCategoria',
+      SET  marca = '$this->marca', nome = '$this->nome', idCategoria = '$this->idCategoria',
       quantidade = '$this->quantidade',
-      unidadeMedida = '$this->unidadeMedida', quantidadeMinima ='$this->quantidadeMinima' WHERE id = '$id'";
+     unidadeMedida = '$this->unidadeMedida', quantidadeMinima ='$this->quantidadeMinima' WHERE id = '$id'";
    //  $query = "UPDATE item SET nome = '$this->nome'"; 
 
     $resultado = mysqli_query($conexao, $query);
 
     if($resultado){
-    return true;
-=======
-
-    return mysqli_error($conexao);
-  }
-
-  public function editar_item(){
-    include '../includes/conecta_bd.inc';
-      
-    $query = "UPDATE item 
-    SET idCategoria = '$idCategoria', marca = '$marca', nome = '$nome', quantidade = '$quantidade',
-      unidadeMedida = $unidadeMedida, quantidadeMinima = $quantidadeMinima  
-    where id = $this->id";
-
-    $resultado = mysqli_query($conexao, $query);
-
-    while($row = mysqli_fetch_array($resultado)){
-      $id= $row["id"];
-      $idUsuario = $row["idUsuario"];
-      $idCategoria = $row["idCategoria"];
-      $marca = $row["marca"];
-      $nome = $row["nome"];
-      $quantidade = $row["quantidade"];
-      $unidadeMedida = $row["unidadeMedida"];
-      $quantidadeMinima = $row["quantidadeMinima"];
->>>>>>> 59f196caa205ef0abb72fe53f12b8862ded75fbd
-    }
-    if($resultado){
       return 'Edição realizada com sucesso!';
     } 
     return mysqli_error($conexao);
-<<<<<<< HEAD
       
   }
-  
+
   }
+
 ?>    
-=======
-  }
-
-  public function excluir_item(){
-    include '../includes/conecta_bd.inc';
-    $query = "delete from item where id = $id";
-
-    $resultado = mysqli_query($conexao ,$query);
-    
-    if($resultado){
-        echo "<center>Item excluído com sucesso!</center>";
-    }else{
-        echo "<center>Erro ao excluir item!</center>";
-    }
-  }
-  public function listar_item(){
-    $query = "select * from item";
-  } 
-}
-?>
->>>>>>> 59f196caa205ef0abb72fe53f12b8862ded75fbd

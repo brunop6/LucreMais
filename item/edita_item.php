@@ -6,8 +6,8 @@
 </head>
 <body>
     <img src="../Logo.png" alt="Logo do site" width="14%">
-    <form action="editar_item.php" method="POST" >     
-        <?php $id = $_GET['id'];?>
+    <form action="editar_item.php?id=<?php echo $_GET['id'] ?>" method="POST" >     
+    <?php $id =  $_GET['id']?>
         <h3>Marca: </h3>
         <p><input type="text" name="marca" list="marcas" required></p>
         <datalist id="marcas">

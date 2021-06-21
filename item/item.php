@@ -20,23 +20,27 @@
     <main>
             <?php
              include_once '../classes/Item.php';
+             include_once '../classes/Usuario.php';
+             include_once '../classes/Categoria.php';
             
             $id = $_GET['id']; 
             function preencherItem($id){
 
-            list($id,$nomeItem, $quantidade, $idCategoria, $quantidadeMinima, $idUsuario) = Item::selectItensLista($id);
-
+          //  list($nomeItem, $quantidade, $idCategoria, $quantidadeMinima, $idUsuario) = Item::selectItensLista($id);
+                list($nomeItem, $quantidade,$descricaoCategoria,$quantidadeMinima, $nomeUsuario) = Item::selectItensLista($id);
             if(!empty($nomeItem)){
                  
                 $i = 0;
                 foreach($nomeItem as $nome){
                     echo "<tr>";
-                    echo "<td>$id[$i]</td>";
+                   
                     echo "<td>$nome</td>";
                     echo "<td>$quantidade[$i]";
-                    echo "<td>$idCategoria[$i]</td>";
+                  //  echo "<td>$idCategoria[$i]</td>";
+                    echo "<td>$descricaoCategoria[$i]</td>";
                     echo "<td>$quantidadeMinima[$i]</td>";
-                    echo "<td>$idUsuario[$i]</td>";
+                  //  echo "<td>$idUsuario[$i]</td>";
+                    echo "<td>$nomeUsuario[$i]</td>";
                     echo "<td><a href='./edita_item.php?id=$id[$i]' style='color:rgb(173,144,0)'>Editar</a></td>";
 
                     echo "</tr>";
@@ -49,7 +53,7 @@
     
         <table style="width:100%; margin-top: 10px"; border="1px";>
             <tr>
-                <th>Id</th>
+             
                 <th>Item</th>
                 <th>Quantidade</th>
                 <th>Categoria</th>
