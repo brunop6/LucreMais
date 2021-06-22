@@ -63,13 +63,13 @@
     public static function selectItensLista(){
       include '../includes/conecta_bd.inc';
 
-      $query = "SELECT i.id, i.nome, i.quantidade, i.quantidadeMinima, u.nomeUsuario, c.descricaoCategoria 
+      $query = "SELECT i.id, i.nome, i.marca, i.quantidade, i.quantidadeMinima, u.nomeUsuario, c.descricaoCategoria 
       FROM item i, usuario u, categoria c WHERE c.id = i.idCategoria AND i.idUsuario = u.id";
 
       $resultado = mysqli_query($conexao, $query);
 
       $id = null;
-      $nome = null;
+      $item = null;
       $quantidade = null;
       $descricaoCategoria = null;
       $quantidadeMinima = null;
@@ -78,7 +78,7 @@
         $i = 0;
         while($row = mysqli_fetch_array($resultado)){
           $id[$i] = $row['id'];
-          $nome[$i] = $row['nome'];
+          $item[$i] = $row['nome'].' '.$row['marca'];
           $quantidade[$i]= $row['quantidade'];
           $descricaoCategoria[$i] = $row['descricaoCategoria'];
           $quantidadeMinima[$i] = $row['quantidadeMinima'];
@@ -88,7 +88,34 @@
       }
       mysqli_close($conexao);
 
-      return array($id, $nome, $quantidade, $descricaoCategoria, $quantidadeMinima, $nomeUsuario);
+      return array($id, $item, $quantidade, $descricaoCategoria, $quantidadeMinima, $nomeUsuario);
+    }
+    public static function selectItemLista($id){
+      include '../includes/conecta_bd.inc';
+
+      $query = "SELECT i.nome, i.marca, i.quantidade, i.quantidadeMinima, c.descricaoCategoria 
+      FROM item i, usuario u, categoria c WHERE c.id = i.idCategoria AND i.idUsuario = u.id AND i.id = $id";
+
+      $resultado = mysqli_query($conexao, $query);
+
+      $id = null;
+      $nome = null;
+      $marca = null;
+      $quantidade = null;
+      $descricaoCategoria = null;
+      $quantidadeMinima = null;
+      if(mysqli_num_rows($resultado) > 0){
+        while($row = mysqli_fetch_array($resultado)){
+          $nome = $row['nome'];
+          $marca = $row['marca'];
+          $quantidade = $row['quantidade'];
+          $descricaoCategoria = $row['descricaoCategoria'];
+          $quantidadeMinima = $row['quantidadeMinima'];
+        }
+      }
+      mysqli_close($conexao);
+
+      return array($nome, $marca, $quantidade, $descricaoCategoria, $quantidadeMinima);
     }
 
     public static function selectItem($busca){
