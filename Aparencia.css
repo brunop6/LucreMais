@@ -1,10 +1,11 @@
-body{
+*{
     margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+body{
     font-family: sans-serif;
-    background-image: url("Logo.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    height:fit-content;
     background-color: #002D55;
 }
 
@@ -14,7 +15,6 @@ body{
 
 header, li ul{
     background-color: rgb(113, 116, 255);
-    font-weight: 600;
 }
 
 header label{
@@ -31,7 +31,6 @@ header label:hover{
 }
 
 .menu ul{
-    list-style: none;
     margin: 0px;
     padding: 10px;
     display: flex;
@@ -45,11 +44,12 @@ header label:hover{
 }
 
 .menu li a{
+    font-size: 20px;
     color: black;
-    text-decoration: none;
     padding: 10px 100px;
     display: block;
     border-right: 1px solid #002D55;
+    transition: .4s;
 }
 
 .menu li a:hover{
@@ -58,6 +58,86 @@ header label:hover{
 
 .menu li:hover ul{
     display: block;
+}
+
+.sidebar{
+    position: fixed;
+    background: rgb(113, 116, 255);
+    color: black;
+    left: -200px;
+    width: 200px;
+    height: 100%;
+    transition: all .4s ease;
+}
+
+.sidebar li a{
+    display: block;
+    height: 100%;
+    width: 100%;
+    line-height: 65px;
+    font-size: 20px;
+    color: black;
+    padding-left: 40px;
+    border-top: 1px solid black;
+    box-sizing: border-box;
+    transition: .4s;
+}
+.sidebar li a:hover{
+    padding-left: 50px;
+    background-color: yellow;
+}
+#btn-sidebar{
+    display: none;
+}
+label #btn, label #cancel{
+    position: absolute;
+    cursor: pointer;
+    background-color: rgb(113, 116, 255);
+    border-radius: 3px;
+}
+label #btn{
+    left: 0;
+    top: 50%;
+    font-size: 35px;
+    color: aliceblue;
+    padding: 6px 12px;
+    transition: all .4s ease;
+}
+label #cancel{
+    z-index: 1111;
+    left: -160px;
+    top: 50%;
+    font-size: 35px;
+    color: aliceblue;
+    padding: 2px 9px;
+    transition: all .4s ease;
+}
+#btn-sidebar:checked ~ .sidebar{
+    left: 0;
+}
+#btn-sidebar:checked ~ label #btn{
+    left: 200px;
+    opacity: 0;
+    pointer-events: none;
+}
+#btn-sidebar:checked ~ label #cancel{
+    left: 200px;
+    opacity: 100;
+}
+section{
+    background-image: url("Logo.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: fit-content;
+    background-position: center;
+    color: aliceblue;
+    height: 100vh;
+    padding: 60px 0 0 40px;
+    transition: all .4s;
+}
+#btn-sidebar:checked ~ section{
+    margin-left: 200px;
+    padding: 10px 0 0 10px;
 }
 
 @media screen and (max-width:2560px) and (orientation:portrait) {
