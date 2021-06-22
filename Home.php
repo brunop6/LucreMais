@@ -1,6 +1,7 @@
 <?php
     include 'includes/validacao_cookies.inc';
     include_once './classes/Usuario.php';
+    include_once './classes/Estoque.php';
     if (session_status() !== PHP_SESSION_ACTIVE) {
         session_start();
     }
@@ -8,6 +9,53 @@
 
     $idUsuario = Usuario::selectId($nomeUsuario);
     $nivelAcesso = Usuario::selectNivel($idUsuario);
+    
+    function preencherEntradas(){
+        global $idUsuario;
+        $email = Usuario::selectEmail($idUsuario);
+        list($id, $item, $categoria, $quantidade, $unidadeMedida, $preco, $observacao, $data, $nome) = Estoque::selectEntradaEstoque($email);
+        if(!empty($id)){
+            $i = 0;
+            foreach($id as $value){
+                echo "<tr>";
+                
+                echo "<td>$value</td>";
+                echo "<td>$item[$i]</td>";
+                echo "<td>$categoria[$i]</td>";
+                echo "<td>$quantidade[$i] $unidadeMedida[$i]</td>";
+                echo "<td>R$ $preco[$i]</td>";
+                echo "<td>$observacao[$i]</td>";
+                echo "<td>$data[$i]</td>";
+                echo "<td>$nome[$i]</td>";
+
+                echo "</tr>";
+                $i++;
+            }
+        }
+    }
+    function preencherBaixas(){
+        global $idUsuario;
+        $email = Usuario::selectEmail($idUsuario);
+        list($id, $item, $categoria, $quantidade, $unidadeMedida, $preco, $observacao, $data, $nome) = Estoque::selectBaixaEstoque($email);
+        if(!empty($id)){
+            $i = 0;
+            foreach($id as $value){
+                echo "<tr>";
+                
+                echo "<td>$value</td>";
+                echo "<td>$item[$i]</td>";
+                echo "<td>$categoria[$i]</td>";
+                echo "<td>$quantidade[$i] $unidadeMedida[$i]</td>";
+                echo "<td>R$ $preco[$i]</td>";
+                echo "<td>$observacao[$i]</td>";
+                echo "<td>$data[$i]</td>";
+                echo "<td>$nome[$i]</td>";
+
+                echo "</tr>";
+                $i++;
+            }
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -61,7 +109,38 @@
     </div>
 
     <section>
-        
+        <table style="margin-top: 10px; background-color: #002D55; border-collapse:collapse;"; border="1px">
+            <h1>Entradas</h1>
+            <tr>
+                <th>Id</th>
+                <th>Item</th>
+                <th>Categoria</th>
+                <th>Quantidade</th>
+                <th>Preço</th>
+                <th>Observação</th>
+                <th>Data</th>
+                <th>Usuário</th>
+            </tr>
+            <?php
+                preencherEntradas();
+            ?>
+        </table>
+        <table style="margin-top: 10px; background-color: #002D55; border-collapse:collapse;"; border="1px">
+            <h1>Baixas</h1>
+            <tr>
+                <th>Id</th>
+                <th>Item</th>
+                <th>Categoria</th>
+                <th>Quantidade</th>
+                <th>Preço</th>
+                <th>Observação</th>
+                <th>Data</th>
+                <th>Usuário</th>
+            </tr>
+            <?php
+                preencherBaixas();
+            ?>
+        </table>
     </section>
 </body>
 </html>

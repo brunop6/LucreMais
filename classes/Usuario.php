@@ -34,6 +34,22 @@
             return $id;
         }
 
+        public static function selectEmail($idUsuario){
+            include __DIR__.'./../includes/conecta_bd.inc';
+
+            $query = "SELECT email FROM usuario WHERE id = $idUsuario";
+
+            $resultado = mysqli_query($conexao, $query);
+
+            if(mysqli_num_rows($resultado) > 0){
+                while($row = mysqli_fetch_array($resultado)){
+                    $email = $row['email'];
+                }
+            }
+            mysqli_close($conexao);
+            return $email;
+        }
+
         public static function selectNivel($idUsuario){
             include __DIR__.'./../includes/conecta_bd.inc';
 

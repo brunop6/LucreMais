@@ -157,4 +157,72 @@
             }
             return mysqli_error($conexao);
         }
+        public static function selectEntradaEstoque($email){
+            include __DIR__.'./../includes/conecta_bd.inc';
+
+            $query = "SELECT e.id, i.nome, i.marca, c.descricaoCategoria, ent.quantidade, i.unidadeMedida, e.preco, ent.observacao, DATE_FORMAT(ent.dataAtualizacao, '%d/%m/%Y %H:%i') AS dataAtualizacao, u.nomeUsuario
+            FROM estoque e, item i, entradaestoque ent, usuario u, categoria c
+            WHERE ent.idEstoque = e.id
+                AND e.idItem = i.id
+                AND ent.idUsuario = u.id
+                AND i.idCategoria = c.id
+                AND e.idItem = i.id
+                AND u.email = '$email'
+            ORDER BY ent.id DESC
+            LIMIT 10";
+
+            $resultado = mysqli_query($conexao, $query);
+
+            if(mysqli_num_rows($resultado) > 0){
+                $i = 0;
+                while($row = mysqli_fetch_array($resultado)){
+                    $id[$i] = $row['id'];
+                    $item[$i] = $row['nome'].' '.$row['marca'];
+                    $categoria[$i] = $row['descricaoCategoria'];
+                    $quantidade[$i] = $row['quantidade'];
+                    $unidadeMedida[$i] = $row['unidadeMedida'];
+                    $preco[$i] = $row['preco'];
+                    $observacao[$i] = $row['observacao'];
+                    $data[$i] = $row['dataAtualizacao'];
+                    $nome[$i] = $row['nomeUsuario'];
+                    $i++;
+                }
+            }
+            mysqli_close($conexao);
+            return array($id, $item, $categoria, $quantidade, $unidadeMedida, $preco, $observacao, $data, $nome);
+        }
+        public static function selectBaixaEstoque($email){
+            include __DIR__.'./../includes/conecta_bd.inc';
+
+            $query = "SELECT e.id, i.nome, i.marca, c.descricaoCategoria, b.quantidade, i.unidadeMedida, e.preco, b.observacao, DATE_FORMAT(b.dataAtualizacao, '%d/%m/%Y %H:%i') AS dataAtualizacao, u.nomeUsuario
+            FROM estoque e, item i, baixaestoque b, usuario u, categoria c
+            WHERE b.idEstoque = e.id
+                AND e.idItem = i.id
+                AND b.idUsuario = u.id
+                AND i.idCategoria = c.id
+                AND e.idItem = i.id
+                AND u.email = '$email'
+            ORDER BY b.id DESC
+            LIMIT 10";
+
+            $resultado = mysqli_query($conexao, $query);
+
+            if(mysqli_num_rows($resultado) > 0){
+                $i = 0;
+                while($row = mysqli_fetch_array($resultado)){
+                    $id[$i] = $row['id'];
+                    $item[$i] = $row['nome'].' '.$row['marca'];
+                    $categoria[$i] = $row['descricaoCategoria'];
+                    $quantidade[$i] = $row['quantidade'];
+                    $unidadeMedida[$i] = $row['unidadeMedida'];
+                    $preco[$i] = $row['preco'];
+                    $observacao[$i] = $row['observacao'];
+                    $data[$i] = $row['dataAtualizacao'];
+                    $nome[$i] = $row['nomeUsuario'];
+                    $i++;
+                }
+            }
+            mysqli_close($conexao);
+            return array($id, $item, $categoria, $quantidade, $unidadeMedida, $preco, $observacao, $data, $nome);
+        }
     }
