@@ -81,7 +81,7 @@
                         echo '<li><a href="./estoque/estoque.php">Estoque</a></li>';
                     }
                     if(Usuario::verificarMenu($idUsuario, "Receitas")){
-                        echo '<li><a href="./Receitas/cadastrar_receitas.php">Receitas</a></li>';
+                        echo '<li><a href="./Receitas/receitas.php">Receitas</a></li>';
                     }
                 ?>      
             </ul>
