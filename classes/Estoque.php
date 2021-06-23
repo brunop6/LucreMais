@@ -148,7 +148,7 @@
             }
 
             if($tipo != null){
-                $query = "CALL atualizaEstoque($id, $this->idUsuario, $this->quantidade, 'Edição Estoque', '$tipo')";
+                $query = "CALL atualizaEstoque($id, $this->idUsuario, $this->quantidade, 'Edição', '$tipo')";
 
                 $resultado = mysqli_query($conexao, $query);
             }
