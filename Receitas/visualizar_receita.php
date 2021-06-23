@@ -52,7 +52,7 @@
             <p><b>100%: R$29.30</b></p>
             <br>
             <h3>Valor de venda: R$32.90</h3>
-            <h3>Lucro: R$14.30 &#10142; 133.69%</h3>
+            <h3>Previsão de lucro: R$14.30 &#10142; 133.69%</h3>
         </div>
         <aside>
             <form action="" method="POST">
