@@ -181,7 +181,7 @@
                     $categoria[$i] = $row['descricaoCategoria'];
                     $quantidade[$i] = $row['quantidade'];
                     $unidadeMedida[$i] = $row['unidadeMedida'];
-                    $preco[$i] = $row['preco'];
+                    $preco[$i] = number_format($row['preco'], 2);
                     $observacao[$i] = $row['observacao'];
                     $data[$i] = $row['dataAtualizacao'];
                     $nome[$i] = $row['nomeUsuario'];
@@ -215,7 +215,7 @@
                     $categoria[$i] = $row['descricaoCategoria'];
                     $quantidade[$i] = $row['quantidade'];
                     $unidadeMedida[$i] = $row['unidadeMedida'];
-                    $preco[$i] = $row['preco'];
+                    $preco[$i] = number_format($row['preco'], 2);
                     $observacao[$i] = $row['observacao'];
                     $data[$i] = $row['dataAtualizacao'];
                     $nome[$i] = $row['nomeUsuario'];
