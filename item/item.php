@@ -49,7 +49,7 @@
                         echo "<td>$descricaoCategoria[$i]</td>";
                         echo "<td>$quantidadeMinima[$i]</td>";
                         echo "<td>$nomeUsuario[$i]</td>";
-                        echo "<td><a href='./edita_item.php?id=$id[$i]' style='color:rgb(173,144,0)'>Editar</a></td>";
+                        echo "<td><a href='./edita_item.php?id=$id[$i]' style='color:#B9DEFF'>Editar</a></td>";
 
                         echo "</tr>";
                         $i++;

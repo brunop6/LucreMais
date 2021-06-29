@@ -125,12 +125,12 @@ label #cancel{
     opacity: 100;
 }
 section{
-    background-image: url("Logo.png");
+    background-color: #002D55;
     background-repeat: no-repeat;
     background-size: cover;
     height: fit-content;
     background-position: center;
-    color: aliceblue;
+    color: #B9DEFF;
     height: 100vh;
     padding: 60px 0 0 40px;
     transition: all .4s;
@@ -142,7 +142,6 @@ section{
 
 @media screen and (max-width:2560px) and (orientation:portrait) {
     body{
-        background-image:url("Logo.png");
         background-color: #002D55;
     }
     header label{

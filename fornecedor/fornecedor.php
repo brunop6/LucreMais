@@ -46,7 +46,7 @@
                     echo "<td>$dataCadastro[$i]</td>";
                     echo "<td>$dataAtualizacao[$i]</td>";
                     echo "<td>$nomeUsuario[$i]</td>";
-                    echo "<td><a href='./edita_fornecedor.php?id=$id[$i]' style='color:rgb(173,144,0)'>Editar</a></td>";
+                    echo "<td><a href='./edita_fornecedor.php?id=$id[$i]' style='color:#B9DEFF'>Editar</a></td>";
 
                     echo "</tr>";
                     $i++;
@@ -66,7 +66,7 @@
             </ul>
         </nav>
     </header>
-    <h1 style="color: yellow;">Listagem de Fornecedores<br></h1>
+    <h1 style="color: #B9DEFF;">Listagem de Fornecedores<br></h1>
     <main>
         <table style="width:100%; margin-top: 10px"; border="1px">
             <tr>

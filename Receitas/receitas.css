@@ -62,10 +62,10 @@ header label:hover{
     height: 55px;
     background-color: rgb(113, 116, 255);
     border-radius: 10px;
-    color: white;
+    color: #B9DEFF;
 }
 .receita a{
-    color: white;
+    color: yellow;
 }
 .view-receita{
     padding-left: 20px;

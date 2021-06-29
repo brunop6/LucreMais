@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="./../cadastro_item/aparenciaitem.css">
 </head>
 <body>
-    <h1 style="color: yellow;">Cadastro de Receitas<br></h1>
+    <h1 style="color: #B9DEFF;">Cadastro de Receitas<br></h1>
 
     <form action="" method="POST" id="formulario">
         <!--Parágrafo invisível para controle do número de ingredientes-->

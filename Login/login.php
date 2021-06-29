@@ -20,7 +20,7 @@
     </section>
     <aside>
         <!-- Espaço para escrever a explicação do site, o que é o site? Para que serve? -->
-        <h1 style="color: yellow;">Texto explicativo sobre o site</h1>
+        <h1 style="color: #B9DEFF;">Texto explicativo sobre o site</h1>
     </aside>
 </body>
 </html>

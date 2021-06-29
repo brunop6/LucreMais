@@ -34,7 +34,7 @@
                     echo "<td>$dataCadastro[$i]</td>";
                     echo "<td>$dataAtualizacao[$i]</td>";
                     echo "<td>$nomeUsuario[$i]</td>";
-                    echo "<td><a href='./edita_categoria.php?id=$id[$i]' style='color:rgb(173,144,0)'>Editar</a></td>";
+                    echo "<td><a href='./edita_categoria.php?id=$id[$i]' style='color:#B9DEFF'>Editar</a></td>";
 
                     echo '</tr>';
                     $i++;

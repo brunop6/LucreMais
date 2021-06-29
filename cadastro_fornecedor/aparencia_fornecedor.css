@@ -8,6 +8,10 @@ body{
     background-color: #002D55;
     text-align: center;
 }
+h1{
+    color: #B9DEFF;
+}
+
 input::placeholder{
     color: black;
 }

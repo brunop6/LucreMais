@@ -9,7 +9,7 @@ body{
     text-align: center;
 }
 table, th, td{
-    color: yellow;
+    color: #B9DEFF;
     border-color: black;
     border-collapse: collapse;
     text-align: 20px;
@@ -73,7 +73,6 @@ header label:hover{
 }
 @media screen and (max-width:2560px) and (orientation:portrait) {
     body{
-        background-image:url("Logo.png");
         background-color: #002D55;
     }
     header label{
