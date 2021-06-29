@@ -66,6 +66,23 @@ CREATE TABLE IF NOT EXISTS `categoria` (
 
 -- Exportação de dados foi desmarcado.
 
+-- Copiando estrutura para tabela lucremais.despesa
+CREATE TABLE IF NOT EXISTS `despesa` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `idUsuario` int(10) unsigned NOT NULL,
+  `idCategoria` int(10) unsigned NOT NULL,
+  `custo` double NOT NULL,
+  `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
+  `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `despesa_ibfk_1` (`idUsuario`),
+  KEY `despesa_ibfk_2` (`idCategoria`),
+  CONSTRAINT `despesa_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `despesa_ibfk_2` FOREIGN KEY (`idCategoria`) REFERENCES `categoria` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Exportação de dados foi desmarcado.
+
 -- Copiando estrutura para tabela lucremais.entradaestoque
 CREATE TABLE IF NOT EXISTS `entradaestoque` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -156,7 +173,7 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
   `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 -- Exportação de dados foi desmarcado.
 
@@ -216,6 +233,23 @@ CREATE TABLE IF NOT EXISTS `receitaitem` (
   KEY `receitaItem_ibfk_2` (`idItem`),
   CONSTRAINT `receitaItem_ibfk_1` FOREIGN KEY (`idReceita`) REFERENCES `receita` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `receitaItem_ibfk_2` FOREIGN KEY (`idItem`) REFERENCES `item` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Exportação de dados foi desmarcado.
+
+-- Copiando estrutura para tabela lucremais.recibo
+CREATE TABLE IF NOT EXISTS `recibo` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `idUsuario` int(10) unsigned NOT NULL,
+  `idCategoria` int(10) unsigned NOT NULL,
+  `valor` double NOT NULL,
+  `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
+  `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `recibo_ibfk_1` (`idUsuario`),
+  KEY `recibo_ibfk_2` (`idCategoria`),
+  CONSTRAINT `recibo_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `recibo_ibfk_2` FOREIGN KEY (`idCategoria`) REFERENCES `categoria` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Exportação de dados foi desmarcado.
@@ -294,6 +328,18 @@ BEGIN
 	
 END//
 DELIMITER ;
+
+-- Copiando estrutura para trigger lucremais.estoque
+SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION';
+DELIMITER //
+CREATE TRIGGER `estoque` AFTER INSERT ON `entradaestoque` FOR EACH ROW BEGIN
+	INSERT INTO entradaestoque
+		(idEstoque, idUsuario, quantidade, observacao)
+	VALUES 
+		(NEW.idEstoque, NEW.idUsuario, NEW.quantidade,'Entrada');
+END//
+DELIMITER ;
+SET SQL_MODE=@OLDTMP_SQL_MODE;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
