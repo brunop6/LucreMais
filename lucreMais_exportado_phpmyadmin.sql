@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 19-Jun-2021 às 23:15
+-- Tempo de geração: 29-Jun-2021 às 16:44
 -- Versão do servidor: 10.4.18-MariaDB
 -- versão do PHP: 8.0.5
 
@@ -140,6 +140,21 @@ INSERT INTO `categoria` (`id`, `idUsuario`, `descricaoCategoria`, `dataCadastro`
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `despesa`
+--
+
+CREATE TABLE `despesa` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `idUsuario` int(10) UNSIGNED NOT NULL,
+  `idCategoria` int(10) UNSIGNED NOT NULL,
+  `custo` double NOT NULL,
+  `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
+  `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `entradaestoque`
 --
 
@@ -160,6 +175,19 @@ CREATE TABLE `entradaestoque` (
 INSERT INTO `entradaestoque` (`id`, `idUsuario`, `idEstoque`, `quantidade`, `observacao`, `dataCadastro`, `dataAtualizacao`) VALUES
 (3, 1, 1, 10, 'teste entrada', '2021-06-19 18:02:52', '2021-06-19 18:02:52'),
 (4, 1, 1, 15, 'teste entrada 2', '2021-06-19 18:03:06', '2021-06-19 18:03:06');
+
+--
+-- Acionadores `entradaestoque`
+--
+DELIMITER $$
+CREATE TRIGGER `estoque` AFTER INSERT ON `entradaestoque` FOR EACH ROW BEGIN
+	INSERT INTO entradaestoque
+		(idEstoque, idUsuario, quantidade, observacao)
+	VALUES 
+		(NEW.idEstoque, NEW.idUsuario, NEW.quantidade,'Entrada');
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -260,7 +288,8 @@ INSERT INTO `menu` (`id`, `descricao`, `dataCadastro`, `dataAtualizacao`) VALUES
 (1, 'Estoque', '2021-06-19 18:10:08', '2021-06-19 18:10:08'),
 (2, 'Fornecedores', '2021-06-19 18:10:08', '2021-06-19 18:10:08'),
 (3, 'Itens', '2021-06-19 18:10:08', '2021-06-19 18:10:08'),
-(4, 'Receitas', '2021-06-19 18:10:08', '2021-06-19 18:10:08');
+(4, 'Receitas', '2021-06-19 18:10:08', '2021-06-19 18:10:08'),
+(5, 'Financeiro', '2021-06-29 11:26:48', '2021-06-29 11:26:48');
 
 -- --------------------------------------------------------
 
@@ -323,6 +352,21 @@ CREATE TABLE `receitaitem` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `recibo`
+--
+
+CREATE TABLE `recibo` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `idUsuario` int(10) UNSIGNED NOT NULL,
+  `idCategoria` int(10) UNSIGNED NOT NULL,
+  `valor` double NOT NULL,
+  `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
+  `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `usuario`
 --
 
@@ -368,6 +412,14 @@ ALTER TABLE `baixaestoque`
 ALTER TABLE `categoria`
   ADD PRIMARY KEY (`id`),
   ADD KEY `categoria_ibfk_1` (`idUsuario`);
+
+--
+-- Índices para tabela `despesa`
+--
+ALTER TABLE `despesa`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `despesa_ibfk_1` (`idUsuario`),
+  ADD KEY `despesa_ibfk_2` (`idCategoria`);
 
 --
 -- Índices para tabela `entradaestoque`
@@ -439,6 +491,14 @@ ALTER TABLE `receitaitem`
   ADD KEY `receitaItem_ibfk_2` (`idItem`);
 
 --
+-- Índices para tabela `recibo`
+--
+ALTER TABLE `recibo`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `recibo_ibfk_1` (`idUsuario`),
+  ADD KEY `recibo_ibfk_2` (`idCategoria`);
+
+--
 -- Índices para tabela `usuario`
 --
 ALTER TABLE `usuario`
@@ -469,6 +529,12 @@ ALTER TABLE `categoria`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT de tabela `despesa`
+--
+ALTER TABLE `despesa`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de tabela `entradaestoque`
 --
 ALTER TABLE `entradaestoque`
@@ -496,7 +562,7 @@ ALTER TABLE `item`
 -- AUTO_INCREMENT de tabela `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de tabela `nivelusuario`
@@ -520,6 +586,12 @@ ALTER TABLE `receita`
 -- AUTO_INCREMENT de tabela `receitaitem`
 --
 ALTER TABLE `receitaitem`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `recibo`
+--
+ALTER TABLE `recibo`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -550,6 +622,13 @@ ALTER TABLE `baixaestoque`
 --
 ALTER TABLE `categoria`
   ADD CONSTRAINT `categoria_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE;
+
+--
+-- Limitadores para a tabela `despesa`
+--
+ALTER TABLE `despesa`
+  ADD CONSTRAINT `despesa_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `despesa_ibfk_2` FOREIGN KEY (`idCategoria`) REFERENCES `categoria` (`id`) ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `entradaestoque`
@@ -598,6 +677,13 @@ ALTER TABLE `receita`
 ALTER TABLE `receitaitem`
   ADD CONSTRAINT `receitaItem_ibfk_1` FOREIGN KEY (`idReceita`) REFERENCES `receita` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `receitaItem_ibfk_2` FOREIGN KEY (`idItem`) REFERENCES `item` (`id`) ON UPDATE CASCADE;
+
+--
+-- Limitadores para a tabela `recibo`
+--
+ALTER TABLE `recibo`
+  ADD CONSTRAINT `recibo_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `recibo_ibfk_2` FOREIGN KEY (`idCategoria`) REFERENCES `categoria` (`id`) ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `usuario`
