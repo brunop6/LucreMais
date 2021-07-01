@@ -66,19 +66,41 @@ CREATE TABLE IF NOT EXISTS `categoria` (
 
 -- Exportação de dados foi desmarcado.
 
+-- Copiando estrutura para tabela lucremais.categoriadespesa
+CREATE TABLE IF NOT EXISTS `categoriadespesa` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(250) NOT NULL,
+  `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
+  `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Exportação de dados foi desmarcado.
+
+-- Copiando estrutura para tabela lucremais.categoriarecibo
+CREATE TABLE IF NOT EXISTS `categoriarecibo` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(250) NOT NULL,
+  `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
+  `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Exportação de dados foi desmarcado.
+
 -- Copiando estrutura para tabela lucremais.despesa
 CREATE TABLE IF NOT EXISTS `despesa` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `idUsuario` int(10) unsigned NOT NULL,
-  `idCategoria` int(10) unsigned NOT NULL,
+  `idCategoriaDespesa` int(10) unsigned NOT NULL,
   `custo` double NOT NULL,
   `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
   `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `despesa_ibfk_1` (`idUsuario`),
-  KEY `despesa_ibfk_2` (`idCategoria`),
+  KEY `despesa_ibfk_2` (`idCategoriaDespesa`),
   CONSTRAINT `despesa_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `despesa_ibfk_2` FOREIGN KEY (`idCategoria`) REFERENCES `categoria` (`id`) ON UPDATE CASCADE
+  CONSTRAINT `despesa_ibfk_2` FOREIGN KEY (`idCategoriaDespesa`) REFERENCES `categoriadespesa` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Exportação de dados foi desmarcado.
@@ -241,15 +263,15 @@ CREATE TABLE IF NOT EXISTS `receitaitem` (
 CREATE TABLE IF NOT EXISTS `recibo` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `idUsuario` int(10) unsigned NOT NULL,
-  `idCategoria` int(10) unsigned NOT NULL,
+  `idCategoriaRecibo` int(10) unsigned NOT NULL,
   `valor` double NOT NULL,
   `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
   `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `recibo_ibfk_1` (`idUsuario`),
-  KEY `recibo_ibfk_2` (`idCategoria`),
+  KEY `recibo_ibfk_2` (`idCategoriaRecibo`),
   CONSTRAINT `recibo_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `recibo_ibfk_2` FOREIGN KEY (`idCategoria`) REFERENCES `categoria` (`id`) ON UPDATE CASCADE
+  CONSTRAINT `recibo_ibfk_2` FOREIGN KEY (`idCategoriaRecibo`) REFERENCES `categoriarecibo` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Exportação de dados foi desmarcado.

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 29-Jun-2021 às 16:44
+-- Tempo de geração: 01-Jul-2021 às 17:22
 -- Versão do servidor: 10.4.18-MariaDB
 -- versão do PHP: 8.0.5
 
@@ -140,13 +140,39 @@ INSERT INTO `categoria` (`id`, `idUsuario`, `descricaoCategoria`, `dataCadastro`
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `categoriadespesa`
+--
+
+CREATE TABLE `categoriadespesa` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `descricao` varchar(250) NOT NULL,
+  `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
+  `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `categoriarecibo`
+--
+
+CREATE TABLE `categoriarecibo` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `descricao` varchar(250) NOT NULL,
+  `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
+  `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `despesa`
 --
 
 CREATE TABLE `despesa` (
   `id` int(10) UNSIGNED NOT NULL,
   `idUsuario` int(10) UNSIGNED NOT NULL,
-  `idCategoria` int(10) UNSIGNED NOT NULL,
+  `idCategoriaDespesa` int(10) UNSIGNED NOT NULL,
   `custo` double NOT NULL,
   `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
   `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -358,7 +384,7 @@ CREATE TABLE `receitaitem` (
 CREATE TABLE `recibo` (
   `id` int(10) UNSIGNED NOT NULL,
   `idUsuario` int(10) UNSIGNED NOT NULL,
-  `idCategoria` int(10) UNSIGNED NOT NULL,
+  `idCategoriaRecibo` int(10) UNSIGNED NOT NULL,
   `valor` double NOT NULL,
   `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
   `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -414,12 +440,24 @@ ALTER TABLE `categoria`
   ADD KEY `categoria_ibfk_1` (`idUsuario`);
 
 --
+-- Índices para tabela `categoriadespesa`
+--
+ALTER TABLE `categoriadespesa`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `categoriarecibo`
+--
+ALTER TABLE `categoriarecibo`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices para tabela `despesa`
 --
 ALTER TABLE `despesa`
   ADD PRIMARY KEY (`id`),
   ADD KEY `despesa_ibfk_1` (`idUsuario`),
-  ADD KEY `despesa_ibfk_2` (`idCategoria`);
+  ADD KEY `despesa_ibfk_2` (`idCategoriaDespesa`);
 
 --
 -- Índices para tabela `entradaestoque`
@@ -496,7 +534,7 @@ ALTER TABLE `receitaitem`
 ALTER TABLE `recibo`
   ADD PRIMARY KEY (`id`),
   ADD KEY `recibo_ibfk_1` (`idUsuario`),
-  ADD KEY `recibo_ibfk_2` (`idCategoria`);
+  ADD KEY `recibo_ibfk_2` (`idCategoriaRecibo`);
 
 --
 -- Índices para tabela `usuario`
@@ -527,6 +565,18 @@ ALTER TABLE `baixaestoque`
 --
 ALTER TABLE `categoria`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de tabela `categoriadespesa`
+--
+ALTER TABLE `categoriadespesa`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `categoriarecibo`
+--
+ALTER TABLE `categoriarecibo`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `despesa`
@@ -628,7 +678,7 @@ ALTER TABLE `categoria`
 --
 ALTER TABLE `despesa`
   ADD CONSTRAINT `despesa_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `despesa_ibfk_2` FOREIGN KEY (`idCategoria`) REFERENCES `categoria` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `despesa_ibfk_2` FOREIGN KEY (`idCategoriaDespesa`) REFERENCES `categoriadespesa` (`id`) ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `entradaestoque`
@@ -683,7 +733,7 @@ ALTER TABLE `receitaitem`
 --
 ALTER TABLE `recibo`
   ADD CONSTRAINT `recibo_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `recibo_ibfk_2` FOREIGN KEY (`idCategoria`) REFERENCES `categoria` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `recibo_ibfk_2` FOREIGN KEY (`idCategoriaRecibo`) REFERENCES `categoriarecibo` (`id`) ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `usuario`
