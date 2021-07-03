@@ -9,10 +9,11 @@
 
     $idUsuario = Usuario::selectId($nomeUsuario);
     $nivelAcesso = Usuario::selectNivel($idUsuario);
-    
+    $email = Usuario::selectEmail($idUsuario);
+
     function preencherEntradas(){
-        global $idUsuario;
-        $email = Usuario::selectEmail($idUsuario);
+        global $email;
+        
         list($id, $item, $categoria, $quantidade, $unidadeMedida, $preco, $observacao, $data, $nome) = Estoque::selectEntradaEstoque($email);
         if(!empty($id)){
             $i = 0;
@@ -34,8 +35,8 @@
         }
     }
     function preencherBaixas(){
-        global $idUsuario;
-        $email = Usuario::selectEmail($idUsuario);
+        global $email;
+
         list($id, $item, $categoria, $quantidade, $unidadeMedida, $preco, $observacao, $data, $nome) = Estoque::selectBaixaEstoque($email);
         if(!empty($id)){
             $i = 0;
@@ -109,38 +110,51 @@
     </div>
 
     <section>
-        <table style="margin-top: 10px; background-color: #002D55; border-collapse:collapse;"; border="1px">
-            <h1>Entradas</h1>
-            <tr>
-                <th>Id</th>
-                <th>Item</th>
-                <th>Categoria</th>
-                <th>Quantidade</th>
-                <th>Preço</th>
-                <th>Observação</th>
-                <th>Data</th>
-                <th>Usuário</th>
-            </tr>
-            <?php
+        <?php
+            list($id) = Estoque::selectEntradaEstoque($email);
+
+            if(!empty($id)){
+                echo '
+                    <table style="margin-top: 10px; background-color: #002D55; border-collapse:collapse;"; border="1px">
+                    <h1>Entradas</h1>
+                    <tr>
+                        <th>Id</th>
+                        <th>Item</th>
+                        <th>Categoria</th>
+                        <th>Quantidade</th>
+                        <th>Preço</th>
+                        <th>Observação</th>
+                        <th>Data</th>
+                        <th>Usuário</th>
+                    </tr>
+                ';
                 preencherEntradas();
-            ?>
-        </table>
-        <table style="margin-top: 10px; background-color: #002D55; border-collapse:collapse;"; border="1px">
-            <h1>Baixas</h1>
-            <tr>
-                <th>Id</th>
-                <th>Item</th>
-                <th>Categoria</th>
-                <th>Quantidade</th>
-                <th>Preço</th>
-                <th>Observação</th>
-                <th>Data</th>
-                <th>Usuário</th>
-            </tr>
-            <?php
+
+                echo "</table>";
+            }
+
+            list($id) = Estoque::selectBaixaEstoque($email);
+
+            if(!empty($id)){
+                echo '
+                    <table style="margin-top: 10px; background-color: #002D55; border-collapse:collapse;"; border="1px">
+                    <h1>Baixas</h1>
+                    <tr>
+                        <th>Id</th>
+                        <th>Item</th>
+                        <th>Categoria</th>
+                        <th>Quantidade</th>
+                        <th>Preço</th>
+                        <th>Observação</th>
+                        <th>Data</th>
+                        <th>Usuário</th>
+                    </tr>
+                ';
                 preencherBaixas();
-            ?>
-        </table>
+
+                echo "</table>";
+            }
+        ?>
     </section>
 </body>
 </html>

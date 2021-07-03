@@ -173,6 +173,15 @@
 
             $resultado = mysqli_query($conexao, $query);
 
+            $id = null;
+            $item = null;
+            $categoria = null;
+            $quantidade = null;
+            $unidadeMedida = null;
+            $preco = null;
+            $observacao = null;
+            $data = null;
+            $nome = null;
             if(mysqli_num_rows($resultado) > 0){
                 $i = 0;
                 while($row = mysqli_fetch_array($resultado)){
@@ -206,7 +215,15 @@
             LIMIT 10";
 
             $resultado = mysqli_query($conexao, $query);
-
+            $id = null;
+            $item = null;
+            $categoria = null;
+            $quantidade = null;
+            $unidadeMedida = null;
+            $preco = null;
+            $observacao = null;
+            $data = null;
+            $nome = null;
             if(mysqli_num_rows($resultado) > 0){
                 $i = 0;
                 while($row = mysqli_fetch_array($resultado)){

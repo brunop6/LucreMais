@@ -36,7 +36,16 @@
             ORDER BY f.nomeFornecedor, f.endereco, f.id";
 
             $resultado = mysqli_query($conexao, $query);
+            
+            $id = null;
             $nomeFornecedor = null;
+            $email = null;
+            $telefone = null;
+            $cnpj = null;
+            $endereco = null;
+            $dataCadastro = null;
+            $dataAtualizacao = null;
+            $nomeUsuario = null;
             if(mysqli_num_rows($resultado) > 0){
                 $i = 0;
                 while($row = mysqli_fetch_array($resultado)){
