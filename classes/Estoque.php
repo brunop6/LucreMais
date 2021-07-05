@@ -244,4 +244,62 @@
             mysqli_close($conexao);
             return array($id, $item, $categoria, $quantidade, $unidadeMedida, $preco, $observacao, $data, $nome);
         }
+        
+        public static function retornar_itens_estoque_filtro($status, $marcaFiltro, $nomeFiltro, $categoriaFiltro, $loteFiltro){
+            include '../includes/conecta_bd.inc';
+
+            $query = "SELECT e.id, i.nome, i.marca, c.descricaoCategoria, f.nomeFornecedor, e.quantidade AS quantidadeEstoque, i.unidadeMedida, e.preco, i.quantidade AS quantidadeItem, e.lote, DATE_FORMAT(e.dataCadastro, '%d/%m/%Y %H:%i') AS dataCadastro, DATE_FORMAT(e.dataAtualizacao, '%d/%m/%Y %H:%i') AS dataAtualizacao, u.nomeUsuario 
+            FROM item i, usuario u, categoria c, estoque e, fornecedor f
+            WHERE i.idUsuario = u.id 
+                AND i.idCategoria = c.id 
+                AND i.id = e.idItem 
+                AND e.idFornecedor = f.id
+                AND e.statusItem = '$status' ";
+             
+             
+            if ($marcaFiltro != ''){
+               $query = $query + " AND i.marca = '$marcaFiltro' " 
+            }
+             
+             if ($nomeFiltro != ''){
+               $query = $query + " AND i.nome LIKE %'$nomeFiltro'% " 
+            }
+             
+             if ($categoriaFiltro != ''){
+               $query = $query + " AND c.descricaoCategoria = '$categoriaFiltro' " 
+            }
+             
+             if ($loteFiltro != ''){
+               $query = $query + " AND e.lote = '$loteFiltro' " 
+            }
+                
+            
+             
+            $query = $query +  " ORDER BY i.nome, i.marca, e.lote";
+               
+            $resultado = mysqli_query($conexao, $query);
+            $linhas = mysqli_num_rows($resultado);
+
+            if($linhas > 0){
+                $i = 0;
+                while($row = mysqli_fetch_array($resultado)){
+                    $id[$i] = $row['id'];
+                    $nome[$i] = $row['nome'];
+                    $marca[$i] = $row['marca'];
+                    $categoria[$i] = $row['descricaoCategoria'];
+                    $fornecedor[$i] = $row['nomeFornecedor'];
+                    $quantidadeEstoque[$i] = $row['quantidadeEstoque'];
+                    $unidadeMedida[$i] = $row['unidadeMedida'];
+                    $preco[$i] = number_format($row['preco'], 2);
+                    $quantidadeItem[$i] = $row['quantidadeItem'];
+                    $lote[$i] = $row['lote'];
+                    $dataCadastro[$i] = $row['dataCadastro'];
+                    $dataAtualizacao[$i] = $row['dataAtualizacao'];
+                    $nomeUsuario[$i] = $row['nomeUsuario'];
+                    $i++; 
+                }
+                return array($id, $nome, $marca, $categoria, $fornecedor, $quantidadeEstoque, $unidadeMedida, $preco, $quantidadeItem, $lote, $dataCadastro, $dataAtualizacao, $nomeUsuario);
+            }
+            return null;
+        }
     }
