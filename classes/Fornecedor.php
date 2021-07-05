@@ -27,12 +27,13 @@
         /**
          * retorno do tipo matriz de strings
          */
-        public static function selectFornecedores(){
+        public static function selectFornecedores($email){
             include '../includes/conecta_bd.inc';
 
             $query = "SELECT f.id, f.nomeFornecedor, f.email, f.telefone, f.cnpj, f.endereco, DATE_FORMAT(f.dataCadastro, '%d/%m/%Y %H:%i') AS dataCadastro, DATE_FORMAT(f.dataAtualizacao, '%d/%m/%Y %H:%i') AS dataAtualizacao, u.nomeUsuario 
             FROM fornecedor f, usuario u
             WHERE f.idUsuario = u.id
+                AND u.email = '$email'
             ORDER BY f.nomeFornecedor, f.endereco, f.id";
 
             $resultado = mysqli_query($conexao, $query);
@@ -66,10 +67,14 @@
             return array($id, $nomeFornecedor, $email, $telefone, $cnpj, $endereco, $dataCadastro, $dataAtualizacao, $nomeUsuario);
         }
 
-        public static function buscarFornecedor($busca){
+        public static function buscarFornecedor($busca, $email){
             include '../includes/conecta_bd.inc';
 
-            $query = "SELECT nomeFornecedor FROM fornecedor WHERE nomeFornecedor LIKE '%$busca%'";
+            $query = "SELECT f.nomeFornecedor 
+            FROM fornecedor f, usuario u
+            WHERE f.nomeFornecedor LIKE '%$busca%'
+                AND u.id = f.idUsuario
+                AND e.email = '$email'";
 
             $resultado = mysqli_query($conexao, $query);
             $nomeFornecedor = null;
@@ -84,10 +89,14 @@
 
             return $nomeFornecedor;
         }
-        public static function selectId($nomeFornecedor){
+        public static function selectId($nomeFornecedor, $email){
             include '../includes/conecta_bd.inc';
 
-            $query = "SELECT id FROM fornecedor WHERE nomeFornecedor = '$nomeFornecedor'";
+            $query = "SELECT f.id 
+            FROM fornecedor f, usuario u
+            WHERE f.nomeFornecedor = '$nomeFornecedor'
+                AND u.id = f.idUsuario
+                AND u.email = '$email'";
 
             $resultado = mysqli_query($conexao, $query);
 

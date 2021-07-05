@@ -21,10 +21,15 @@
       $this->quantidadeMinima = $quantidadeMinima;
     }
 
-    public static function selectId($nome, $marca){
+    public static function selectId($nome, $marca, $email){
       include '../includes/conecta_bd.inc';
       
-      $query = "SELECT id FROM item WHERE nome = '$nome' and marca = '$marca'";
+      $query = "SELECT i.id 
+      FROM item i, usuario u
+      WHERE i.nome = '$nome' 
+        AND i.marca = '$marca'
+        AND i.idUsuario = u.id
+        AND u.email = '$email'";
 
       $resultado = mysqli_query($conexao, $query);
       
@@ -39,10 +44,13 @@
       return $id;
     }
 
-    public static function selectItens(){
+    public static function selectItens($email){
       include '../includes/conecta_bd.inc';
 
-      $query = "SELECT nome, marca FROM item";
+      $query = "SELECT i.nome, i.marca 
+      FROM item i, usuario u
+      WHERE u.id = i.idUsuario
+        AND u.email = '$email'";
 
       $resultado = mysqli_query($conexao, $query);
       $marca = null;
@@ -60,11 +68,14 @@
       return array($marca, $nome);
     }
 
-    public static function selectItensLista(){
+    public static function selectItensLista($email){
       include '../includes/conecta_bd.inc';
 
       $query = "SELECT i.id, i.nome, i.marca, i.quantidade, i.quantidadeMinima, u.nomeUsuario, c.descricaoCategoria 
-      FROM item i, usuario u, categoria c WHERE c.id = i.idCategoria AND i.idUsuario = u.id";
+      FROM item i, usuario u, categoria c 
+      WHERE c.id = i.idCategoria 
+        AND i.idUsuario = u.id
+        AND u.email = '$email'";
 
       $resultado = mysqli_query($conexao, $query);
 
@@ -94,7 +105,10 @@
       include '../includes/conecta_bd.inc';
 
       $query = "SELECT i.nome, i.marca, i.quantidade, i.quantidadeMinima, c.descricaoCategoria 
-      FROM item i, usuario u, categoria c WHERE c.id = i.idCategoria AND i.idUsuario = u.id AND i.id = $id";
+      FROM item i, usuario u, categoria c 
+      WHERE c.id = i.idCategoria 
+        AND i.idUsuario = u.id 
+        AND i.id = $id";
 
       $resultado = mysqli_query($conexao, $query);
 
@@ -118,10 +132,14 @@
       return array($nome, $marca, $quantidade, $descricaoCategoria, $quantidadeMinima);
     }
 
-    public static function selectItem($busca){
+    public static function selectItem($busca, $email){
       include '../includes/conecta_bd.inc';
 
-      $query = "SELECT nome, marca FROM item WHERE nome LIKE'%$busca%' OR marca LIKE'%$busca%'";
+      $query = "SELECT i.nome, i.marca 
+      FROM item i, usuario u
+      WHERE i.nome LIKE'%$busca%' OR i.marca LIKE'%$busca%'
+        AND u.id = i.idUsuario
+        AND u.email = '$email'";
 
       $resultado = mysqli_query($conexao, $query);
       $marca = null;

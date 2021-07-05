@@ -1,5 +1,5 @@
 <?php
-  define('menu', 'Itens');
+  define('menu', 'Financeiro');
   include_once "../classes/Usuario.php";
 
   if (session_status() !== PHP_SESSION_ACTIVE) {

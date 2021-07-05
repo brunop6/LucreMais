@@ -5,8 +5,8 @@
     if (session_status() !== PHP_SESSION_ACTIVE) {
         session_start();
     }
-    $idUsuario = Usuario::selectId($_SESSION['nome_usuario']);
-
+    $idUsuario = $_SESSION['id_usuario'];
+    $email = $_SESSION['email_usuario'];
     if(!Usuario::verificarMenu($idUsuario, menu)){
         header("Location: ./../Home.php");
         die();
@@ -38,7 +38,8 @@
             include_once '../classes/Categoria.php';
         
             function preencherItem(){
-                list($id, $nomeItem, $quantidade,$descricaoCategoria,$quantidadeMinima, $nomeUsuario) = Item::selectItensLista();
+                global $email;
+                list($id, $nomeItem, $quantidade,$descricaoCategoria,$quantidadeMinima, $nomeUsuario) = Item::selectItensLista($email);
                 if(!empty($nomeItem)){
                     $i = 0;
                     foreach($nomeItem as $nome){

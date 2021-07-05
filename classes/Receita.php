@@ -1,23 +1,28 @@
 <?php
     class Receita{
         private $nomeReceita;
+        private $idUsuario;
 
-        function __construct($nomeReceita)
+        function __construct($idUsuario, $nomeReceita)
         {
+            $this->idUsuario = $idUsuario;
             $this->nomeReceita = $nomeReceita;
         }
 
-        public static function selectReceita(){
+        public static function selectReceitas($email){
             include '../includes/conecta_bd.inc';
 
-            $query = "SELECT nomeReceita FROM receita";
+            $query = "SELECT r.nomeReceita 
+            FROM receita r, usuario u
+            WHERE u.id = r.idUsuario
+                AND u.email = '$email'";
 
             $resultado = mysqli_query($conexao, $query);
             $nomeReceita = null;
             if(mysqli_num_rows($resultado) > 0){
                 $i = 0;
                 while($row = mysqli_fetch_array($resultado)){
-                    $nomeReceita[$i] = $row['nomeReceita'];
+                    $nomeReceita[$i] = $row['nome'];
                     $i++;
                 }
             }
@@ -26,10 +31,14 @@
             return $nomeReceita;
         }
 
-        public static function selectId($nomeReceita){
+        public static function selectId($nomeReceita, $email){
             include '../includes/conecta_bd.inc';
 
-            $query = "SELECT id FROM receita WHERE nomeReceita = '$nomeReceita'";
+            $query = "SELECT r.id 
+            FROM receita r 
+            WHERE r.nomeReceita = '$nomeReceita'
+                AND u.id = r.idUsuario
+                AND u.email = '$email'";
 
             $resultado = mysqli_query($conexao, $query);
             
@@ -48,7 +57,7 @@
         public function cadastrarReceita(){
             include '../includes/conecta_bd.inc';
 
-            $query = "INSERT INTO receita (nomeReceita) VALUES ('$this->nomeReceita')";
+            $query = "INSERT INTO receita (idUsuario, nome) VALUES ($this->idUsuario, '$this->nomeReceita')";
 
             $resultado = mysqli_query($conexao, $query);
 

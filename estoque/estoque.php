@@ -5,7 +5,8 @@
     if (session_status() !== PHP_SESSION_ACTIVE) {
         session_start();
     }
-    $idUsuario = Usuario::selectId($_SESSION['nome_usuario']);
+    $idUsuario = $_SESSION['id_usuario'];
+    $email = $_SESSION['email_usuario'];
 
     if(!Usuario::verificarMenu($idUsuario, menu)){
         header("Location: ./../Home.php");
@@ -26,9 +27,10 @@
         }
 
         function preencherEstoque($status){
+            global $email;
             include_once '../classes/Estoque.php';
 
-            list($id, $nomeItem, $marca, $categoria, $fornecedor, $quantidadeEstoque, $unidadeMedida, $preco, $quantidadeItem, $lote, $validade, $dataCadastro, $dataAtualizacao, $nomeUsuario) = Estoque::retornar_itens_estoque($status);
+            list($id, $nomeItem, $marca, $categoria, $fornecedor, $quantidadeEstoque, $unidadeMedida, $preco, $quantidadeItem, $lote, $validade, $dataCadastro, $dataAtualizacao, $nomeUsuario) = Estoque::retornar_itens_estoque($status, $email);
 
             if(!empty($nomeItem)){
                 $i = 0;

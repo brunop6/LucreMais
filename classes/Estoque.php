@@ -21,13 +21,14 @@
             $this->statusItem = $statusItem;
         }
 
-        public static function retornar_itens_em_falta(){
+        public static function retornar_itens_em_falta($email){
             include '../../includes/conecta_bd.inc';
 
             $query = "SELECT i.nome, i.marca 
-            FROM item i, estoque e 
+            FROM item i, estoque e, usuario u
             WHERE i.id = e.idItem 
                 AND e.quantidade < i.quantidadeMinima
+                AND u.email = '$email'
                 AND e.statusItem = '1' 
             ORDER BY e.lote, i.nome, i.marca";
 
@@ -49,7 +50,7 @@
          * '1' -> itens ativos no sistema
          * '0' -> itens desativados
          */
-        public static function retornar_itens_estoque($status){
+        public static function retornar_itens_estoque($status, $email){
             include '../includes/conecta_bd.inc';
 
             $query = "SELECT e.id, i.nome, i.marca, c.descricaoCategoria, f.nomeFornecedor, e.quantidade AS quantidadeEstoque, i.unidadeMedida, e.preco, i.quantidade AS quantidadeItem, e.lote, DATE_FORMAT(e.validade, '%d/%m/%Y') AS validade, DATE_FORMAT(e.dataCadastro, '%d/%m/%Y %H:%i') AS dataCadastro, DATE_FORMAT(e.dataAtualizacao, '%d/%m/%Y %H:%i') AS dataAtualizacao, u.nomeUsuario 
@@ -58,6 +59,7 @@
                 AND i.idCategoria = c.id 
                 AND i.id = e.idItem 
                 AND e.idFornecedor = f.id
+                AND u.email = '$email'
                 AND e.statusItem = '$status'
             ORDER BY i.nome, i.marca, e.lote";
                

@@ -5,7 +5,7 @@
     if (session_status() !== PHP_SESSION_ACTIVE) {
         session_start();
     }
-    $idUsuario = Usuario::selectId($_SESSION['nome_usuario']);
+    $idUsuario = $_SESSION['id_usuario'];
 
     if(!Usuario::verificarMenu($idUsuario, menu)){
         header("Location: ./../Home.php");
@@ -22,7 +22,7 @@
         function preencherCategorias(){
             include_once '../../classes/Categoria.php';
 
-            list($id, $descricao, $dataCadastro, $dataAtualizacao, $nomeUsuario) = Categoria::selectCategorias();
+            list($id, $descricao, $dataCadastro, $dataAtualizacao, $nomeUsuario) = Categoria::selectCategorias($_SESSION['email_usuario']);
 
             if(!empty($descricao)){
                 $i = 0;

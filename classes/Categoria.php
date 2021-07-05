@@ -12,15 +12,20 @@
         /**
          * retorno do tipo matriz de strings
          */
-        public static function selectCategorias(){
+        public static function selectCategorias($email){
             include __DIR__.'./../includes/conecta_bd.inc';
 
             $query = "SELECT c.id, c.descricaoCategoria, DATE_FORMAT(c.dataCadastro, '%d/%m/%Y %H:%i') AS dataCadastro, DATE_FORMAT(c.dataAtualizacao, '%d/%m/%Y %H:%i') AS dataAtualizacao, u.nomeUsuario  
             FROM categoria c, usuario u
-            WHERE c.idUsuario = u.id";
+            WHERE c.idUsuario = u.id
+                AND u.email = '$email'";
 
             $resultado = mysqli_query($conexao, $query);
+            $id = null;
             $descricaoCategoria = null;
+            $dataCadastro = null;
+            $dataAtualizacao = null;
+            $nomeUsuario = null;
             if(mysqli_num_rows($resultado) > 0){
                 $i = 0;
                 while($row = mysqli_fetch_array($resultado)){
@@ -56,9 +61,13 @@
             return $descricaoCategoria;
         }
 
-        public static function buscarCategoria($busca){
+        public static function buscarCategoria($busca, $email){
             include __DIR__.'/../includes/conecta_bd.inc';
-            $query = "SELECT descricaoCategoria FROM categoria WHERE descricaoCategoria LIKE '%$busca%'";
+            $query = "SELECT c.descricaoCategoria 
+            FROM categoria c, usuario u
+            WHERE c.descricaoCategoria LIKE '%$busca%'
+                AND u.id = c.idUsuario
+                AND u.email = '$email'";
 
             $resultado = mysqli_query($conexao, $query);
             $descricaoCategoria = null;
@@ -74,12 +83,16 @@
             return $descricaoCategoria;
         }
 
-        public static function selectId($descricaoCategoria){
+        public static function selectId($descricaoCategoria, $email){
             include '../includes/conecta_bd.inc';
 
             $descricaoCategoria = mb_strtoupper($descricaoCategoria, mb_internal_encoding());
 
-            $query = "SELECT id FROM categoria WHERE descricaoCategoria = '$descricaoCategoria'";
+            $query = "SELECT c.id 
+            FROM categoria c, usuario u
+            WHERE c.descricaoCategoria = '$descricaoCategoria'
+                AND u.id = c.idUsuario
+                AND u.email = '$email'";
 
             $resultado = mysqli_query($conexao, $query);
             

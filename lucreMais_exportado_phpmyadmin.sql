@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 03-Jul-2021 às 22:23
+-- Tempo de geração: 04-Jul-2021 às 21:28
 -- Versão do servidor: 10.4.18-MariaDB
 -- versão do PHP: 8.0.5
 
@@ -193,19 +193,6 @@ CREATE TABLE `entradaestoque` (
   `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Acionadores `entradaestoque`
---
-DELIMITER $$
-CREATE TRIGGER `estoque` AFTER INSERT ON `entradaestoque` FOR EACH ROW BEGIN
-	INSERT INTO entradaestoque
-		(idEstoque, idUsuario, quantidade, observacao)
-	VALUES 
-		(NEW.idEstoque, NEW.idUsuario, NEW.quantidade,'Entrada');
-END
-$$
-DELIMITER ;
-
 -- --------------------------------------------------------
 
 --
@@ -225,6 +212,19 @@ CREATE TABLE `estoque` (
   `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
   `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Acionadores `estoque`
+--
+DELIMITER $$
+CREATE TRIGGER `estoque` AFTER INSERT ON `estoque` FOR EACH ROW BEGIN
+	INSERT INTO entradaestoque
+		(idEstoque, idUsuario, quantidade, observacao)
+	VALUES 
+		(NEW.id, NEW.idUsuario, NEW.quantidade,'Entrada');
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -543,13 +543,13 @@ ALTER TABLE `acao`
 -- AUTO_INCREMENT de tabela `baixaestoque`
 --
 ALTER TABLE `baixaestoque`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `categoriadespesa`
@@ -573,25 +573,25 @@ ALTER TABLE `despesa`
 -- AUTO_INCREMENT de tabela `entradaestoque`
 --
 ALTER TABLE `entradaestoque`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `estoque`
 --
 ALTER TABLE `estoque`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `fornecedor`
 --
 ALTER TABLE `fornecedor`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `item`
 --
 ALTER TABLE `item`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `menu`
@@ -633,7 +633,7 @@ ALTER TABLE `recibo`
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- Restrições para despejos de tabelas

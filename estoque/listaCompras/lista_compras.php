@@ -6,6 +6,7 @@
         session_start();
     }
     $idUsuario = Usuario::selectId($_SESSION['nome_usuario']);
+    $email = $_SESSION['email_usuario'];
 
     if(!Usuario::verificarMenu($idUsuario, menu)){
         header("Location: ./../Home.php");
@@ -35,10 +36,10 @@
             $opt = $_GET['opt'];
         }
 
-        if(Estoque::retornar_itens_em_falta() != null){
+        if(Estoque::retornar_itens_em_falta($email) != null){
             echo '<h1>Lista de Compras</h1> <hr>';
 
-            $itens = Estoque::retornar_itens_em_falta();
+            $itens = Estoque::retornar_itens_em_falta($email);
 
             foreach($itens as $i => $row){
                 echo "

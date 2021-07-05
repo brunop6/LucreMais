@@ -5,8 +5,9 @@
     if (session_status() !== PHP_SESSION_ACTIVE) {
         session_start();
     }
-    $idUsuario = Usuario::selectId($_SESSION['nome_usuario']);
-
+    $idUsuario = $_SESSION['id_usuario'];
+    $email = $_SESSION['email_usuario'];
+    
     if(!Usuario::verificarMenu($idUsuario, menu)){
         header("Location: ./../Home.php");
         die();
@@ -20,9 +21,10 @@
     <link rel="stylesheet" href="./fornecedor.css">
     <?php
         function preencherFornecedores(){
+            global $email;
             include_once '../classes/Fornecedor.php';
 
-            list($id, $nomeFornecedor, $email, $telefone, $cnpj, $endereco, $dataCadastro, $dataAtualizacao, $nomeUsuario) = Fornecedor::selectFornecedores();
+            list($id, $nomeFornecedor, $email, $telefone, $cnpj, $endereco, $dataCadastro, $dataAtualizacao, $nomeUsuario) = Fornecedor::selectFornecedores($email);
 
             if(!empty($nomeFornecedor)){
                 $i = 0;

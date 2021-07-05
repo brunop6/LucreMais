@@ -5,8 +5,9 @@
     if (session_status() !== PHP_SESSION_ACTIVE) {
         session_start();
     }
-    $idUsuario = Usuario::selectId($_SESSION['nome_usuario']);
-
+    $idUsuario = $_SESSION['id_usuario'];
+    $email = $_SESSION['email_usuario'];
+    
     if(!Usuario::verificarMenu($idUsuario, menu)){
         header("Location: ./../Home.php");
         die();
@@ -40,19 +41,19 @@
             $quantidadeMovimento = $estoqueQuantidade - $quantidade;
             $tipoOperação = "S"; //Saída
         }
-        list($id, $fornecedores, $email, $telefone, $cnpj, $endereco, $dataCadastro, $dataAtualizacao, $nomeUsuario) = Fornecedor::selectFornecedores();
+        list($id, $fornecedores, $email, $telefone, $cnpj, $endereco, $dataCadastro, $dataAtualizacao, $nomeUsuario) = Fornecedor::selectFornecedores($email);
         $idFornecedor = null;
 
         //Buscando o fornecedor inserido no banco de dados
         foreach($fornecedores as $nomeFornecedor){
             //Caso encontre o nome de um fornecedor cadastrado no texto inserido, a função não retornará false
             if(strpos($fornecedor, $nomeFornecedor) !== false){
-                $idFornecedor = Fornecedor::selectId($nomeFornecedor);
+                $idFornecedor = Fornecedor::selectId($nomeFornecedor, $email);
                 break;
             }
         }
 
-        list($marca, $nome) = Item::selectItens();
+        list($marca, $nome) = Item::selectItens($email);
 
         $i = 0;
         $idItem = null;
@@ -61,7 +62,7 @@
         foreach($nome as $nomeItem){
             if(strpos($item, $nomeItem) !== false){
                 if(strpos($item, $marca[$i]) !== false){
-                    $idItem = Item::selectId($nomeItem, $marca[$i]);
+                    $idItem = Item::selectId($nomeItem, $marca[$i], $email);
                     break;
                 }
             }

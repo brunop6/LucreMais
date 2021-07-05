@@ -6,10 +6,9 @@
         session_start();
     }
     $nomeUsuario = $_SESSION['nome_usuario'];
-
-    $idUsuario = Usuario::selectId($nomeUsuario);
-    $nivelAcesso = Usuario::selectNivel($idUsuario);
-    $email = Usuario::selectEmail($idUsuario);
+    $idUsuario = $_SESSION['id_usuario'];
+    $nivelAcesso = $_SESSION['nivel_usuario'];
+    $email = $_SESSION['email_usuario'];
 
     function preencherEntradas(){
         global $email;
