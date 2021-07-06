@@ -139,6 +139,22 @@ section{
     margin-left: 200px;
     padding: 10px 0 0 40px;
 }
+.btn-plus{
+    margin-left: 10px;
+    position: relative;
+}
+button{
+    outline: none;
+    border: 2px solid rgb(209, 205, 205);
+    background-color: rgb(113, 116, 255);
+    border-radius: 5px;
+    padding: 10px 10px;
+    margin: 20px;
+    margin-top: 10px;
+    transition: .5s;
+    text-decoration: none;
+    cursor: pointer;
+}
 
 @media screen and (max-width:2560px) and (orientation:portrait) {
     body{

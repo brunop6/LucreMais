@@ -49,7 +49,7 @@
                         echo "<td>$quantidade[$i] $unidadeMedida[$i]";
                         echo "<td>$descricaoCategoria[$i]</td>";
                         echo "<td>$quantidadeMinima[$i] $unidadeMedida[$i]</td>";
-                        echo "<td>$nomeUsuario[$i]</td>";
+                        echo "<td class='mais'>$nomeUsuario[$i]</td>";
                         echo "<td><a href='./edita_item.php?id=$id[$i]' style='color:#B9DEFF'>Editar</a></td>";
 
                         echo "</tr>";
@@ -58,20 +58,22 @@
                 }
             }
         ?>
- 
+        
+        <button onclick="verMais()" class="btn-plus">Ver mais...</button>
         <table style="width:100%; margin-top: 10px"; border="1px";>
             <tr>
                 <th>Item</th>
                 <th>Quantidade</th>
                 <th>Categoria</th>
                 <th>Quantidade mínima</th>
-                <th>Usuário</th>
+                <th class='mais'>Usuário</th>
                 <th>Editar</th>
             </tr>     
             <?php   
                 preencherItem();
             ?>
         </table>
+        <script type="text/javascript" src="./../js/verMais.js"></script>
     </main>
 </body>
 </html>

@@ -25,8 +25,8 @@
                 echo "<td>$quantidade[$i] $unidadeMedida[$i]</td>";
                 echo "<td>R$ $preco[$i]</td>";
                 echo "<td>$observacao[$i]</td>";
-                echo "<td>$data[$i]</td>";
-                echo "<td>$nome[$i]</td>";
+                echo "<td class='mais'>$data[$i]</td>";
+                echo "<td class='mais'>$nome[$i]</td>";
 
                 echo "</tr>";
                 $i++;
@@ -48,8 +48,8 @@
                 echo "<td>$quantidade[$i] $unidadeMedida[$i]</td>";
                 echo "<td>R$ $preco[$i]</td>";
                 echo "<td>$observacao[$i]</td>";
-                echo "<td>$data[$i]</td>";
-                echo "<td>$nome[$i]</td>";
+                echo "<td class='mais'>$data[$i]</td>";
+                echo "<td class='mais'>$nome[$i]</td>";
 
                 echo "</tr>";
                 $i++;
@@ -112,6 +112,8 @@
     </div>
 
     <section>
+        <button onclick="verMais()" class="btn-plus">Ver mais...</button>
+
         <?php
             list($id) = Estoque::selectEntradaEstoque($email);
 
@@ -126,8 +128,8 @@
                         <th>Quantidade</th>
                         <th>Preço</th>
                         <th>Observação</th>
-                        <th>Data</th>
-                        <th>Usuário</th>
+                        <th class="mais">Data</th>
+                        <th class="mais">Usuário</th>
                     </tr>
                 ';
                 preencherEntradas();
@@ -148,8 +150,8 @@
                         <th>Quantidade</th>
                         <th>Preço</th>
                         <th>Observação</th>
-                        <th>Data</th>
-                        <th>Usuário</th>
+                        <th class="mais">Data</th>
+                        <th class="mais">Usuário</th>
                     </tr>
                 ';
                 preencherBaixas();
@@ -157,6 +159,7 @@
                 echo "</table>";
             }
         ?>
+        <script type="text/javascript" src="./js/verMais.js"></script>
     </section>
 </body>
 </html>

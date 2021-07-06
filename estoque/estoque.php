@@ -65,11 +65,11 @@ if (!Usuario::verificarMenu($idUsuario, menu)) {
                 echo "<td>$quantidadeEstoque[$i] $unidadeMedida[$i]</td>";
                 echo "<td>R$ $preco[$i]</td>";
                 echo "<td>$quantidadeItem[$i] $unidadeMedida[$i]</td>";
-                echo "<td>$lote[$i]</td>";
-                echo "<td>$validade[$i]</td>";
-                echo "<td>$dataCadastro[$i]</td>";
-                echo "<td>$dataAtualizacao[$i]</td>";
-                echo "<td>$nomeUsuario[$i]</td>";
+                echo "<td class='mais'>$lote[$i]</td>";
+                echo "<td class='mais'>$validade[$i]</td>";
+                echo "<td class='mais'>$dataCadastro[$i]</td>";
+                echo "<td class='mais'>$dataAtualizacao[$i]</td>";
+                echo "<td class='mais'>$nomeUsuario[$i]</td>";
                 echo "<td><a href='./edita_estoque.php?id=$id[$i]' style='color:#B9DEFF'>Editar</a></td>";
 
                 echo "</tr>";
@@ -120,8 +120,9 @@ if (!Usuario::verificarMenu($idUsuario, menu)) {
             <input type="text" id="categoria" placeholder="Categoria" value="<?php if(isset($_GET['categoria'])) echo $_GET['categoria']; ?>">
             <input type="number" id="lote" min="0" placeholder="Lote" value="<?php if(isset($_GET['lote'])) echo $_GET['lote']; ?>">
             <button onclick="alterarExibicao()">Buscar</button>
+            <button onclick="verMais()" class="btn-plus">Ver mais...</button>
         </div>
-
+        
         <table style="width:100%; margin-top: 10px" ; border="1px">
             <tr>
                 <th>Item</th>
@@ -130,17 +131,18 @@ if (!Usuario::verificarMenu($idUsuario, menu)) {
                 <th>Quant. Estoque</th>
                 <th>Preço</th>
                 <th>Quant. Item</th>
-                <th>Lote</th>
-                <th>Validade</th>
-                <th>Data Cadastro</th>
-                <th>Data Atualização</th>
-                <th>Usuário</th>
+                <th class="mais">Lote</th>
+                <th class="mais">Validade</th>
+                <th class="mais">Data Cadastro</th>
+                <th class="mais">Data Atualização</th>
+                <th class="mais">Usuário</th>
                 <th>Editar</th>
             </tr>
             <?php
             preencherEstoque($status, $marca, $nome, $categoria, $lote);
             ?>
         </table>
+        <script type="text/javascript" src="./../js/verMais.js"></script>
     </main>
 </body>
 

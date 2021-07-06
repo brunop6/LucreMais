@@ -45,9 +45,9 @@
                     echo "<td>$telefone[$i]</td>";
                     echo "<td>$cnpj[$i]</td>";
                     echo "<td>$endereco[$i]</td>";
-                    echo "<td>$dataCadastro[$i]</td>";
-                    echo "<td>$dataAtualizacao[$i]</td>";
-                    echo "<td>$nomeUsuario[$i]</td>";
+                    echo "<td class='mais'>$dataCadastro[$i]</td>";
+                    echo "<td class='mais'>$dataAtualizacao[$i]</td>";
+                    echo "<td class='mais'>$nomeUsuario[$i]</td>";
                     echo "<td><a href='./edita_fornecedor.php?id=$id[$i]' style='color:#B9DEFF'>Editar</a></td>";
 
                     echo "</tr>";
@@ -70,6 +70,8 @@
     </header>
     <h1 style="color: #B9DEFF;">Listagem de Fornecedores<br></h1>
     <main>
+        <button onclick="verMais()" class="btn-plus">Ver mais...</button>
+
         <table style="width:100%; margin-top: 10px"; border="1px">
             <tr>
                 <th>Nome </th>
@@ -77,15 +79,16 @@
                 <th>Telefone</th>
                 <th>CNPJ</th>
                 <th>Endereço</th>
-                <th>Data Cadastro</th>
-                <th>Data Atualização</th>
-                <th>Usuário</th>
+                <th class='mais'>Data Cadastro</th>
+                <th class='mais'>Data Atualização</th>
+                <th class='mais'>Usuário</th>
                 <th>Editar</th>
                 <?php
                     preencherFornecedores();
                 ?>  
             </tr>
         </table>
+        <script type="text/javascript" src="./../js/verMais.js"></script>
     </main>
 </body>
 </html>
