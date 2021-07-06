@@ -29,7 +29,7 @@
         $resultado = $fornecedor->cadastrarFornecedor();
 
         if($resultado == "Cadastro realizado com sucesso!"){
-            echo "<h2>$resultado</h2> <br>";
+            header('Location: ./../fornecedor/fornecedor.php');
         }else{
             echo '<h2>Erro ao realizar cadastro...</h2> <br>';
             echo "<p lang='en'>".$resultado."</p>";  

@@ -83,6 +83,9 @@
                     if(Usuario::verificarMenu($idUsuario, "Receitas")){
                         echo '<li><a href="./Receitas/receitas.php">Receitas</a></li>';
                     }
+                    if(Usuario::verificarMenu($idUsuario, "Financeiro")){
+                        echo '<li><a href="./financeiro/financeiro.php">Financeiro</a></li>';
+                    }
                 ?>      
             </ul>
         </nav>

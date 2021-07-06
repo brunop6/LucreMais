@@ -46,7 +46,7 @@ header label:hover{
 .menu li a{
     font-size: 20px;
     color: black;
-    padding: 10px 100px;
+    padding: 10px 80px;
     display: block;
     border-right: 1px solid #002D55;
     transition: .4s;
@@ -100,7 +100,7 @@ label #btn{
     top: 50%;
     font-size: 35px;
     color: aliceblue;
-    padding: 6px 12px;
+    padding: 2px 9px;
     transition: all .4s ease;
 }
 label #cancel{
@@ -137,7 +137,7 @@ section{
 }
 #btn-sidebar:checked ~ section{
     margin-left: 200px;
-    padding: 10px 0 0 10px;
+    padding: 10px 0 0 40px;
 }
 
 @media screen and (max-width:2560px) and (orientation:portrait) {

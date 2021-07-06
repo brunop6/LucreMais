@@ -14,10 +14,16 @@ table, th, td{
     border-collapse: collapse;
     text-align: 20px;
 }
-select{
-    margin-top: 10px;
-    display: block;
+select, input, button{
+    margin: 10px 5px;
+    padding: 4px 2px;
+    display: inline;
     background-color: rgb(113, 116, 255);
+    border: none;
+    line-height: 19px;
+}
+input::placeholder{
+    color: black;
 }
 
 #btn-menu{

@@ -74,7 +74,7 @@
             FROM fornecedor f, usuario u
             WHERE f.nomeFornecedor LIKE '%$busca%'
                 AND u.id = f.idUsuario
-                AND e.email = '$email'";
+                AND u.email = '$email'";
 
             $resultado = mysqli_query($conexao, $query);
             $nomeFornecedor = null;

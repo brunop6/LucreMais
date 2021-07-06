@@ -1,14 +1,15 @@
 <?php
-    define('menu', 'Itens');
-    include_once "../../classes/Usuario.php";
+    define('menu', 'Financeiro');
+    include_once "./../../../classes/Usuario.php";
 
     if (session_status() !== PHP_SESSION_ACTIVE) {
         session_start();
     }
     $idUsuario = Usuario::selectId($_SESSION['nome_usuario']);
+    $email = $_SESSION['email_usuario'];
 
     if(!Usuario::verificarMenu($idUsuario, menu)){
-        header("Location: ./../Home.php");
+        header("Location: /LucreMais/Home.php");
         die();
     }
 ?>
@@ -16,13 +17,14 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Categoria Despesa</title>
-    <link rel="stylesheet" href="../../estoque/estoque.css">
+    <title>Categorias Recibo</title>
+    <link rel="stylesheet" href="../recibo.css">
     <?php
         function preencherCategorias(){
-            include_once '../../classes/CategoriaDespesa.php';
+            global $email;
+            include_once './../../../classes/CategoriaRecibo.php';
 
-            list($id, $descricao, $dataCadastro, $dataAtualizacao, $nomeUsuario) = CategoriaDespesa::selectCategorias();
+            list($id, $descricao, $dataCadastro, $dataAtualizacao, $nomeUsuario) = CategoriaRecibo::selectCategorias($email);
 
             if(!empty($descricao)){
                 $i = 0;
@@ -49,8 +51,8 @@
         <label for="btn-menu">&#9776;</label>
         <nav class="menu">
             <ul>
-                <li><a href="../despesa.php">Voltar</a></li>
-                <li><a href="../../Home.php">Página Principal</a></li>
+                <li><a href="../recibo.php">Voltar</a></li>
+                <li><a href="/LucreMais/Home.php">Página Principal</a></li>
             </ul>
         </nav>
     </header>

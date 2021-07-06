@@ -1,17 +1,17 @@
 function preencherCategorias(){
-    var inputCategoria = document.getElementById('categoriaDespesa').value;
+    var inputCategoria = document.getElementById('categoriaRecibo').value;
 
     if(inputCategoria.length >= 3){
         //Envio da variável JS para o arquivo PHP
         $.ajax({
-            url: 'selectCategorias.php',
+            url: './categoria/selectCategorias.php',
             method: 'POST',
             data: {categoria: inputCategoria},
             dataType: 'json'
         }).done(function(result){ //result = retorno do arquivo PHP
             if(result != null){
                 var categoria = result;
-                var datalist = document.getElementById('despesa');
+                var datalist = document.getElementById('categorias');
                 var options = datalist.children; //Elementos filhos do datalist categorias
                 var option = [];
 

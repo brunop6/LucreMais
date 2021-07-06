@@ -1,8 +1,8 @@
 <?php
-    include '../includes/conecta_bd.inc';
-    include_once '../classes/Despesa.php';
-    include_once '../classes/Usuario.php';
-    include_once '../classes/CategoriaDespesa.php';
+    include_once './../../classes/Usuario.php';
+    include_once './../../classes/Despesa.php';
+    include_once './../../classes/CategoriaDespesa.php';
+    
     if(!isset($_GET['id'])){   
         header('Location: ./despesa.php');
         die();
@@ -11,6 +11,7 @@
     $id = $_GET['id'];
     $custo = $_POST['valor'];
     $descricao = $_POST['categoriaDespesa'];
+
     session_start();
     $nomeUsuario = $_SESSION['nome_usuario'];
     $idUsuario = Usuario::selectId($nomeUsuario);

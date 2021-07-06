@@ -4,7 +4,7 @@
     if(session_status() !== PHP_SESSION_ACTIVE){
         session_start();
     }
-    $email = $_SESSION['email'];
+    $email = $_SESSION['email_usuario'];
     $input = $_POST['fornecedor'];
     $json = Fornecedor::buscarFornecedor($input, $email);
 

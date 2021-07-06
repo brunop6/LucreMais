@@ -9,12 +9,18 @@ body{
     text-align: center;
 }
 
+table, th, td{
+    color: #B9DEFF;
+    border-color: black;
+    border-collapse: collapse;
+    text-align: 20px;
+}
+
 input::placeholder{
     color: black;
 }
 
-
- input[type="text"], input[type="number"]{
+input[type="text"]{
     outline: none;
     border: 2px solid rgb(41, 39, 39);
     border-radius: 5px;
@@ -26,8 +32,8 @@ input::placeholder{
     width: 200px;
     color: black;
     transition: .5s;
- }
-input[type="submit"], input[type="button"], input[type="reset"]{
+}
+input[type="submit"], input[type="button"], input[type="reset"], button{
     outline: none;
     border: 2px solid rgb(209, 205, 205);
     background-color: rgb(113, 116, 255);
@@ -44,7 +50,6 @@ input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hove
     padding: 15px 15px;
     box-shadow: 0 0 5px rgb(54, 54, 54);
 }
-
 
 label{
     color: black;
@@ -75,6 +80,7 @@ select{
 h1{
     color:#add8e6;
 }
+
 header, li ul{
     background-color: rgb(113, 116, 255);
     font-weight: 600;

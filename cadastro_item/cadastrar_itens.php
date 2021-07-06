@@ -43,7 +43,7 @@
       echo "<p>Quantidade: $quantidade $unidadeMedida</p>";
       echo "<p>Quantidade mínima: $quantidadeMinima $unidadeMedida</p>";
       echo "<p><a href='./cadastro_de_itens.php'><button>Cadastrar novo item</button></a></p>";
-      echo "<p><a href='../Home.php'><button>Voltar para página inicial</button></a></p>";
+      echo "<p><a href='./../item/item.php'><button>Voltar</button></a></p>";
     }else{
       echo '<h2>Erro ao realizar cadastro...</h2> <br>';
       echo "<p lang='en'>".$resultado."</p>";

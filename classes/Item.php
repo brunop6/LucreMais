@@ -1,4 +1,4 @@
-<?php
+<?php 
   class Item {
     private $idUsuario;
     private $idCategoria;
@@ -71,7 +71,7 @@
     public static function selectItensLista($email){
       include '../includes/conecta_bd.inc';
 
-      $query = "SELECT i.id, i.nome, i.marca, i.quantidade, i.quantidadeMinima, u.nomeUsuario, c.descricaoCategoria 
+      $query = "SELECT i.id, i.nome, i.marca, i.quantidade, i.quantidadeMinima, i.unidadeMedida, u.nomeUsuario, c.descricaoCategoria 
       FROM item i, usuario u, categoria c 
       WHERE c.id = i.idCategoria 
         AND i.idUsuario = u.id
@@ -84,6 +84,7 @@
       $quantidade = null;
       $descricaoCategoria = null;
       $quantidadeMinima = null;
+      $unidadeMedida = null;
       $nomeUsuario = null;
       if(mysqli_num_rows($resultado) > 0){
         $i = 0;
@@ -93,13 +94,14 @@
           $quantidade[$i]= $row['quantidade'];
           $descricaoCategoria[$i] = $row['descricaoCategoria'];
           $quantidadeMinima[$i] = $row['quantidadeMinima'];
+          $unidadeMedida[$i] = $row['unidadeMedida'];
           $nomeUsuario[$i] = $row['nomeUsuario'];
           $i++;
         }
       }
       mysqli_close($conexao);
 
-      return array($id, $item, $quantidade, $descricaoCategoria, $quantidadeMinima, $nomeUsuario);
+      return array($id, $item, $quantidade, $descricaoCategoria, $quantidadeMinima, $unidadeMedida, $nomeUsuario);
     }
     public static function selectItemLista($id){
       include '../includes/conecta_bd.inc';
@@ -135,7 +137,7 @@
     public static function selectItem($busca, $email){
       include '../includes/conecta_bd.inc';
 
-      $query = "SELECT i.nome, i.marca 
+      $query = "SELECT DISTINCT i.nome, i.marca 
       FROM item i, usuario u
       WHERE i.nome LIKE'%$busca%' OR i.marca LIKE'%$busca%'
         AND u.id = i.idUsuario

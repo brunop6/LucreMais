@@ -39,16 +39,16 @@
         
             function preencherItem(){
                 global $email;
-                list($id, $nomeItem, $quantidade,$descricaoCategoria,$quantidadeMinima, $nomeUsuario) = Item::selectItensLista($email);
+                list($id, $nomeItem, $quantidade,$descricaoCategoria,$quantidadeMinima, $unidadeMedida, $nomeUsuario) = Item::selectItensLista($email);
                 if(!empty($nomeItem)){
                     $i = 0;
                     foreach($nomeItem as $nome){
                         echo "<tr>";
                     
                         echo "<td>$nome</td>";
-                        echo "<td>$quantidade[$i]";
+                        echo "<td>$quantidade[$i] $unidadeMedida[$i]";
                         echo "<td>$descricaoCategoria[$i]</td>";
-                        echo "<td>$quantidadeMinima[$i]</td>";
+                        echo "<td>$quantidadeMinima[$i] $unidadeMedida[$i]</td>";
                         echo "<td>$nomeUsuario[$i]</td>";
                         echo "<td><a href='./edita_item.php?id=$id[$i]' style='color:#B9DEFF'>Editar</a></td>";
 

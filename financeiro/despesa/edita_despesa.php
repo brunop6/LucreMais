@@ -1,7 +1,7 @@
 <?php
     define('menu', 'Itens');
-    include_once "../classes/Usuario.php";
-    include_once '../classes/Despesa.php';
+    include_once './../../classes/Usuario.php';
+    include_once './../../classes/Despesa.php';
 
     if (session_status() !== PHP_SESSION_ACTIVE) {
         session_start();
@@ -20,14 +20,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Edição de despesa</title>
-    <link rel="stylesheet" href="./../fornecedor/fornecedor.css">
+    <link rel="stylesheet" href="../../fornecedor/fornecedor.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script type="text/javascript" src="./edita_despesa.js"></script>
 </head>
 <body>
-    <img src="../Logo.png" alt="Logo do site" width="14%">
+    <img src="../../Logo.png" alt="Logo do site" width="14%">
     <form action="editar_despesa.php?id=<?php echo $id ?>" method="POST" >     
         <h3>Categoria</h3>
-        <p><input type="text" name="categoriaDespesa" list="categoriaDespesa" value="<?php echo $descricao ?>" required></p>
-        <datalist id="despesa" name="despesa">
+        <p><input type="text" name="categoriaDespesa" id="categoriaDespesa" list="categorias" value="<?php echo $descricao ?>" oninput="preencherCategorias()" required></p>
+        <datalist id="categorias">
+
         </datalist>
         <h3>Custo: </h3>
         <p><input type="text" name="valor" list="valor" value="<?php echo $custo?>"required></p>

@@ -1,6 +1,6 @@
 <?php
-    include_once '../../classes/CategoriaDespesa.php';
-    include_once '../../classes/Usuario.php';
+    include_once '../../../classes/CategoriaDespesa.php';
+    include_once '../../../classes/Usuario.php';
 
     if(!isset($_GET['id']) || !isset($_POST['categoriaDespesa'])){
         header('Location: categoria.php');
@@ -12,7 +12,7 @@
     $idUsuario = Usuario::selectId($_SESSION['nome_usuario']);
     $descricao = $_POST['categoriaDespesa'];
 
-    $categoria = new CategoriaDespesa($idUsuario, $descricao);
+    $categoria = new CategoriaDespesa($descricao);
 
     if($categoria->editarCategoria($id)){
         header("Location: ./categoria.php");

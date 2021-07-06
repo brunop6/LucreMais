@@ -1,20 +1,20 @@
 <?php
-  class Despesa{
+  class Recibo{
     private $idUsuario;
-    private $idCategoriaDespesa;
-    private $custo;
+    private $idCategoriaRecibo;
+    private $valor;
 
-    function __construct($idUsuario, $idCategoriaDespesa, $custo){
+    function __construct($idUsuario, $idCategoriaRecibo, $valor){
       $this->idUsuario = $idUsuario;
-      $this->idCategoriaDespesa = $idCategoriaDespesa;
-      $this->custo = $custo;
+      $this->idCategoriaRecibo = $idCategoriaRecibo;
+      $this->valor = $valor;
     }
 
-    public function cadastrar_despesa(){
+    public function cadastrar_recibo(){
 
       include __DIR__.'./../includes/conecta_bd.inc';
       
-      $query = "INSERT INTO despesa (idUsuario, idCategoriaDespesa, custo) VALUES ('$this->idUsuario', '$this->idCategoriaDespesa', '$this->custo')";
+      $query = "INSERT INTO recibo (idUsuario, idCategoriaRecibo, valor) VALUES ('$this->idUsuario', '$this->idCategoriaRecibo', '$this->valor')";
       
       $resultado = mysqli_query($conexao, $query);
       if($resultado){
@@ -23,11 +23,11 @@
       return mysqli_error($conexao);        
     }
 
-    public function editar_despesa($id){
+    public function editar_recibo($id){
       include __DIR__.'./../includes/conecta_bd.inc';
 
-      $query = "UPDATE despesa
-      SET  idCategoriaDespesa = '$this->idCategoriaDespesa', custo = '$this->custo'
+      $query = "UPDATE recibo
+      SET  idCategoriaRecibo = '$this->idCategoriaRecibo', valor = '$this->valor'
       WHERE id = $id";
 
       $resultado = mysqli_query($conexao, $query);
@@ -39,20 +39,20 @@
       }
     }
 
-    public static function selectDespesaLista($email){
+    public static function selectReciboLista($email){
       include __DIR__.'./../includes/conecta_bd.inc';
 
-      $query = "SELECT d.id, d.custo, u.nomeUsuario, c.descricao 
-      FROM despesa d, usuario u, categoriadespesa c 
-      WHERE c.id = d.idCategoriaDespesa 
-        AND d.idUsuario = u.id
+      $query = "SELECT r.id, r.valor, u.nomeUsuario, c.descricao 
+      FROM recibo r, usuario u, categoriarecibo c 
+      WHERE c.id = r.idCategoriaRecibo 
+        AND r.idUsuario = u.id
         AND u.email = '$email'";
 
       $resultado = mysqli_query($conexao, $query);
 
       $id = null;
       $descricao = null;
-      $custo = null;
+      $valor = null;
       $nomeUsuario = null;
 
       if(mysqli_num_rows($resultado) > 0){
@@ -60,35 +60,38 @@
         while($row = mysqli_fetch_array($resultado)){
           $id[$i] = $row['id'];
           $descricao[$i] = $row['descricao'];
-          $custo[$i] = number_format($row['custo'], 2);
+          $valor[$i] = number_format($row['valor'], 2);
           $nomeUsuario[$i] = $row['nomeUsuario'];
           $i++;
         }
       }
       mysqli_close($conexao);
 
-      return array($id, $descricao, $custo, $nomeUsuario);
+      return array($id, $descricao, $valor, $nomeUsuario);
     }
 
-    public static function selectDespesasLista($id){
+    public static function selectRecibosLista($id){
       include __DIR__.'./../includes/conecta_bd.inc';
 
-      $query = "SELECT d.custo, cd.descricao, u.nomeUsuario
-      FROM despesa d, usuario u, categoriadespesa cd WHERE cd.id = d.idCategoriaDespesa AND d.idUsuario = u.id AND d.id = $id";
+      $query = "SELECT r.valor, cr.descricao, u.nomeUsuario
+      FROM recibo r, usuario u, categoriarecibo cr 
+      WHERE cr.id = r.idCategoriaRecibo 
+        AND r.idUsuario = u.id 
+        AND r.id = $id";
 
       $resultado = mysqli_query($conexao, $query);
 
       $id = null;
-      $custo = null;
+      $valor = null;
       $descricao = null;
       if(mysqli_num_rows($resultado) > 0){
         while($row = mysqli_fetch_array($resultado)){
-          $custo = number_format($row['custo'], 2);
+          $valor = number_format($row['valor'], 2);
           $descricao = $row['descricao'];
         }
       }
       mysqli_close($conexao);
 
-      return array($descricao, $custo);
+      return array($descricao, $valor);
     }
   }

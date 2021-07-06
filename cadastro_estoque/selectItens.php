@@ -10,7 +10,7 @@
     
     $i = 0;
     foreach($nome as $value){
-        $json[] = $value.' '.$marca[$i]; 
+        $json[$i] = $value.' '.$marca[$i]; 
         $i++;
     }
 

@@ -1,5 +1,5 @@
 <?php
-    class CategoriaDespesa{
+    class CategoriaRecibo{
         private $descricao;
 
         function __construct($descricao)
@@ -7,10 +7,10 @@
             $this->descricao = mb_strtoupper($descricao, mb_internal_encoding());
         }
 
-        public function cadastrarCategoriaDespesa(){
+        public function cadastrarCategoriaRecibo(){
             include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "INSERT INTO categoriadespesa (descricao) VALUES ('$this->descricao')";
+            $query = "INSERT INTO categoriarecibo (descricao) VALUES ('$this->descricao')";
 
             $resultado = mysqli_query($conexao, $query);
 
@@ -23,7 +23,7 @@
         public function editarCategoria($id){
             include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "UPDATE categoriadespesa 
+            $query = "UPDATE categoriarecibo 
             SET descricao = '$this->descricao' 
             WHERE id = $id";
 
@@ -40,7 +40,7 @@
 
             $descricao = mb_strtoupper($descricao, mb_internal_encoding());
 
-            $query = "SELECT id FROM categoriadespesa WHERE descricao = '$descricao'";
+            $query = "SELECT id FROM categoriarecibo WHERE descricao = '$descricao'";
 
             $resultado = mysqli_query($conexao, $query);
             
@@ -58,11 +58,11 @@
 
         public static function buscarCategoria($busca, $email){
             include __DIR__.'./../includes/conecta_bd.inc';
-            $query = "SELECT cd.descricao 
-            FROM categoriadespesa cd, despesa d, usuario u 
-            WHERE cd.descricao LIKE '%$busca%'
-                AND cd.id = d.idCategoriaDespesa
-                AND d.idUsuario = u.id
+            $query = "SELECT cr.descricao 
+            FROM categoriarecibo cr, recibo r, usuario u 
+            WHERE descricao LIKE '%$busca%'
+                AND cr.id = r.idCategoriaRecibo
+                AND r.idUsuario = u.id
                 AND u.email = '$email'";
 
             $resultado = mysqli_query($conexao, $query);
@@ -83,7 +83,7 @@
             include __DIR__.'./../includes/conecta_bd.inc';
 
             $query = "SELECT descricao
-            FROM categoriadespesa
+            FROM categoriarecibo
             WHERE id = $id";
 
             $resultado = mysqli_query($conexao, $query);
@@ -101,10 +101,10 @@
         public static function selectCategorias($email){
             include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "SELECT cd.id, cd.descricao, DATE_FORMAT(cd.dataCadastro, '%d/%m/%Y %H:%i') AS dataCadastro, DATE_FORMAT(cd.dataAtualizacao, '%d/%m/%Y %H:%i') AS dataAtualizacao, u.nomeUsuario  
-            FROM categoriadespesa cd, despesa d, usuario u
-            WHERE d.idUsuario = u.id
-                AND d.idCategoriaDespesa = cd.id
+            $query = "SELECT cr.id, cr.descricao, DATE_FORMAT(cr.dataCadastro, '%d/%m/%Y %H:%i') AS dataCadastro, DATE_FORMAT(cr.dataAtualizacao, '%d/%m/%Y %H:%i') AS dataAtualizacao, u.nomeUsuario  
+            FROM categoriarecibo cr, recibo r, usuario u
+            WHERE r.idUsuario = u.id
+                AND r.idCategoriaRecibo = cr.id
                 AND u.email = '$email'";
 
             $resultado = mysqli_query($conexao, $query);
