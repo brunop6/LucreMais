@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 04-Jul-2021 às 21:28
+-- Tempo de geração: 12-Jul-2021 às 16:39
 -- Versão do servidor: 10.4.18-MariaDB
 -- versão do PHP: 8.0.5
 
@@ -92,20 +92,6 @@ CREATE TABLE `acao` (
   `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Extraindo dados da tabela `acao`
---
-
-INSERT INTO `acao` (`id`, `idPermissao`, `inserir`, `editar`, `excluir`, `consultar`, `dataCadastro`, `dataAtualizacao`) VALUES
-(1, 1, '1', '1', '1', '1', '2021-07-03 17:17:34', '2021-07-03 17:17:34'),
-(2, 2, '1', '1', '1', '1', '2021-07-03 17:17:34', '2021-07-03 17:17:34'),
-(3, 3, '1', '1', '1', '1', '2021-07-03 17:17:34', '2021-07-03 17:17:34'),
-(4, 4, '1', '1', '1', '1', '2021-07-03 17:17:34', '2021-07-03 17:17:34'),
-(5, 5, '1', '1', '1', '1', '2021-07-03 17:17:34', '2021-07-03 17:17:34'),
-(6, 6, '1', '1', '1', '1', '2021-07-03 17:17:34', '2021-07-03 17:17:34'),
-(7, 7, '1', '1', '1', '1', '2021-07-03 17:17:34', '2021-07-03 17:17:34'),
-(8, 8, '0', '1', '0', '1', '2021-07-03 17:17:34', '2021-07-03 17:17:34');
-
 -- --------------------------------------------------------
 
 --
@@ -122,6 +108,14 @@ CREATE TABLE `baixaestoque` (
   `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Extraindo dados da tabela `baixaestoque`
+--
+
+INSERT INTO `baixaestoque` (`id`, `idUsuario`, `idEstoque`, `quantidade`, `observacao`, `dataCadastro`, `dataAtualizacao`) VALUES
+(1, 1, 1, 15, 'teste saída 1', '2021-06-19 18:03:59', '2021-06-19 18:03:59'),
+(2, 1, 1, 5, 'teste saída 2', '2021-06-19 18:06:18', '2021-06-19 18:06:18');
+
 -- --------------------------------------------------------
 
 --
@@ -135,6 +129,13 @@ CREATE TABLE `categoria` (
   `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
   `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `categoria`
+--
+
+INSERT INTO `categoria` (`id`, `idUsuario`, `descricaoCategoria`, `dataCadastro`, `dataAtualizacao`) VALUES
+(1, 1, 'frutas', '2021-06-19 17:54:31', '2021-06-19 17:54:31');
 
 -- --------------------------------------------------------
 
@@ -180,6 +181,21 @@ CREATE TABLE `despesa` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `entrada`
+--
+
+CREATE TABLE `entrada` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `idUsuario` int(10) UNSIGNED NOT NULL,
+  `idCategoriaRecibo` int(10) UNSIGNED NOT NULL,
+  `valor` double NOT NULL,
+  `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
+  `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `entradaestoque`
 --
 
@@ -192,6 +208,27 @@ CREATE TABLE `entradaestoque` (
   `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
   `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `entradaestoque`
+--
+
+INSERT INTO `entradaestoque` (`id`, `idUsuario`, `idEstoque`, `quantidade`, `observacao`, `dataCadastro`, `dataAtualizacao`) VALUES
+(3, 1, 1, 10, 'teste entrada', '2021-06-19 18:02:52', '2021-06-19 18:02:52'),
+(4, 1, 1, 15, 'teste entrada 2', '2021-06-19 18:03:06', '2021-06-19 18:03:06');
+
+--
+-- Acionadores `entradaestoque`
+--
+DELIMITER $$
+CREATE TRIGGER `estoque` AFTER INSERT ON `entradaestoque` FOR EACH ROW BEGIN
+	INSERT INTO entradaestoque
+		(idEstoque, idUsuario, quantidade, observacao)
+	VALUES 
+		(NEW.idEstoque, NEW.idUsuario, NEW.quantidade,'Entrada');
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -214,17 +251,11 @@ CREATE TABLE `estoque` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Acionadores `estoque`
+-- Extraindo dados da tabela `estoque`
 --
-DELIMITER $$
-CREATE TRIGGER `estoque` AFTER INSERT ON `estoque` FOR EACH ROW BEGIN
-	INSERT INTO entradaestoque
-		(idEstoque, idUsuario, quantidade, observacao)
-	VALUES 
-		(NEW.id, NEW.idUsuario, NEW.quantidade,'Entrada');
-END
-$$
-DELIMITER ;
+
+INSERT INTO `estoque` (`id`, `idUsuario`, `idFornecedor`, `idItem`, `quantidade`, `preco`, `lote`, `validade`, `statusItem`, `dataCadastro`, `dataAtualizacao`) VALUES
+(1, 1, 1, 1, 5, 0, 0, '', '1', '2021-06-19 17:57:21', '2021-06-19 18:06:18');
 
 -- --------------------------------------------------------
 
@@ -244,6 +275,13 @@ CREATE TABLE `fornecedor` (
   `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Extraindo dados da tabela `fornecedor`
+--
+
+INSERT INTO `fornecedor` (`id`, `idUsuario`, `nomeFornecedor`, `email`, `telefone`, `cnpj`, `endereco`, `dataCadastro`, `dataAtualizacao`) VALUES
+(1, 1, 'Seagesp', NULL, '', NULL, NULL, '2021-06-19 17:56:32', '2021-06-19 17:56:32');
+
 -- --------------------------------------------------------
 
 --
@@ -262,6 +300,13 @@ CREATE TABLE `item` (
   `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
   `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `item`
+--
+
+INSERT INTO `item` (`id`, `idUsuario`, `idCategoria`, `marca`, `nome`, `quantidade`, `quantidadeMinima`, `unidadeMedida`, `dataCadastro`, `dataAtualizacao`) VALUES
+(1, 1, 1, 'turma da mônica', 'maça', 0, 1, 'un', '2021-06-19 17:55:13', '2021-06-19 17:55:13');
 
 -- --------------------------------------------------------
 
@@ -300,14 +345,6 @@ CREATE TABLE `nivelusuario` (
   `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Extraindo dados da tabela `nivelusuario`
---
-
-INSERT INTO `nivelusuario` (`id`, `descricao`, `dataCadastro`, `dataAtualizacao`) VALUES
-(1, 'Administrador', '2021-07-03 17:12:18', '2021-07-03 17:12:18'),
-(2, 'Estoquista', '2021-07-03 17:12:18', '2021-07-03 17:12:18');
-
 -- --------------------------------------------------------
 
 --
@@ -321,20 +358,6 @@ CREATE TABLE `permissao` (
   `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
   `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Extraindo dados da tabela `permissao`
---
-
-INSERT INTO `permissao` (`id`, `idNivelUsuario`, `idMenu`, `dataCadastro`, `dataAtualizacao`) VALUES
-(1, 1, 1, '2021-07-03 17:14:50', '2021-07-03 17:14:50'),
-(2, 1, 5, '2021-07-03 17:14:50', '2021-07-03 17:14:50'),
-(3, 1, 2, '2021-07-03 17:14:50', '2021-07-03 17:14:50'),
-(4, 1, 3, '2021-07-03 17:14:50', '2021-07-03 17:14:50'),
-(5, 1, 4, '2021-07-03 17:14:50', '2021-07-03 17:14:50'),
-(6, 2, 1, '2021-07-03 17:14:50', '2021-07-03 17:14:50'),
-(7, 2, 3, '2021-07-03 17:14:50', '2021-07-03 17:14:50'),
-(8, 2, 4, '2021-07-03 17:14:50', '2021-07-03 17:14:50');
 
 -- --------------------------------------------------------
 
@@ -361,23 +384,8 @@ CREATE TABLE `receitaitem` (
   `idReceita` int(10) UNSIGNED NOT NULL,
   `idItem` int(10) UNSIGNED NOT NULL,
   `quantidade` double NOT NULL,
-  `unidadeMedida` double NOT NULL,
+  `unidadeMedida` varchar(50) NOT NULL DEFAULT '',
   `custo` double NOT NULL,
-  `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
-  `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `recibo`
---
-
-CREATE TABLE `recibo` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `idUsuario` int(10) UNSIGNED NOT NULL,
-  `idCategoriaRecibo` int(10) UNSIGNED NOT NULL,
-  `valor` double NOT NULL,
   `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
   `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -397,6 +405,13 @@ CREATE TABLE `usuario` (
   `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
   `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `usuario`
+--
+
+INSERT INTO `usuario` (`id`, `idNivelUsuario`, `nomeUsuario`, `email`, `senha`, `dataCadastro`, `dataAtualizacao`) VALUES
+(1, NULL, 'Cassiany', 'llll', 'kkk', '2021-06-19 17:54:10', '2021-06-19 17:54:10');
 
 --
 -- Índices para tabelas despejadas
@@ -443,6 +458,14 @@ ALTER TABLE `despesa`
   ADD PRIMARY KEY (`id`),
   ADD KEY `despesa_ibfk_1` (`idUsuario`),
   ADD KEY `despesa_ibfk_2` (`idCategoriaDespesa`);
+
+--
+-- Índices para tabela `entrada`
+--
+ALTER TABLE `entrada`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `recibo_ibfk_1` (`idUsuario`),
+  ADD KEY `recibo_ibfk_2` (`idCategoriaRecibo`);
 
 --
 -- Índices para tabela `entradaestoque`
@@ -514,14 +537,6 @@ ALTER TABLE `receitaitem`
   ADD KEY `receitaItem_ibfk_2` (`idItem`);
 
 --
--- Índices para tabela `recibo`
---
-ALTER TABLE `recibo`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `recibo_ibfk_1` (`idUsuario`),
-  ADD KEY `recibo_ibfk_2` (`idCategoriaRecibo`);
-
---
 -- Índices para tabela `usuario`
 --
 ALTER TABLE `usuario`
@@ -537,19 +552,19 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de tabela `acao`
 --
 ALTER TABLE `acao`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `baixaestoque`
 --
 ALTER TABLE `baixaestoque`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `categoriadespesa`
@@ -570,28 +585,34 @@ ALTER TABLE `despesa`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de tabela `entrada`
+--
+ALTER TABLE `entrada`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de tabela `entradaestoque`
 --
 ALTER TABLE `entradaestoque`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `estoque`
 --
 ALTER TABLE `estoque`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `fornecedor`
 --
 ALTER TABLE `fornecedor`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `item`
 --
 ALTER TABLE `item`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `menu`
@@ -603,13 +624,13 @@ ALTER TABLE `menu`
 -- AUTO_INCREMENT de tabela `nivelusuario`
 --
 ALTER TABLE `nivelusuario`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `permissao`
 --
 ALTER TABLE `permissao`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `receita`
@@ -624,16 +645,10 @@ ALTER TABLE `receitaitem`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `recibo`
---
-ALTER TABLE `recibo`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restrições para despejos de tabelas
@@ -664,6 +679,13 @@ ALTER TABLE `categoria`
 ALTER TABLE `despesa`
   ADD CONSTRAINT `despesa_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `despesa_ibfk_2` FOREIGN KEY (`idCategoriaDespesa`) REFERENCES `categoriadespesa` (`id`) ON UPDATE CASCADE;
+
+--
+-- Limitadores para a tabela `entrada`
+--
+ALTER TABLE `entrada`
+  ADD CONSTRAINT `entrada_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `entrada_ibfk_2` FOREIGN KEY (`idCategoriaRecibo`) REFERENCES `categoriarecibo` (`id`) ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `entradaestoque`
@@ -712,13 +734,6 @@ ALTER TABLE `receita`
 ALTER TABLE `receitaitem`
   ADD CONSTRAINT `receitaItem_ibfk_1` FOREIGN KEY (`idReceita`) REFERENCES `receita` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `receitaItem_ibfk_2` FOREIGN KEY (`idItem`) REFERENCES `item` (`id`) ON UPDATE CASCADE;
-
---
--- Limitadores para a tabela `recibo`
---
-ALTER TABLE `recibo`
-  ADD CONSTRAINT `recibo_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `recibo_ibfk_2` FOREIGN KEY (`idCategoriaRecibo`) REFERENCES `categoriarecibo` (`id`) ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `usuario`
