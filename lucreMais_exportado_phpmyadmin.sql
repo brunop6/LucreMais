@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 12-Jul-2021 às 16:39
+-- Tempo de geração: 12-Jul-2021 às 17:38
 -- Versão do servidor: 10.4.18-MariaDB
 -- versão do PHP: 8.0.5
 
@@ -153,10 +153,10 @@ CREATE TABLE `categoriadespesa` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `categoriarecibo`
+-- Estrutura da tabela `categoriaentrada`
 --
 
-CREATE TABLE `categoriarecibo` (
+CREATE TABLE `categoriaentrada` (
   `id` int(10) UNSIGNED NOT NULL,
   `descricao` varchar(250) NOT NULL,
   `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
@@ -187,7 +187,7 @@ CREATE TABLE `despesa` (
 CREATE TABLE `entrada` (
   `id` int(10) UNSIGNED NOT NULL,
   `idUsuario` int(10) UNSIGNED NOT NULL,
-  `idCategoriaRecibo` int(10) UNSIGNED NOT NULL,
+  `idCategoriaEntrada` int(10) UNSIGNED NOT NULL,
   `valor` double NOT NULL,
   `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
   `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -446,9 +446,9 @@ ALTER TABLE `categoriadespesa`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices para tabela `categoriarecibo`
+-- Índices para tabela `categoriaentrada`
 --
-ALTER TABLE `categoriarecibo`
+ALTER TABLE `categoriaentrada`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -464,8 +464,8 @@ ALTER TABLE `despesa`
 --
 ALTER TABLE `entrada`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `recibo_ibfk_1` (`idUsuario`),
-  ADD KEY `recibo_ibfk_2` (`idCategoriaRecibo`);
+  ADD KEY `entrada_ibfk_1` (`idUsuario`),
+  ADD KEY `entrada_ibfk_2` (`idCategoriaEntrada`);
 
 --
 -- Índices para tabela `entradaestoque`
@@ -573,9 +573,9 @@ ALTER TABLE `categoriadespesa`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `categoriarecibo`
+-- AUTO_INCREMENT de tabela `categoriaentrada`
 --
-ALTER TABLE `categoriarecibo`
+ALTER TABLE `categoriaentrada`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -685,7 +685,7 @@ ALTER TABLE `despesa`
 --
 ALTER TABLE `entrada`
   ADD CONSTRAINT `entrada_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `entrada_ibfk_2` FOREIGN KEY (`idCategoriaRecibo`) REFERENCES `categoriarecibo` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `entrada_ibfk_2` FOREIGN KEY (`idCategoriaEntrada`) REFERENCES `categoriaentrada` (`id`) ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `entradaestoque`
