@@ -95,390 +95,274 @@
         public static function converterMedidas($unimedPrinc, $unimedSec, $quantidadeSec, $itemNome){
             
             switch ($unimedPrinc) {
-                  case 'ml':
-                    {
+                  case 'ml':                    
                         switch ($unimedSec) {
                               case 'grama':
-                               {
                                    $novaQuantidade = $quantidadeSec;
-                                }
                               break;
 
                               case 'colher de sopa':
-                                {
                                     $novaQuantidade = $quantidadeSec * 15;
-                                }
                               break;
 
                               case 'colher de chá':
-                                {
                                     $novaQuantidade = $quantidadeSec * 5;
-                                }
                               break;
 
                               case 'colher de café':
-                                {
                                     $novaQuantidade = $quantidadeSec * 2;
-                                }
                               break;
 
-                              case 'xícara':
-                                {
-                                    $novaQuantidade = $quantidadeSec * 240;
-                                }
+                              case 'xícara':                                
+                                    $novaQuantidade = $quantidadeSec * 240;                                
                               break;
 
-                              case 'litro':
-                               {
-                                   $novaQuantidade = $quantidadeSec * 1000;
-                                }
+                              case 'litro':                               
+                                   $novaQuantidade = $quantidadeSec * 1000;                                
                               break;
 
-                              case 'quilo':
-                                {
-                                    $novaQuantidade = $quantidadeSec * 1000;
-                                }
+                              case 'quilo':                                
+                                    $novaQuantidade = $quantidadeSec * 1000;                                
                               break;    
                         }
-                    }
+                    
                   break;
                     
                   case 'grama':
-                   {
+                   
                          switch ($unimedSec) {
-                              case 'ml':
-                               {
-                                   $novaQuantidade = $quantidadeSec;
-                                }
+                              case 'ml':                               
+                                   $novaQuantidade = $quantidadeSec;                                
                               break;
 
-                              case 'colher de sopa':
-                                {
-                                    $novaQuantidade = $quantidadeSec * 14;
-                                }
+                              case 'colher de sopa':                               
+                                    $novaQuantidade = $quantidadeSec * 14;                                
                               break;
 
-                              case 'colher de chá':
-                                {
-                                    $novaQuantidade = $quantidadeSec * 4;
-                                }
+                              case 'colher de chá':                                
+                                    $novaQuantidade = $quantidadeSec * 4;                               
                               break;
 
                               case 'colher de café':
-                                {
-                                    $novaQuantidade = $quantidadeSec * 1.5;
-                                }
+                                
+                                    $novaQuantidade = $quantidadeSec * 1.5;                                
                               break;
 
-                              case 'xícara':
-                                {
-                                    $novaQuantidade = $quantidadeSec * 165;
-                                }
+                              case 'xícara':                                
+                                    $novaQuantidade = $quantidadeSec * 165;                                
                               break;
 
-                              case 'litro':
-                               {
-                                   $novaQuantidade = $quantidadeSec * 1000;
-                                }
+                              case 'litro':                              
+                                   $novaQuantidade = $quantidadeSec * 1000;                                
                               break;
 
-                              case 'quilo':
-                                {
-                                    $novaQuantidade = $quantidadeSec * 1000;
-                                }
+                              case 'quilo':                                
+                                    $novaQuantidade = $quantidadeSec * 1000;                                
                               break;    
                         }     
-                    }
+                    
                   break;
                     
-                  case 'colher de sopa':
-                    {
+                  case 'colher de sopa':                    
                         switch ($unimedSec) {
-                              case 'ml':
-                               {
-                                   $novaQuantidade = $quantidadeSec / 15;
-                                }
+                              case 'ml':                               
+                                   $novaQuantidade = $quantidadeSec / 15;                                
                               break;
 
-                              case 'grama':
-                                {
-                                    $novaQuantidade = $quantidadeSec / 14;
-                                }
+                              case 'grama':                                
+                                    $novaQuantidade = $quantidadeSec / 14;                                
                               break;
 
-                              case 'colher de chá':
-                                {
-                                    $novaQuantidade = $quantidadeSec / 3;
-                                }
+                              case 'colher de chá':                                
+                                    $novaQuantidade = $quantidadeSec / 3;                                
                               break;
 
-                              case 'colher de café':
-                                {
-                                    $novaQuantidade = $quantidadeSec / 9;
-                                }
+                              case 'colher de café':                               
+                                    $novaQuantidade = $quantidadeSec / 9;                               
                               break;
 
-                              case 'xícara':
-                                {
-                                    $novaQuantidade = $quantidadeSec * 16;
-                                }
+                              case 'xícara':                                
+                                    $novaQuantidade = $quantidadeSec * 16;                               
                               break;
 
-                              case 'litro':
-                               {
-                                   $novaQuantidade = ($quantidadeSec /15) * 1000;
-                                }
+                              case 'litro':                               
+                                   $novaQuantidade = ($quantidadeSec /15) * 1000;                                
                               break;
 
-                              case 'quilo':
-                                {
-                                    $novaQuantidade = ($quantidadeSec /14) * 1000;
-                                }
+                              case 'quilo':                                
+                                    $novaQuantidade = ($quantidadeSec /14) * 1000;                                
                               break;    
                         }  
-                    }
+                    
                   break;
                     
                   case 'colher de chá':
-                    {
+                    
                          switch ($unimedSec) {
-                              case 'ml':
-                               {
-                                   $novaQuantidade = $quantidadeSec / 5;
-                                }
+                              case 'ml':                               
+                                   $novaQuantidade = $quantidadeSec / 5;                                
                               break;
 
-                              case 'grama':
-                                {
-                                    $novaQuantidade = $quantidadeSec / 4;
-                                }
+                              case 'grama':                               
+                                    $novaQuantidade = $quantidadeSec / 4;                                
                               break;
 
-                              case 'colher de sopa':
-                                {
-                                    $novaQuantidade = $quantidadeSec * 3;
-                                }
+                              case 'colher de sopa':                               
+                                    $novaQuantidade = $quantidadeSec * 3;                                
                               break;
 
-                              case 'colher de café':
-                                {
-                                    $novaQuantidade = $quantidadeSec / 3;
-                                }
+                              case 'colher de café':                                
+                                    $novaQuantidade = $quantidadeSec / 3;                                
                               break;
 
-                              case 'xícara':
-                                {
-                                    $novaQuantidade = $quantidadeSec * 48;
-                                }
+                              case 'xícara':                                
+                                    $novaQuantidade = $quantidadeSec * 48;                               
                               break;
 
-                              case 'litro':
-                               {
-                                   $novaQuantidade = ($quantidadeSec /5) * 1000;
-                                }
+                              case 'litro':                               
+                                   $novaQuantidade = ($quantidadeSec /5) * 1000;                                
                               break;
 
-                              case 'quilo':
-                                {
-                                    $novaQuantidade = ($quantidadeSec /4) * 1000;
-                                }
+                              case 'quilo':                                
+                                    $novaQuantidade = ($quantidadeSec /4) * 1000;                                
                               break;    
                         }  
-                    }
+                    
                   break;
                     
                   case 'colher de café':
-                    {
+                   
                          switch ($unimedSec) {
-                              case 'ml':
-                               {
-                                   $novaQuantidade = $quantidadeSec / 2;
-                                }
+                              case 'ml':                               
+                                   $novaQuantidade = $quantidadeSec / 2;                               
                               break;
 
-                              case 'grama':
-                                {
-                                    $novaQuantidade = $quantidadeSec / 1.5;
-                                }
+                              case 'grama':                               
+                                    $novaQuantidade = $quantidadeSec / 1.5;                                
                               break;
 
-                              case 'colher de sopa':
-                                {
-                                    $novaQuantidade = $quantidadeSec * 9;
-                                }
+                              case 'colher de sopa':                                
+                                    $novaQuantidade = $quantidadeSec * 9;                                
                               break;
 
-                              case 'colher de chá':
-                                {
-                                    $novaQuantidade = $quantidadeSec * 3;
-                                }
+                              case 'colher de chá':                                
+                                    $novaQuantidade = $quantidadeSec * 3;                                
                               break;
 
-                              case 'xícara':
-                                {
-                                    $novaQuantidade = $quantidadeSec * 144;
-                                }
+                              case 'xícara':                                
+                                    $novaQuantidade = $quantidadeSec * 144;                                
                               break;
 
-                              case 'litro':
-                               {
-                                   $novaQuantidade = ($quantidadeSec /2) * 1000;
-                                }
+                              case 'litro':                               
+                                   $novaQuantidade = ($quantidadeSec /2) * 1000;                                
                               break;
 
-                              case 'quilo':
-                                {
-                                    $novaQuantidade = ($quantidadeSec /1.5) * 1000;
-                                }
+                              case 'quilo':                               
+                                    $novaQuantidade = ($quantidadeSec /1.5) * 1000;                                
                               break;    
                         }  
-                    }
+                    
                   break;
                     
-                  case 'xícara':
-                    {
+                  case 'xícara':                    
                         switch ($unimedSec) {
-                              case 'ml':
-                               {
-                                   $novaQuantidade = $quantidadeSec / 240;
-                                }
+                              case 'ml':                               
+                                   $novaQuantidade = $quantidadeSec / 240;                                
                               break;
 
-                              case 'grama':
-                                {
-                                    $novaQuantidade = $quantidadeSec / 165;
-                                }
+                              case 'grama':                                
+                                    $novaQuantidade = $quantidadeSec / 165;                               
                               break;
 
-                              case 'colher de sopa':
-                                {
-                                    $novaQuantidade = $quantidadeSec / 16;
-                                }
+                              case 'colher de sopa':                              
+                                    $novaQuantidade = $quantidadeSec / 16;                               
                               break;
 
-                              case 'colher de chá':
-                                {
-                                    $novaQuantidade = $quantidadeSec / 48;
-                                }
+                              case 'colher de chá':                               
+                                    $novaQuantidade = $quantidadeSec / 48;                               
                               break;
 
-                              case 'colher de café':
-                                {
-                                    $novaQuantidade = $quantidadeSec / 144;
-                                }
+                              case 'colher de café':                                
+                                    $novaQuantidade = $quantidadeSec / 144;                                
                               break;
 
-                              case 'litro':
-                               {
-                                   $novaQuantidade = ($quantidadeSec /240) * 1000;
-                                }
+                              case 'litro':                             
+                                   $novaQuantidade = ($quantidadeSec /240) * 1000;                                
                               break;
 
-                              case 'quilo':
-                                {
-                                    $novaQuantidade = ($quantidadeSec /165) * 1000;
-                                }
+                              case 'quilo':                                
+                                    $novaQuantidade = ($quantidadeSec /165) * 1000;                                
                               break;    
                         }     
-                    }
+                   
                   break;
                     
-                  case 'litro':
-                   {
+                  case 'litro':                   
                       switch ($unimedSec) {
                               
-                              case 'ml':
-                               {
-                                   $novaQuantidade = $quantidadeSec / 1000;
-                                }
+                              case 'ml':                              
+                                   $novaQuantidade = $quantidadeSec / 1000;                                
                               break;
                               
-                              case 'grama':
-                               {
-                                   $novaQuantidade = $quantidadeSec / 1000;
-                                }
+                              case 'grama':                               
+                                   $novaQuantidade = $quantidadeSec / 1000;                                
                               break;
 
-                              case 'colher de sopa':
-                                {
-                                    $novaQuantidade = ($quantidadeSec * 15) / 1000;
-                                }
+                              case 'colher de sopa':                                
+                                    $novaQuantidade = ($quantidadeSec * 15) / 1000;                                
                               break;
 
-                              case 'colher de chá':
-                                {
-                                    $novaQuantidade = ($quantidadeSec * 5) / 1000;
-                                }
+                              case 'colher de chá':                               
+                                    $novaQuantidade = ($quantidadeSec * 5) / 1000;                                
                               break;
 
-                              case 'colher de café':
-                                {
-                                    $novaQuantidade = ($quantidadeSec * 2) / 1000 ; 
-                                }
+                              case 'colher de café':                                
+                                    $novaQuantidade = ($quantidadeSec * 2) / 1000 ;                                 
                               break;
 
-                              case 'xícara':
-                                {
-                                    $novaQuantidade = ($quantidadeSec * 240) / 1000 ;
-                                }
+                              case 'xícara':                                
+                                    $novaQuantidade = ($quantidadeSec * 240) / 1000 ;                                
                               break;
                   
-                              case 'quilo':
-                                {
-                                    $novaQuantidade = $quantidadeSec;
-                                }
+                              case 'quilo':                                
+                                    $novaQuantidade = $quantidadeSec;                                
                               break;    
                         }
-                    }
+                    
                   break;
                     
                   case 'quilo':
-                    {
                         switch ($unimedSec) {
                               
-                              case 'ml':
-                               {
-                                   $novaQuantidade = $quantidadeSec / 1000;
-                                }
+                              case 'ml':                               
+                                   $novaQuantidade = $quantidadeSec / 1000;                                
                               break;
                               
-                              case 'grama':
-                               {
-                                   $novaQuantidade = $quantidadeSec / 1000;
-                                }
+                              case 'grama':                              
+                                   $novaQuantidade = $quantidadeSec / 1000;                                
                               break;
 
-                              case 'colher de sopa':
-                                {
-                                    $novaQuantidade = ($quantidadeSec * 14) / 1000;
-                                }
+                              case 'colher de sopa':                                
+                                    $novaQuantidade = ($quantidadeSec * 14) / 1000;                                
                               break;
 
-                              case 'colher de chá':
-                                {
-                                    $novaQuantidade = ($quantidadeSec * 4) / 1000;
-                                }
+                              case 'colher de chá':                                
+                                    $novaQuantidade = ($quantidadeSec * 4) / 1000;                                
                               break;
 
-                              case 'colher de café':
-                                {
-                                    $novaQuantidade = ($quantidadeSec * 1.5) / 1000 ; 
-                                }
+                              case 'colher de café':                                
+                                    $novaQuantidade = ($quantidadeSec * 1.5) / 1000 ;                                 
                               break;
 
                               case 'xícara':
-                                {
                                     $novaQuantidade = ($quantidadeSec * 165) / 1000 ;
-                                }
                               break;
                   
-                              case 'litro':
-                                {
-                                    $novaQuantidade = $quantidadeSec;
-                                }
+                              case 'litro':                                
+                                    $novaQuantidade = $quantidadeSec;                                
                               break;    
                         }
-                    }
+                    
                   break;
             }
                 
