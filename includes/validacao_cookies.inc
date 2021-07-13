@@ -8,7 +8,7 @@
         header("Location: Login/login.php");
     }
     else {
-        include "includes/conecta_bd.inc";
+        include __DIR__."./conecta_bd.inc";
 
         $usuario = $_SESSION['nome_usuario'];
         $senha = $_SESSION['senha_usuario'];

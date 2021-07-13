@@ -17,6 +17,10 @@ header, li ul{
     background-color: rgb(113, 116, 255);
 }
 
+label{
+    user-select: none;
+}
+
 header label{
     color: black;
     font-size: 25px;
@@ -143,7 +147,7 @@ section{
     margin-left: 10px;
     position: relative;
 }
-button{
+button, input[type="submit"]{
     outline: none;
     border: 2px solid rgb(209, 205, 205);
     background-color: rgb(113, 116, 255);
@@ -154,6 +158,9 @@ button{
     transition: .5s;
     text-decoration: none;
     cursor: pointer;
+}
+button:hover, input[type="submit"]:hover{
+    background-color: yellow;
 }
 
 @media screen and (max-width:2560px) and (orientation:portrait) {
