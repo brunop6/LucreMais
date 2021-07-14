@@ -35,8 +35,8 @@
             include '../includes/conecta_bd.inc';
 
             $query = "SELECT r.id 
-            FROM receita r 
-            WHERE r.nomeReceita = '$nomeReceita'
+            FROM receita r, usuario u 
+            WHERE r.nome = '$nomeReceita'
                 AND u.id = r.idUsuario
                 AND u.email = '$email'";
 
@@ -83,7 +83,7 @@
                 }
             }
             
-            $query = "SELECT unidadeMedida, quantidade FROM receita_item WHERE idItem = '$idItem' and idReceita = '$idReceita'";
+            $query = "SELECT unidadeMedida, quantidade FROM receitaitem WHERE idItem = '$idItem' and idReceita = '$idReceita'";
 
             $resultado = mysqli_query($conexao, $query);
             
@@ -110,7 +110,10 @@
         public static function valorItemReceita($idItem, $idReceita){
             include '../includes/conecta_bd.inc';
 
-            $query = "SELECT e.preco, i.quantidade, i.unidadeMedida, i.nome, e.quantidade as quantidadeEstoque FROM item i, estoque e WHERE idItem = '$idItem'";
+            $query = "SELECT e.preco, i.quantidade, i.unidadeMedida, i.nome, e.quantidade as quantidadeEstoque 
+            FROM item i, estoque e 
+            WHERE e.idItem = '$idItem' AND i.id = e.idItem";
+            
 
             $resultado = mysqli_query($conexao, $query);
             
@@ -124,7 +127,9 @@
                 $i = 0;
                 while($row = mysqli_fetch_array($resultado)){
                     $preco[$i] = $row['preco'];
-                    $quantidadeItem = $row['quantidade'];                    
+                    $quantidadeItem = $row['quantidade'];   
+                    print_r($quantidadeItem);
+                    die();                 
                     $quantidadeEstoque[$i] = $row['quantidadeEstoque'];                    
                     $unimedItem = $row['unidadeMedida'];                    
                     $itemNome = $row['nome'];
@@ -133,8 +138,10 @@
                 }
             }
             
-            $query = "SELECT quantidade, unidadeMedida FROM receita_item WHERE idItem = '$idItem' and idReceita = '$idReceita'";
-
+            $query = "SELECT quantidade, unidadeMedida 
+            FROM receitaitem 
+            WHERE idItem = '$idItem' and idReceita = '$idReceita'";
+           
             $resultado = mysqli_query($conexao, $query);
             
             $unimedRec = null;
@@ -181,7 +188,8 @@
                                 }
                                 
                                 if ($unimedItem != $unimedRec){
-                                     (($quantUsadaLote[$i]) = Receita_Item::converterMedidas($unimedItem, $unimedRec, ($quantUsadaLote[$i]), $itemNome);
+                                     $quantUsadaLote[$i] = Receita_Item::converterMedidas($unimedItem, $unimedRec, ($quantUsadaLote[$i]), $itemNome);
+                                     print_r($quantUsadaLote);
                                 }
                                 
                                 $custo[$i] = (($quantUsadaLote[$i])*$preco[$i])/$quantidadeItem;  
@@ -206,9 +214,11 @@
                  
                 if ($unimedItem != $unimedRec){
                     $quantidadeRec = Receita_Item::converterMedidas($unimedItem, $unimedRec, $quantidadeRec, $itemNome);
+    
                 }
                  
                 $custoTotal = ($quantidadeRec*$preco[0])/$quantidadeItem;
+         
             }
                       
 
