@@ -8,7 +8,12 @@ body{
     font-family: sans-serif;
     background-color: #002D55;
 }
-
+table, th, td{
+    color: #B9DEFF;
+    border-color: black;
+    border-collapse: collapse;
+    text-align: 20px;
+}
 #btn-menu{
     display: none;
 }
