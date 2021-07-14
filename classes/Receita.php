@@ -113,7 +113,8 @@
         public static function valorItemReceita($idItem, $idReceita, $unimedRec, $quantidadeRec){
             include '../includes/conecta_bd.inc';
 
-            $query = "SELECT e.preco, i.quantidade, i.unidadeMedida, i.nome, e.quantidade as quantidadeEstoque, e.lote FROM item i, estoque e WHERE idItem = '$idItem'";
+            $query = "SELECT e.preco, i.quantidade, i.unidadeMedida, i.nome, e.quantidade as quantidadeEstoque, e.lote FROM item i, estoque e 
+                        WHERE i.idItem = '$idItem' AND  i.idItem = e.idItem";
 
             $resultado = mysqli_query($conexao, $query);
             
