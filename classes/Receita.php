@@ -67,19 +67,34 @@
             return mysqli_error($conexao);
         }
         
-        public static function verificaItem($idItem, $idReceita, $unimedRec, $quantidadeRec){
+         public static function verificaItem($idItem, $idReceita){
             include '../includes/conecta_bd.inc';
 
-            $query = "SELECT unidadeMedida, quantidade FROM item WHERE id = '$idItem'";
+            $query = "SELECT unidadeMedida, quantidade, nome FROM item WHERE id = '$idItem'";
 
             $resultado = mysqli_query($conexao, $query);
             
             $unimedItem = null;
             $quantidadeItem = null;
+            $itemNome = null;
             if(mysqli_num_rows($resultado) > 0){
                 while($row = mysqli_fetch_array($resultado)){
                     $unimedItem = $row['unidadedeMedida'];
                     $quantidadeItem = $row['quantidade'];                    
+                    $itemNome = $row['nome'];                    
+                }
+            }
+            
+            $query = "SELECT unidadeMedida, quantidade FROM receita_item WHERE idItem = '$idItem' and idReceita = '$idReceita'";
+
+            $resultado = mysqli_query($conexao, $query);
+            
+            $unimedRec = null;
+            $quantidadeRec = null;
+            if(mysqli_num_rows($resultado) > 0){
+                while($row = mysqli_fetch_array($resultado)){
+                    $unimedRec = $row['unidadedeMedida'];
+                    $quantidadeRec = $row['quantidade'];  
                 }
             }
             
@@ -95,7 +110,7 @@
             return $verifica;
         }
         
-        public static function valorItemReceita($idItem, $idReceita){
+        public static function valorItemReceita($idItem, $idReceita, $unimedRec, $quantidadeRec){
             include '../includes/conecta_bd.inc';
 
             $query = "SELECT e.preco, i.quantidade, i.unidadeMedida, i.nome, e.quantidade as quantidadeEstoque FROM item i, estoque e WHERE idItem = '$idItem'";
@@ -120,22 +135,7 @@
                     $i++;                    
                 }
             }
-            
-            $query = "SELECT quantidade, unidadeMedida FROM receita_item WHERE idItem = '$idItem' and idReceita = '$idReceita'";
-
-            $resultado = mysqli_query($conexao, $query);
-            
-            $unimedRec = null;
-            $quantidadeRec = null;
-            if(mysqli_num_rows($resultado) > 0){
-                while($row = mysqli_fetch_array($resultado)){
-                    $unimedRec = $row['unidadedeMedida'];
-                    $quantidadeRec = $row['quantidade'];  
-                }
-            }
-             
-             
-             
+                  
             $i = 0;               
             $count = 0;            
             $custoTotal = 0;      
