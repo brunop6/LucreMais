@@ -225,7 +225,7 @@
         public static function selectMenusDisponiveis($nivelAcesso, $email){
             include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "SELECT m.id, m.descricao
+            $query = "SELECT DISTINCT m.id, m.descricao
             FROM menu m, nivelusuario n, permissao p, usuario u
             WHERE u.idNivelUsuario = n.id
                 AND p.idNivelUsuario = n.id
@@ -249,6 +249,7 @@
                 while($row = mysqli_fetch_array($resultado)){
                     $idMenu[$i] = $row['id'];
                     $descricaoMenu[$i] = $row['descricao'];
+                    $i++;
                 }
             }
             mysqli_close($conexao);
@@ -269,5 +270,18 @@
                 return true;
             }
             return mysqli_error($conexao).' - Id='.$idAcao;
+        }
+
+        public static function cadastrarPermissao($idNivelUsuario, $idMenu){
+            include __DIR__.'./../includes/conecta_bd.inc';
+
+            $query = "INSERT INTO permissao (idNivelUsuario, idMenu) VALUES ($idNivelUsuario, $idMenu)";
+
+            $resultado = mysqli_query($conexao,$query);
+
+            if($resultado){
+                return true;
+            }
+            return mysqli_error($conexao);
         }
     }
