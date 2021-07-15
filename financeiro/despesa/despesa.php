@@ -55,6 +55,8 @@
                     }
                 }
             }
+
+            $totalMensal = Despesa::selectTotal($email);
         ?>
  
         <table style="width:100%; margin-top: 10px"; border="1px";>
@@ -68,6 +70,8 @@
                 preencherDespesa();
             ?>
         </table>
+        <br>
+        <h3>Total mensal: <?php echo "-R$ $totalMensal" ?></h3>
     </main>
 </body>
 </html>

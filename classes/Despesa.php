@@ -91,4 +91,30 @@
 
       return array($descricao, $custo);
     }
+
+    public static function selectTotal($email){
+      include __DIR__.'./../includes/conecta_bd.inc';
+
+      $query = "SELECT SUM(d.custo) as total
+      FROM despesa d, usuario u
+      WHERE MONTH(d.dataCadastro) = (
+          SELECT DATE_FORMAT(CURRENT_TIMESTAMP(), '%m')
+        )
+        AND d.idUsuario = u.id
+        AND u.email = '$email'
+      ";
+
+      $resultado = mysqli_query($conexao, $query);
+
+      $total = null;
+
+      if(mysqli_num_rows($resultado) > 0){
+        while($row = mysqli_fetch_array($resultado)){
+          $total = $row['total'];
+        }
+      }
+      mysqli_close($conexao);
+
+      return $total;
+    }
   }
