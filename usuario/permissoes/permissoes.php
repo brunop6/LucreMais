@@ -19,11 +19,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script type="text/javascript" src="./permissoes.js"></script>
     <link rel="stylesheet" href="./../../Aparencia.css">
     <link rel="stylesheet" href="./permissoes.css">
     <title>Permissões</title>
 </head>
 <body>
+    <p id="emailUsuario" hidden><?php echo $emailUsuario; ?></p>
     <header>
         <input type="checkbox" id="btn-menu">
         <label for="btn-menu">&#9776;</label>
@@ -56,13 +59,14 @@
         <h3>Administrador:</h3>
         <br>
         <p>Todas as permissões</p>
-        <form action="./edita_acoes/editar_acoes.php" method="POST">
-            <?php  
+        <form action="./edita_acoes/editar_acoes.php" method="POST" id="form-permissoes">
+            <input type="hidden" name="nivelAtual" id="nivelAtual">
+            <?php
+                $countNivel = 0;
                 //Carregamento dos níveis já cadastrados
                 foreach($niveisAcesso as $nivel){
                     echo "<br><hr><br>";
-                    echo "<h3>$nivel:</h3>";
-
+                    echo "<h3 id='nivel$countNivel'>$nivel:</h3>";
                     //Menus e ações permitidas do respectivo nível
                     $i = 0;
                     foreach($menu as $menu){
@@ -99,11 +103,12 @@
                         $i++;
                     }
                     if($i < 5){
-                        echo "<br><button>Desbloquear menu</button>"; //Chamar função js para criação de elementos do form
+                        echo "<br><button type='button' id='btn-addMenu' onclick='desbloquearMenu($countNivel)'>Desbloquear menu</button>"; //Chamar função js para criação de elementos do form
                     }
+                    $countNivel++;
                 }   
             ?>
-            <p><input type="submit" value="Salvar"></p>
+            <p id='btn-salvar'><input type="submit" value="Salvar"></p>
         </form>
     </section>
 </body>

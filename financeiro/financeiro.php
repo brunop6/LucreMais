@@ -12,6 +12,15 @@
         header("Location: ./../Home.php");
         die();
     }
+
+    include_once './../classes/Despesa.php';
+    include_once './../classes/Recibo.php';
+
+    $despesaMensal = Despesa::selectTotal($email);
+    $entradaMensal = Recibo::selectTotal($email);
+
+    $porcentagemLucro = (($entradaMensal-$despesaMensal)*100)/$despesaMensal;
+    $lucroReal = $entradaMensal - $despesaMensal;
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -20,6 +29,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./../Aparencia.css">
+    <link rel="stylesheet" href="./financeiro.css">
     <title>Financeiro</title>
 </head>
 <body>
@@ -34,5 +44,11 @@
             </ul>
         </nav>
     </header>
+    <div class="lucro">
+        <h3>Entrada mensal: <span class="entrada"><?php echo "R$ $entradaMensal" ?></span></h3>
+        <h3>Despesa mensal: <span class="despesa"><?php echo "R$ $despesaMensal" ?></span></h3>
+        <br>
+        <h3>Lucro mensal: <?php echo "R$ $lucroReal &#10140; $porcentagemLucro%" ?></h3>
+    </div>
 </body>
 </html>

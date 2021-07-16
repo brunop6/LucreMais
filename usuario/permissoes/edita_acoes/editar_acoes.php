@@ -63,12 +63,33 @@
             $i++;
         }
         if($resultado){
-            header('Location: ./../permissoes.php');
-            die();
+            //Desbloqueio de novo menu
+            if(isset($_POST['novoMenu'])){
+                if(session_status() !== PHP_SESSION_ACTIVE){
+                    session_start();
+                }
+                $descricaoNivel = $_POST['nivelAtual'];
+                $idMenu = $_POST['novoMenu'];
+                $idNivelUsuario = Usuario::selectIdNivel($descricaoNivel);
+
+                $resultado = Usuario::cadastrarPermissao($idNivelUsuario, $idMenu);
+                if($resultado){
+                    header('Location: ./../permissoes.php');
+                    die();
+                }else{
+                    echo "<h3>$resultado</h3>";
+                    echo "<button onclick='window.location.href='./../permissoes.php''>Retornar às permissões</button>";
+                }
+            }else{
+                header('Location: ./../permissoes.php');
+                die();
+            }
         }else{
             echo "<h3>$resultado</h3>";
             echo "<button onclick='window.location.href='./../permissoes.php''>Retornar às permissões</button>";
         }
+
+        
     ?>
 </body>
 </html>
