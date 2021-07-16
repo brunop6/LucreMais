@@ -2,25 +2,25 @@ function inseriringrediente(){
     document.getElementById("inserir").remove();  
     
     //Controle da quantidade de ingredientes
-    var pNum = document.getElementById("numIngred")
-    var numIngred = parseInt(pNum.textContent);
+    let pNum = document.getElementById("numIngred")
+    let numIngred = parseInt(pNum.textContent);
     numIngred++;
 
     //Novos elementos
-    var p1 = document.createElement("p");
-    var p2 = document.createElement("p");
-    var p3 = document.createElement("p");
-    var inputi = document.createElement("input");
-    var inputq = document.createElement("input");
-    var inserir = document.createElement("button");   
-    var select = document.createElement("select");
-    var option1 = document.createElement("option");
-    var option2 = document.createElement("option");
-    var option3 = document.createElement("option");
-    var option4 = document.createElement("option");
-    var option5 = document.createElement("option");
-    var option6 = document.createElement("option");
-    var option7 = document.createElement("option");
+    let p1 = document.createElement("p");
+    let p2 = document.createElement("p");
+    let p3 = document.createElement("p");
+    let inputi = document.createElement("input");
+    let inputq = document.createElement("input");
+    let inserir = document.createElement("button");   
+    let select = document.createElement("select");
+    let option1 = document.createElement("option");
+    let option2 = document.createElement("option");
+    let option3 = document.createElement("option");
+    let option4 = document.createElement("option");
+    let option5 = document.createElement("option");
+    let option6 = document.createElement("option");
+    let option7 = document.createElement("option");
 
     inputi.type = "text";
     inputi.name = "ingrediente"+numIngred;
@@ -28,7 +28,9 @@ function inseriringrediente(){
     
     inputq.type = "number";
     inputq.placeholder = "Quantidade";
+    inputq.name = "quantidade"+numIngred;
 
+    select.name = "unidade_de_medida"+numIngred;
     option1.textContent = "Unidade de Medida";
     option1.value = "unidade_de_medida";
     option2.textContent = "ML";
@@ -48,7 +50,7 @@ function inseriringrediente(){
     inserir.id = "inserir";
     inserir.addEventListener("click", inseriringrediente);
 
-    var form = document.getElementById("formulario");
+    let form = document.getElementById("formulario");
 
     form.appendChild(p1);
     form.appendChild(p2);

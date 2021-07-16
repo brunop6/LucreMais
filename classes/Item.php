@@ -21,26 +21,25 @@
       $this->quantidadeMinima = $quantidadeMinima;
     }
 
-    public static function selectId($nome, $marca, $email){
+    public static function selectId($item, $email){
       include '../includes/conecta_bd.inc';
-      
-      $query = "SELECT i.id 
-      FROM item i, usuario u
-      WHERE i.nome = '$nome' 
-        AND i.marca = '$marca'
-        AND i.idUsuario = u.id
-        AND u.email = '$email'";
 
+      $query = "SELECT i.id
+      FROM item i, usuario u
+      WHERE LOCATE(i.marca, '$item')
+      AND LOCATE(i.nome, '$item')
+      AND i.idUsuario = u.id
+      AND u.email = '$email'";
       $resultado = mysqli_query($conexao, $query);
       
+      $id = null;
       if(mysqli_num_rows($resultado) > 0){
         while($row = mysqli_fetch_array($resultado)){
           $id = $row['id'];
         }
       }
-    
       mysqli_close($conexao);
-      
+
       return $id;
     }
 

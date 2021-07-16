@@ -2,7 +2,7 @@
 -- Servidor:                     127.0.0.1
 -- Versão do servidor:           10.4.18-MariaDB - mariadb.org binary distribution
 -- OS do Servidor:               Win64
--- HeidiSQL Versão:              11.2.0.6213
+-- HeidiSQL Versão:              11.3.0.6295
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -77,8 +77,8 @@ CREATE TABLE IF NOT EXISTS `categoriadespesa` (
 
 -- Exportação de dados foi desmarcado.
 
--- Copiando estrutura para tabela lucremais.categoriarecibo
-CREATE TABLE IF NOT EXISTS `categoriarecibo` (
+-- Copiando estrutura para tabela lucremais.categoriaentrada
+CREATE TABLE IF NOT EXISTS `categoriaentrada` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `descricao` varchar(250) NOT NULL,
   `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
@@ -101,6 +101,23 @@ CREATE TABLE IF NOT EXISTS `despesa` (
   KEY `despesa_ibfk_2` (`idCategoriaDespesa`),
   CONSTRAINT `despesa_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `despesa_ibfk_2` FOREIGN KEY (`idCategoriaDespesa`) REFERENCES `categoriadespesa` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Exportação de dados foi desmarcado.
+
+-- Copiando estrutura para tabela lucremais.entrada
+CREATE TABLE IF NOT EXISTS `entrada` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `idUsuario` int(10) unsigned NOT NULL,
+  `idCategoriaEntrada` int(10) unsigned NOT NULL,
+  `valor` double NOT NULL,
+  `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
+  `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `entrada_ibfk_1` (`idUsuario`),
+  KEY `entrada_ibfk_2` (`idCategoriaEntrada`),
+  CONSTRAINT `entrada_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `entrada_ibfk_2` FOREIGN KEY (`idCategoriaEntrada`) REFERENCES `categoriaentrada` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Exportação de dados foi desmarcado.
@@ -246,7 +263,7 @@ CREATE TABLE IF NOT EXISTS `receitaitem` (
   `idReceita` int(10) unsigned NOT NULL,
   `idItem` int(10) unsigned NOT NULL,
   `quantidade` double NOT NULL,
-  `unidadeMedida` double NOT NULL,
+  `unidadeMedida` varchar(50) NOT NULL DEFAULT '',
   `custo` double NOT NULL,
   `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
   `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
@@ -255,23 +272,6 @@ CREATE TABLE IF NOT EXISTS `receitaitem` (
   KEY `receitaItem_ibfk_2` (`idItem`),
   CONSTRAINT `receitaItem_ibfk_1` FOREIGN KEY (`idReceita`) REFERENCES `receita` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `receitaItem_ibfk_2` FOREIGN KEY (`idItem`) REFERENCES `item` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Exportação de dados foi desmarcado.
-
--- Copiando estrutura para tabela lucremais.recibo
-CREATE TABLE IF NOT EXISTS `recibo` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `idUsuario` int(10) unsigned NOT NULL,
-  `idCategoriaRecibo` int(10) unsigned NOT NULL,
-  `valor` double NOT NULL,
-  `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
-  `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`id`),
-  KEY `recibo_ibfk_1` (`idUsuario`),
-  KEY `recibo_ibfk_2` (`idCategoriaRecibo`),
-  CONSTRAINT `recibo_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `recibo_ibfk_2` FOREIGN KEY (`idCategoriaRecibo`) REFERENCES `categoriarecibo` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Exportação de dados foi desmarcado.

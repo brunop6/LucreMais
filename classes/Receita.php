@@ -117,12 +117,6 @@
             FROM item i, estoque e 
             WHERE e.idItem = '$idItem' AND i.id = e.idItem";
 
-<<<<<<< HEAD
-=======
-            $query = "SELECT e.preco, i.quantidade, i.unidadeMedida, i.nome, e.quantidade as quantidadeEstoque, e.lote FROM item i, estoque e 
-                        WHERE i.idItem = '$idItem' AND  i.idItem = e.idItem";
->>>>>>> 58bc7ef9febe71c86e808f3ac2d7ce3c015280e2
-
             $resultado = mysqli_query($conexao, $query);
             
             $preco = null;

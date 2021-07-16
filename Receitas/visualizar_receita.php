@@ -25,7 +25,7 @@
         <label for="btn-menu">&#9776;</label>
         <nav class="menu">
             <ul>
-                <li><a href="./cadastrar_receitas.php">Habilitar Edição</a></li>
+                <li><a href="./cadastro_de_receitas.php">Habilitar Edição</a></li>
                 <li><a href="./receitas.php">Voltar</a></li>
             </ul>
         </nav>

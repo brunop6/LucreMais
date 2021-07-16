@@ -39,15 +39,8 @@
         $idItem = null;
 
         //Buscando o item inserido no banco de dados
-        foreach($nome as $nomeItem){
-            if(strpos($item, $nomeItem) !== false){
-                if(strpos($item, $marca[$i]) !== false){
-                    $idItem = Item::selectId($nomeItem, $marca[$i], $emailUsuario);
-                    break;
-                }
-            }
-            $i++;
-        }
+        $idItem = Item::selectId($item, $emailUsuario);
+
 
         //Fomulário só será enviado quando houver a inserção de fornecedor e item válido no sistema
         if($idItem != null && $idFornecedor != null){
