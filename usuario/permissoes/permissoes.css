@@ -1,0 +1,13 @@
+p{
+    margin-left: 2%;
+}
+.inserir{
+    margin-left: 4%;
+    display: inline;
+}
+input[type="checkbox"]{
+    margin-right: 2%;
+}
+hr{
+    margin-right: 40px;
+}

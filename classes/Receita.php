@@ -67,19 +67,21 @@
             return mysqli_error($conexao);
         }
         
-        public static function verificaItem($idItem, $idReceita){
+    /*     public static function verificaItem($idItem, $idReceita){
             include '../includes/conecta_bd.inc';
 
-            $query = "SELECT unidadeMedida, quantidade FROM item WHERE id = '$idItem'";
+            $query = "SELECT unidadeMedida, quantidade, nome FROM item WHERE id = '$idItem'";
 
             $resultado = mysqli_query($conexao, $query);
             
             $unimedItem = null;
             $quantidadeItem = null;
+            $itemNome = null;
             if(mysqli_num_rows($resultado) > 0){
                 while($row = mysqli_fetch_array($resultado)){
                     $unimedItem = $row['unidadedeMedida'];
                     $quantidadeItem = $row['quantidade'];                    
+                    $itemNome = $row['nome'];                    
                 }
             }
             
@@ -96,6 +98,7 @@
                 }
             }
             
+            
             if ($unimedItem != $unimedRec){
                 $quantidadeRec = Receita_Item::converterMedidas($unimedItem, $unimedRec, $quantidadeRec, $itemNome);
             }
@@ -105,15 +108,15 @@
             $verifica = ($quantidadeItem >= $quantidadeRec);
 
             return $verifica;
-        }
+        }*/
         
-        public static function valorItemReceita($idItem, $idReceita){
+        public static function valorItemReceita($idItem, $idReceita, $unimedRec, $quantidadeRec){
             include '../includes/conecta_bd.inc';
-
-            $query = "SELECT e.preco, i.quantidade, i.unidadeMedida, i.nome, e.quantidade as quantidadeEstoque 
+            
+            $query = "SELECT e.preco, i.quantidade, i.unidadeMedida, i.nome, e.quantidade as quantidadeEstoque, e.lote  
             FROM item i, estoque e 
             WHERE e.idItem = '$idItem' AND i.id = e.idItem";
-            
+
 
             $resultado = mysqli_query($conexao, $query);
             
@@ -127,34 +130,15 @@
                 $i = 0;
                 while($row = mysqli_fetch_array($resultado)){
                     $preco[$i] = $row['preco'];
-                    $quantidadeItem = $row['quantidade'];   
-                    print_r($quantidadeItem);
-                    die();                 
+                    $quantidadeItem = $row['quantidade'];                   
                     $quantidadeEstoque[$i] = $row['quantidadeEstoque'];                    
                     $unimedItem = $row['unidadeMedida'];                    
                     $itemNome = $row['nome'];
-                    $lote[$i] = $i;
+                    $lote[$i] = $row['lote'];
                     $i++;                    
                 }
             }
-            
-            $query = "SELECT quantidade, unidadeMedida 
-            FROM receitaitem 
-            WHERE idItem = '$idItem' and idReceita = '$idReceita'";
-           
-            $resultado = mysqli_query($conexao, $query);
-            
-            $unimedRec = null;
-            $quantidadeRec = null;
-            if(mysqli_num_rows($resultado) > 0){
-                while($row = mysqli_fetch_array($resultado)){
-                    $unimedRec = $row['unidadedeMedida'];
-                    $quantidadeRec = $row['quantidade'];  
-                }
-            }
-             
-             
-             
+                  
             $i = 0;               
             $count = 0;            
             $custoTotal = 0;      
@@ -164,7 +148,6 @@
              
              
              if($quantidadeRec > $quantidadeEstoque[0]){
-                 
                 foreach($lote as $value){
                     
                     while($count < $quantidadeRec){
@@ -189,10 +172,11 @@
                                 
                                 if ($unimedItem != $unimedRec){
                                      $quantUsadaLote[$i] = Receita_Item::converterMedidas($unimedItem, $unimedRec, ($quantUsadaLote[$i]), $itemNome);
-                                     print_r($quantUsadaLote);
+                                     
                                 }
                                 
                                 $custo[$i] = (($quantUsadaLote[$i])*$preco[$i])/$quantidadeItem;  
+                                print_r($custo[$i]);
                                 
                             }
                             
@@ -245,4 +229,3 @@
                 return mysqli_error($conexao);
             }
     }
-?>
