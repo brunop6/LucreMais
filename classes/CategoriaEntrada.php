@@ -1,5 +1,5 @@
 <?php
-    class CategoriaRecibo{
+    class CategoriaEntrada{
         private $descricao;
 
         function __construct($descricao)
@@ -7,7 +7,7 @@
             $this->descricao = mb_strtoupper($descricao, mb_internal_encoding());
         }
 
-        public function cadastrarCategoriaRecibo(){
+        public function cadastrarCategoriaEntrada(){
             include __DIR__.'./../includes/conecta_bd.inc';
 
             $query = "INSERT INTO categoriarecibo (descricao) VALUES ('$this->descricao')";
@@ -101,11 +101,12 @@
         public static function selectCategorias($email){
             include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "SELECT cr.id, cr.descricao, DATE_FORMAT(cr.dataCadastro, '%d/%m/%Y %H:%i') AS dataCadastro, DATE_FORMAT(cr.dataAtualizacao, '%d/%m/%Y %H:%i') AS dataAtualizacao, u.nomeUsuario  
+            $query = "SELECT DISTINCT cr.id, cr.descricao, DATE_FORMAT(cr.dataCadastro, '%d/%m/%Y %H:%i') AS dataCadastro, DATE_FORMAT(cr.dataAtualizacao, '%d/%m/%Y %H:%i') AS dataAtualizacao, u.nomeUsuario  
             FROM categoriarecibo cr, recibo r, usuario u
             WHERE r.idUsuario = u.id
                 AND r.idCategoriaRecibo = cr.id
-                AND u.email = '$email'";
+                AND u.email = '$email'
+            ORDER BY cr.id";
 
             $resultado = mysqli_query($conexao, $query);
 

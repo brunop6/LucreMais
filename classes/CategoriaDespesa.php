@@ -101,11 +101,12 @@
         public static function selectCategorias($email){
             include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "SELECT cd.id, cd.descricao, DATE_FORMAT(cd.dataCadastro, '%d/%m/%Y %H:%i') AS dataCadastro, DATE_FORMAT(cd.dataAtualizacao, '%d/%m/%Y %H:%i') AS dataAtualizacao, u.nomeUsuario  
+            $query = "SELECT DISTINCT cd.id, cd.descricao, DATE_FORMAT(cd.dataCadastro, '%d/%m/%Y %H:%i') AS dataCadastro, DATE_FORMAT(cd.dataAtualizacao, '%d/%m/%Y %H:%i') AS dataAtualizacao, u.nomeUsuario  
             FROM categoriadespesa cd, despesa d, usuario u
             WHERE d.idUsuario = u.id
                 AND d.idCategoriaDespesa = cd.id
-                AND u.email = '$email'";
+                AND u.email = '$email'
+            ORDER BY cd.id";
 
             $resultado = mysqli_query($conexao, $query);
 

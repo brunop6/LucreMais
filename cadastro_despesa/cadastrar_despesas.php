@@ -36,7 +36,7 @@
         echo "<p>Custo: $custo</p>";
 
         echo "<p><a href='cadastro_de_despesa.php'><button>Cadastrar novo item</button></a></p>";
-        echo "<p><a href='../Home.php'><button>Voltar para página inicial</button></a></p>";
+        echo "<p><a href='./../financeiro/despesa/despesa.php'><button>Voltar</button></a></p>";
     }else{
         echo '<h2>Erro ao realizar cadastro...</h2> <br>';
         echo "<p lang='en'>".$resultado."</p>";

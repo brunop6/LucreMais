@@ -71,7 +71,7 @@
             ?>
         </table>
         <br>
-        <h3>Total mensal: <?php echo "-R$ $totalMensal" ?></h3>
+        <h3>Total mensal: <?php echo "-R$ ".number_format($totalMensal, 2);?></h3>
     </main>
 </body>
 </html>
