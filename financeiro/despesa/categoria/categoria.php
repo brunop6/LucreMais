@@ -51,8 +51,8 @@
         <label for="btn-menu">&#9776;</label>
         <nav class="menu">
             <ul>
-                <li><a href="../despesa.php">Voltar</a></li>
                 <li><a href="/LucreMais/Home.php">Página Principal</a></li>
+                <li><a href="../despesa.php">Voltar</a></li>
             </ul>
         </nav>
     </header>

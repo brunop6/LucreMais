@@ -17,14 +17,14 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Categorias Recibo</title>
-    <link rel="stylesheet" href="../recibo.css">
+    <title>Categorias Entrada</title>
+    <link rel="stylesheet" href="../entrada.css">
     <?php
         function preencherCategorias(){
             global $email;
-            include_once './../../../classes/CategoriaRecibo.php';
+            include_once './../../../classes/CategoriaEntrada.php';
 
-            list($id, $descricao, $dataCadastro, $dataAtualizacao, $nomeUsuario) = CategoriaRecibo::selectCategorias($email);
+            list($id, $descricao, $dataCadastro, $dataAtualizacao, $nomeUsuario) = CategoriaEntrada::selectCategorias($email);
 
             if(!empty($descricao)){
                 $i = 0;
@@ -51,8 +51,8 @@
         <label for="btn-menu">&#9776;</label>
         <nav class="menu">
             <ul>
-                <li><a href="../recibo.php">Voltar</a></li>
                 <li><a href="/LucreMais/Home.php">Página Principal</a></li>
+                <li><a href="../entrada.php">Voltar</a></li>
             </ul>
         </nav>
     </header>

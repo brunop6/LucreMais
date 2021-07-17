@@ -1,11 +1,11 @@
 function preencherCategorias(){
-    var inputCategoria = document.getElementById('categoriaRecibo').value;
+    var inputCategoria = document.getElementById('categoriaEntrada').value;
 
     if(inputCategoria.length>=3){
         $.ajax({
-            url: 'selectCategoriaRecibo.php',
+            url: 'selectCategoriaEntrada.php',
             method: 'POST',
-            data:{categoriaRecibo: inputCategoria},
+            data:{categoriaEntrada: inputCategoria},
             dataType: 'json'
         }).done(function(result){
             if(result != null){

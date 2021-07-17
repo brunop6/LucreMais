@@ -1,7 +1,7 @@
 <?php
     define('menu', 'Itens');
     include_once './../../classes/Usuario.php';
-    include_once './../../classes/Recibo.php';
+    include_once './../../classes/Entrada.php';
 
     if (session_status() !== PHP_SESSION_ACTIVE) {
         session_start();
@@ -13,7 +13,7 @@
         die();
     }
     $id = $_GET['id'];
-    list($descricao, $custo) = Recibo::selectRecibosLista($id);
+    list($descricao, $custo) = Entrada::selectEntradasLista($id);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -21,21 +21,21 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../../fornecedor/fornecedor.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script type="text/javascript" src="./edita_recibo.js"></script>
-    <title>Edição de Recibo</title>
+    <script type="text/javascript" src="./edita_entrada.js"></script>
+    <title>Edição de Entrada</title>
 </head>
 <body>
     <img src="../../Logo.png" alt="Logo do site" width="14%">
-    <form action="editar_recibo.php?id=<?php echo $id ?>" method="POST" >     
+    <form action="editar_entrada.php?id=<?php echo $id ?>" method="POST" >     
         <h3>Categoria</h3>
-        <p><input type="text" name="categoriaRecibo" id="categoriaRecibo" list="categorias" value="<?php echo $descricao ?>" oninput="preencherCategorias()" required></p>
+        <p><input type="text" name="categoriaEntrada" id="categoriaEntrada" list="categorias" value="<?php echo $descricao ?>" oninput="preencherCategorias()" required></p>
         <datalist id="categorias">
 
         </datalist>
         <h3>Custo: </h3>
         <p><input type="text" name="valor" list="valor" value="<?php echo $custo?>"required></p>
             <input type="submit" value="Salvar" name="salvar" >
-            <input type="button" value="Cancelar" onclick="window.location.href='./recibo.php'">
+            <input type="button" value="Cancelar" onclick="window.location.href='./entrada.php'">
         </p>
     </form>
     
