@@ -21,6 +21,8 @@ function inseriringrediente(){
     let option5 = document.createElement("option");
     let option6 = document.createElement("option");
     let option7 = document.createElement("option");
+    let option8 = document.createElement("option");
+    let option9 = document.createElement("option");
 
     inputi.type = "text";
     inputi.name = "ingrediente"+numIngred;
@@ -36,7 +38,7 @@ function inseriringrediente(){
     option2.textContent = "ML";
     option2.value = "ml";
     option3.textContent = "Grama";
-    option3.value = "grama";
+    option3.value = "gramas";
     option4.textContent = "Colher de Sopa";
     option4.value = "colher_de_sopa";
     option5.textContent = "Colher de Chá"
@@ -45,6 +47,10 @@ function inseriringrediente(){
     option6.value = "colher_de_café";
     option7.textContent = "Xícara";
     option7.value = "xicara";
+    option8.textContent = "Unidade(s)";
+    option8.value = "unidade(s)";
+    option9.textContent = "Quilo";
+    option9.value = "quilo(s)";
 
     inserir.textContent = "Inserir ingrediente";
     inserir.id = "inserir";
@@ -62,12 +68,14 @@ function inseriringrediente(){
     p3.appendChild(inserir);
 
     select.appendChild(option1);
+    select.appendChild(option8);
     select.appendChild(option2);
     select.appendChild(option3);
     select.appendChild(option4);
     select.appendChild(option5);
     select.appendChild(option6);
     select.appendChild(option7);
+    select.appendChild(option9);
 
     document.body.appendChild(form);
 

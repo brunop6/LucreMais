@@ -36,13 +36,14 @@
         <p><input type="number" name="quantidade1" placeholder="Quantidade" required></p>
         <select id="unidade_de_medida" name = "unidade_de_medida1" >
             <option value="unidade_de_medida">Unidade de Medida</option> 
-            <option value="unidade">Unidade</option>
+            <option value="unidade(s)">Unidade</option>
             <option value="ml">ML</option>
-            <option value="grama">Grama</option>
+            <option value="gramas">Grama</option>
             <option value="colher_de_sopa">Colher de Sopa</option>
             <option value="colher_de_cha">Colher de Chá</option>
             <option value="colher_de_cafe">Colher de Café</option>
             <option value="xicara">Xícara</opition>
+            <option value="quilo(s)">Quilo(s)</option>
         </select>
         <p><button id="inserir" onclick="inseriringrediente()">Inserir ingrediente</button></p>
     </form>

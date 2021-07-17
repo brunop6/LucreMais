@@ -6,7 +6,7 @@
         private $unidadeMedida;
         private $custo;
 
-        function __construct($idReceita, $idItem, $quantidade, $unidadeMedida,$custo)
+        function __construct($idReceita, $idItem, $quantidade, $unidadeMedida, $custo)
         {
             $this->idReceita = $idReceita;
             $this->idItem = $idItem;
@@ -18,7 +18,8 @@
         public static function selectReceita_Itens($idReceita){
             include '../includes/conecta_bd.inc';
 
-            $query = "SELECT idItem, quantidade, unidadeMedida FROM receitaitem WHERE idReceita = '$idReceita' ";
+            $query = "SELECT idItem, quantidade, unidadeMedida 
+            FROM receitaitem WHERE idReceita = '$idReceita' ";
 
             $resultado = mysqli_query($conexao, $query);
             $idItem = null;
@@ -41,8 +42,8 @@
         public function cadastrarReceita_Item(){
             include '../includes/conecta_bd.inc';
 
-            $query = "INSERT INTO receitaitem (idReceita, idItem, quantidade, unidadeMedida) 
-            VALUES ('$this->idReceita', '$this->idItem', '$this->quantidade', '$this->unidadeMedida')";
+            $query = "INSERT INTO receitaitem (idReceita, idItem, quantidade, unidadeMedida, custo) 
+            VALUES ('$this->idReceita', '$this->idItem', '$this->quantidade', '$this->unidadeMedida', '$this->custo')";
         
             $resultado = mysqli_query($conexao, $query);
 
@@ -95,52 +96,48 @@
         
         
         public static function converterMedidas($unimedPrinc, $unimedSec, $quantidadeSec, $itemNome){
-        /*  print_r($unimedPrinc).'<br>';
-        print_r($unimedSec).'<br>';
-        print_r($quantidadeSec).'<br>';
-         print_r($itemNome).'<br>';*/
             
             switch ($unimedPrinc) {
-                  case 'ml':
+                  case 'ML':
                     
                         switch ($unimedSec) {
-                              case 'gramas':
+                              case 'GRAMAS':
                                
                                    $novaQuantidade = $quantidadeSec;
                                 
                               break;
 
-                              case 'colher_de_sopa':
+                              case 'COLHER_DE_SOPA':
                                 
                                     $novaQuantidade = $quantidadeSec * 15;
                                 
                               break;
 
-                              case 'colher_de_cha':
+                              case 'COLHER_DE_CHA':
                                 
                                     $novaQuantidade = $quantidadeSec * 5;
                                 
                               break;
 
-                              case 'colher_de_cafe':
+                              case 'COLHER_DE_CAFE':
                                 
                                     $novaQuantidade = $quantidadeSec * 2;
                                 
                               break;
 
-                              case 'xicara':
+                              case 'XICARA':
                                 
                                     $novaQuantidade = $quantidadeSec * 240;
                                 
                               break;
 
-                              case 'litro(s)':
+                              case 'LITRO(S)':
                                
                                    $novaQuantidade = $quantidadeSec * 1000;
                                 
                               break;
 
-                              case 'quilo':
+                              case 'QUILO':
                                 
                                     $novaQuantidade = $quantidadeSec * 1000;
                                 
@@ -149,46 +146,46 @@
                     
                   break;
                     
-                  case 'gramas':
+                  case 'GRAMAS':
                    
                          switch ($unimedSec) {
-                              case 'ml':
+                              case 'ML':
                                
                                    $novaQuantidade = $quantidadeSec;
                                 
                               break;
 
-                              case 'colher_de_sopa':
+                              case 'COLHER_DE_SOPA':
                                 
                                     $novaQuantidade = $quantidadeSec * 14;
                                 
                               break;
 
-                              case 'colher_de_chá':
+                              case 'COLHER_DE_CHA':
                                 
                                     $novaQuantidade = $quantidadeSec * 4;
                                 
                               break;
 
-                              case 'colher_de_café':
+                              case 'COLHER_DE_CAFE':
                                 
                                     $novaQuantidade = $quantidadeSec * 1.5;
                                 
                               break;
 
-                              case 'xicara':
+                              case 'XICARA':
                                 
                                     $novaQuantidade = $quantidadeSec * 165;
                                 
                               break;
 
-                              case 'litro(s)':
+                              case 'LITRO(S)':
                                
                                    $novaQuantidade = $quantidadeSec * 1000;
                                 
                               break;
 
-                              case 'quilo':
+                              case 'QUILO':
                                 
                                     $novaQuantidade = $quantidadeSec * 1000;
                                 
@@ -197,46 +194,46 @@
                     
                   break;
                     
-                  case 'colher_de_sopa':
+                  case 'COLHER_DE_SOPA':
                     
                         switch ($unimedSec) {
-                              case 'ml':
+                              case 'ML':
                                
                                    $novaQuantidade = $quantidadeSec / 15;
                                 
                               break;
 
-                              case 'gramas':
+                              case 'GRAMAS':
                                 
                                     $novaQuantidade = $quantidadeSec / 14;
                                 
                               break;
 
-                              case 'colher_de_cha':
+                              case 'COLHER_DE_CHA':
                                 
                                     $novaQuantidade = $quantidadeSec / 3;
                                 
                               break;
 
-                              case 'colher_de_cafe':
+                              case 'COLHER_DE_CAFE':
                                 
                                     $novaQuantidade = $quantidadeSec / 9;
                                 
                               break;
 
-                              case 'xicara':
+                              case 'XICARA':
                                 
                                     $novaQuantidade = $quantidadeSec * 16;
                                 
                               break;
 
-                              case 'litro(s)':
+                              case 'LITRO(S)':
                                
                                    $novaQuantidade = ($quantidadeSec /15) * 1000;
                                 
                               break;
 
-                              case 'quilo':
+                              case 'QUILO(S)':
                                 
                                     $novaQuantidade = ($quantidadeSec /14) * 1000;
                                 
@@ -245,46 +242,46 @@
                     
                   break;
                     
-                  case 'colher_de_cha':
+                  case 'COLHER_DE_CHA':
                     
                          switch ($unimedSec) {
-                              case 'ml':
+                              case 'ML':
                                
                                    $novaQuantidade = $quantidadeSec / 5;
                                 
                               break;
 
-                              case 'gramas':
+                              case 'GRAMAS':
                                 
                                     $novaQuantidade = $quantidadeSec / 4;
                                 
                               break;
 
-                              case 'colher_de_sopa':
+                              case 'COLHER_DE_SOPA':
                                 
                                     $novaQuantidade = $quantidadeSec * 3;
                                 
                               break;
 
-                              case 'colher_de_cafe':
+                              case 'COLHER_DE_CAFE':
                                 
                                     $novaQuantidade = $quantidadeSec / 3;
                                 
                               break;
 
-                              case 'xicara':
+                              case 'XICARA':
                                 
                                     $novaQuantidade = $quantidadeSec * 48;
                                 
                               break;
 
-                              case 'litro(s)':
+                              case 'LITRO(S)':
                                
                                    $novaQuantidade = ($quantidadeSec /5) * 1000;
                                 
                               break;
 
-                              case 'quilo':
+                              case 'QUILO(S)':
                                 
                                     $novaQuantidade = ($quantidadeSec /4) * 1000;
                                 
@@ -293,46 +290,46 @@
                     
                   break;
                     
-                  case 'colher_de_cafe':
+                  case 'COLHER_DE_CAFE':
                     
                          switch ($unimedSec) {
-                              case 'ml':
+                              case 'ML':
                                
                                    $novaQuantidade = $quantidadeSec / 2;
                                 
                               break;
 
-                              case 'gramas':
+                              case 'GRAMAS':
                                 
                                     $novaQuantidade = $quantidadeSec / 1.5;
                                 
                               break;
 
-                              case 'colher_de_sopa':
+                              case 'COLHER_DE_SOPA':
                                 
                                     $novaQuantidade = $quantidadeSec * 9;
                                 
                               break;
 
-                              case 'colher_de_cha':
+                              case 'COLHER_DE_CHA':
                                 
                                     $novaQuantidade = $quantidadeSec * 3;
                                 
                               break;
 
-                              case 'xicara':
+                              case 'XICARA':
                                 
                                     $novaQuantidade = $quantidadeSec * 144;
                                 
                               break;
 
-                              case 'litro(s)':
+                              case 'LITRO(S)':
                                
                                    $novaQuantidade = ($quantidadeSec /2) * 1000;
                                 
                               break;
 
-                              case 'quilo':
+                              case 'QUILO(S)':
                                 
                                     $novaQuantidade = ($quantidadeSec /1.5) * 1000;
                                 
@@ -341,46 +338,46 @@
                     
                   break;
                     
-                  case 'xicara':
+                  case 'XICARA':
                     
                         switch ($unimedSec) {
-                              case 'ml':
+                              case 'ML':
                                
                                    $novaQuantidade = $quantidadeSec / 240;
                                 
                               break;
 
-                              case 'gramas':
+                              case 'GRAMAS':
                                 
                                     $novaQuantidade = $quantidadeSec / 165;
                                 
                               break;
 
-                              case 'colher_de_sopa':
+                              case 'COLHER_DE_SOPA':
                                 
                                     $novaQuantidade = $quantidadeSec / 16;
                                 
                               break;
 
-                              case 'colher_de_cha':
+                              case 'COLHER_DE_CHA':
                                 
                                     $novaQuantidade = $quantidadeSec / 48;
                                 
                               break;
 
-                              case 'colher_de_cafe':
+                              case 'COLHER_DE_CAFE':
                                 
                                     $novaQuantidade = $quantidadeSec / 144;
                                 
                               break;
 
-                              case 'litro(s)':
+                              case 'LITRO(S)':
                                
                                    $novaQuantidade = ($quantidadeSec /240) * 1000;
                                 
                               break;
 
-                              case 'quilo':
+                              case 'QUILO(S)':
                                 
                                     $novaQuantidade = ($quantidadeSec /165) * 1000;
                                 
@@ -389,47 +386,47 @@
                     
                   break;
                     
-                  case 'litro(s)':
+                  case 'LITRO(S)':
                    
                       switch ($unimedSec) {
                               
-                              case 'ml':
+                              case 'ML':
                                
                                    $novaQuantidade = $quantidadeSec / 1000;
                                 
                               break;
                               
-                              case 'gramas':
+                              case 'GRAMAS':
                                
                                    $novaQuantidade = $quantidadeSec / 1000;
                                 
                               break;
 
-                              case 'colher_de_sopa':
+                              case 'COLHER_DE_SOPA':
                                 
                                     $novaQuantidade = ($quantidadeSec * 15) / 1000;
                                 
                               break;
 
-                              case 'colher_de_cha':
+                              case 'COLHER_DE_CHA':
                                 
                                     $novaQuantidade = ($quantidadeSec * 5) / 1000;
                                 
                               break;
 
-                              case 'colher_de_cafe':
+                              case 'COLHER_DE_CAFE':
                                 
                                     $novaQuantidade = ($quantidadeSec * 2) / 1000 ; 
                                 
                               break;
 
-                              case 'xicara':
+                              case 'XICARA':
                                 
                                     $novaQuantidade = ($quantidadeSec * 240) / 1000 ;
                                 
                               break;
                   
-                              case 'quilo':
+                              case 'QUILO(S)':
                                 
                                     $novaQuantidade = $quantidadeSec;
                                 
@@ -438,47 +435,47 @@
                     
                   break;
                     
-                  case 'quilo':
+                  case 'QUILO(S)':
                     
                         switch ($unimedSec) {
                               
-                              case 'ml':
+                              case 'ML':
                                
                                    $novaQuantidade = $quantidadeSec / 1000;
                                 
                               break;
                               
-                              case 'gramas':
+                              case 'GRAMAS':
                                
                                    $novaQuantidade = $quantidadeSec / 1000;
                                 
                               break;
 
-                              case 'colher_de_sopa':
+                              case 'COLHER_DE_SOPA':
                                 
                                     $novaQuantidade = ($quantidadeSec * 14) / 1000;
                                 
                               break;
 
-                              case 'colher_de_cha':
+                              case 'COLHER_DE_CHA':
                                 
                                     $novaQuantidade = ($quantidadeSec * 4) / 1000;
                                 
                               break;
 
-                              case 'colher_de_cafe':
+                              case 'COLHER_DE_CAFE':
                                 
                                     $novaQuantidade = ($quantidadeSec * 1.5) / 1000 ; 
                                 
                               break;
 
-                              case 'xicara':
+                              case 'XICARA':
                                 
                                     $novaQuantidade = ($quantidadeSec * 165) / 1000 ;
                                 
                               break;
                   
-                              case 'litro(s)':
+                              case 'LITRO(S)':
                                 
                                     $novaQuantidade = $quantidadeSec;
                                 
@@ -487,8 +484,7 @@
                     
                   break;
                   return $novaQuantidade;
-                       
-                        
+                                 
             }
                 
       

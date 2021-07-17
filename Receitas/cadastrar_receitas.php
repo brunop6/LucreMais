@@ -38,11 +38,13 @@
             
         }
     }
+    
     $i = 1;
     foreach($ingrediente as $item){
         $idReceita = Receita::selectId($nomeReceita, $email);
         $idItem = Item::selectId($item, $email);
-        $custo = Receita::valorItemReceita($idItem, $idReceita, $quantidade[$i], $unidadeMedida[$i]);
+        $unidadeMedida[$i] = mb_strtoupper($unidadeMedida[$i]);
+        $custo = Receita::valorItemReceita($idItem, $idReceita, $unidadeMedida[$i], $quantidade[$i]);
         $receitaItem = new Receita_Item($idReceita, $idItem, $quantidade[$i],$unidadeMedida[$i], $custo);
         $receitaItem->cadastrarReceita_Item();
 

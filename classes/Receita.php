@@ -113,6 +113,7 @@
         public static function valorItemReceita($idItem, $idReceita, $unimedRec, $quantidadeRec){
             include '../includes/conecta_bd.inc';
             
+
             $query = "SELECT e.preco, i.quantidade, i.unidadeMedida, i.nome, e.quantidade as quantidadeEstoque, e.lote  
             FROM item i, estoque e 
             WHERE e.idItem = '$idItem' AND i.id = e.idItem";
@@ -147,6 +148,7 @@
              
              
              if($quantidadeRec > $quantidadeEstoque[0]){
+    
                 foreach($lote as $value){
                     
                     while($count < $quantidadeRec){
@@ -175,7 +177,6 @@
                                 }
                                 
                                 $custo[$i] = (($quantUsadaLote[$i])*$preco[$i])/$quantidadeItem;  
-                                print_r($custo[$i]);
                                 
                             }
                             
@@ -196,11 +197,14 @@
             }else{
                  
                 if ($unimedItem != $unimedRec){
+                    
                     $quantidadeRec = Receita_Item::converterMedidas($unimedItem, $unimedRec, $quantidadeRec, $itemNome);
+                    print_r($quantidadeRec);
     
                 }
                  
                 $custoTotal = ($quantidadeRec*$preco[0])/$quantidadeItem;
+                print_r($quantidadeRec);
          
             }
                       

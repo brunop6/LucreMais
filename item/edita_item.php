@@ -52,6 +52,7 @@
             <option value="colher_de_cha" >Colher de Chá</option>
             <option value="colher_de_cafe">Colher de Café</option>
             <option value="xicara">Xícara</option>
+            <option value="quilo(s)">Quilo</option>
         </select>
         <p>
             <input type="submit" value="Salvar" name="salvar" >
