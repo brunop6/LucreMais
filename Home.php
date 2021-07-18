@@ -106,7 +106,11 @@
         </header>
         <ul>
             <li><a href="#">Conta</a></li>
-            <li><a href="./usuario/permissoes/permissoes.php">Permissões</a></li>
+            <?php
+                if ($nivelAcesso == "Administrador") {
+                    echo "<li><a href='./usuario/permissoes/permissoes.php'>Permissões</a></li>";
+                }
+            ?>
             <li><a href="logoff.php">Logoff</a></li>
         </ul>
     </div>

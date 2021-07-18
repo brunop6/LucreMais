@@ -124,62 +124,29 @@
             return array($menu, $inserir, $editar, $excluir, $consultar);
         }
 
-        public static function selectAcoes($email){
+        public static function selectNiveisAcesso($email){
             include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "SELECT a.id, m.descricao AS menu, a.inserir, a.editar, a.excluir, a.consultar
-            FROM nivelusuario n, usuario u, permissao p, acao a, menu m
-            WHERE u.idNivelUsuario = n.id
-                AND p.idNivelUsuario = n.id
-                AND a.idPermissao = p.id
-                AND p.idMenu = m.id
-                AND n.id <> 1
-                AND u.email = '$email'";
+            $query = "SELECT DISTINCT n.id, n.descricao
+            FROM nivelusuario n, usuario u
+            WHERE n.idUsuario = u.id
+                AND n.idUsuario IS NULL 
+                OR u.email = '$email'";
             $resultado = mysqli_query($conexao, $query);
 
             $id = null;
-            $menu = null;
-            $inserir = null;
-            $editar = null;
-            $excluir = null;
-            $consultar = null;
-
+            $descricao = null;
             if(mysqli_num_rows($resultado) > 0){
                 $i = 0;
                 while($row = mysqli_fetch_array($resultado)){
                     $id[$i] = $row['id'];
-                    $menu[$i] = $row['menu'];
-                    $inserir[$i] = $row['inserir'];
-                    $editar[$i] = $row['editar'];
-                    $excluir[$i] = $row['excluir'];
-                    $consultar[$i] = $row['consultar'];
+                    $descricao[$i] = $row['descricao'];
                     $i++;
                 }
             }
             mysqli_close($conexao);
 
-            return array($id, $menu, $inserir, $editar, $excluir, $consultar);
-        }
-
-        public static function selectNiveisAcesso($email){
-            include __DIR__.'./../includes/conecta_bd.inc';
-
-            $query = "SELECT n.descricao
-            FROM nivelusuario n, usuario u
-            WHERE u.idNivelUsuario = n.id
-                AND u.email = '$email'";
-            $resultado = mysqli_query($conexao, $query);
-
-            $descricao = null;
-            if(mysqli_num_rows($resultado) > 0){
-                $i = 0;
-                while($row = mysqli_fetch_array($resultado)){
-                    $descricao[$i] = $row['descricao'];
-                }
-            }
-            mysqli_close($conexao);
-
-            return $descricao;
+            return array($id, $descricao);
         }
 
         public function cadastrarUsuario(){
@@ -257,31 +224,49 @@
             return array($idMenu, $descricaoMenu);
         }
 
-        public static function editarAcao($idAcao, $inserir, $editar, $excluir, $consultar){
+        public static function selectContasVinculadas($idUsuario, $email){
             include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "UPDATE acao 
-            SET inserir = '$inserir', editar = '$editar', excluir = '$excluir', consultar = '$consultar'
-            WHERE id = $idAcao";
+            $query = "SELECT u.id as idUsuario, u.nomeUsuario, n.id as idNivelAcesso, n.descricao
+            FROM usuario u, nivelusuario n
+            WHERE u.idNivelUsuario = n.id
+                AND u.id <> $idUsuario
+                AND u.email = '$email'";
+            
+            $resultado = mysqli_query($conexao, $query);
 
-            $resultado = mysqli_query($conexao,$query);
-
-            if($resultado){
-                return true;
+            $idUsuario = null;
+            $nomeUsuario = null;
+            $idNivelAcesso = null;
+            $nivelAcesso = null;
+            if(mysqli_num_rows($resultado) > 0){
+                $i = 0;
+                while($row = mysqli_fetch_array($resultado)){
+                    $idUsuario[$i] = $row['idUsuario'];
+                    $nomeUsuario[$i] = $row['nomeUsuario'];
+                    $idNivelAcesso[$i] = $row['idNivelAcesso'];
+                    $nivelAcesso[$i] = $row['descricao'];
+                    $i++;
+                }
             }
-            return mysqli_error($conexao).' - Id='.$idAcao;
+            mysqli_close($conexao);
+
+            return array($idUsuario, $nomeUsuario, $idNivelAcesso, $nivelAcesso);
         }
 
-        public static function cadastrarPermissao($idNivelUsuario, $idMenu){
+        public static function editarNivelAcesso($idUsuario, $idNivel){
             include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "INSERT INTO permissao (idNivelUsuario, idMenu) VALUES ($idNivelUsuario, $idMenu)";
+            $query = "UPDATE usuario 
+            SET idNivelUsuario = $idNivel
+            WHERE id = $idUsuario";
 
-            $resultado = mysqli_query($conexao,$query);
+            $resultado = mysqli_query($conexao, $query);
 
             if($resultado){
                 return true;
+            }else{
+                return mysqli_error($conexao).' - id: '.$idUsuario;
             }
-            return mysqli_error($conexao);
         }
     }

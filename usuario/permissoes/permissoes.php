@@ -1,17 +1,26 @@
 <?php
-    include './../../includes/validacao_cookies.inc';
-    include_once './../../classes/Usuario.php';
+include './../../includes/validacao_cookies.inc';
+include_once './../../classes/Usuario.php';
 
-    if (session_status() !== PHP_SESSION_ACTIVE) {
-        session_start();
-    }
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
 
-    $nomeUsuario = $_SESSION['nome_usuario'];
-    $nivelUsuario = $_SESSION['nivel_usuario'];
-    $emailUsuario = $_SESSION['email_usuario'];
+$idUsuario = $_SESSION['id_usuario'];
+$nomeUsuario = $_SESSION['nome_usuario'];
+$nivelUsuario = $_SESSION['nivel_usuario'];
+$emailUsuario = $_SESSION['email_usuario'];
 
-    $niveisAcesso = Usuario::selectNiveisAcesso($emailUsuario);
-    list($id, $menu, $inserir, $editar, $excluir, $consultar) = Usuario::selectAcoes($emailUsuario);
+if ($nivelUsuario != "Administrador") {
+    header('Location: ./../../Home.php');
+    die();
+}
+
+//Dados das contas vinculadas
+list($idUsuarios, $nomeUsuarios, $idNiveis, $niveisAcesso) = Usuario::selectContasVinculadas($idUsuario, $emailUsuario);
+
+//Níveis de acesso disponíveis para o grupo de contas
+list($idNiveisConta, $niveisConta) = Usuario::selectNiveisAcesso($emailUsuario);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -19,10 +28,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script type="text/javascript" src="./permissoes.js"></script>
+
     <link rel="stylesheet" href="./../../Aparencia.css">
     <link rel="stylesheet" href="./permissoes.css">
+
     <title>Permissões</title>
 </head>
 <body>
@@ -33,7 +45,7 @@
         <nav class="menu">
             <ul>
                 <li><a href="#">Novo nível de acesso</a></li>
-                <li><a href="../../Home.php">Voltar</a></li>    
+                <li><a href="../../Home.php">Voltar</a></li>
             </ul>
         </nav>
     </header>
@@ -52,63 +64,43 @@
         </header>
         <ul>
             <li><a href="#">Conta</a></li>
-            <li><a href="logoff.php">Logoff</a></li>
+            <li><a href="./../../logoff.php">Logoff</a></li>
         </ul>
     </div>
     <section id="main">
-        <h3>Administrador:</h3>
-        <br>
-        <p>Todas as permissões</p>
-        <form action="./edita_acoes/editar_acoes.php" method="POST" id="form-permissoes">
-            <input type="hidden" name="nivelAtual" id="nivelAtual">
+        <form action="./edita_permissoes/editar_permissoes.php" method="POST">
             <?php
-                $countNivel = 0;
-                //Carregamento dos níveis já cadastrados
-                foreach($niveisAcesso as $nivel){
-                    echo "<br><hr><br>";
-                    echo "<h3 id='nivel$countNivel'>$nivel:</h3>";
-                    //Menus e ações permitidas do respectivo nível
-                    $i = 0;
-                    foreach($menu as $menu){
-                        echo "<p><br><b>$menu:</b></p>";
-                        
-                        echo "<input type='hidden' name='idAcao$i' value='$id[$i]'>";
-                        echo "<label for='inserir$i' class='inserir'>Inserir </label>";
-                        echo "<input type='checkbox' name='inserir$i' id='inserir$i'";
-                        if($inserir[$i]){
-                            echo 'checked';
+            if (empty($idUsuarios)) {
+                echo "<h3>Não há outras contas vinculadas a este e-mail!</h3>";
+            } else {
+                echo "<h3>Contas vinculadas:</h3><br>\n";
+
+                //Formação dos selects
+                $i = 0;
+                foreach ($idUsuarios as $idU) {
+                    echo "<input type='hidden' name='usuario$i' value='$idU'>";
+                    echo "<b>$nomeUsuarios[$i]:</b>
+                    <select name='nivelUsuario$i'>
+                    ";
+
+                    //Formação das options
+                    $j = 0;
+                    foreach ($idNiveisConta as $idNivelConta) {
+                        echo "<option value='$idNivelConta'";
+                        if ($idNivelConta == $idNiveis[$i]) {
+                            echo 'selected';
                         }
-                        echo '>';
-        
-                        echo "<label for='editar$i'>Editar </label>";
-                        echo "<input type='checkbox' name='editar$i' id='editar$i'";
-                        if($editar[$i]){
-                            echo 'checked';
-                        }
-                        echo '>';
-        
-                        echo "<label for='excluir$i'>Excluir </label>";
-                        echo "<input type='checkbox' name='excluir$i' id='excluir$i'";
-                        if($excluir[$i]){
-                            echo 'checked';
-                        }
-                        echo '>';
-        
-                        echo "<label for='consultar$i'>Consultar </label>";
-                        echo "<input type='checkbox' name='consultar$i' id='consultar$i'";
-                        if($consultar[$i]){
-                            echo 'checked';
-                        }
-                        echo '>';
-                        $i++;
+                        echo ">$niveisConta[$j]</option>\n";
+                        $j++;
                     }
-                    if($i < 5){
-                        echo "<br><button type='button' id='btn-addMenu' onclick='desbloquearMenu($countNivel)'>Desbloquear menu</button>"; //Chamar função js para criação de elementos do form
-                    }
-                    $countNivel++;
-                }   
+                    echo "</select>\n";
+                    $i++;
+                }
+                //Controle do número de usuários para edição
+                echo "<input type='hidden' name='numUsuarios' value='$i'>";
+                echo '<p><input type="submit" value="Salvar"></p>';
+            }
             ?>
-            <p id='btn-salvar'><input type="submit" value="Salvar"></p>
         </form>
     </section>
 </body>
