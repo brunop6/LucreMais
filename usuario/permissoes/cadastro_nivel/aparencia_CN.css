@@ -1,0 +1,101 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+body{
+    background-color: #002D55;
+    text-align: center;
+}
+h1{
+    color: #B9DEFF;
+}
+input::placeholder{
+    color: black;
+}
+input[type="text"]{
+    outline: none;
+    border: 2px solid rgb(41, 39, 39);
+    border-radius: 5px;
+    background-color: rgb(113, 116, 255);
+    display: block;
+    margin: 30px auto;
+    text-align: left;
+    padding: 10px;
+    width: 200px;
+    color: black;
+    transition: .5s;
+}
+input[type="text"]:focus{
+    width: 250px;
+    border-color: rgb(32, 32, 32);
+    box-shadow: 0 0 5px rgb(113, 116, 255);
+}
+input[type="submit"], input[type="button"]{
+    outline: none;
+    border: 2px solid rgb(209, 205, 205);
+    background-color: rgb(113, 116, 255);
+    border-radius: 5px;
+    padding: 10px 10px;
+    margin: 20px;
+    margin-top: 40px;
+    transition: .5s;
+    text-decoration: none;
+}
+input[type="submit"]:hover, input[type="button"]:hover{
+    background-color: yellow;
+    color: #002D55;
+    padding: 15px 15px;
+    box-shadow: 0 0 5px rgb(54, 54, 54);
+}
+input[type="checkbox"]{
+    margin: 10px;
+    cursor: pointer;
+    transition: .5s;
+}
+label{
+    font-weight: 600;
+    color: #B9DEFF;
+    cursor: pointer;
+    user-select: none;
+}
+input[type="checkbox"]:hover{
+    box-shadow: 0 0 5px rgb(113, 116, 255);
+}
+.menu{
+    display: contents;
+    margin: 3%;
+}
+hr{
+    margin-right: 40px;
+    margin-left: 40px;
+}
+.acoes label{
+    font-weight: 500;
+}
+.acoes hr{
+    width: 15px;
+    transform: rotate(90deg);
+    margin: auto;
+    margin-top: 5px;
+    margin-bottom: 12px;
+    border-style: dashed;
+    color: #B9DEFF;
+}
+fieldset{
+    margin: auto;
+    width: 150px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-width: 3px;
+    border-color: #B9DEFF;
+    border-style: solid;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+legend{
+    font-weight: 600;
+    color: #B9DEFF
+}

@@ -19,8 +19,14 @@
     $despesaMensal = Despesa::selectTotal($email);
     $entradaMensal = Entrada::selectTotal($email);
 
-    $porcentagemLucro = (($entradaMensal-$despesaMensal)*100)/$despesaMensal;
-    $lucroReal = $entradaMensal - $despesaMensal;
+    if($despesaMensal == 0 || $entradaMensal == 0){
+        $porcentagemLucro = 0;
+        $lucroReal = 0;
+    }else{
+        $porcentagemLucro = (($entradaMensal-$despesaMensal)*100)/$despesaMensal;
+        $lucroReal = $entradaMensal - $despesaMensal;
+    }
+    
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">

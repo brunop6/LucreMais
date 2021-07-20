@@ -265,8 +265,21 @@
 
             if($resultado){
                 return true;
-            }else{
-                return mysqli_error($conexao).' - id: '.$idUsuario;
             }
+            return mysqli_error($conexao).' - id: '.$idUsuario;
+        }
+        
+        public static function cadastrarNivel($idUsuario, $descricaoNivel){
+            include __DIR__.'./../includes/conecta_bd.inc';
+
+            $query = "INSERT INTO nivelusuario(idUsuario, descricao) 
+            VALUES ($idUsuario, '$descricaoNivel')";
+
+            $resultado = mysqli_query($conexao, $query);
+
+            if($resultado){
+                return true;
+            }
+            return mysqli_error($conexao);
         }
     }

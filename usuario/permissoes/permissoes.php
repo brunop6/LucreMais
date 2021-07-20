@@ -44,7 +44,7 @@ list($idNiveisConta, $niveisConta) = Usuario::selectNiveisAcesso($emailUsuario);
         <label for="btn-menu">&#9776;</label>
         <nav class="menu">
             <ul>
-                <li><a href="#">Novo nível de acesso</a></li>
+                <li><a href="./cadastro_nivel/cadastro_nivel.php">Novo nível de acesso</a></li>
                 <li><a href="../../Home.php">Voltar</a></li>
             </ul>
         </nav>
@@ -79,7 +79,7 @@ list($idNiveisConta, $niveisConta) = Usuario::selectNiveisAcesso($emailUsuario);
                 $i = 0;
                 foreach ($idUsuarios as $idU) {
                     echo "<input type='hidden' name='usuario$i' value='$idU'>";
-                    echo "<b>$nomeUsuarios[$i]:</b>
+                    echo "<p><b>$nomeUsuarios[$i]:</b>
                     <select name='nivelUsuario$i'>
                     ";
 
@@ -93,7 +93,7 @@ list($idNiveisConta, $niveisConta) = Usuario::selectNiveisAcesso($emailUsuario);
                         echo ">$niveisConta[$j]</option>\n";
                         $j++;
                     }
-                    echo "</select>\n";
+                    echo "</select>\n</p>";
                     $i++;
                 }
                 //Controle do número de usuários para edição
