@@ -9,7 +9,7 @@ body{
     background-color: #002D55;
     text-align: center;
 }
-h1{
+h1, h3{
     color: #B9DEFF;
 }
 input::placeholder{

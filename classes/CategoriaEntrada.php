@@ -10,7 +10,7 @@
         public function cadastrarCategoriaEntrada(){
             include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "INSERT INTO categoriarecibo (descricao) VALUES ('$this->descricao')";
+            $query = "INSERT INTO categoriaentrada (descricao) VALUES ('$this->descricao')";
 
             $resultado = mysqli_query($conexao, $query);
 
@@ -23,7 +23,7 @@
         public function editarCategoria($id){
             include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "UPDATE categoriarecibo 
+            $query = "UPDATE categoriaentrada 
             SET descricao = '$this->descricao' 
             WHERE id = $id";
 
@@ -40,7 +40,7 @@
 
             $descricao = mb_strtoupper($descricao, mb_internal_encoding());
 
-            $query = "SELECT id FROM categoriarecibo WHERE descricao = '$descricao'";
+            $query = "SELECT id FROM categoriaentrada WHERE descricao = '$descricao'";
 
             $resultado = mysqli_query($conexao, $query);
             
@@ -58,11 +58,11 @@
 
         public static function buscarCategoria($busca, $email){
             include __DIR__.'./../includes/conecta_bd.inc';
-            $query = "SELECT cr.descricao 
-            FROM categoriarecibo cr, recibo r, usuario u 
+            $query = "SELECT ce.descricao 
+            FROM categoriaentrada ce, entrada e, usuario u 
             WHERE descricao LIKE '%$busca%'
-                AND cr.id = r.idCategoriaRecibo
-                AND r.idUsuario = u.id
+                AND ce.id = e.idCategoriaEntrada
+                AND e.idUsuario = u.id
                 AND u.email = '$email'";
 
             $resultado = mysqli_query($conexao, $query);
@@ -83,7 +83,7 @@
             include __DIR__.'./../includes/conecta_bd.inc';
 
             $query = "SELECT descricao
-            FROM categoriarecibo
+            FROM categoriaentrada
             WHERE id = $id";
 
             $resultado = mysqli_query($conexao, $query);
@@ -101,12 +101,12 @@
         public static function selectCategorias($email){
             include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "SELECT DISTINCT cr.id, cr.descricao, DATE_FORMAT(cr.dataCadastro, '%d/%m/%Y %H:%i') AS dataCadastro, DATE_FORMAT(cr.dataAtualizacao, '%d/%m/%Y %H:%i') AS dataAtualizacao, u.nomeUsuario  
-            FROM categoriarecibo cr, recibo r, usuario u
-            WHERE r.idUsuario = u.id
-                AND r.idCategoriaRecibo = cr.id
+            $query = "SELECT DISTINCT ce.id, ce.descricao, DATE_FORMAT(ce.dataCadastro, '%d/%m/%Y %H:%i') AS dataCadastro, DATE_FORMAT(ce.dataAtualizacao, '%d/%m/%Y %H:%i') AS dataAtualizacao, u.nomeUsuario  
+            FROM categoriaentrada ce, entrada e, usuario u
+            WHERE e.idUsuario = u.id
+                AND e.idCategoriaEntrada = ce.id
                 AND u.email = '$email'
-            ORDER BY cr.id";
+            ORDER BY ce.id";
 
             $resultado = mysqli_query($conexao, $query);
 

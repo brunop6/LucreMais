@@ -14,7 +14,7 @@
 
       include __DIR__.'./../includes/conecta_bd.inc';
       
-      $query = "INSERT INTO recibo (idUsuario, idCategoriaRecibo, valor) VALUES ('$this->idUsuario', '$this->idCategoriaEntrada', '$this->valor')";
+      $query = "INSERT INTO entrada (idUsuario, idCategoriaEntrada, valor) VALUES ('$this->idUsuario', '$this->idCategoriaEntrada', '$this->valor')";
       
       $resultado = mysqli_query($conexao, $query);
       if($resultado){
@@ -26,8 +26,8 @@
     public function editar_entrada($id){
       include __DIR__.'./../includes/conecta_bd.inc';
 
-      $query = "UPDATE recibo
-      SET  idCategoriaRecibo = '$this->idCategoriaEntrada', valor = '$this->valor'
+      $query = "UPDATE entrada
+      SET  idCategoriaEntrada = '$this->idCategoriaEntrada', valor = '$this->valor'
       WHERE id = $id";
 
       $resultado = mysqli_query($conexao, $query);
@@ -42,10 +42,10 @@
     public static function selectEntradaLista($email){
       include __DIR__.'./../includes/conecta_bd.inc';
 
-      $query = "SELECT r.id, r.valor, u.nomeUsuario, c.descricao 
-      FROM recibo r, usuario u, categoriarecibo c 
-      WHERE c.id = r.idCategoriaRecibo 
-        AND r.idUsuario = u.id
+      $query = "SELECT e.id, e.valor, u.nomeUsuario, c.descricao 
+      FROM entrada e, usuario u, categoriaentrada c 
+      WHERE c.id = e.idCategoriaEntrada 
+        AND e.idUsuario = u.id
         AND u.email = '$email'";
 
       $resultado = mysqli_query($conexao, $query);
@@ -73,11 +73,11 @@
     public static function selectEntradasLista($id){
       include __DIR__.'./../includes/conecta_bd.inc';
 
-      $query = "SELECT r.valor, cr.descricao, u.nomeUsuario
-      FROM recibo r, usuario u, categoriarecibo cr 
-      WHERE cr.id = r.idCategoriaRecibo 
-        AND r.idUsuario = u.id 
-        AND r.id = $id";
+      $query = "SELECT e.valor, ce.descricao, u.nomeUsuario
+      FROM entrada e, usuario u, categoriaentrada ce
+      WHERE ce.id = e.idCategoriaEntrada 
+        AND e.idUsuario = u.id 
+        AND e.id = $id";
 
       $resultado = mysqli_query($conexao, $query);
 
@@ -98,12 +98,12 @@
     public static function selectTotal($email){
       include __DIR__.'./../includes/conecta_bd.inc';
 
-      $query = "SELECT SUM(r.valor) as total
-      FROM recibo r, usuario u
-      WHERE MONTH(r.dataCadastro) = (
+      $query = "SELECT SUM(e.valor) as total
+      FROM entrada e, usuario u
+      WHERE MONTH(e.dataCadastro) = (
           SELECT DATE_FORMAT(CURRENT_TIMESTAMP(), '%m')
         )
-        AND r.idUsuario = u.id
+        AND e.idUsuario = u.id
         AND u.email = '$email'
       ";
 

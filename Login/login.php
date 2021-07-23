@@ -14,8 +14,10 @@
             <h2>Login</h2>
             <p><input type="text" name="usuario" placeholder="Usuário" id="em"></p>
             <p><input type="password" name="senha" placeholder="Senha"></p>
-            <p><input type="button" value="Cadastrar-se" onclick="window.location.href='./../cadastro_usuario/cadastro.php'"> 
-                <input type="submit" value="Entrar"></p>
+            <p>
+                <input type="button" value="Cadastrar-se" onclick="window.location.href='./../cadastro_usuario/cadastro_usuario.php'"> 
+                <input type="submit" value="Entrar">
+            </p>
         </form>
     </section>
     <aside>

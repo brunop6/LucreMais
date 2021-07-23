@@ -105,7 +105,7 @@
             <br>
         </header>
         <ul>
-            <li><a href="#">Conta</a></li>
+            <li><a href="./usuario/edita_usuario/edita_usuario.php">Conta</a></li>
             <?php
                 if ($nivelAcesso == "Administrador") {
                     echo "<li><a href='./usuario/permissoes/permissoes.php'>Permissões</a></li>";
@@ -116,12 +116,11 @@
     </div>
 
     <section>
-        <button onclick="verMais()" class="btn-plus">Ver mais...</button>
-
         <?php
             list($id) = Estoque::selectEntradaEstoque($email);
 
             if(!empty($id)){
+                echo '<button onclick="verMais()" class="btn-plus">Ver mais...</button>';
                 echo '
                     <table style="margin-top: 10px; background-color: #002D55; border-collapse:collapse;"; border="1px">
                     <h1>Entradas</h1>

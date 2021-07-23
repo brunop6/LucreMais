@@ -21,7 +21,7 @@
 
     if($despesaMensal == 0 || $entradaMensal == 0){
         $porcentagemLucro = 0;
-        $lucroReal = 0;
+        $lucroReal = $entradaMensal;
     }else{
         $porcentagemLucro = (($entradaMensal-$despesaMensal)*100)/$despesaMensal;
         $lucroReal = $entradaMensal - $despesaMensal;
@@ -54,7 +54,16 @@
         <h3>Entrada mensal: <span class="entrada"><?php echo "R$ ".number_format($entradaMensal, 2); ?></span></h3>
         <h3>Despesa mensal: <span class="despesa"><?php echo "R$ ".number_format($despesaMensal, 2); ?></span></h3>
         <br>
-        <h3>Lucro mensal: <?php echo "R$ ".number_format($lucroReal, 2)." &#10140; ".number_format($porcentagemLucro, 2)."%" ?></h3>
+        <h3>
+            Lucro mensal: 
+            <?php 
+                echo "R$ ".number_format($lucroReal, 2);
+
+                if($porcentagemLucro){
+                    echo " &#10140; ".number_format($porcentagemLucro, 2)."%";
+                }
+            ?>
+        </h3>
     </div>
 </body>
 </html>

@@ -31,7 +31,7 @@ if ($nivelUsuario != "Administrador") {
     <br>
     <h1>Novo nível de acesso</h1>
 
-    <form action="#" method="POST">
+    <form action="./cadastrar_nivel.php" method="POST">
         <p><input type="text" name="descricao" placeholder="Descrição do Nível" required></p>
         <hr>
         <br>
@@ -57,10 +57,6 @@ if ($nivelUsuario != "Administrador") {
                         <label for="estoque-excluir">Excluir: </label>
                         <input type="checkbox" name="estoque-excluir" id="estoque-excluir" checked>
                     </p>
-                    <p>
-                        <label for="estoque-consultar">Consultar: </label>
-                        <input type="checkbox" name="estoque-consultar" id="estoque-consultar" checked>
-                    </p>
                 </fieldset>
             </div>
         </p>
@@ -85,10 +81,6 @@ if ($nivelUsuario != "Administrador") {
                         <label for="fornecedores-excluir">Excluir: </label>
                         <input type="checkbox" name="fornecedores-excluir" id="fornecedores-excluir" checked>
                     </p>
-                    <p>
-                        <label for="fornecedores-consultar">Consultar: </label>
-                        <input type="checkbox" name="fornecedores-consultar" id="fornecedores-consultar" checked>
-                    </p>
                 </fieldset>
             </div>
         </p>
@@ -112,10 +104,6 @@ if ($nivelUsuario != "Administrador") {
                     <p>
                         <label for="itens-excluir">Excluir: </label>
                         <input type="checkbox" name="itens-excluir" id="itens-excluir" checked>
-                    </p>
-                    <p>
-                        <label for="itens-consultar">Consultar: </label>
-                        <input type="checkbox" name="itens-consultar" id="itens-consultar" checked>
                     </p>
                 </fieldset>
             </div>
@@ -142,9 +130,6 @@ if ($nivelUsuario != "Administrador") {
                         <input type="checkbox" name="receitas-excluir" id="receitas-excluir" checked>
                     </p>
                     <p>
-                        <label for="receitas-consultar">Consultar: </label>
-                        <input type="checkbox" name="receitas-consultar" id="receitas-consultar" checked>
-                    </p>
                 </fieldset>
             </div>
         </p>
@@ -168,10 +153,6 @@ if ($nivelUsuario != "Administrador") {
                     <p>
                         <label for="financeiro-excluir">Excluir: </label>
                         <input type="checkbox" name="financeiro-excluir" id="financeiro-excluir" checked>
-                    </p>
-                    <p>
-                        <label for="financeiro-consultar">Consultar: </label>
-                        <input type="checkbox" name="financeiro-consultar" id="financeiro-consultar" checked>
                     </p>
                 </fieldset>
             </div>

@@ -63,7 +63,7 @@ list($idNiveisConta, $niveisConta) = Usuario::selectNiveisAcesso($emailUsuario);
             <br>
         </header>
         <ul>
-            <li><a href="#">Conta</a></li>
+            <li><a href="./../edita_usuario/edita_usuario.php">Conta</a></li>
             <li><a href="./../../logoff.php">Logoff</a></li>
         </ul>
     </div>

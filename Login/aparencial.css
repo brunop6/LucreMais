@@ -25,6 +25,9 @@ form{
 h2{
     font-weight: 500;
 }
+h3{
+    color: #B9DEFF;
+}
 input[type="email"], input[type="password"], input[type="text"]{
     outline: none;
     border: 2px solid rgb(41, 39, 39);
@@ -43,7 +46,7 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
     border-color: rgb(32, 32, 32);
     box-shadow: 0 0 5px rgb(113, 116, 255);
 }
-input[type="submit"], input[type="button"], input[type="reset"]{
+input[type="submit"], input[type="button"], input[type="reset"], button{
     outline: none;
     border: 2px solid rgb(209, 205, 205);
     background-color: rgb(113, 116, 255);
@@ -54,7 +57,7 @@ input[type="submit"], input[type="button"], input[type="reset"]{
     transition: .5s;
     text-decoration: none;
 }
-input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover{
+input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover, button:hover{
     background-color: yellow;
     color: #002D55;
     padding: 15px 15px;
@@ -78,7 +81,7 @@ label{
     border: none;
     padding: 10px 0px;
     text-align: center;
-    position: fixed;
+    position: absolute;
     transform: translate(-50%);
     left: 50%;
     background-color: #002D55;

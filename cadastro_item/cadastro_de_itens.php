@@ -44,12 +44,12 @@
       <option value="unidade(s)">Unidade(s)</option>
       <option value="litro(s)">Litro(s)</option> 
       <option value="ml">ml</option>
+      <option value="quilo(s)">Quilo(s)</option>
       <option value="gramas">Gramas</option>
       <option value="colher_de_sopa" >Colher de Sopa</option>
       <option value="colher_de_cha" >Colher de Chá</option>
       <option value="colher_de_cafe">Colher de Café</option>
       <option value="xicara">Xícara</option>
-      <option value="quilo(s)">Quilo(s)</option>
     </select>
    
    

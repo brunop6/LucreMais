@@ -2,35 +2,22 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../Login/aparencial.css">
-    <title>Cadastro Usuário</title>
+    <title>Cadastro</title>
+    <script type="text/javascript" src="./cadastro_usuario.js"></script>
+    <link rel="stylesheet" href="./../Login/aparencial.css">
 </head>
 <body>
-    <?php
-        include_once '../classes/Usuario.php';
-
-        $nomeUsuario = $_POST['usuario'];
-        $email = $_POST['email'];
-        $idNivel = Usuario::selectIdNivel($_POST['nivelUsuario']);
-
-        if(empty($idNivel)){
-            header('Location: ./cadastro.php');
-        }
-        $senha = $_POST['senha'];
-
-        $usuario = new Usuario($idNivel, $nomeUsuario, $email, $senha);
-
-        $resultado = $usuario->cadastrarUsuario();
-
-        if($resultado == "Cadastro realizado com sucesso!"){
-            echo "<h2>$resultado</h2> <br>";
-        }else{
-            echo '<h2>Erro ao realizar cadastro...</h2> <br>';
-            echo "<p lang='en'>".$resultado."</p>";  
-        }
-        echo "<p><a href='../Login/login.php'><button>Retornar ao login</button></a></p>";
-    ?>
+    <section class="cadastro">
+        <form action="./cadastrar_usuario.php" method="POST">
+            <img src="./../Logo.png" alt="Logo do site" width="70%">
+            <h1>Bem-vindo ao cadastramento "Lucre+"<br></h1>
+            <h4>Rumo ao lucro certo, graças a escolha certa!</h4>
+            <p><input type="text" name="usuario" placeholder="Usuário" id="em" required></p>
+            <p><input type="email" name="email" placeholder="Email" required></p>
+            <p><input type="password" name="senha" placeholder="Senha" id="s" onchange="confirmar_senha()" required></p>
+            <p><input type="password" placeholder="Confirme sua senha" id="sc" onkeyup="confirmar_senha()" required></p>
+            <p><input type="submit" value="Cadastrar-se"> 
+        </form>
+    </section>
 </body>
 </html>

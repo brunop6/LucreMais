@@ -2,15 +2,15 @@
     include_once __DIR__.'./../includes/encrypt.inc';
          
     class Usuario{
-        private $idNivel;
+        private $admin;
         private $nomeUsuario;
         private $email;
         private $senha;
 
-        function __construct($idNivel, $nomeUsuario, $email, $senha){
+        function __construct($admin, $nomeUsuario, $email, $senha){
             $senha = encryptPassword($nomeUsuario, $email, $senha);
 
-            $this->idNivel = $idNivel; 
+            $this->admin = $admin; 
             $this->nomeUsuario = $nomeUsuario;
             $this->email = $email;
             $this->senha = $senha;
@@ -54,8 +54,9 @@
             include __DIR__.'./../includes/conecta_bd.inc';
 
             $query = "SELECT n.descricao
-            FROM nivelusuario n, usuario u
-            WHERE n.id = u.idNivelUsuario
+            FROM nivel n, usuario u, nivelusuario nu
+            WHERE nu.idUsuario = u.id
+                AND nu.idNivel = n.id
                 AND u.id = $idUsuario";
 
             $resultado = mysqli_query($conexao, $query);
@@ -71,11 +72,16 @@
             return $descricao;
         } 
 
-        public static function selectIdNivel($descricao){
+        public static function selectIdNivel($descricao, $email){
             include __DIR__.'./../includes/conecta_bd.inc';
 
             $descricao = mb_strtoupper($descricao, mb_internal_encoding());
-            $query = "SELECT id FROM nivelusuario WHERE descricao = '$descricao'";
+
+            $query = "SELECT n.id 
+            FROM nivel n, usuario u 
+            WHERE n.idUsuario = u.id
+                AND u.email = '$email'
+                AND n.descricao = '$descricao'";
 
             $resultado = mysqli_query($conexao, $query);
 
@@ -92,12 +98,12 @@
         public static function selectPermissoes($idUsuario){
             include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "SELECT m.descricao, a.inserir, a.editar, a.excluir, a.consultar
-            FROM menu m, usuario u, nivelusuario n, permissao p, acao a
-            WHERE u.idNivelUsuario = n.id
-                AND p.idNivelUsuario = n.id
-                AND p.idMenu = m.id
-                AND a.idPermissao = p.id
+            $query = "SELECT m.descricao, p.inserir, p.editar, p.excluir
+            FROM menu m, permissao p, usuario u, nivel n, nivelusuario nu
+            WHERE p.idMenu = m.id
+                AND p.idNivel = n.id
+                AND nu.idNivel = n.id
+                AND nu.idUsuario = u.id
                 AND u.id = $idUsuario";
 
             $resultado = mysqli_query($conexao, $query);
@@ -106,7 +112,6 @@
             $inserir = null;
             $editar = null;
             $excluir = null;
-            $consultar = null;
 
             if(mysqli_num_rows($resultado) > 0){
                 $i = 0;
@@ -115,23 +120,21 @@
                     $inserir[$i] = $row['inserir'];
                     $editar[$i] = $row['editar'];
                     $excluir[$i] = $row['excluir'];
-                    $consultar[$i] = $row['consultar'];
                     $i++;
                 }
             }
             mysqli_close($conexao);
 
-            return array($menu, $inserir, $editar, $excluir, $consultar);
+            return array($menu, $inserir, $editar, $excluir);
         }
 
         public static function selectNiveisAcesso($email){
             include __DIR__.'./../includes/conecta_bd.inc';
 
             $query = "SELECT DISTINCT n.id, n.descricao
-            FROM nivelusuario n, usuario u
+            FROM nivel n, usuario u
             WHERE n.idUsuario = u.id
-                AND n.idUsuario IS NULL 
-                OR u.email = '$email'";
+                AND u.email = '$email'";
             $resultado = mysqli_query($conexao, $query);
 
             $id = null;
@@ -152,12 +155,12 @@
         public function cadastrarUsuario(){
             include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "INSERT INTO usuario (idNivelUsuario, nomeUsuario, email, senha) VALUES ($this->idNivel, '$this->nomeUsuario', '$this->email', '$this->senha')";
+            $query = "INSERT INTO usuario (admin, nomeUsuario, email, senha) VALUES ('$this->admin', '$this->nomeUsuario', '$this->email', '$this->senha')";
         
             $resultado = mysqli_query($conexao, $query);
 
             if($resultado){
-                return 'Cadastro realizado com sucesso!';
+                return true;
             }
             return mysqli_error($conexao);
         }
@@ -165,7 +168,7 @@
         public function editarConta($id){
             include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "UPDATE usuario SET idNivelUsuario = $this->nivelUsuario, nomeUsuario = '$this->nomeUsuario', email = '$this->email' senha = '$this->senha' WHERE id = $id";
+            $query = "UPDATE usuario SET admin = '$this->admin', nomeUsuario = '$this->nomeUsuario', email = '$this->email' senha = '$this->senha' WHERE id = $id";
 
             $resultado = mysqli_query($conexao,$query);
 
@@ -176,7 +179,12 @@
         }
 
         public static function verificarMenu($idUsuario, $menu){
-            list($menus, $inserir, $editar, $excluir, $consultar) = Usuario::selectPermissoes($idUsuario);
+            //Administradores possuem acesso liberado
+            if(Usuario::admin($idUsuario)){
+                return true;
+            }
+
+            list($menus, $inserir, $editar, $excluir) = Usuario::selectPermissoes($idUsuario);
 
             $permissão = false;
 
@@ -228,8 +236,9 @@
             include __DIR__.'./../includes/conecta_bd.inc';
 
             $query = "SELECT u.id as idUsuario, u.nomeUsuario, n.id as idNivelAcesso, n.descricao
-            FROM usuario u, nivelusuario n
-            WHERE u.idNivelUsuario = n.id
+            FROM usuario u, nivelusuario nu, nivel n
+            WHERE nu.idUsuario = u.id
+                AND nu.idNivel = n.id
                 AND u.id <> $idUsuario
                 AND u.email = '$email'";
             
@@ -272,7 +281,7 @@
         public static function cadastrarNivel($idUsuario, $descricaoNivel){
             include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "INSERT INTO nivelusuario(idUsuario, descricao) 
+            $query = "INSERT INTO nivel(idUsuario, descricao) 
             VALUES ($idUsuario, '$descricaoNivel')";
 
             $resultado = mysqli_query($conexao, $query);
@@ -281,5 +290,67 @@
                 return true;
             }
             return mysqli_error($conexao);
+        }
+
+        public static function cadastrarPermissao($idNivel, $idMenu, $inserir, $editar, $excluir){
+            include __DIR__.'./../includes/conecta_bd.inc';
+
+            $query = "INSERT INTO permissao (idNivel, idMenu, inserir, editar, excluir)
+            VALUES ($idNivel, $idMenu, '$inserir', '$editar', '$excluir')";
+
+            $resultado = mysqli_query($conexao, $query);
+
+            if($resultado){
+                return true;
+            }
+            return mysqli_error($conexao);
+        }
+
+        /**
+         * Somente uma pessoa por e-mail poderá cadastrar um usuário de maneira não autenticada;
+         * 
+         * @return false -> e-mail indisponível (já possui um Administrador).
+         * @return true  -> e-mail disponível.
+         */
+        public static function verificarEmail($email){
+            include __DIR__.'./../includes/conecta_bd.inc';
+
+            $query = "SELECT id FROM usuario WHERE email = '$email'";
+
+            $resultado = mysqli_query($conexao, $query);
+
+            if(mysqli_num_rows($resultado) > 0){
+                return false;
+            }
+            return true;
+        }
+
+        /**
+         * @return true -> usuário com permissão de administrador
+         * @return false -> usuário sem permissão de administrador
+         * @return null -> id usuário inválido
+         */
+        public static function admin($idUsuario){
+            include __DIR__.'./../includes/conecta_bd.inc';
+
+            $query = "SELECT admin FROM usuario WHERE id = $idUsuario";
+
+            $resultado = mysqli_query($conexao, $query);
+            
+            $admin = null;
+            if(mysqli_num_rows($resultado) > 0 ){
+                while($row = mysqli_fetch_array($resultado)){
+                    $admin = $row['admin'];
+                }
+            }
+            switch ($admin) {
+                case '1':
+                    return true;
+                    break;
+                case '0':
+                    return false;
+                    break;
+            }
+            return null;
         }
     }
