@@ -39,7 +39,7 @@
     <title>Financeiro</title>
 </head>
 <body>
-<header>
+    <header>
         <input type="checkbox" id="btn-menu">
         <label for="btn-menu">&#9776;</label>
         <nav class="menu">
@@ -50,10 +50,16 @@
             </ul>
         </nav>
     </header>
+    
     <div class="lucro">
         <h3>Entrada mensal: <span class="entrada"><?php echo "R$ ".number_format($entradaMensal, 2); ?></span></h3>
         <h3>Despesa mensal: <span class="despesa"><?php echo "R$ ".number_format($despesaMensal, 2); ?></span></h3>
         <br>
+
+        <div class="chart-container">
+            <canvas id="chart"></canvas>
+        </div>
+        
         <h3>
             Lucro mensal: 
             <?php 
@@ -65,5 +71,8 @@
             ?>
         </h3>
     </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript" src="./grafico_financeiro.js"></script>
 </body>
 </html>

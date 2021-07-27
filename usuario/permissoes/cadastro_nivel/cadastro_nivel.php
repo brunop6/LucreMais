@@ -50,7 +50,7 @@ if ($nivelUsuario != "Administrador") {
                         <input type="checkbox" name="estoque-inserir" id="estoque-inserir" checked>
                     </p>
                     <p>
-                        <label for="estoque-editar">Cadastrar: </label>
+                        <label for="estoque-editar">Editar: </label>
                         <input type="checkbox" name="estoque-editar" id="estoque-editar" checked>
                     </p>
                     <p>
