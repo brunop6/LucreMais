@@ -12,7 +12,7 @@
     $idUsuario = Usuario::selectId($_SESSION['nome_usuario']);
     $descricao = $_POST['categoriaDespesa'];
 
-    $categoria = new CategoriaDespesa($descricao);
+    $categoria = new CategoriaDespesa($descricao, $idUsuario);
 
     if($categoria->editarCategoria($id)){
         header("Location: ./categoria.php");

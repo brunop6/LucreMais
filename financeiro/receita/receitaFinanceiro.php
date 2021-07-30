@@ -17,8 +17,8 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="./entrada.css">
-    <title>Despesa</title>
+    <link rel="stylesheet" href="./receitaFinanceiro.css">
+    <title>Receita F.</title>
 </head>
 <body>
     <header>
@@ -26,7 +26,7 @@
         <label for="btn-menu">&#9776;</label>
         <nav class="menu">
             <ul>
-                <li><a href="../../cadastro_entrada/cadastro_entrada.php">Cadastrar entrada</a></li>
+                <li><a href="../../cadastro_receitaFinanceiro/cadastro_receitaFinanceiro.php">Cadastrar receita</a></li>
                 <li><a href="./categoria/categoria.php">Categoria</a></li>
                 <li><a href="../financeiro.php">Voltar</a></li>
             </ul>
@@ -34,12 +34,12 @@
     </header>
     <main>
         <?php
-            include_once '../../classes/Entrada.php';
-            include_once '../../classes/CategoriaEntrada.php';
+            include_once '../../classes/ReceitaFinanceiro.php';
+            include_once '../../classes/CategoriaReceitaFinanceiro.php';
         
-            function preencherEntradas(){
+            function preencherReceitas(){
                 global $email;
-                list($id, $descricao, $custo, $nomeUsuario) = Entrada::selectEntradaLista($email);
+                list($id, $descricao, $custo, $nomeUsuario) = ReceitaFinanceiro::selectReceitaLista($email);
                 if(!empty($descricao)){
                     $i = 0;
                     foreach($descricao as $descricao){
@@ -48,7 +48,7 @@
                         echo "<td>$descricao</td>";
                         echo "<td>R$ $custo[$i]";
                         echo "<td>$nomeUsuario[$i]</td>";
-                        echo "<td><a href='./edita_entrada.php?id=$id[$i]' style='color:#B9DEFF'>Editar</a></td>";
+                        echo "<td><a href='./edita_receitaFinanceiro.php?id=$id[$i]' style='color:#B9DEFF'>Editar</a></td>";
 
                         echo "</tr>";
                         $i++;
@@ -56,18 +56,18 @@
                 }
             }
 
-            $totalMensal = Entrada::selectTotal($email);
+            $totalMensal = ReceitaFinanceiro::selectTotal($email);
         ?>
  
         <table style="width:100%; margin-top: 10px"; border="1px";>
             <tr>
-                <th>Entrada</th>
+                <th>Receita</th>
                 <th>Valor</th>
                 <th>Usuário</th>
                 <th>Editar</th>
             </tr>     
             <?php   
-                preencherEntradas();
+                preencherReceitas();
             ?>
         </table>
         <br>

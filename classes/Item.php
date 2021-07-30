@@ -105,7 +105,7 @@
     public static function selectItemLista($id){
       include '../includes/conecta_bd.inc';
 
-      $query = "SELECT i.nome, i.marca, i.quantidade, i.quantidadeMinima, c.descricaoCategoria 
+      $query = "SELECT i.nome, i.marca, i.quantidade, i.quantidadeMinima, i.unidadeMedida, c.descricaoCategoria 
       FROM item i, usuario u, categoria c 
       WHERE c.id = i.idCategoria 
         AND i.idUsuario = u.id 
@@ -117,6 +117,7 @@
       $nome = null;
       $marca = null;
       $quantidade = null;
+      $unidadeMedida = null;
       $descricaoCategoria = null;
       $quantidadeMinima = null;
       if(mysqli_num_rows($resultado) > 0){
@@ -124,13 +125,14 @@
           $nome = $row['nome'];
           $marca = $row['marca'];
           $quantidade = $row['quantidade'];
+          $unidadeMedida = $row['unidadeMedida'];
           $descricaoCategoria = $row['descricaoCategoria'];
           $quantidadeMinima = $row['quantidadeMinima'];
         }
       }
       mysqli_close($conexao);
 
-      return array($nome, $marca, $quantidade, $descricaoCategoria, $quantidadeMinima);
+      return array($nome, $marca, $quantidade, $unidadeMedida, $descricaoCategoria, $quantidadeMinima);
     }
 
     public static function selectItem($busca, $email){
