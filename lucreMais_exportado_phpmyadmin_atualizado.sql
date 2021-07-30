@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 30-Jul-2021 às 22:11
+-- Tempo de geração: 31-Jul-2021 às 00:10
 -- Versão do servidor: 10.4.18-MariaDB
 -- versão do PHP: 8.0.5
 
@@ -316,10 +316,10 @@ CREATE TABLE `receita` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `receitafinaceiro`
+-- Estrutura da tabela `receitafinanceiro`
 --
 
-CREATE TABLE `receitafinaceiro` (
+CREATE TABLE `receitafinanceiro` (
   `id` int(10) UNSIGNED NOT NULL,
   `idUsuario` int(10) UNSIGNED NOT NULL,
   `idCategoriareceitaFinanceiro` int(10) UNSIGNED NOT NULL,
@@ -472,9 +472,9 @@ ALTER TABLE `receita`
   ADD KEY `receita_ibfk_1` (`idUsuario`);
 
 --
--- Índices para tabela `receitafinaceiro`
+-- Índices para tabela `receitafinanceiro`
 --
-ALTER TABLE `receitafinaceiro`
+ALTER TABLE `receitafinanceiro`
   ADD PRIMARY KEY (`id`),
   ADD KEY `receitaFinanceiro_ibfk_1` (`idUsuario`),
   ADD KEY `receitaFinanceiro_ibfk_2` (`idCategoriareceitaFinanceiro`);
@@ -583,9 +583,9 @@ ALTER TABLE `receita`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `receitafinaceiro`
+-- AUTO_INCREMENT de tabela `receitafinanceiro`
 --
-ALTER TABLE `receitafinaceiro`
+ALTER TABLE `receitafinanceiro`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -685,9 +685,9 @@ ALTER TABLE `receita`
   ADD CONSTRAINT `receita_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `receitafinaceiro`
+-- Limitadores para a tabela `receitafinanceiro`
 --
-ALTER TABLE `receitafinaceiro`
+ALTER TABLE `receitafinanceiro`
   ADD CONSTRAINT `receitaFinanceiro_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `receitaFinanceiro_ibfk_2` FOREIGN KEY (`idCategoriareceitaFinanceiro`) REFERENCES `categoriareceitafinanceiro` (`id`) ON UPDATE CASCADE;
 
