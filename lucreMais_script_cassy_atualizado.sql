@@ -245,8 +245,8 @@ CREATE TABLE IF NOT EXISTS `receita` (
 
 -- Exportação de dados foi desmarcado.
 
--- Copiando estrutura para tabela lucremais.receitafinaceiro
-CREATE TABLE IF NOT EXISTS `receitafinaceiro` (
+-- Copiando estrutura para tabela lucremais.receitafinanceiro
+CREATE TABLE IF NOT EXISTS `receitafinanceiro` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `idUsuario` int(10) unsigned NOT NULL,
   `idCategoriareceitaFinanceiro` int(10) unsigned NOT NULL,
