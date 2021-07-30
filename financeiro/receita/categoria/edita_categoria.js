@@ -1,10 +1,10 @@
 function preencherCategorias(){
-    var inputCategoria = document.getElementById('categoriaEntrada').value;
+    var inputCategoria = document.getElementById('categoriaReceita').value;
 
     if(inputCategoria.length >= 3){
         //Envio da variável JS para o arquivo PHP
         $.ajax({
-            url: './categoria/selectCategorias.php',
+            url: 'selectCategorias.php',
             method: 'POST',
             data: {categoria: inputCategoria},
             dataType: 'json'

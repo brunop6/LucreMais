@@ -1,11 +1,11 @@
 <?php
     header('Content-Type: application/json');
-    include_once '../classes/CategoriaEntrada.php';
+    include_once '../classes/CategoriaReceitaFinanceiro.php';
     if(session_status() !== PHP_SESSION_ACTIVE){
         session_start();
     }
     $email = $_SESSION['email_usuario'];
-    $input = $_POST['categoriaEntrada'];
-    $json = CategoriaEntrada::buscarCategoria($input, $email);
+    $input = $_POST['categoriaReceita'];
+    $json = CategoriaReceitaFinanceiro::buscarCategoria($input, $email);
 
     echo json_encode($json);

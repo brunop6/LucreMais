@@ -1,16 +1,18 @@
 <?php
     class CategoriaDespesa{
+        private $idUsuario;
         private $descricao;
 
-        function __construct($descricao)
+        function __construct($descricao, $idUsuario)
         {
             $this->descricao = mb_strtoupper($descricao, mb_internal_encoding());
+            $this->idUsuario = $idUsuario;
         }
 
         public function cadastrarCategoriaDespesa(){
             include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "INSERT INTO categoriadespesa (descricao) VALUES ('$this->descricao')";
+            $query = "INSERT INTO categoriadespesa (idUsuario, descricao) VALUES ($this->idUsuario, '$this->descricao')";
 
             $resultado = mysqli_query($conexao, $query);
 
@@ -24,7 +26,7 @@
             include __DIR__.'./../includes/conecta_bd.inc';
 
             $query = "UPDATE categoriadespesa 
-            SET descricao = '$this->descricao' 
+            SET idUsuario = $this->idUsuario, descricao = '$this->descricao' 
             WHERE id = $id";
 
             $resultado = mysqli_query($conexao, $query);

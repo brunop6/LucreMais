@@ -1,8 +1,8 @@
 <?php
-    include_once '../../../classes/CategoriaEntrada.php';
+    include_once '../../../classes/CategoriaReceitaFinanceiro.php';
     include_once '../../../classes/Usuario.php';
 
-    if(!isset($_GET['id']) || !isset($_POST['categoriaEntrada'])){
+    if(!isset($_GET['id']) || !isset($_POST['categoriaReceita'])){
         header('Location: categoria.php');
         die();
     }
@@ -10,9 +10,9 @@
     session_start();
     $id = $_GET['id'];
     $idUsuario = Usuario::selectId($_SESSION['nome_usuario']);
-    $descricao = $_POST['categoriaEntrada'];
+    $descricao = $_POST['categoriaReceita'];
 
-    $categoria = new CategoriaEntrada($descricao);
+    $categoria = new CategoriaReceitaFinanceiro($descricao, $idUsuario);
 
     if($categoria->editarCategoria($id)){
         header("Location: ./categoria.php");
