@@ -75,7 +75,7 @@
 
       $query = "SELECT r.valor, c.descricao, u.nomeUsuario
       FROM receitafinanceiro r, usuario u, categoriareceitafinanceiro c
-      WHERE c.id = e.idCategoriareceitaFinanceiro
+      WHERE c.id = r.idCategoriareceitaFinanceiro
         AND r.idUsuario = u.id 
         AND r.id = $id";
 
