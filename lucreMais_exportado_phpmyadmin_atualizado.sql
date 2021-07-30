@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 30-Jul-2021 às 19:29
+-- Tempo de geração: 30-Jul-2021 às 22:11
 -- Versão do servidor: 10.4.18-MariaDB
 -- versão do PHP: 8.0.5
 
@@ -141,6 +141,7 @@ CREATE TABLE `categoriareceitafinanceiro` (
 
 CREATE TABLE `despesa` (
   `id` int(10) UNSIGNED NOT NULL,
+  `idUsuario` int(10) UNSIGNED NOT NULL,
   `idCategoriaDespesa` int(10) UNSIGNED NOT NULL,
   `custo` double NOT NULL,
   `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
@@ -320,6 +321,7 @@ CREATE TABLE `receita` (
 
 CREATE TABLE `receitafinaceiro` (
   `id` int(10) UNSIGNED NOT NULL,
+  `idUsuario` int(10) UNSIGNED NOT NULL,
   `idCategoriareceitaFinanceiro` int(10) UNSIGNED NOT NULL,
   `valor` double NOT NULL,
   `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
@@ -397,7 +399,8 @@ ALTER TABLE `categoriareceitafinanceiro`
 --
 ALTER TABLE `despesa`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `despesa_ibfk_1` (`idCategoriaDespesa`);
+  ADD KEY `despesa_ibfk_1` (`idUsuario`),
+  ADD KEY `despesa_ibfk_2` (`idCategoriaDespesa`);
 
 --
 -- Índices para tabela `entradaestoque`
@@ -473,7 +476,8 @@ ALTER TABLE `receita`
 --
 ALTER TABLE `receitafinaceiro`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `receitaFinanceiro_ibfk_1` (`idCategoriareceitaFinanceiro`);
+  ADD KEY `receitaFinanceiro_ibfk_1` (`idUsuario`),
+  ADD KEY `receitaFinanceiro_ibfk_2` (`idCategoriareceitaFinanceiro`);
 
 --
 -- Índices para tabela `receitaitem`
@@ -629,7 +633,8 @@ ALTER TABLE `categoriareceitafinanceiro`
 -- Limitadores para a tabela `despesa`
 --
 ALTER TABLE `despesa`
-  ADD CONSTRAINT `despesa_ibfk_1` FOREIGN KEY (`idCategoriaDespesa`) REFERENCES `categoriadespesa` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `despesa_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `despesa_ibfk_2` FOREIGN KEY (`idCategoriaDespesa`) REFERENCES `categoriadespesa` (`id`) ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `entradaestoque`
@@ -683,7 +688,8 @@ ALTER TABLE `receita`
 -- Limitadores para a tabela `receitafinaceiro`
 --
 ALTER TABLE `receitafinaceiro`
-  ADD CONSTRAINT `receitaFinanceiro_ibfk_1` FOREIGN KEY (`idCategoriareceitaFinanceiro`) REFERENCES `categoriareceitafinanceiro` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `receitaFinanceiro_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `receitaFinanceiro_ibfk_2` FOREIGN KEY (`idCategoriareceitaFinanceiro`) REFERENCES `categoriareceitafinanceiro` (`id`) ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `receitaitem`

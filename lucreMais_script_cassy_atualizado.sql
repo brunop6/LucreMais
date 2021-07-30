@@ -80,13 +80,16 @@ CREATE TABLE IF NOT EXISTS `categoriareceitafinanceiro` (
 -- Copiando estrutura para tabela lucremais.despesa
 CREATE TABLE IF NOT EXISTS `despesa` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `idUsuario` int(10) unsigned NOT NULL,
   `idCategoriaDespesa` int(10) unsigned NOT NULL,
   `custo` double NOT NULL,
   `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
   `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
-  KEY `despesa_ibfk_1` (`idCategoriaDespesa`),
-  CONSTRAINT `despesa_ibfk_1` FOREIGN KEY (`idCategoriaDespesa`) REFERENCES `categoriadespesa` (`id`) ON UPDATE CASCADE
+  KEY `despesa_ibfk_1` (`idUsuario`),
+  KEY `despesa_ibfk_2` (`idCategoriaDespesa`),
+  CONSTRAINT `despesa_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `despesa_ibfk_2` FOREIGN KEY (`idCategoriaDespesa`) REFERENCES `categoriadespesa` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Exportação de dados foi desmarcado.
@@ -245,13 +248,16 @@ CREATE TABLE IF NOT EXISTS `receita` (
 -- Copiando estrutura para tabela lucremais.receitafinaceiro
 CREATE TABLE IF NOT EXISTS `receitafinaceiro` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `idUsuario` int(10) unsigned NOT NULL,
   `idCategoriareceitaFinanceiro` int(10) unsigned NOT NULL,
   `valor` double NOT NULL,
   `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
   `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
-  KEY `receitaFinanceiro_ibfk_1` (`idCategoriareceitaFinanceiro`),
-  CONSTRAINT `receitaFinanceiro_ibfk_1` FOREIGN KEY (`idCategoriareceitaFinanceiro`) REFERENCES `categoriareceitafinanceiro` (`id`) ON UPDATE CASCADE
+  KEY `receitaFinanceiro_ibfk_1` (`idUsuario`),
+  KEY `receitaFinanceiro_ibfk_2` (`idCategoriareceitaFinanceiro`),
+  CONSTRAINT `receitaFinanceiro_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `receitaFinanceiro_ibfk_2` FOREIGN KEY (`idCategoriareceitaFinanceiro`) REFERENCES `categoriareceitafinanceiro` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Exportação de dados foi desmarcado.
