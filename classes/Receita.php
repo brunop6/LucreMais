@@ -231,4 +231,63 @@
                 }
                 return mysqli_error($conexao);
             }
+        
+        public static function listarReceita($email){
+            include '../includes/conecta_bd.inc';
+            
+            $receita = Receita::selectReceitas($email);
+            
+            $i = 0;
+            
+            while ($receita[$i] != null){
+            
+                $idReceita[$i] = Receita::selectId($receita[$i], $email);
+                $i++;
+            
+            }
+            
+             while ($idReceita[$i] != null){
+            
+                $query = "SELECT r.idItem, r.quantidade, r.unidadeMedida, i.nome as Item 
+                FROM receitaitem r, item i WHERE idReceita = '$idReceita' AND r.idItem = i.id ";
+
+                $resultado = mysqli_query($conexao, $query);
+                $idItem = null;
+                $Item = null;
+                $quantidade = null;
+                $unidadeMedida = null;
+                if(mysqli_num_rows($resultado) > 0){
+                    $j = 0;
+                    while($row = mysqli_fetch_array($resultado)){
+                        $idItem[$i,$j] = $row['idItem'];
+                        $Item[$i,$j] = $row['Item'];
+                        $quantidade[$i,$j] = $row['quantidade'];
+                        $unidadeMedida[$i,$j] = $row['unidadeMedida'];
+                        $j++;
+                    }
+                }
+                $i++;
+            
+            }
+            
+            
+            
+            $i = 0;
+            while ($idReceita[$i] != null){
+            
+                $j = 0;
+                $custoReceita[$i] = 0;
+                while ($idItem[$i, $j] != null){
+
+                    $custoReceita[$i] +=  Receita::valorItemReceita($idItem[$i, $j], $idReceita[$i], $unidadeMedida[$i,$j], $quantidade[$i,$j]); 
+                    $j++;
+
+                }  
+                
+                $i++;
+            
+            }
+        
+            return array ($idReceita, $receita, $Item, $custoReceita);
+        }
     }

@@ -10,12 +10,13 @@
      
     session_start();
     $nomeUsuario = $_SESSION['nome_usuario'];
+    $emailUsuario = $_SESSION['email_usuario'];
     $idUsuario = Usuario::selectId($nomeUsuario);
     $id = $_GET['id'];
     $marca = $_POST['marca'];
     $nome = $_POST['nome'];
     $descricaoCategoria = $_POST['categoria'];
-    $idCategoria = Categoria::selectId($descricaoCategoria);
+    $idCategoria = Categoria::selectId($descricaoCategoria, $emailUsuario);
     $quantidade = $_POST['quantidade'];
     $quantidadeMinima = $_POST['quantidadeMinima'];
     $unidadeMedida = $_POST['unidade_de_medida'];

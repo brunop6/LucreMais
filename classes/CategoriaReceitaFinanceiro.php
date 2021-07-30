@@ -1,16 +1,18 @@
 <?php
-    class CategoriaEntrada{
+    class CategoriaReceitaFinanceiro{
+        private $idUsuario;
         private $descricao;
 
-        function __construct($descricao)
+        function __construct($descricao, $idUsuario)
         {
             $this->descricao = mb_strtoupper($descricao, mb_internal_encoding());
+            $this->idUsuario = $idUsuario;
         }
 
-        public function cadastrarCategoriaEntrada(){
+        public function cadastrarCategoriaReceita(){
             include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "INSERT INTO categoriaentrada (descricao) VALUES ('$this->descricao')";
+            $query = "INSERT INTO categoriareceitafinanceiro (idUsuario, descricao) VALUES ($this->idUsuario, '$this->descricao')";
 
             $resultado = mysqli_query($conexao, $query);
 
@@ -23,8 +25,8 @@
         public function editarCategoria($id){
             include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "UPDATE categoriaentrada 
-            SET descricao = '$this->descricao' 
+            $query = "UPDATE categoriareceitafinanceiro 
+            SET idUsuario = $this->idUsuario, descricao = '$this->descricao' 
             WHERE id = $id";
 
             $resultado = mysqli_query($conexao, $query);
@@ -40,7 +42,7 @@
 
             $descricao = mb_strtoupper($descricao, mb_internal_encoding());
 
-            $query = "SELECT id FROM categoriaentrada WHERE descricao = '$descricao'";
+            $query = "SELECT id FROM categoriareceitafinanceiro WHERE descricao = '$descricao'";
 
             $resultado = mysqli_query($conexao, $query);
             
@@ -58,11 +60,12 @@
 
         public static function buscarCategoria($busca, $email){
             include __DIR__.'./../includes/conecta_bd.inc';
-            $query = "SELECT ce.descricao 
-            FROM categoriaentrada ce, entrada e, usuario u 
+            
+            $query = "SELECT c.descricao 
+            FROM categoriareceitafinanceiro c, receitafinanceiro r, usuario u 
             WHERE descricao LIKE '%$busca%'
-                AND ce.id = e.idCategoriaEntrada
-                AND e.idUsuario = u.id
+                AND c.id = r.idCategoriareceitafinanceiro
+                AND r.idUsuario = u.id
                 AND u.email = '$email'";
 
             $resultado = mysqli_query($conexao, $query);
@@ -83,7 +86,7 @@
             include __DIR__.'./../includes/conecta_bd.inc';
 
             $query = "SELECT descricao
-            FROM categoriaentrada
+            FROM categoriareceitafinanceiro
             WHERE id = $id";
 
             $resultado = mysqli_query($conexao, $query);
@@ -101,12 +104,12 @@
         public static function selectCategorias($email){
             include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "SELECT DISTINCT ce.id, ce.descricao, DATE_FORMAT(ce.dataCadastro, '%d/%m/%Y %H:%i') AS dataCadastro, DATE_FORMAT(ce.dataAtualizacao, '%d/%m/%Y %H:%i') AS dataAtualizacao, u.nomeUsuario  
-            FROM categoriaentrada ce, entrada e, usuario u
-            WHERE e.idUsuario = u.id
-                AND e.idCategoriaEntrada = ce.id
+            $query = "SELECT DISTINCT c.id, c.descricao, DATE_FORMAT(c.dataCadastro, '%d/%m/%Y %H:%i') AS dataCadastro, DATE_FORMAT(c.dataAtualizacao, '%d/%m/%Y %H:%i') AS dataAtualizacao, u.nomeUsuario  
+            FROM categoriareceitafinanceiro c, receitafinanceiro r, usuario u
+            WHERE r.idUsuario = u.id
+                AND r.idCategoriareceitaFinanceiro = c.id
                 AND u.email = '$email'
-            ORDER BY ce.id";
+            ORDER BY c.id";
 
             $resultado = mysqli_query($conexao, $query);
 

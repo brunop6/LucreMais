@@ -52,21 +52,27 @@ CREATE TABLE IF NOT EXISTS `categoria` (
 -- Copiando estrutura para tabela lucremais.categoriadespesa
 CREATE TABLE IF NOT EXISTS `categoriadespesa` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `idUsuario` int(10) unsigned NOT NULL,
   `descricao` varchar(250) NOT NULL,
   `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
   `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `categoriaDespesa_ibfk_1` (`idUsuario`),
+  CONSTRAINT `categoriaDespesa_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Exportação de dados foi desmarcado.
 
--- Copiando estrutura para tabela lucremais.categoriaentrada
-CREATE TABLE IF NOT EXISTS `categoriaentrada` (
+-- Copiando estrutura para tabela lucremais.categoriareceitafinanceiro
+CREATE TABLE IF NOT EXISTS `categoriareceitafinanceiro` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `idUsuario` int(10) unsigned NOT NULL,
   `descricao` varchar(250) NOT NULL,
   `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
   `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `categoriaReceitafinanceiro_ibfk_1` (`idUsuario`),
+  CONSTRAINT `categoriaReceitafinanceiro_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Exportação de dados foi desmarcado.
@@ -84,23 +90,6 @@ CREATE TABLE IF NOT EXISTS `despesa` (
   KEY `despesa_ibfk_2` (`idCategoriaDespesa`),
   CONSTRAINT `despesa_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `despesa_ibfk_2` FOREIGN KEY (`idCategoriaDespesa`) REFERENCES `categoriadespesa` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Exportação de dados foi desmarcado.
-
--- Copiando estrutura para tabela lucremais.entrada
-CREATE TABLE IF NOT EXISTS `entrada` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `idUsuario` int(10) unsigned NOT NULL,
-  `idCategoriaEntrada` int(10) unsigned NOT NULL,
-  `valor` double NOT NULL,
-  `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
-  `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`id`),
-  KEY `entrada_ibfk_1` (`idUsuario`),
-  KEY `entrada_ibfk_2` (`idCategoriaEntrada`),
-  CONSTRAINT `entrada_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `entrada_ibfk_2` FOREIGN KEY (`idCategoriaEntrada`) REFERENCES `categoriaentrada` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Exportação de dados foi desmarcado.
@@ -252,6 +241,23 @@ CREATE TABLE IF NOT EXISTS `receita` (
   PRIMARY KEY (`id`),
   KEY `receita_ibfk_1` (`idUsuario`),
   CONSTRAINT `receita_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Exportação de dados foi desmarcado.
+
+-- Copiando estrutura para tabela lucremais.receitafinanceiro
+CREATE TABLE IF NOT EXISTS `receitafinanceiro` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `idUsuario` int(10) unsigned NOT NULL,
+  `idCategoriareceitaFinanceiro` int(10) unsigned NOT NULL,
+  `valor` double NOT NULL,
+  `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
+  `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `receitaFinanceiro_ibfk_1` (`idUsuario`),
+  KEY `receitaFinanceiro_ibfk_2` (`idCategoriareceitaFinanceiro`),
+  CONSTRAINT `receitaFinanceiro_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `receitaFinanceiro_ibfk_2` FOREIGN KEY (`idCategoriareceitaFinanceiro`) REFERENCES `categoriareceitafinanceiro` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Exportação de dados foi desmarcado.

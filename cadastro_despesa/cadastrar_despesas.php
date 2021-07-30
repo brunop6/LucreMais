@@ -21,7 +21,7 @@
     $idCategoriaDespesa = CategoriaDespesa::selectId($descricao);
     
     if(empty($idCategoriaDespesa)){
-        $categoriaDespesa = new CategoriaDespesa($descricao);
+        $categoriaDespesa = new CategoriaDespesa($descricao, $idUsuario);
         $categoriaDespesa->cadastrarCategoriaDespesa();
 
         $idCategoriaDespesa = CategoriaDespesa::selectId($descricao);

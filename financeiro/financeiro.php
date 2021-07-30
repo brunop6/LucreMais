@@ -14,17 +14,17 @@
     }
 
     include_once './../classes/Despesa.php';
-    include_once './../classes/Entrada.php';
+    include_once './../classes/ReceitaFinanceiro.php';
 
     $despesaMensal = Despesa::selectTotal($email);
-    $entradaMensal = Entrada::selectTotal($email);
+    $receitaMensal = ReceitaFinanceiro::selectTotal($email);
 
-    if($despesaMensal == 0 || $entradaMensal == 0){
+    if($despesaMensal == 0 || $receitaMensal == 0){
         $porcentagemLucro = 0;
-        $lucroReal = $entradaMensal;
+        $lucroReal = $receitaMensal;
     }else{
-        $porcentagemLucro = (($entradaMensal-$despesaMensal)*100)/$despesaMensal;
-        $lucroReal = $entradaMensal - $despesaMensal;
+        $porcentagemLucro = (($receitaMensal-$despesaMensal)*100)/$despesaMensal;
+        $lucroReal = $receitaMensal - $despesaMensal;
     }
     
 ?>
@@ -44,7 +44,7 @@
         <label for="btn-menu">&#9776;</label>
         <nav class="menu">
             <ul>
-                <li><a href="./entrada/entrada.php">Entradas</a></li> 
+                <li><a href="./receita/receitaFinanceiro.php">Receitas</a></li> 
                 <li><a href="./despesa/despesa.php">Despesas</a></li>          
                 <li><a href="./../Home.php">Voltar</a></li>          
             </ul>
@@ -52,7 +52,7 @@
     </header>
     
     <div class="lucro">
-        <h3>Entrada mensal: <span class="entrada"><?php echo "R$ ".number_format($entradaMensal, 2); ?></span></h3>
+        <h3>Receita mensal: <span class="receita"><?php echo "R$ ".number_format($receitaMensal, 2); ?></span></h3>
         <h3>Despesa mensal: <span class="despesa"><?php echo "R$ ".number_format($despesaMensal, 2); ?></span></h3>
         <br>
 
