@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 19-Jul-2021 às 22:09
+-- Tempo de geração: 30-Jul-2021 às 19:29
 -- Versão do servidor: 10.4.18-MariaDB
 -- versão do PHP: 8.0.5
 
@@ -113,6 +113,7 @@ CREATE TABLE `categoria` (
 
 CREATE TABLE `categoriadespesa` (
   `id` int(10) UNSIGNED NOT NULL,
+  `idUsuario` int(10) UNSIGNED NOT NULL,
   `descricao` varchar(250) NOT NULL,
   `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
   `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -121,11 +122,12 @@ CREATE TABLE `categoriadespesa` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `categoriaentrada`
+-- Estrutura da tabela `categoriareceitafinanceiro`
 --
 
-CREATE TABLE `categoriaentrada` (
+CREATE TABLE `categoriareceitafinanceiro` (
   `id` int(10) UNSIGNED NOT NULL,
+  `idUsuario` int(10) UNSIGNED NOT NULL,
   `descricao` varchar(250) NOT NULL,
   `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
   `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -139,24 +141,8 @@ CREATE TABLE `categoriaentrada` (
 
 CREATE TABLE `despesa` (
   `id` int(10) UNSIGNED NOT NULL,
-  `idUsuario` int(10) UNSIGNED NOT NULL,
   `idCategoriaDespesa` int(10) UNSIGNED NOT NULL,
   `custo` double NOT NULL,
-  `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
-  `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `entrada`
---
-
-CREATE TABLE `entrada` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `idUsuario` int(10) UNSIGNED NOT NULL,
-  `idCategoriaEntrada` int(10) UNSIGNED NOT NULL,
-  `valor` double NOT NULL,
   `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
   `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -329,6 +315,20 @@ CREATE TABLE `receita` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `receitafinaceiro`
+--
+
+CREATE TABLE `receitafinaceiro` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `idCategoriareceitaFinanceiro` int(10) UNSIGNED NOT NULL,
+  `valor` double NOT NULL,
+  `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
+  `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `receitaitem`
 --
 
@@ -382,29 +382,22 @@ ALTER TABLE `categoria`
 -- Índices para tabela `categoriadespesa`
 --
 ALTER TABLE `categoriadespesa`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `categoriaDespesa_ibfk_1` (`idUsuario`);
 
 --
--- Índices para tabela `categoriaentrada`
+-- Índices para tabela `categoriareceitafinanceiro`
 --
-ALTER TABLE `categoriaentrada`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `categoriareceitafinanceiro`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `categoriaReceitafinanceiro_ibfk_1` (`idUsuario`);
 
 --
 -- Índices para tabela `despesa`
 --
 ALTER TABLE `despesa`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `despesa_ibfk_1` (`idUsuario`),
-  ADD KEY `despesa_ibfk_2` (`idCategoriaDespesa`);
-
---
--- Índices para tabela `entrada`
---
-ALTER TABLE `entrada`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `entrada_ibfk_1` (`idUsuario`),
-  ADD KEY `entrada_ibfk_2` (`idCategoriaEntrada`);
+  ADD KEY `despesa_ibfk_1` (`idCategoriaDespesa`);
 
 --
 -- Índices para tabela `entradaestoque`
@@ -476,6 +469,13 @@ ALTER TABLE `receita`
   ADD KEY `receita_ibfk_1` (`idUsuario`);
 
 --
+-- Índices para tabela `receitafinaceiro`
+--
+ALTER TABLE `receitafinaceiro`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `receitaFinanceiro_ibfk_1` (`idCategoriareceitaFinanceiro`);
+
+--
 -- Índices para tabela `receitaitem`
 --
 ALTER TABLE `receitaitem`
@@ -513,21 +513,15 @@ ALTER TABLE `categoriadespesa`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `categoriaentrada`
+-- AUTO_INCREMENT de tabela `categoriareceitafinanceiro`
 --
-ALTER TABLE `categoriaentrada`
+ALTER TABLE `categoriareceitafinanceiro`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `despesa`
 --
 ALTER TABLE `despesa`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de tabela `entrada`
---
-ALTER TABLE `entrada`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -585,6 +579,12 @@ ALTER TABLE `receita`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de tabela `receitafinaceiro`
+--
+ALTER TABLE `receitafinaceiro`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de tabela `receitaitem`
 --
 ALTER TABLE `receitaitem`
@@ -614,18 +614,22 @@ ALTER TABLE `categoria`
   ADD CONSTRAINT `categoria_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE;
 
 --
+-- Limitadores para a tabela `categoriadespesa`
+--
+ALTER TABLE `categoriadespesa`
+  ADD CONSTRAINT `categoriaDespesa_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE;
+
+--
+-- Limitadores para a tabela `categoriareceitafinanceiro`
+--
+ALTER TABLE `categoriareceitafinanceiro`
+  ADD CONSTRAINT `categoriaReceitafinanceiro_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE;
+
+--
 -- Limitadores para a tabela `despesa`
 --
 ALTER TABLE `despesa`
-  ADD CONSTRAINT `despesa_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `despesa_ibfk_2` FOREIGN KEY (`idCategoriaDespesa`) REFERENCES `categoriadespesa` (`id`) ON UPDATE CASCADE;
-
---
--- Limitadores para a tabela `entrada`
---
-ALTER TABLE `entrada`
-  ADD CONSTRAINT `entrada_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `entrada_ibfk_2` FOREIGN KEY (`idCategoriaEntrada`) REFERENCES `categoriaentrada` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `despesa_ibfk_1` FOREIGN KEY (`idCategoriaDespesa`) REFERENCES `categoriadespesa` (`id`) ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `entradaestoque`
@@ -674,6 +678,12 @@ ALTER TABLE `permissao`
 --
 ALTER TABLE `receita`
   ADD CONSTRAINT `receita_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE;
+
+--
+-- Limitadores para a tabela `receitafinaceiro`
+--
+ALTER TABLE `receitafinaceiro`
+  ADD CONSTRAINT `receitaFinanceiro_ibfk_1` FOREIGN KEY (`idCategoriareceitaFinanceiro`) REFERENCES `categoriareceitafinanceiro` (`id`) ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `receitaitem`
