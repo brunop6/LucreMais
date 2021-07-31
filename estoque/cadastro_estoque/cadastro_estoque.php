@@ -1,8 +1,8 @@
 <?php
     define('menu', 'Estoque');
-    include_once '../classes/Fornecedor.php';
-    include_once '../classes/Item.php';
-    include_once '../classes/Usuario.php';
+    include_once '../../classes/Fornecedor.php';
+    include_once '../../classes/Item.php';
+    include_once '../../classes/Usuario.php';
 
     if (session_status() !== PHP_SESSION_ACTIVE) {
         session_start();
@@ -10,7 +10,7 @@
     $idUsuario = $_SESSION['id_usuario'];
     $emailUsuario = $_SESSION['email_usuario'];
     if(!Usuario::verificarMenu($idUsuario, menu)){
-        header("Location: ./../Home.php");
+        header("Location: ./../../Home.php");
         die();
     }
     //Validação de Fornecedor e Item inseridos no formulário
@@ -58,17 +58,17 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script type="text/javascript" src="cadastro_estoque.js"></script>
     <title>Cadastro Estoque</title>
-    <link rel="stylesheet" href="../cadastro_item/aparenciaitem.css">
+    <link rel="stylesheet" href="../../item/cadastro_item/aparenciaitem.css">
 </head>
 <body>
-    <img src="../Logo.png" alt="Logo do site" width="14%">
+    <img src="./../../public/img/Logo.png" alt="Logo do site" width="14%">
     <form action="" method="POST">
         <p><input type="text" name="fornecedor" id="fornecedor" placeholder="Fornecedor" list="fornecedores" oninput="preencherFornecedores()" required>
             <?php
                 if(isset($idFornecedor) && $idFornecedor == null){
                     echo '
                     <script> alert("Fornecedor não cadastrado no sistema"); </script>
-                    <button><a href="../fornecedor/cadastro_fornecedor.php">Cadastrar Fornecedor</a></button>
+                    <button><a href="../../fornecedor/cadastro_fornecedor/cadastro_fornecedor.php">Cadastrar Fornecedor</a></button>
                     ';
                 }
             ?> 
@@ -82,7 +82,7 @@
                 if(isset($idItem) && $idItem == null){
                     echo '
                     <script> alert("Item não cadastrado no sistema"); </script>
-                    <button><a href="../cadastro_item/cadastro_de_itens.php">Cadastrar Item</a></button>
+                    <button><a href="../../item/cadastro_item/cadastro_de_itens.php">Cadastrar Item</a></button>
                     ';
                 }
             ?>
@@ -96,7 +96,7 @@
         <p><input type="number" name="lote" placeholder="Lote" required></p>
         <p><input type="date" name="validade" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}" required></p>
         <p><input type="submit" value="Cadastrar" name="cadastrar"></p>
-        <p><input type="button" value="Voltar" onclick="window.location.href='../estoque/estoque.php'"></p>
+        <p><input type="button" value="Voltar" onclick="window.location.href='../estoque.php'"></p>
     </form>
 </body>
 </html>

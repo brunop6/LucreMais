@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./../financeiro/receita/receitaFinanceiro.css">
+    <link rel="stylesheet" href="./../receitaFinanceiro.css">
     <title>Cadastro Receita</title>
 </head>
 <body>
 <?php
-    include_once '../classes/Usuario.php';
-    include_once '../classes/CategoriaReceitaFinanceiro.php';
-    include_once '../classes/ReceitaFinanceiro.php';
+    include_once '../../../classes/Usuario.php';
+    include_once '../../../classes/CategoriaReceitaFinanceiro.php';
+    include_once '../../../classes/ReceitaFinanceiro.php';
 
 
     $valor = $_POST['valor'];
@@ -37,7 +37,7 @@
         echo "<p>Valor: $valor</p>";
 
         echo "<p><a href='cadastro_receitaFinanceiro.php'><button>Cadastrar novo item</button></a></p>";
-        echo "<p><a href='./../financeiro/receita/receitaFinanceiro.php'><button>Voltar</button></a></p>";
+        echo "<p><a href='./../receitaFinanceiro.php'><button>Voltar</button></a></p>";
     }else{
         echo '<h2>Erro ao realizar cadastro...</h2> <br>';
         echo "<p lang='en'>".$resultado."</p>";

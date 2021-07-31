@@ -26,7 +26,7 @@
         <label for="btn-menu">&#9776;</label>
         <nav class="menu">
             <ul>
-                <li><a href="../../cadastro_receitaFinanceiro/cadastro_receitaFinanceiro.php">Cadastrar receita</a></li>
+                <li><a href="./cadastro_receitaFinanceiro/cadastro_receitaFinanceiro.php">Cadastrar receita</a></li>
                 <li><a href="./categoria/categoria.php">Categoria</a></li>
                 <li><a href="../financeiro.php">Voltar</a></li>
             </ul>

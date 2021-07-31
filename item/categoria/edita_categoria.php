@@ -27,7 +27,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Editar Categoria</title>
-    <link rel="stylesheet" href="../../cadastro_item/aparenciaitem.css">
+    <link rel="stylesheet" href="../../item/cadastro_item/aparenciaitem.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script type="text/javascript" src="./edita_categoria.js"></script>
 

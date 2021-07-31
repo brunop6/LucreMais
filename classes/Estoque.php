@@ -92,7 +92,7 @@
         }
 
         public static function selectEstoque($id){
-            include '../includes/conecta_bd.inc';
+            include __DIR__.'./../includes/conecta_bd.inc';
 
             $query = "SELECT i.nome, i.marca, i.unidadeMedida, f.nomeFornecedor, e.quantidade AS quantidadeEstoque, e.preco, e.lote, e.validade, e.statusItem
             FROM item i, estoque e, fornecedor f
@@ -127,7 +127,7 @@
         }
 
         public function cadastrar_estoque(){
-            include '../includes/conecta_bd.inc';
+            include __DIR__.'./../includes/conecta_bd.inc';
 
             $query = "INSERT INTO estoque (idUsuario, idFornecedor, idItem, quantidade, preco, lote, validade, statusItem) VALUES ($this->idUsuario, $this->idFornecedor, $this->idItem, $this->quantidade, $this->preco, $this->lote, '$this->validade', '$this->statusItem')";
         
@@ -140,7 +140,7 @@
         }
 
         public function editar_estoque($id, $tipo){
-            include '../includes/conecta_bd.inc';
+            include __DIR__.'./../includes/conecta_bd.inc';
 
             $query = "UPDATE estoque SET idUsuario = $this->idUsuario, idFornecedor = $this->idFornecedor, idItem = $this->idItem, preco = $this->preco, lote = $this->lote, validade = '$this->validade', statusItem = '$this->statusItem' WHERE id = $id";
 

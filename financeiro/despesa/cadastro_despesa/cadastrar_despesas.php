@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./../financeiro/despesa/despesa.css">
+    <link rel="stylesheet" href="./../despesa.css">
     <title>Cadastrar despesas</title>
 </head>
 <body>
 <?php
-    include_once '../classes/Usuario.php';
-    include_once '../classes/CategoriaDespesa.php';
-    include_once '../classes/Despesa.php';
+    include_once './../../../classes/Usuario.php';
+    include_once './../../../classes/CategoriaDespesa.php';
+    include_once './../../../classes/Despesa.php';
 
     $custo = $_POST['valor'];
     $descricao = $_POST['categoriaDespesa'];
@@ -36,7 +36,7 @@
         echo "<p>Custo: $custo</p>";
 
         echo "<p><a href='cadastro_de_despesa.php'><button>Cadastrar novo item</button></a></p>";
-        echo "<p><a href='./../financeiro/despesa/despesa.php'><button>Voltar</button></a></p>";
+        echo "<p><a href='./../despesa.php'><button>Voltar</button></a></p>";
     }else{
         echo '<h2>Erro ao realizar cadastro...</h2> <br>';
         echo "<p lang='en'>".$resultado."</p>";

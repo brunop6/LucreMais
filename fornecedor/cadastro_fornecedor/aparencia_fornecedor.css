@@ -1,0 +1,57 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    text-decoration: none;
+}
+body{
+    background-color: #002D55;
+    text-align: center;
+}
+h1{
+    color: #B9DEFF;
+}
+
+input::placeholder{
+    color: black;
+}
+
+
+ input[type="text"], input[type="email"], input[type="text"], input[type="text"], input[type="text"]{
+    outline: none;
+    border: 2px solid rgb(41, 39, 39);
+    border-radius: 5px;
+    background-color: rgb(113, 116, 255);
+    display: block;
+    margin: 30px auto;
+    text-align: left;
+    padding: 10px;
+    width: 200px;
+    color: black;
+    transition: .5s;
+}
+input[type="text"]:focus, input[type="email"]:focus, input[type="text"]:focus, input[type="text"]:focus, input[type="text"]:focus{
+    width: 250px;
+    border-color: rgb(32, 32, 32);
+    box-shadow: 0 0 5px rgb(113, 116, 255);
+}
+input[type="submit"], input[type="button"], input[type="reset"]{
+    outline: none;
+    border: 2px solid rgb(209, 205, 205);
+    background-color: rgb(113, 116, 255);
+    border-radius: 5px;
+    padding: 10px 10px;
+    margin: 20px;
+    margin-top: 10px;
+    transition: .5s;
+    text-decoration: none;
+}
+input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover{
+    background-color: yellow;
+    color: #002D55;
+    padding: 15px 15px;
+    box-shadow: 0 0 5px rgb(54, 54, 54);
+}
+
+
+

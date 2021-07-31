@@ -70,7 +70,7 @@ if (!Usuario::verificarMenu($idUsuario, menu)) {
                 echo "<td class='mais'>$dataCadastro[$i]</td>";
                 echo "<td class='mais'>$dataAtualizacao[$i]</td>";
                 echo "<td class='mais'>$nomeUsuario[$i]</td>";
-                echo "<td><a href='./edita_estoque.php?id=$id[$i]' style='color:#B9DEFF'>Editar</a></td>";
+                echo "<td><a href='./edita_estoque/edita_estoque.php?id=$id[$i]' style='color:#B9DEFF'>Editar</a></td>";
 
                 echo "</tr>";
                 $i++;
@@ -86,7 +86,7 @@ if (!Usuario::verificarMenu($idUsuario, menu)) {
         <label for="btn-menu">&#9776;</label>
         <nav class="menu">
             <ul>
-                <li><a href="../cadastro_estoque/cadastro_estoque.php">Cadastrar Estoque</a></li>
+                <li><a href="./cadastro_estoque/cadastro_estoque.php">Cadastrar Estoque</a></li>
                 <li><a href="">Lista de Compras</a>
                     <ul>
                         <li><a href="./listaCompras/lista_compras.php">Visualizar no navegador</a></li>

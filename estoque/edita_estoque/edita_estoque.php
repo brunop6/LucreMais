@@ -1,6 +1,6 @@
 <?php
     define('menu', 'Estoque');
-    include_once "../classes/Usuario.php";
+    include_once "../../classes/Usuario.php";
 
     if (session_status() !== PHP_SESSION_ACTIVE) {
         session_start();
@@ -9,18 +9,18 @@
     $emailUsuario = $_SESSION['email_usuario'];
     
     if(!Usuario::verificarMenu($idUsuario, menu)){
-        header("Location: ./../Home.php");
+        header("Location: ./../../Home.php");
         die();
     }
-    include_once '../classes/Fornecedor.php';
-    include_once '../classes/Item.php';
-    include_once '../classes/Estoque.php';
+    include_once '../../classes/Fornecedor.php';
+    include_once '../../classes/Item.php';
+    include_once '../../classes/Estoque.php';
 
     if(isset($_GET['id'])){
         $idEstoque = $_GET['id'];
         list($estoqueNome, $estoqueMarca, $estoqueUnMedida, $estoqueFornecedor, $estoqueQuantidade, $estoquePreco, $estoqueLote, $estoqueValidade, $estoqueStatus) = Estoque::selectEstoque($idEstoque);
     }else{
-        header("Location: ./estoque.php");
+        header("Location: ./../estoque.php");
         die();
     }
     
@@ -79,12 +79,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro Estoque</title>
-    <link rel="stylesheet" href="../cadastro_item/aparenciaitem.css">
+    <link rel="stylesheet" href="../../item/cadastro_item/aparenciaitem.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script type="text/javascript" src="./edita_estoque.js"></script>
 </head>
 <body>
-    <img src="./../public/img/Logo.png" alt="Logo do site" width="14%">
+    <img src="./../../public/img/Logo.png" alt="Logo do site" width="14%">
     <form action="" method="POST">
         <h3>Fornecedor: </h3>
         <p><input type="text" name="fornecedor" id="fornecedor" value="<?php echo $estoqueFornecedor?>" list="fornecedores" oninput="preencherFornecedores()" required>
@@ -92,7 +92,7 @@
                 if(isset($idFornecedor) && $idFornecedor == null){
                     echo '
                     <script> alert("Fornecedor não cadastrado no sistema"); </script>
-                    <button><a href="../fornecedor/cadastro_fornecedor.php">Cadastrar Fornecedor</a></button>
+                    <button><a href="../../fornecedor/cadastro_fornecedor.php">Cadastrar Fornecedor</a></button>
                     ';
                 }
             ?> 
@@ -107,7 +107,7 @@
                 if(isset($idItem) && $idItem == null){
                     echo '
                     <script> alert("Item não cadastrado no sistema"); </script>
-                    <button><a href="../cadastro_item/cadastro_de_itens.php">Cadastrar Item</a></button>
+                    <button><a href="../../item/cadastro_item/cadastro_de_itens.php">Cadastrar Item</a></button>
                     ';
                 }
             ?>
@@ -145,7 +145,7 @@
         >Inativo</input></p>
         <p>
             <input type="submit" value="Salvar" name="salvar">
-            <input type="button" value="Cancelar" onclick="window.location.href='./estoque.php'">
+            <input type="button" value="Cancelar" onclick="window.location.href='./../estoque.php'">
         </p>
     </form>
 </body>

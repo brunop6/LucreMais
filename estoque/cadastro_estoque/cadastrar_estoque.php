@@ -4,17 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../cadastro_item/aparenciaitem.css">
+    <link rel="stylesheet" href="../../cadastro_item/aparenciaitem.css">
     <title>Cadastro Estoque</title>
 </head>
 <body>
     <?php
-        include '../includes/conecta_bd.inc';
-        include_once '../classes/Estoque.php';
-        include_once '../classes/Usuario.php';
+        include '../../includes/conecta_bd.inc';
+        include_once '../../classes/Estoque.php';
+        include_once '../../classes/Usuario.php';
 
         if(!isset($_GET['idFornecedor']) || !isset($_GET['idItem']) || !isset($_GET['quantidade']) || !isset($_GET['preco']) || !isset($_GET['lote']) || !isset($_GET['validade'])){
-            die();
             header('Location: cadastro_estoque.php');
             die();
         }
@@ -34,12 +33,12 @@
         $resultado = $estoque->cadastrar_estoque();
 
         if($resultado == 'Cadastro realizado com sucesso!'){
-            header('Location: ./../estoque/estoque.php');
+            header('Location: ./../estoque.php');
         }else{
             echo '<h2>Erro ao realizar cadastro...</h2> <br>';
             echo "<p lang='en'>".$resultado."</p>";  
         }
-        echo "<p><a href='../estoque/estoque.php'><button>Retornar ao Estoque</button></a></p>";
+        echo "<p><a href='./../estoque.php'><button>Retornar ao Estoque</button></a></p>";
     ?>
 </body>
 </html>

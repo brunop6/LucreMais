@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../Login/aparencial.css">
+    <link rel="stylesheet" href="../../Login/aparencial.css">
     <title>Cadastro Fornecedor</title>
 </head>
 <body>
     <?php
-        include '../includes/conecta_bd.inc';
-        include_once '../classes/Fornecedor.php';
-        include_once '../classes/Usuario.php';
+        include '../../includes/conecta_bd.inc';
+        include_once '../../classes/Fornecedor.php';
+        include_once '../../classes/Usuario.php';
 
         $nome = $_POST['nomeFornecedor'];
         $email = $_POST['email'];
@@ -29,12 +29,12 @@
         $resultado = $fornecedor->cadastrarFornecedor();
 
         if($resultado == "Cadastro realizado com sucesso!"){
-            header('Location: ./../fornecedor/fornecedor.php');
+            header('Location: ./../fornecedor.php');
         }else{
             echo '<h2>Erro ao realizar cadastro...</h2> <br>';
             echo "<p lang='en'>".$resultado."</p>";  
         }
-        echo "<p><a href='../Home.php'><button>Retornar a página principal</button></a></p>";
+        echo "<p><a href='../../Home.php'><button>Retornar a página principal</button></a></p>";
     ?>
 </body>
 </html>

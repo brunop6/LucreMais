@@ -26,7 +26,7 @@
         <label for="btn-menu">&#9776;</label>
         <nav class="menu">
             <ul>
-                <li><a href="../../cadastro_despesa/cadastro_de_despesa.php">Cadastrar despesa</a></li>
+                <li><a href="./cadastro_despesa/cadastro_de_despesa.php">Cadastrar despesa</a></li>
                 <li><a href="./categoria/categoria.php">Categoria</a></li>
                 <li><a href="../financeiro.php">Voltar</a></li>
             </ul>

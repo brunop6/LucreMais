@@ -84,7 +84,7 @@
         }
 
         public static function selectId($descricaoCategoria, $email){
-            include '../includes/conecta_bd.inc';
+            include __DIR__.'./../includes/conecta_bd.inc';
 
             $descricaoCategoria = mb_strtoupper($descricaoCategoria, mb_internal_encoding());
 
@@ -109,7 +109,7 @@
         }
 
         public function cadastrarCategoria(){
-            include '../includes/conecta_bd.inc';
+            include __DIR__.'./../includes/conecta_bd.inc';
 
             $query = "INSERT INTO categoria (idUsuario, descricaoCategoria) VALUES ('$this->idUsuario', '$this->descricaoCategoria')";
 

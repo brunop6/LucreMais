@@ -4,7 +4,7 @@ function preencherFornecedores(){
     if(inputFornecedor.length >= 3){
         //Envio da variável JS para o arquivo PHP
         $.ajax({
-            url: './../public/ajax/selectFornecedores.php',
+            url: './../../public/ajax/selectFornecedores.php',
             method: 'POST',
             data: {fornecedor: inputFornecedor},
             dataType: 'json'
@@ -45,7 +45,7 @@ function preencherItens(){
     var inputItem = document.getElementById('item').value;
     if(inputItem.length >= 3){
         $.ajax({
-            url: './../public/ajax/selectItens.php',
+            url: './../../public/ajax/selectItens.php',
             method: 'POST',
             data: {item: inputItem},
             dataType: 'json'

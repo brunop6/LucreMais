@@ -9,10 +9,10 @@
 </head>
 <body>
   <?php
-    include_once '../classes/Usuario.php';
-    include_once '../classes/Item.php';
-    include_once '../classes/Fornecedor.php';
-    include_once '../classes/Categoria.php';
+    include_once '../../classes/Usuario.php';
+    include_once '../../classes/Item.php';
+    include_once '../../classes/Fornecedor.php';
+    include_once '../../classes/Categoria.php';
     $marca = $_POST['marca'];
     $nome = $_POST['nome'];
     $descricaoCategoria = mb_strtoupper($_POST['categoria'], mb_internal_encoding());
@@ -43,7 +43,7 @@
       echo "<p>Quantidade: $quantidade $unidadeMedida</p>";
       echo "<p>Quantidade mínima: $quantidadeMinima $unidadeMedida</p>";
       echo "<p><a href='./cadastro_de_itens.php'><button>Cadastrar novo item</button></a></p>";
-      echo "<p><a href='./../item/item.php'><button>Voltar</button></a></p>";
+      echo "<p><a href='./../item.php'><button>Voltar</button></a></p>";
     }else{
       echo '<h2>Erro ao realizar cadastro...</h2> <br>';
       echo "<p lang='en'>".$resultado."</p>";

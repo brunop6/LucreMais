@@ -63,7 +63,7 @@
         <label for="btn-menu">&#9776;</label>
         <nav class="menu">
             <ul>
-                <li><a href="../cadastro_fornecedor/cadastro_fornecedor.php">Cadastrar fornecedor</a></li>
+                <li><a href="./cadastro_fornecedor/cadastro_fornecedor.php">Cadastrar fornecedor</a></li>
                 <li><a href="../Home.php">Página Principal</a></li>
             </ul>
         </nav>
