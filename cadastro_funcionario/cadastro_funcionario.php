@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="aparenciafuncionario.css">
 </head>
 <body>
-<img src="./../Logo.png" alt="Logo do site" width="14%">
+<img src="./../public/img/Logo.png" alt="Logo do site" width="14%">
     <h1> Cadastro de Funcionário </h1>
        <form action="cadastrar_funcionario.php" method="POST">
             <p><input type="text" name="usuario" placeholder="Usuário" id="em" required></p>

@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="./../fornecedor/fornecedor.css">
 </head>
 <body>
-    <img src="../Logo.png" alt="Logo do site" width="14%">
+    <img src="./../public/img/Logo.png" alt="Logo do site" width="14%">
     <form action="editar_item.php?id=<?php echo $id ?>" method="POST" >     
         <h3>Marca: </h3>
         <p><input type="text" name="marca" list="marcas" value="<?php echo $marca ?>" required></p>

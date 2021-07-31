@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="aparencia_fornecedor.css">
 </head>
 <body>
-    <img src="./../Logo.png" alt="Logo do site" width="14%">
+    <img src="./../public/img/Logo.png" alt="Logo do site" width="14%">
     <h1>Cadastro de Fornecedor<br></h1>
 
     <form action="cadastrar_fornecedor.php" method="POST">

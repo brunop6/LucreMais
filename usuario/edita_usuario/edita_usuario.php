@@ -6,7 +6,7 @@
     <title>Edição de Usuário</title>
 </head>
 <body>
-    <img src="../../Logo.png" alt="Logo do Site" width="14%">
+    <img src="./../../public/img/Logo.png" alt="Logo do Site" width="14%">
     <form action="" method="POST">
         <h3>Edição de Usuário</h3>
         

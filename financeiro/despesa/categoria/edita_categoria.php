@@ -33,7 +33,7 @@
 
 </head>
 <body>
-    <img src="../../../Logo.png" alt="Logo do site" width="14%">
+    <img src="../../../public/img/Logo.png" alt="Logo do site" width="14%">
     <form action="editar_categoria.php?id=<?php echo $id?>" method="POST">
         <h3>Categoria: <?php echo $id?></h3>
         <p><input type="text" name="categoriaDespesa" id="categoriaDespesa" value="<?php echo $descricao?>" list="categorias" oninput="preencherCategorias()" required></p>

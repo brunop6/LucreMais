@@ -32,7 +32,7 @@
     <script type="text/javascript" src="edita_fornecedor.js"></script>
 </head>
 <body>
-<img src="./../Logo.png" alt="Logo do site" width="14%">
+<img src="./../public/img/Logo.png" alt="Logo do site" width="14%">
     <h1>Editar de Fornecedor<br></h1>
     <form action="editar_fornecedor.php?id=<?php echo $id ?>" method="POST">
         <p><input type="text" name="nomeFornecedor" id="fornecedor" value="<?php echo $nomeFornecedor ?>" placeholder="Nome do Fornecedor" list="fornecedores" oninput="preencherFornecedores()" required></p>

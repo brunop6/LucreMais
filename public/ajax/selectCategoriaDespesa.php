@@ -1,6 +1,6 @@
 <?php
     header('Content-Type: application/json');
-    include_once '../classes/CategoriaDespesa.php';
+    include_once '../../classes/CategoriaDespesa.php';
     if(session_status() !== PHP_SESSION_ACTIVE){
         session_start();
     }

@@ -4,7 +4,7 @@ function preencherCategorias(){
     if(inputCategoria.length >= 3){
         //Envio da variável JS para o arquivo PHP
         $.ajax({
-            url: 'selectCategorias.php',
+            url: './../../public/ajax/selectCategorias.php',
             method: 'POST',
             data: {categoria: inputCategoria},
             dataType: 'json'

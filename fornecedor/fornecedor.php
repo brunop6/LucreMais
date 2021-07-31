@@ -88,7 +88,7 @@
                 ?>  
             </tr>
         </table>
-        <script type="text/javascript" src="./../js/verMais.js"></script>
+        <script type="text/javascript" src="./../public/js/verMais.js"></script>
     </main>
 </body>
 </html>

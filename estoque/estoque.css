@@ -21,6 +21,8 @@ select, input, button{
     background-color: rgb(113, 116, 255);
     border: none;
     line-height: 19px;
+    cursor: pointer;
+    transition: .5s;
 }
 input::placeholder{
     color: black;
@@ -78,6 +80,11 @@ header label:hover{
     display: block;
 }
 
+.btn-plus:hover{
+    background-color: yellow;
+    color: #002D55;
+    box-shadow: 0 0 5px rgb(54, 54, 54);
+}
 @media screen and (max-width:2560px) and (orientation:portrait) {
     body{
         background-color: #002D55;

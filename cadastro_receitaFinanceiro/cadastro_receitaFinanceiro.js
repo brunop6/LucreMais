@@ -3,7 +3,7 @@ function preencherCategorias(){
 
     if(inputCategoria.length>=3){
         $.ajax({
-            url: 'selectCategoriaReceita.php',
+            url: './../public/ajax/selectCategoriaReceita.php',
             method: 'POST',
             data:{categoriaReceita: inputCategoria},
             dataType: 'json'

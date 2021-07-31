@@ -136,7 +136,7 @@
     }
 
     public static function selectItem($busca, $email){
-      include '../includes/conecta_bd.inc';
+      include __DIR__.'./../includes/conecta_bd.inc';
 
       $query = "SELECT DISTINCT i.nome, i.marca 
       FROM item i, usuario u

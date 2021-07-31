@@ -25,7 +25,7 @@
     <title>Edição de Receita F.</title>
 </head>
 <body>
-    <img src="../../Logo.png" alt="Logo do site" width="14%">
+    <img src="../../public/img/Logo.png" alt="Logo do site" width="14%">
     <form action="editar_receitaFinanceiro.php?id=<?php echo $id ?>" method="POST" >     
         <h3>Categoria</h3>
         <p><input type="text" name="categoriaReceita" id="categoriaReceita" list="categorias" value="<?php echo $descricao ?>" oninput="preencherCategorias()" required></p>

@@ -1,6 +1,6 @@
 <?php
     header('Content-Type: application/json');
-    include_once '../classes/Item.php';
+    include_once '../../classes/Item.php';
     if(session_status() !== PHP_SESSION_ACTIVE){
         session_start();
     }
@@ -10,7 +10,7 @@
     
     $i = 0;
     foreach($nome as $value){
-        $json[] = $value.' '.$marca[$i]; 
+        $json[$i] = $value.' '.$marca[$i]; 
         $i++;
     }
 

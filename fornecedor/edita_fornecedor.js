@@ -4,7 +4,7 @@ function preencherFornecedores(){
     if(inputFornecedor.length >= 3){
         //Envio da variável JS para o arquivo PHP
         $.ajax({
-            url: 'selectFornecedores.php',
+            url: './../public/ajax/selectFornecedores.php',
             method: 'POST',
             data: {fornecedor: inputFornecedor},
             dataType: 'json'

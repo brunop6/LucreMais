@@ -25,7 +25,7 @@
     <script type="text/javascript" src="./edita_despesa.js"></script>
 </head>
 <body>
-    <img src="../../Logo.png" alt="Logo do site" width="14%">
+    <img src="../../public/img/Logo.png" alt="Logo do site" width="14%">
     <form action="editar_despesa.php?id=<?php echo $id ?>" method="POST" >     
         <h3>Categoria</h3>
         <p><input type="text" name="categoriaDespesa" id="categoriaDespesa" list="categorias" value="<?php echo $descricao ?>" oninput="preencherCategorias()" required></p>

@@ -62,7 +62,7 @@
         }
 
         public static function buscarCategoria($busca, $email){
-            include __DIR__.'/../includes/conecta_bd.inc';
+            include __DIR__.'./../includes/conecta_bd.inc';
             $query = "SELECT c.descricaoCategoria 
             FROM categoria c, usuario u
             WHERE c.descricaoCategoria LIKE '%$busca%'

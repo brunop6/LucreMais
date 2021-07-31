@@ -4,9 +4,9 @@ function preencherCategorias(){
     if(inputCategoria.length >= 3){
         //Envio da variável JS para o arquivo PHP
         $.ajax({
-            url: 'selectCategorias.php',
+            url: './../../../public/ajax/selectCategoriaDespesa.php',
             method: 'POST',
-            data: {categoria: inputCategoria},
+            data: {categoriaDespesa: inputCategoria},
             dataType: 'json'
         }).done(function(result){ //result = retorno do arquivo PHP
             if(result != null){

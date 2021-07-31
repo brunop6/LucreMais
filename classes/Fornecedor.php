@@ -68,7 +68,7 @@
         }
 
         public static function buscarFornecedor($busca, $email){
-            include '../includes/conecta_bd.inc';
+            include __DIR__.'./../includes/conecta_bd.inc';
 
             $query = "SELECT f.nomeFornecedor 
             FROM fornecedor f, usuario u

@@ -23,7 +23,7 @@
 </head>
 <body>
   
-  <img src="./../Logo.png" alt="Logo do site" width="14%">
+  <img src="./../public/img/Logo.png" alt="Logo do site" width="14%">
   <h1>Cadastrar Itens<br></h1>
   <section class="cadastro">
   

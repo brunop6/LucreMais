@@ -9,7 +9,7 @@
 <body>
     <section class="cadastro">
         <form action="./cadastrar_usuario.php" method="POST">
-            <img src="./../Logo.png" alt="Logo do site" width="70%">
+            <img src="./../public/img/Logo.png" alt="Logo do site" width="70%">
             <h1>Bem-vindo ao cadastramento "Lucre+"<br></h1>
             <h4>Rumo ao lucro certo, graças a escolha certa!</h4>
             <p><input type="text" name="usuario" placeholder="Usuário" id="em" required></p>

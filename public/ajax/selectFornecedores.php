@@ -1,12 +1,11 @@
 <?php
     header('Content-Type: application/json');
-    include_once '../classes/Categoria.php';
+    include_once '../../classes/Fornecedor.php';
     if(session_status() !== PHP_SESSION_ACTIVE){
         session_start();
     }
     $email = $_SESSION['email_usuario'];
-    $input = $_POST['categoria'];
+    $input = $_POST['fornecedor'];
+    $json = Fornecedor::buscarFornecedor($input, $email);
 
-    $json = Categoria::buscarCategoria($input, $email);
-    
     echo json_encode($json);

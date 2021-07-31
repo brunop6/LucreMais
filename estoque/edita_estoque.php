@@ -84,7 +84,7 @@
     <script type="text/javascript" src="./edita_estoque.js"></script>
 </head>
 <body>
-    <img src="../Logo.png" alt="Logo do site" width="14%">
+    <img src="./../public/img/Logo.png" alt="Logo do site" width="14%">
     <form action="" method="POST">
         <h3>Fornecedor: </h3>
         <p><input type="text" name="fornecedor" id="fornecedor" value="<?php echo $estoqueFornecedor?>" list="fornecedores" oninput="preencherFornecedores()" required>
