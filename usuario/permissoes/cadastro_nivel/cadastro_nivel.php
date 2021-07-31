@@ -26,7 +26,7 @@ if ($nivelUsuario != "Administrador") {
 </head>
 <body>
     <br>
-    <img src="./../../../Logo.png" alt="Logo do site" width="14%">
+    <img src="./../../../public/img/Logo.png" alt="Logo do site" width="14%">
     <br>
     <br>
     <h1>Novo nível de acesso</h1>
