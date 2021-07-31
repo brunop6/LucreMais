@@ -266,9 +266,9 @@
         public static function editarNivelAcesso($idUsuario, $idNivel){
             include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "UPDATE usuario 
-            SET idNivelUsuario = $idNivel
-            WHERE id = $idUsuario";
+            $query = "UPDATE nivelusuario
+            SET idNivel = $idNivel
+            WHERE idUsuario = $idUsuario";
 
             $resultado = mysqli_query($conexao, $query);
 

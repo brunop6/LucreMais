@@ -39,7 +39,7 @@
         
             function preencherDespesa(){
                 global $email;
-                list($id, $descricao, $custo, $nomeUsuario) = Despesa::selectDespesaLista($email);
+                list($id, $descricao, $custo, $nomeUsuario) = Despesa::selectDespesasMes($email);
                 if(!empty($descricao)){
                     $i = 0;
                     foreach($descricao as $descricao){
@@ -56,7 +56,7 @@
                 }
             }
 
-            $totalMensal = Despesa::selectTotal($email);
+            $totalMensal = Despesa::selectTotalMes($email);
         ?>
  
         <table style="width:100%; margin-top: 10px"; border="1px";>

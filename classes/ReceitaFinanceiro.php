@@ -39,14 +39,15 @@
       }
     }
 
-    public static function selectReceitaLista($email){
+    public static function selectReceitasMes($email){
       include __DIR__.'./../includes/conecta_bd.inc';
 
       $query = "SELECT r.id, r.valor, u.nomeUsuario, c.descricao 
       FROM receitafinanceiro r, usuario u, categoriareceitafinanceiro c 
       WHERE c.id = r.idCategoriareceitaFinanceiro
         AND r.idUsuario = u.id
-        AND u.email = '$email'";
+        AND u.email = '$email'
+        AND MONTH(r.dataCadastro) = MONTH(CURRENT_DATE)";
 
       $resultado = mysqli_query($conexao, $query);
 
@@ -70,7 +71,7 @@
       return array($id, $descricao, $valor, $nomeUsuario);
     }
 
-    public static function selectReceitasLista($id){
+    public static function selectReceita($id){
       include __DIR__.'./../includes/conecta_bd.inc';
 
       $query = "SELECT r.valor, c.descricao, u.nomeUsuario
@@ -95,7 +96,7 @@
       return array($descricao, $valor);
     }
 
-    public static function selectTotal($email){
+    public static function selectTotalMes($email){
       include __DIR__.'./../includes/conecta_bd.inc';
 
       $query = "SELECT SUM(r.valor) as total
@@ -119,5 +120,32 @@
       mysqli_close($conexao);
 
       return $total;
+    }
+
+    public static function selectUltimosMeses($email){
+      include __DIR__.'./../includes/conecta_bd.inc';
+
+      $query = "SELECT SUM(r.valor) as total, MONTH(r.dataCadastro) AS mes
+      FROM receitafinanceiro r, usuario u
+      WHERE r.idUsuario = u.id
+        AND u.email = '$email'
+        AND MONTH(r.dataCadastro) > (MONTH(CURRENT_DATE)-5)
+      GROUP BY MONTH(r.dataCadastro)
+      ORDER BY MONTH(r.dataCadastro)";
+
+      $resultado = mysqli_query($conexao, $query);
+
+      $totais = null;
+      $meses = null;
+
+      if(mysqli_num_rows($resultado) > 0){
+        while($row = mysqli_fetch_array($resultado)){
+          $totais[] = $row['total'];
+          $meses[] = $row['mes'];
+        }
+      }
+      mysqli_close($conexao);
+
+      return array($totais, $meses);
     }
   }

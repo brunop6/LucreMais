@@ -13,7 +13,7 @@
         die();
     }
     $id = $_GET['id'];
-    list($descricao, $custo) = Despesa::selectDespesasLista($id);
+    list($descricao, $custo) = Despesa::selectDespesa($id);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
