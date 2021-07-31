@@ -99,6 +99,7 @@ list($idNiveisConta, $niveisConta) = Usuario::selectNiveisAcesso($emailUsuario);
                 //Controle do número de usuários para edição
                 echo "<input type='hidden' name='numUsuarios' value='$i'>";
                 echo '<p><input type="submit" value="Salvar"></p>';
+                echo '<p><button><a href = "../cadastro_funcionario/cadastro_funcionario.php">Cadastrar funcionário</a></button></p>';   
             }
             ?>
         </form>
