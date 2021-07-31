@@ -306,6 +306,20 @@
             return mysqli_error($conexao);
         }
 
+        public static function cadastrarNivelUsuario($idUsuario, $idNivel){
+            include __DIR__.'./../includes/conecta_bd.inc';
+            
+            $query = "INSERT INTO nivelusuario (idUsuario, idNivel) 
+            VALUES ('$idUsuario', '$idNivel')";
+
+            $resultado = mysqli_query($conexao, $query);
+
+            if($resultado){
+                return true;
+            }
+            return mysqli_error($conexao);
+        }
+
         /**
          * Somente uma pessoa por e-mail poderá cadastrar um usuário de maneira não autenticada;
          * 

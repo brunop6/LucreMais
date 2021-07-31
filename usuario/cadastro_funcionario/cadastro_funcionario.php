@@ -23,6 +23,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Cadastro funcionário</title>
+    <script type="text/javascript" src="./cadastro_funcionario.js"></script>
     <link rel="stylesheet" href="aparenciafuncionario.css">
 </head>
 <body>
