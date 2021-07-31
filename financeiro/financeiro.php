@@ -16,8 +16,8 @@
     include_once './../classes/Despesa.php';
     include_once './../classes/ReceitaFinanceiro.php';
 
-    $despesaMensal = Despesa::selectTotal($email);
-    $receitaMensal = ReceitaFinanceiro::selectTotal($email);
+    $despesaMensal = Despesa::selectTotalMes($email);
+    $receitaMensal = ReceitaFinanceiro::selectTotalMes($email);
 
     if($despesaMensal == 0 || $receitaMensal == 0){
         $porcentagemLucro = 0;
@@ -26,7 +26,6 @@
         $porcentagemLucro = (($receitaMensal-$despesaMensal)*100)/$despesaMensal;
         $lucroReal = $receitaMensal - $despesaMensal;
     }
-    
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -40,6 +39,7 @@
 </head>
 <body>
     <header>
+        <p hidden id="email-usuario"><?php echo $email; ?></p>
         <input type="checkbox" id="btn-menu">
         <label for="btn-menu">&#9776;</label>
         <nav class="menu">
@@ -52,27 +52,25 @@
     </header>
     
     <div class="lucro">
-        <h3>Receita mensal: <span class="receita"><?php echo "R$ ".number_format($receitaMensal, 2); ?></span></h3>
-        <h3>Despesa mensal: <span class="despesa"><?php echo "R$ ".number_format($despesaMensal, 2); ?></span></h3>
-        <br>
-
-        <div class="chart-container">
-            <canvas id="chart"></canvas>
-        </div>
-        
+        <h3>Receita atual: <span class="receita"><?php echo "R$ ".number_format($receitaMensal, 2); ?></span></h3>
+        <h3>Despesa atual: <span class="despesa"><?php echo "R$ ".number_format($despesaMensal, 2); ?></span></h3>        
         <h3>
-            Lucro mensal: 
+            Lucro: 
             <?php 
-                echo "R$ ".number_format($lucroReal, 2);
-
                 if($porcentagemLucro){
-                    echo " &#10140; ".number_format($porcentagemLucro, 2)."%";
+                    echo number_format($porcentagemLucro, 2)."%";
                 }
             ?>
         </h3>
     </div>
     
+    <div class="chart-container">
+        <canvas id="chart"></canvas>
+    </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="./../public/js/monthConverter.js"></script>
     <script type="text/javascript" src="./grafico_financeiro.js"></script>
 </body>
 </html>

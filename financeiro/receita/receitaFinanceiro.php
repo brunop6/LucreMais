@@ -39,7 +39,7 @@
         
             function preencherReceitas(){
                 global $email;
-                list($id, $descricao, $custo, $nomeUsuario) = ReceitaFinanceiro::selectReceitaLista($email);
+                list($id, $descricao, $custo, $nomeUsuario) = ReceitaFinanceiro::selectReceitasMes($email);
                 if(!empty($descricao)){
                     $i = 0;
                     foreach($descricao as $descricao){
@@ -56,7 +56,7 @@
                 }
             }
 
-            $totalMensal = ReceitaFinanceiro::selectTotal($email);
+            $totalMensal = ReceitaFinanceiro::selectTotalMes($email);
         ?>
  
         <table style="width:100%; margin-top: 10px"; border="1px";>

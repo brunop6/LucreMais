@@ -13,7 +13,7 @@
         die();
     }
     $id = $_GET['id'];
-    list($descricao, $custo) = ReceitaFinanceiro::selectReceitasLista($id);
+    list($descricao, $custo) = ReceitaFinanceiro::selectReceita($id);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -32,7 +32,7 @@
         <datalist id="categorias">
 
         </datalist>
-        <h3>Custo: </h3>
+        <h3>Valor: </h3>
         <p><input type="text" name="valor" list="valor" value="<?php echo $custo?>"required></p>
             <input type="submit" value="Salvar" name="salvar" >
             <input type="button" value="Cancelar" onclick="window.location.href='./receitaFinanceiro.php'">
