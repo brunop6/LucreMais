@@ -11,7 +11,6 @@
     }
 
     public function cadastrar_despesa(){
-
       include __DIR__.'./../includes/conecta_bd.inc';
       
       $query = "INSERT INTO despesa (idUsuario, idCategoriaDespesa, custo) VALUES ('$this->idUsuario', '$this->idCategoriaDespesa', '$this->custo')";
@@ -39,14 +38,15 @@
       }
     }
 
-    public static function selectDespesaLista($email){
+    public static function selectDespesasMes($email){
       include __DIR__.'./../includes/conecta_bd.inc';
 
       $query = "SELECT d.id, d.custo, u.nomeUsuario, c.descricao 
       FROM despesa d, usuario u, categoriadespesa c 
       WHERE c.id = d.idCategoriaDespesa 
         AND d.idUsuario = u.id
-        AND u.email = '$email'";
+        AND u.email = '$email'
+        AND MONTH(d.dataCadastro) = MONTH(CURRENT_DATE)";
 
       $resultado = mysqli_query($conexao, $query);
 
@@ -70,7 +70,7 @@
       return array($id, $descricao, $custo, $nomeUsuario);
     }
 
-    public static function selectDespesasLista($id){
+    public static function selectDespesa($id){
       include __DIR__.'./../includes/conecta_bd.inc';
 
       $query = "SELECT d.custo, cd.descricao, u.nomeUsuario
@@ -92,7 +92,7 @@
       return array($descricao, $custo);
     }
 
-    public static function selectTotal($email){
+    public static function selectTotalMes($email){
       include __DIR__.'./../includes/conecta_bd.inc';
 
       $query = "SELECT SUM(d.custo) as total
@@ -116,5 +116,32 @@
       mysqli_close($conexao);
 
       return $total;
+    }
+
+    public static function selectUltimosMeses($email){
+      include __DIR__.'./../includes/conecta_bd.inc';
+
+      $query = "SELECT SUM(d.custo) as total, MONTH(d.dataCadastro) AS mes
+      FROM despesa d, usuario u
+      WHERE d.idUsuario = u.id
+        AND u.email = '$email'
+        AND MONTH(d.dataCadastro) > (MONTH(CURRENT_DATE)-5)
+      GROUP BY MONTH(d.dataCadastro)
+      ORDER BY MONTH(d.dataCadastro)";
+
+      $resultado = mysqli_query($conexao, $query);
+
+      $totais = null;
+      $meses = null;
+
+      if(mysqli_num_rows($resultado) > 0){
+        while($row = mysqli_fetch_array($resultado)){
+          $totais[] = $row['total'];
+          $meses[] = $row['mes'];
+        }
+      }
+      mysqli_close($conexao);
+
+      return array($totais, $meses);
     }
   }
