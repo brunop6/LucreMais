@@ -54,7 +54,9 @@
             <ul>
                 <?php
                     $i = 0;
+                    $custoReceita = 0;
                     foreach($idItem as $id){
+                        $custoReceita += $custo[$i];
                         list($nomeItem, $marca, $quantidadeItem, $unidadeItem, $descricaoCategoria) = Item::selectItemLista($id);
                         
                         echo "<li><b>$nomeItem $marca:</b> $quantidadeReceita[$i] $unidadeReceita[$i] &#10142; R$ $custo[$i]</li>";
@@ -62,6 +64,8 @@
                     }
                 ?>
             </ul>
+            <br>
+            <p><b>Custo: R$ <?php echo number_format($custoReceita, 2) ?></b></p>
         </div>
 
         <aside>
