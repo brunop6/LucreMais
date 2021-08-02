@@ -49,7 +49,7 @@
                     }
                 ?>
             </select>
-            <p><input type="submit" value="Cadastrar-se"> 
+            <p><input type="submit" value="Cadastrar"> 
             <p><input type="button" value="Voltar" onclick="window.location.href='./../permissoes/permissoes.php'"></p>
        </form>
        

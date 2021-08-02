@@ -153,7 +153,7 @@ section{
     margin-left: 10px;
     position: relative;
 }
-button, input[type="submit"], select{
+button, input[type="submit"], input[type="button"], select{
     outline: none;
     border: 2px solid rgb(209, 205, 205);
     background-color: rgb(113, 116, 255);
@@ -165,7 +165,7 @@ button, input[type="submit"], select{
     text-decoration: none;
     cursor: pointer;
 }
-button:hover, input[type="submit"]:hover{
+button:hover, input[type="button"]:hover, input[type="submit"]:hover{
     background-color: yellow;
 }
 
