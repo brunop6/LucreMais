@@ -18,8 +18,6 @@
     
         $usuario = new Usuario('0', $nomeUsuario, $_SESSION["email_usuario"], $senhaUsuario);
     
-        print ($usuario->selectId($nomeUsuario));
-    
         $idUsuario = $usuario->selectId($nomeUsuario);
 
         $resultado = $usuario->editarContaUsusario($idUsuario);
@@ -32,7 +30,6 @@
             echo "<p lang='en'>".$resultado."</p>";  
         }
         echo "<p><a href='../../Home.php'><button>Retornar a página principal</button></a></p>";
-    print ($resultado)
     ?>
 </body>
 </html>
