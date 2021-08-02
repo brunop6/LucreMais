@@ -355,13 +355,13 @@
         }
         
         public function editarContaUsusario($id){
-          include '../includes/conecta_bd.inc';
+          include __DIR__.'./../includes/conecta_bd.inc';
             
           $data = date('d/m/Y');
 
-          $query = "UPDATE usuario 
-          SET idNivelUsuario = $this->idNivel, nomeUsuario = $this->nomeUsuario, email = $this->email,senha = $this->senha, dataAtualizacao = '$data'
-          WHERE id = $id";
+
+        $query = "UPDATE usuario SET senha = '$this->senha' WHERE id = $id";
+                
 
           $resultado = mysqli_query($conexao, $query);
 
