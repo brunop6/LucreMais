@@ -16,8 +16,10 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="./../../public/css/formStyle.css">
+
     <title>Cadastro de Fornecedor</title>
-    <link rel="stylesheet" href="aparencia_fornecedor.css">
 </head>
 <body>
     <img src="./../../public/img/Logo.png" alt="Logo do site" width="14%">

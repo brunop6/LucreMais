@@ -61,8 +61,13 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="./public/css/headerMenu.css">
+    <link rel="stylesheet" href="./public/css/sidebarMenu.css">
+    <link rel="stylesheet" href="./public/css/tableStyle.css">
+    <link rel="stylesheet" href="./public/css/inputs.css">
+
     <title>Home</title>
-    <link rel="stylesheet" href="Aparencia.css">
 </head>
 <body>
     <header>
@@ -81,7 +86,7 @@
                         echo '<li><a href="./estoque/estoque.php">Estoque</a></li>';
                     }
                     if(Usuario::verificarMenu($idUsuario, "Receitas")){
-                        echo '<li><a href="./Receitas/receitas.php">Receitas</a></li>';
+                        echo '<li><a href="./receitas/receitas.php">Receitas</a></li>';
                     }
                     if(Usuario::verificarMenu($idUsuario, "Financeiro")){
                         echo '<li><a href="./financeiro/financeiro.php">Financeiro</a></li>';
@@ -120,7 +125,7 @@
             list($id) = Estoque::selectEntradaEstoque($email);
 
             if(!empty($id)){
-                echo '<button onclick="verMais()" class="btn-plus">Ver mais...</button>';
+                echo '<button onclick="verMais()" class="btn-plus">Ver mais...</button><br>';
                 echo '
                     <table style="margin-top: 10px; background-color: #002D55; border-collapse:collapse;"; border="1px">
                     <h1>Entradas</h1>

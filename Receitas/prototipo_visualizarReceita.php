@@ -16,7 +16,10 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="./../public/css/headerMenu.css">
     <link rel="stylesheet" href="./receitas.css">
+    
     <title>Receita Paçoca</title>
 </head>
 <body>

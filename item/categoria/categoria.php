@@ -11,37 +11,40 @@
         header("Location: ./../Home.php");
         die();
     }
+
+    function preencherCategorias(){
+        include_once '../../classes/Categoria.php';
+
+        list($id, $descricao, $dataCadastro, $dataAtualizacao, $nomeUsuario) = Categoria::selectCategorias($_SESSION['email_usuario']);
+
+        if(!empty($descricao)){
+            $i = 0;
+            foreach($id as $index){
+                echo '<tr>';
+
+                echo "<td>$index</td>";
+                echo "<td>$descricao[$i]</td>";
+                echo "<td>$dataCadastro[$i]</td>";
+                echo "<td>$dataAtualizacao[$i]</td>";
+                echo "<td>$nomeUsuario[$i]</td>";
+                echo "<td><a href='./edita_categoria.php?id=$id[$i]' style='color:#B9DEFF'>Editar</a></td>";
+
+                echo '</tr>';
+                $i++;
+            }
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    
+    <link rel="stylesheet" href="./../../public/css/headerMenu.css">
+    <link rel="stylesheet" href="./../../public/css/tableStyle.css">
+    <link rel="stylesheet" href="./../../public/css/inputs.css">
+    
     <title>Categoria</title>
-    <link rel="stylesheet" href="../../estoque/estoque.css">
-    <?php
-        function preencherCategorias(){
-            include_once '../../classes/Categoria.php';
-
-            list($id, $descricao, $dataCadastro, $dataAtualizacao, $nomeUsuario) = Categoria::selectCategorias($_SESSION['email_usuario']);
-
-            if(!empty($descricao)){
-                $i = 0;
-                foreach($id as $index){
-                    echo '<tr>';
-
-                    echo "<td>$index</td>";
-                    echo "<td>$descricao[$i]</td>";
-                    echo "<td>$dataCadastro[$i]</td>";
-                    echo "<td>$dataAtualizacao[$i]</td>";
-                    echo "<td>$nomeUsuario[$i]</td>";
-                    echo "<td><a href='./edita_categoria.php?id=$id[$i]' style='color:#B9DEFF'>Editar</a></td>";
-
-                    echo '</tr>';
-                    $i++;
-                }
-            }
-        }
-    ?>
 </head>
 <body>
     <header>

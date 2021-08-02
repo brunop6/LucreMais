@@ -24,7 +24,7 @@
     <script type="text/javascript" src="./criacampo.js"></script>
     <script type="text/javascript" src="./../../public/js/datalists.js"></script>
 
-    <link rel="stylesheet" href="./../../item/cadastro_item/aparenciaitem.css">
+    <link rel="stylesheet" href="./../../public/css/formStyle.css">
     
     <title>Cadastrar receita</title>
 </head>

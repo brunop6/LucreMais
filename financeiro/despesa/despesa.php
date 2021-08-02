@@ -17,7 +17,11 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="./despesa.css">
+    
+    <link rel="stylesheet" href="./../../public/css/headerMenu.css">
+    <link rel="stylesheet" href="./../../public/css/tableStyle.css">
+    <link rel="stylesheet" href="./../financeiro.css">
+
     <title>Despesa</title>
 </head>
 <body>

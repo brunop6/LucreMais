@@ -19,8 +19,10 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="./../public/css/editStyle.css">
+    
     <title>Edição de item</title>
-    <link rel="stylesheet" href="./../fornecedor/fornecedor.css">
 </head>
 <body>
     <img src="./../public/img/Logo.png" alt="Logo do site" width="14%">

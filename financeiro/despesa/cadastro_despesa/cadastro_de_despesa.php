@@ -17,10 +17,13 @@ if (!Usuario::verificarMenu($idUsuario, menu)) {
 
 <head>
     <meta charset="UTF-8">
+    
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script type="text/javascript" src="./../../../public/js/datalists.js"></script>
+    
+    <link rel="stylesheet" href="./../../../public/css/formStyle.css">
+    
     <title>Despesas</title>
-    <link rel="stylesheet" href="despesa.css">
 </head>
 
 <body>

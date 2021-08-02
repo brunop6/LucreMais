@@ -15,3 +15,10 @@ a{
     text-decoration: none;
     color: black;
 }
+button, input[type="submit"], select{
+    margin: 20px;
+    display: inline;
+}
+button:hover, input[type="submit"]:hover{
+    background-color: yellow;
+}

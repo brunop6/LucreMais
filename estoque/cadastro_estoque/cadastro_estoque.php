@@ -55,10 +55,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script type="text/javascript" src="./../../public/js/datalists.js"></script>
+
+    <link rel="stylesheet" href="./../../public/css/formStyle.css">
+    
     <title>Cadastro Estoque</title>
-    <link rel="stylesheet" href="../../item/cadastro_item/aparenciaitem.css">
 </head>
 <body>
     <img src="./../../public/img/Logo.png" alt="Logo do site" width="14%">

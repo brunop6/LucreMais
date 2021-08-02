@@ -21,7 +21,7 @@
     <script type="text/javascript" src="./../../public/js/datalists.js"></script>
     <script type="text/javascript" src="./cadastro_item.js"></script>
 
-    <link rel="stylesheet" href="aparenciaitem.css">
+    <link rel="stylesheet" href="./../../public/css/formStyle.css">
 
     <title>Cadastro de Itens</title>
 </head>

@@ -16,8 +16,12 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../estoque/estoque.css">
-    <title>Item</title>
+
+    <link rel="stylesheet" href="./../public/css/headerMenu.css">
+    <link rel="stylesheet" href="./../public/css/tableStyle.css">
+    <link rel="stylesheet" href="./../public/css/inputs.css">
+    
+    <title>Itens</title>
 </head>
 <body>
     <header>
@@ -58,7 +62,7 @@
                 }
             }
         ?>
-        
+        <br>
         <button onclick="verMais()" class="btn-plus">Ver mais...</button>
         <table style="width:100%; margin-top: 10px"; border="1px";>
             <tr>

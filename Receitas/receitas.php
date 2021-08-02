@@ -20,7 +20,10 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="./../public/css/headerMenu.css">
     <link rel="stylesheet" href="./receitas.css">
+    
     <title>Receitas</title>
 </head>
 <body>
@@ -35,7 +38,7 @@
         </nav>
     </header>
     <main>
-        <div class="receita" id="receita0">
+        <div class="receita">
             <h3><a href="prototipo_visualizarReceita.php?id=1">PAÇOCA</a></h3>
             <p>Rendimento: 1300 GRAMAS</p>
             <p>Valor de venda: R$32.90</p>

@@ -2,8 +2,11 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+
+    <link rel="stylesheet" href="./../public/css/inputs.css">
     <link rel="stylesheet" href="./aparencial.css">
+
+    <title>Login</title>
 </head>
 <body>
     <section class="login">

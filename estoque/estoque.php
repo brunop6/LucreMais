@@ -1,27 +1,18 @@
 <?php
-define('menu', 'Estoque');
-include_once "../classes/Usuario.php";
+    define('menu', 'Estoque');
+    include_once "../classes/Usuario.php";
 
-if (session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
-$idUsuario = $_SESSION['id_usuario'];
-$email = $_SESSION['email_usuario'];
+    if (session_status() !== PHP_SESSION_ACTIVE) {
+        session_start();
+    }
+    $idUsuario = $_SESSION['id_usuario'];
+    $email = $_SESSION['email_usuario'];
 
-if (!Usuario::verificarMenu($idUsuario, menu)) {
-    header("Location: ./../Home.php");
-    die();
-}
-?>
+    if (!Usuario::verificarMenu($idUsuario, menu)) {
+        header("Location: ./../Home.php");
+        die();
+    }
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <script type="text/javascript" src="./estoque.js"></script>
-    <link rel="stylesheet" href="./estoque.css">
-    <title>Estoque</title>
-    <?php
     if (isset($_GET['status'])) {
         $status = $_GET['status'];
     } else {
@@ -77,9 +68,20 @@ if (!Usuario::verificarMenu($idUsuario, menu)) {
             }
         }
     }
-    ?>
-</head>
+?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
 
+    <script type="text/javascript" src="./estoque.js"></script>
+    
+    <link rel="stylesheet" href="./../public/css/headerMenu.css">
+    <link rel="stylesheet" href="./../public/css/tableStyle.css">
+    <link rel="stylesheet" href="estoque.css">
+    
+    <title>Estoque</title>
+</head>
 <body>
     <header>
         <input type="checkbox" id="btn-menu">
@@ -120,8 +122,8 @@ if (!Usuario::verificarMenu($idUsuario, menu)) {
             <input type="text" id="categoria" placeholder="Categoria" value="<?php if(isset($_GET['categoria'])) echo $_GET['categoria']; ?>">
             <input type="number" id="lote" min="0" placeholder="Lote" value="<?php if(isset($_GET['lote'])) echo $_GET['lote']; ?>">
             <button onclick="alterarExibicao()">Buscar</button>
-            <button onclick="verMais()" class="btn-plus">Ver mais...</button>
         </div>
+        <button onclick="verMais()" class="btn-plus">Ver mais...</button>
         
         <table style="width:100%; margin-top: 10px" ; border="1px">
             <tr>

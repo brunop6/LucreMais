@@ -2,7 +2,9 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="edita_usuario.css">
+
+    <link rel="stylesheet" href="./../../public/css/formStyle.css">
+    
     <title>Edição de Usuário</title>
 </head>
 <body>

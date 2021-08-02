@@ -5,7 +5,7 @@
     }
 
     if (!(array_key_exists ('nome_usuario' , $_SESSION))&&(array_key_exists ('senha_usuario' , $_SESSION))){
-        header("Location: Login/login.php");
+        header("Location: login/login.php");
     }
     else {
         include __DIR__."./conecta_bd.inc";
@@ -20,14 +20,14 @@
         $linhas = mysqli_num_rows($resultado);
 
         if($linhas == 0){
-            header("Location: Login/login.php");
+            header("Location: login/login.php");
         }else{
             while($row = mysqli_fetch_array($resultado)){
                 $res_senha = $row["senha"];
             }
 
             if($_SESSION["senha_usuario"] != $res_senha){
-                header("Location: Login/login.php");
+                header("Location: login/login.php");
             }
         }
 

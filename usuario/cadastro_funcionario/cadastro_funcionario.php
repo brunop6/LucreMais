@@ -22,9 +22,12 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Cadastro funcionário</title>
+    
     <script type="text/javascript" src="./cadastro_funcionario.js"></script>
-    <link rel="stylesheet" href="aparenciafuncionario.css">
+    
+    <link rel="stylesheet" href="./../../public/css/formStyle.css">
+    
+    <title>Cadastro funcionário</title>
 </head>
 <body>
     <?php
