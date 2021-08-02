@@ -98,7 +98,8 @@
             $query = "SELECT e.preco, i.quantidade, i.unidadeMedida, i.nome, e.quantidade as quantidadeEstoque, e.lote  
             FROM item i, estoque e 
             WHERE e.idItem = $idItem 
-                AND i.id = e.idItem";
+                AND i.id = e.idItem
+                AND e.statusItem = '1'";
 
             $resultado = mysqli_query($conexao, $query);
             
@@ -116,7 +117,8 @@
                     $quantidadeEstoque[$i] = $row['quantidadeEstoque'];                    
                     $unimedItem = $row['unidadeMedida'];                    
                     $itemNome = $row['nome'];
-                    $lote[$i] = $row['lote'];                 
+                    $lote[$i] = $row['lote']; 
+                    $i++;                
                 }
             }
                   
