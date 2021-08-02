@@ -21,14 +21,14 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../../fornecedor/fornecedor.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script type="text/javascript" src="./edita_receitaFinanceiro.js"></script>
+    <script type="text/javascript" src="./../../public/js/datalists.js"></script>
     <title>Edição de Receita F.</title>
 </head>
 <body>
     <img src="../../public/img/Logo.png" alt="Logo do site" width="14%">
     <form action="editar_receitaFinanceiro.php?id=<?php echo $id ?>" method="POST" >     
         <h3>Categoria</h3>
-        <p><input type="text" name="categoriaReceita" id="categoriaReceita" list="categorias" value="<?php echo $descricao ?>" oninput="preencherCategorias()" required></p>
+        <p><input type="text" name="categoriaReceita" id="categoriaReceita" list="categorias" value="<?php echo $descricao ?>" oninput="preencherCategoriaReceita()" required></p>
         <datalist id="categorias">
 
         </datalist>

@@ -81,7 +81,7 @@
     <title>Cadastro Estoque</title>
     <link rel="stylesheet" href="../../item/cadastro_item/aparenciaitem.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script type="text/javascript" src="./edita_estoque.js"></script>
+    <script type="text/javascript" src="./../../public/js/datalists.js"></script>
 </head>
 <body>
     <img src="./../../public/img/Logo.png" alt="Logo do site" width="14%">

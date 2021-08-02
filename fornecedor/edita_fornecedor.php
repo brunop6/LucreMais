@@ -29,7 +29,7 @@
     <title>Edita Fornecedor</title>
     <link rel="stylesheet" href="fornecedor.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script type="text/javascript" src="edita_fornecedor.js"></script>
+    <script type="text/javascript" src="./../public/js/datalists.js"></script>
 </head>
 <body>
 <img src="./../public/img/Logo.png" alt="Logo do site" width="14%">

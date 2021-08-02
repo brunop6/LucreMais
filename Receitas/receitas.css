@@ -27,6 +27,7 @@ header label:hover{
     background-color: #002D55;
 }
 .menu ul{
+    z-index: 999;
     list-style: none;
     margin: 0px;
     padding: 10px;
@@ -50,34 +51,6 @@ header label:hover{
 }
 .menu li:hover ul{
     display: block;
-}
-.receita{
-    margin: 10px;
-    padding: 10px;
-    display: block;
-    position: absolute;
-    transform: translateX(-50%);
-    left: 50%;
-    width: 30%;
-    height: 55px;
-    background-color: rgb(113, 116, 255);
-    border-radius: 10px;
-    color: #B9DEFF;
-}
-.receita a{
-    color: yellow;
-}
-.view-receita{
-    padding-left: 20px;
-    width: 60%;
-    height: 100%;
-    position: absolute;
-    transform: translateX(-50%);
-    left: 50%;
-    background-color: rgb(248, 235, 218);
-}
-.view-receita h2, h3, p{
-    text-align: left;
 }
 aside{
     left: 0;
@@ -103,7 +76,6 @@ input[type="number"]:focus{
     border-color: rgb(32, 32, 32);
     box-shadow: 0 0 5px rgb(113, 116, 255);
 }
-
 input[type="submit"]{
     outline: none;
     border: 2px solid rgb(209, 205, 205);
@@ -118,6 +90,44 @@ input[type="submit"]:hover{
     color: #002D55;
     padding: 15px 15px;
     box-shadow: 0 0 5px rgb(54, 54, 54);
+}
+
+main{
+    margin: 10px 20px;
+    display: flex;
+    justify-content:center;
+    flex-wrap: wrap;
+}
+.receita{
+    margin: 10px;
+    padding: 10px;
+    display: block;
+    position: relative;
+    width: 25vw;
+    min-width: 200px;
+    min-height: 55px;
+    background-color: rgb(113, 116, 255);
+    border-radius: 10px;
+    color: #B9DEFF;
+}
+.receita a{
+    color: yellow;
+}
+.view-receita{
+    padding-left: 20px;
+    width: 60%;
+    height: 100%;
+    position: absolute;
+    transform: translateX(-50%);
+    left: 50%;
+    background-color: rgb(255, 250, 250);
+}
+.view-receita h2, h3, li, p{
+    text-align: left;
+}
+main li{
+    margin-left: 25px;
+    padding-bottom: 5px;
 }
 @media screen and (max-width:2560px) and (orientation:portrait) {
     body{

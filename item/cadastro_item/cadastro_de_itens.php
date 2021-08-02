@@ -16,10 +16,14 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script type="text/javascript" src="./../../public/js/datalists.js"></script>
     <script type="text/javascript" src="./cadastro_item.js"></script>
-    <title>Cadastro de Itens</title>
+
     <link rel="stylesheet" href="aparenciaitem.css">
+
+    <title>Cadastro de Itens</title>
 </head>
 <body>
   

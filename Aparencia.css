@@ -44,6 +44,7 @@ header label:hover{
     padding: 10px;
     display: flex;
     justify-content: center;
+    z-index: 999;
     transition: all 1s;
 }
 

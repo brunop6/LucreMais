@@ -7,6 +7,7 @@ function inseriringrediente(){
     numIngred++;
 
     //Novos elementos
+    let hr = document.createElement("hr");
     let p1 = document.createElement("p");
     let p2 = document.createElement("p");
     let p3 = document.createElement("p");
@@ -27,6 +28,23 @@ function inseriringrediente(){
     inputi.type = "text";
     inputi.name = "ingrediente"+numIngred;
     inputi.placeholder = numIngred+"° Ingrediente";
+
+    //Função para a alternância do funcionamento do datalist
+    inputi.addEventListener('focus', function(event){
+        let lastItem = document.querySelector('#item');
+        let datalist = document.querySelector('#itens');
+        
+        datalist.childNodes.forEach(function(child) {
+            child.remove();
+        });
+
+        lastItem.removeAttribute('id');
+        lastItem.removeAttribute('list');
+       
+        this.setAttribute('id', 'item');
+        this.setAttribute('list', 'itens');
+    });
+    inputi.addEventListener('input', preencherItens)
     
     inputq.type = "number";
     inputq.placeholder = "Quantidade";
@@ -58,6 +76,7 @@ function inseriringrediente(){
 
     let form = document.getElementById("formulario");
 
+    form.appendChild(hr);
     form.appendChild(p1);
     form.appendChild(p2);
     form.appendChild(select);

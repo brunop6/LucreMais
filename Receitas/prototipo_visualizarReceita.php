@@ -36,13 +36,16 @@
             <br>
             <h2>INGREDIENTES: </h2>
             <br>
-            <p>AMENDOIM YOKI. . . . . . . . . . . . : 500g &#10142; R$7.00 Preco: 500g &#10142; R$7.00</p>
-            <p>FARINHA MILHO MANTIQUEIRA: 500g &#10142; R$2.99    Preco: 500g  &#10142; R$2.99</p>
-            <p>AÇÚCAR CRISTAL UNIÃO. . . . . .: 300g &#10142; R$0.71    Preco: 1000g &#10142; R$2.36</p>
-            <br>
-            <h2>EMBALAGENS: </h2>
-            <br>
-            <p>POTE PLÁSTICO SANTISTA: 1 UNIDADE(2) &#10142; R$7.90    Preco: 1 UNIDADE(S) &#10142; R$7.90</p>
+            <ul>
+                <li>AMENDOIM YOKI. . . . . . . . . . . . : 500g &#10142; R$7.00 Preco: 500g &#10142; R$7.00</li>
+                <li>FARINHA MILHO MANTIQUEIRA: 500g &#10142; R$2.99    Preco: 500g  &#10142; R$2.99</li>
+                <li>AÇÚCAR CRISTAL UNIÃO. . . . . .: 300g &#10142; R$0.71    Preco: 1000g &#10142; R$2.36</li>
+                <br>
+                <h2>EMBALAGENS: </h2>
+                <br>
+                <li>POTE PLÁSTICO SANTISTA: 1 UNIDADE(2) &#10142; R$7.90    Preco: 1 UNIDADE(S) &#10142; R$7.90</li>
+            </ul>
+            
             <br>
             <p><b>Total: R$ 18.60</b></p>
             <p><b>Rendimento: 1300 GRAMAS</b></p>

@@ -18,7 +18,7 @@ if (!Usuario::verificarMenu($idUsuario, menu)) {
 <head>
     <meta charset="UTF-8">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script type="text/javascript" src="./cadastro_despesa.js"></script>
+    <script type="text/javascript" src="./../../../public/js/datalists.js"></script>
     <title>Despesas</title>
     <link rel="stylesheet" href="despesa.css">
 </head>
@@ -28,7 +28,7 @@ if (!Usuario::verificarMenu($idUsuario, menu)) {
 
     <form action="cadastrar_despesas.php" method="POST">
         <h1>
-            <p>Despesas <input type="text" name="categoriaDespesa" id="categoriaDespesa" list="categorias" oninput="preencherCategorias()" placeholder="Tipo de despesa" required></p>
+            <p>Despesas <input type="text" name="categoriaDespesa" id="categoriaDespesa" list="categorias" oninput="preencherCategoriaDespesa()" placeholder="Tipo de despesa" required></p>
         </h1>
         <datalist id="categorias">
 

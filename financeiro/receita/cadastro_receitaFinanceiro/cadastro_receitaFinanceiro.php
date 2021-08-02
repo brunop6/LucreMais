@@ -17,10 +17,13 @@ if (!Usuario::verificarMenu($idUsuario, menu)) {
 
 <head>
     <meta charset="UTF-8">
+
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script type="text/javascript" src="./cadastro_receitaFinanceiro.js"></script>
-    <title>Receita F.</title>
+    <script type="text/javascript" src="./../../../public/js/datalists.js"></script>
+    
     <link rel="stylesheet" href="./../receitaFinanceiro.css">
+    
+    <title>Receita F.</title>
 </head>
 
 <body>
@@ -28,7 +31,7 @@ if (!Usuario::verificarMenu($idUsuario, menu)) {
 
     <form action="cadastrar_receitaFinanceiro.php" method="POST">
         <h1>
-            <p>Receitas <input type="text" name="categoriaReceita" id="categoriaReceita" list="categorias" oninput="preencherCategorias()" placeholder="Tipo de Receita" required></p>
+            <p>Receitas <input type="text" name="categoriaReceita" id="categoriaReceita" list="categorias" oninput="preencherCategoriaReceita()" placeholder="Tipo de Receita" required></p>
         </h1>
         <datalist id="categorias">
 

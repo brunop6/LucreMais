@@ -18,8 +18,7 @@ input::placeholder{
     color: black;
 }
 
-
- input[type="text"], input[type="number"], input[type="date"], select{
+input[type="text"], input[type="number"], input[type="date"], select{
     outline: none;
     border: 2px solid rgb(41, 39, 39);
     border-radius: 5px;
@@ -56,7 +55,6 @@ input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hove
     box-shadow: 0 0 5px rgb(54, 54, 54);
 }
 
-
 #unidade_de_medida{   
     outline: none;
     border: 2px solid rgb(41, 39, 39);
@@ -83,7 +81,7 @@ label{
     position: relative;
 }
 
-
-
-
-
+hr{
+    width: 300px;
+    margin: auto;
+}

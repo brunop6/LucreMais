@@ -8,7 +8,7 @@ $.ajax({
 }).done(function(result){ //result = retorno do arquivo PHP
     //array[x][0] -> valores int/double
     //array[x][1] -> meses int
-    let receitas = result[0][0];;
+    let receitas = result[0][0];
     let despesas = result[1][0];
     let lucros = [];
     let meses = [];

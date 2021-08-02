@@ -3,36 +3,73 @@
         private $nomeReceita;
         private $idUsuario;
 
-        function __construct($idUsuario, $nomeReceita)
-        {
+        function __construct($idUsuario, $nomeReceita){
             $this->idUsuario = $idUsuario;
             $this->nomeReceita = $nomeReceita;
         }
 
-        public static function selectReceitas($email){
-            include '../includes/conecta_bd.inc';
+        public function cadastrarReceita(){
+            include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "SELECT r.nomeReceita 
+            $query = "INSERT INTO receita (idUsuario, nome) VALUES ($this->idUsuario, '$this->nomeReceita')";
+
+            $resultado = mysqli_query($conexao, $query);
+
+            if($resultado){
+                return true;
+            }
+            return mysqli_error($conexao);
+        }
+
+        //*Adicionar mais atributos a tabela
+        public static function infoReceita($idReceita){
+            include __DIR__.'./../includes/conecta_bd.inc';
+            include_once __DIR__.'./Receita_Item.php';
+
+            $query = "SELECT nome 
+            FROM receita 
+            WHERE id = $idReceita";
+
+            $resultado = mysqli_query($conexao, $query);
+
+            $nome = null;
+            if(mysqli_num_rows($resultado) > 0){
+                while($row = mysqli_fetch_array($resultado)){
+                    $nome = $row['nome'];
+                }
+            }
+            mysqli_close($conexao);
+
+            list($idItem, $quantidade, $unidadeMedida, $custo) = Receita_Item::selectReceita_Itens($idReceita);
+
+            return array($nome, $idItem, $quantidade, $unidadeMedida, $custo);
+        }
+
+        public static function selectReceitas($email){
+            include __DIR__.'./../includes/conecta_bd.inc';
+
+            $query = "SELECT r.id, r.nome 
             FROM receita r, usuario u
             WHERE u.id = r.idUsuario
                 AND u.email = '$email'";
 
             $resultado = mysqli_query($conexao, $query);
-            $nomeReceita = null;
+            
+            $id = null;
+            $nome = null;
             if(mysqli_num_rows($resultado) > 0){
-                $i = 0;
                 while($row = mysqli_fetch_array($resultado)){
-                    $nomeReceita[$i] = $row['nome'];
-                    $i++;
+                    $id[] = $row['id'];
+                    $nome[] = $row['nome'];
                 }
             }
             mysqli_close($conexao);
 
-            return $nomeReceita;
+            return array($id, $nome);
         }
 
         public static function selectId($nomeReceita, $email){
-            include '../includes/conecta_bd.inc';
+            include __DIR__.'./../includes/conecta_bd.inc';
 
             $query = "SELECT r.id 
             FROM receita r, usuario u 
@@ -53,70 +90,15 @@
 
             return $id;
         }
-
-        public function cadastrarReceita(){
-            include '../includes/conecta_bd.inc';
-
-            $query = "INSERT INTO receita (idUsuario, nome) VALUES ($this->idUsuario, '$this->nomeReceita')";
-
-            $resultado = mysqli_query($conexao, $query);
-
-            if($resultado){
-                return true;
-            }
-            return mysqli_error($conexao);
-        }
-        
-    /*     public static function verificaItem($idItem, $idReceita){
-            include '../includes/conecta_bd.inc';
-
-            $query = "SELECT unidadeMedida, quantidade, nome FROM item WHERE id = '$idItem'";
-
-            $resultado = mysqli_query($conexao, $query);
-            
-            $unimedItem = null;
-            $quantidadeItem = null;
-            $itemNome = null;
-            if(mysqli_num_rows($resultado) > 0){
-                while($row = mysqli_fetch_array($resultado)){
-                    $unimedItem = $row['unidadedeMedida'];
-                    $quantidadeItem = $row['quantidade'];                    
-                    $itemNome = $row['nome'];                    
-                }
-            }
-            
-            $query = "SELECT unidadeMedida, quantidade FROM receitaitem WHERE idItem = '$idItem' and idReceita = '$idReceita'";
-
-            $resultado = mysqli_query($conexao, $query);
-            
-            $unimedRec = null;
-            $quantidadeRec = null;
-            if(mysqli_num_rows($resultado) > 0){
-                while($row = mysqli_fetch_array($resultado)){
-                    $unimedRec = $row['unidadedeMedida'];
-                    $quantidadeRec = $row['quantidade'];  
-                }
-            }
-            
-            
-            if ($unimedItem != $unimedRec){
-                $quantidadeRec = Receita_Item::converterMedidas($unimedItem, $unimedRec, $quantidadeRec, $itemNome);
-            }
-            
-            mysqli_close($conexao);
-            
-            $verifica = ($quantidadeItem >= $quantidadeRec);
-
-            return $verifica;
-        }*/
         
         public static function valorItemReceita($idItem, $idReceita, $unimedRec, $quantidadeRec){
-            include '../includes/conecta_bd.inc';
+            include __DIR__.'./../includes/conecta_bd.inc';
             
 
             $query = "SELECT e.preco, i.quantidade, i.unidadeMedida, i.nome, e.quantidade as quantidadeEstoque, e.lote  
             FROM item i, estoque e 
-            WHERE e.idItem = '$idItem' AND i.id = e.idItem";
+            WHERE e.idItem = $idItem 
+                AND i.id = e.idItem";
 
             $resultado = mysqli_query($conexao, $query);
             
@@ -134,160 +116,84 @@
                     $quantidadeEstoque[$i] = $row['quantidadeEstoque'];                    
                     $unimedItem = $row['unidadeMedida'];                    
                     $itemNome = $row['nome'];
-                    $lote[$i] = $row['lote'];
-                    $i++;                    
+                    $lote[$i] = $row['lote'];                 
                 }
             }
                   
-            $i = 0;               
-            $count = 0;            
-            $custoTotal = 0;      
-            $quantUsadaLote = [];  
-            $custo = [];   
-             
-             
-             
-             if($quantidadeRec > $quantidadeEstoque[0]){
-    
+            $i = 0;                 //Índice p/ utilizar as quantidades de estoque e preços dos respectivos lotes            
+            $count = 0;             //Contador p/ controlar a quantidade de vezes que o laço será executado
+            $custoTotal = 0;        //Custo final do ingrediente
+            $quantUsadaLote = [];   //Variável p/ armazenar as quantidades de estoque utilizadas por lote
+            $custo = [];            //Variável p/ armazenar os custos dos lotes
+            
+            /**
+             * ($quantidadeRec > $quantidadeEstoque[0])  -> Mútiplos lotes
+             * !($quantidadeRec > $quantidadeEstoque[0]) -> Cálculo simples
+             */
+            if($quantidadeRec > $quantidadeEstoque[0]){
                 foreach($lote as $value){
-                    
                     while($count < $quantidadeRec){
-                          
                         if($quantidadeEstoque[$i] > 0){
-                            
                             $count++;
                             $quantidadeEstoque[$i]--;
-                            
-                            if($quantidadeEstoque[$i] == 0 || $count == $quantidadeRec){
-                                
+
+                             /**
+                             * Se o lote acabar, ou a quantidade necessária for suprida,
+                             * é calculado a quantidade usada deste lote
+                             */
+                            if($quantidadeEstoque[$i] == 0 || $count == $quantidadeRec){ 
                                 $quantUsadaLote[$i] = $count;
-                                
+
                                 if(count($quantUsadaLote) >= 2){
-                                    
                                     for($j = 0; $j < count($quantUsadaLote)-1; $j++){
-                                        
                                         $quantUsadaLote[$i]-=$quantUsadaLote[$j];
-                                        
                                     }
                                 }
                                 
+                                //Conversão da unidade de medida
                                 if ($unimedItem != $unimedRec){
-                                     $quantUsadaLote[$i] = Receita_Item::converterMedidas($unimedItem, $unimedRec, ($quantUsadaLote[$i]), $itemNome);
-                                     
+                                    $quantUsadaLote[$i] = Receita_Item::converterMedidas($unimedItem, $unimedRec, $quantUsadaLote[$i], $itemNome);
                                 }
                                 
                                 $custo[$i] = (($quantUsadaLote[$i])*$preco[$i])/$quantidadeItem;  
-                                
                             }
-                            
                         }else{
-                            
                             break 1;
                         }
-                    }
-                          
+                    }    
                     $i++;
                 }
-
 
                 for($j=0; $j < $i; $j++){
                     $custoTotal+=$custo[$j];
                 }
-                 
             }else{
-                 
+                //Conversão da unidade de medida
                 if ($unimedItem != $unimedRec){
-                    
                     $quantidadeRec = Receita_Item::converterMedidas($unimedItem, $unimedRec, $quantidadeRec, $itemNome);
-                    print_r($quantidadeRec);
-    
                 }
-                 
+                    
                 $custoTotal = ($quantidadeRec*$preco[0])/$quantidadeItem;
-                print_r($quantidadeRec);
-         
             }
-                      
-
-              mysqli_close($conexao);
+            
+            mysqli_close($conexao);
 
             return $custoTotal;
         }
-         
-             
-             
-            public function apagarReceita(){
-                include '../includes/conecta_bd.inc';
-                
-                Receita_Item::apagarReceita_Item($this->idReceita);           
-                
 
-                $query = "DELETE FROM receita_item WHERE idReceita = '$this->idReceita'";
-
-                $resultado = mysqli_query($conexao, $query);
-
-                if($resultado){
-                    return true;
-                }
-                return mysqli_error($conexao);
-            }
-        
-        public static function listarReceita($email){
+        public function apagarItensReceita(){
             include '../includes/conecta_bd.inc';
             
-            $receita = Receita::selectReceitas($email);
+            Receita_Item::apagarReceita_Item($this->idReceita);           
             
-            $i = 0;
-            
-            while ($receita[$i] != null){
-            
-                $idReceita[$i] = Receita::selectId($receita[$i], $email);
-                $i++;
-            
-            }
-            
-             while ($idReceita[$i] != null){
-            
-                $query = "SELECT r.idItem, r.quantidade, r.unidadeMedida, i.nome as Item 
-                FROM receitaitem r, item i WHERE idReceita = '$idReceita' AND r.idItem = i.id ";
 
-                $resultado = mysqli_query($conexao, $query);
-                $idItem = null;
-                $Item = null;
-                $quantidade = null;
-                $unidadeMedida = null;
-                if(mysqli_num_rows($resultado) > 0){
-                    $j = 0;
-                    while($row = mysqli_fetch_array($resultado)){
-                        $idItem[$i,$j] = $row['idItem'];
-                        $Item[$i,$j] = $row['Item'];
-                        $quantidade[$i,$j] = $row['quantidade'];
-                        $unidadeMedida[$i,$j] = $row['unidadeMedida'];
-                        $j++;
-                    }
-                }
-                $i++;
-            
-            }
-            
-            
-            
-            $i = 0;
-            while ($idReceita[$i] != null){
-            
-                $j = 0;
-                $custoReceita[$i] = 0;
-                while ($idItem[$i, $j] != null){
+            $query = "DELETE FROM receita_item WHERE idReceita = '$this->idReceita'";
 
-                    $custoReceita[$i] +=  Receita::valorItemReceita($idItem[$i, $j], $idReceita[$i], $unidadeMedida[$i,$j], $quantidade[$i,$j]); 
-                    $j++;
+            $resultado = mysqli_query($conexao, $query);
 
-                }  
-                
-                $i++;
-            
+            if($resultado){
+                return true;
             }
-        
-            return array ($idReceita, $receita, $Item, $custoReceita);
+            return mysqli_error($conexao);
         }
     }
