@@ -7,7 +7,7 @@
 </head>
 <body>
     <img src="../../Logo.png" alt="Logo do Site" width="14%">
-    <form action="" method="POST">
+    <form action="./editar_usuario.php" method="POST">
         <h3>Edição de Usuário</h3>
         
         <p><input type="text" name="nome" placeholder="Nome"></p>
