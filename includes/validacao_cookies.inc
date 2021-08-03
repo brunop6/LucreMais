@@ -13,7 +13,7 @@
         $usuario = $_SESSION['nome_usuario'];
         $senha = $_SESSION['senha_usuario'];
 
-        $query = ("select * from usuario where nomeUsuario = '$usuario'");
+        $query = "SELECT id, senha FROM usuario WHERE nomeUsuario = '$usuario'";
 
         $resultado = mysqli_query($conexao, $query);
 

@@ -168,12 +168,12 @@
         public function editarConta($id){
             include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "UPDATE usuario SET admin = '$this->admin', nomeUsuario = '$this->nomeUsuario', email = '$this->email' senha = '$this->senha' WHERE id = $id";
+            $query = "UPDATE usuario SET admin = '$this->admin', nomeUsuario = '$this->nomeUsuario', email = '$this->email', senha = '$this->senha' WHERE id = $id";
 
             $resultado = mysqli_query($conexao,$query);
 
             if($resultado){
-                return 'Edição realizada com sucesso!';
+                return true;
             }
             return mysqli_error($conexao);
         }

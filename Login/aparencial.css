@@ -1,3 +1,19 @@
+:root{
+    --azulClaro: #B9DEFF;
+    --azulEscuro: #002D55;
+    --amarelo: #FAFF00;
+    --lilas: #7174FF;
+    --cinzaEscuro: #363636;
+    --cinzaClaro: #D1CDCD
+}
+body{
+    background-color: var(--azulEscuro);
+}
+aside{
+    background: linear-gradient(to right, #004480, var(--azulEscuro));
+    height: 100vh;
+    width: calc(100vw - 390px);
+}
 form{
     border: 1px solid black;
     width: 300px;
@@ -8,7 +24,7 @@ form{
     transform: translate(-100%);
     left: 100%;
     transition: 1s;
-    background-color: #002D55;
+    background-color: var(--azulEscuro);
 }
 h2{
     font-weight: 500;
@@ -34,7 +50,7 @@ label{
     position: absolute;
     transform: translate(-50%);
     left: 50%;
-    background-color: #002D55;
+    background-color: var(--azulEscuro);
 }
 @media screen and (max-width:2560px) and (orientation:portrait) {
     label{

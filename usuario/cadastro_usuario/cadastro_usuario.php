@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     
-    <script type="text/javascript" src="./cadastro_usuario.js"></script>
+    <script type="text/javascript" src="./../../public/js/confirmar_senha.js"></script>
     
     <link rel="stylesheet" href="./../../public/css/inputs.css">
     <link rel="stylesheet" href="./../../login/aparencial.css">

@@ -23,7 +23,7 @@
 <head>
     <meta charset="UTF-8">
     
-    <script type="text/javascript" src="./cadastro_funcionario.js"></script>
+    <script type="text/javascript" src="./../../public/js/confirmar_senha.js"></script>
     
     <link rel="stylesheet" href="./../../public/css/formStyle.css">
     
