@@ -1,8 +1,10 @@
 :root{
     --azulClaro: #B9DEFF;
     --azulEscuro: #002D55;
-    --lilas: rgb(113, 116, 255);
-    --cinza: rgb(54, 54, 54);
+    --amarelo: #FAFF00;
+    --lilas: #7174FF;
+    --cinzaEscuro: #363636;
+    --cinzaClaro: #D1CDCD
 }
 .sidebar{
     position: fixed;
@@ -30,7 +32,7 @@
 }
 .sidebar li a:hover{
     padding-left: 50px;
-    background-color: yellow;
+    background-color: var(--amarelo);
 }
 #btn-sidebar{
     display: none;
@@ -71,13 +73,12 @@ label #cancel{
     opacity: 100;
 }
 section{
-    background-color: #002D55;
+    background-color: var(--azulEscuro);
     background-repeat: no-repeat;
     background-size: cover;
     height: fit-content;
     background-position: center;
-    color: #B9DEFF;
-    height: 100vh;
+    color: var(--azulClaro);
     padding: 60px 0 0 40px;
     transition: all .4s;
 }

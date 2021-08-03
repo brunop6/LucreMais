@@ -1,8 +1,10 @@
 :root{
     --azulClaro: #B9DEFF;
     --azulEscuro: #002D55;
-    --lilas: rgb(113, 116, 255);
-    --cinza: rgb(54, 54, 54);
+    --amarelo: #FAFF00;
+    --lilas: #7174FF;
+    --cinzaEscuro: #363636;
+    --cinzaClaro: #D1CDCD
 }
 *{
     margin: 0;
@@ -60,14 +62,14 @@ header label:hover{
     transition: .4s;
 }
 .menu li a:hover{
-    background-color: yellow;
+    background-color: var(--amarelo);
 }
 .menu li:hover ul{
     display: block;
 }
 @media screen and (max-width:2560px) and (orientation:portrait) {
     body{
-        background-color: #002D55;
+        background-color: var(--azulEscuro);
     }
     header label{
         display: block;
@@ -82,7 +84,7 @@ header label:hover{
     
     .menu li a{
         border-top: 1px solid rgb(255, 242, 182);
-        background:rgb(113, 116, 255);
+        background: var(--lilas);
     }
     
     #btn-menu:checked ~ .menu ul{

@@ -1,8 +1,10 @@
 :root{
     --azulClaro: #B9DEFF;
     --azulEscuro: #002D55;
-    --lilas: rgb(113, 116, 255);
-    --cinza: rgb(54, 54, 54);
+    --amarelo: #FAFF00;
+    --lilas: #7174FF;
+    --cinzaEscuro: #363636;
+    --cinzaClaro: #D1CDCD
 }
 *{
     margin: 0;
@@ -22,7 +24,7 @@ input::placeholder{
 }
 input[type="text"], input[type="email"], input[type="number"], input[type="password"], input[type="date"], select{
     outline: none;
-    border: 2px solid var(--cinza);
+    border: 2px solid var(--cinzaEscuro);
     border-radius: 5px;
     background-color: var(--lilas);
     display: block;
@@ -40,7 +42,7 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="number"]:focus,
 }
 input[type="submit"], input[type="button"], input[type="reset"], button{
     outline: none;
-    border: 2px solid rgb(209, 205, 205);
+    border: 2px solid var(--cinzaClaro);
     background-color: var(--lilas);
     border-radius: 5px;
     padding: 10px 10px;
@@ -53,5 +55,5 @@ input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hove
     background-color: yellow;
     color: var(--azulEscuro);
     padding: 15px 15px;
-    box-shadow: 0 0 5px var(--cinza);
+    box-shadow: 0 0 5px var(--cinzaEscuro);
 }

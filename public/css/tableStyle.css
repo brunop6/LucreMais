@@ -1,8 +1,10 @@
 :root{
     --azulClaro: #B9DEFF;
     --azulEscuro: #002D55;
-    --lilas: rgb(113, 116, 255);
-    --cinza: rgb(54, 54, 54);
+    --amarelo: #FAFF00;
+    --lilas: #7174FF;
+    --cinzaEscuro: #363636;
+    --cinzaClaro: #D1CDCD
 }
 .btn-plus{
     display: block;
