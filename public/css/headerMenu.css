@@ -1,0 +1,93 @@
+:root{
+    --azulClaro: #B9DEFF;
+    --azulEscuro: #002D55;
+    --amarelo: #FAFF00;
+    --lilas: #7174FF;
+    --cinzaEscuro: #363636;
+    --cinzaClaro: #D1CDCD
+}
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+body{
+    font-family: sans-serif;
+    background-color: var(--azulEscuro);
+}
+h1, h2{
+    color: var(--azulClaro);
+}
+#btn-menu{
+    display: none;
+}
+header, li ul{
+    background-color: var(--lilas);
+}
+label{
+    user-select: none;
+}
+header label{
+    color: black;
+    font-size: 25px;
+    display: block;
+    padding: 5px 10px;
+    width: 20px;
+    display: none;
+}
+header label:hover{
+    background-color: var(--azulEscuro);
+}
+.menu ul{
+    z-index: 999;
+    list-style: none;
+    margin: 0px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    z-index: 999;
+    transition: all 1s;
+}
+.menu li ul{
+    position: absolute;
+    display: none;
+}
+.menu li a{
+    font-size: 20px;
+    color: black;
+    padding: 10px 80px;
+    display: block;
+    border-right: 1px solid var(--azulEscuro);
+    transition: .4s;
+}
+.menu li a:hover{
+    background-color: var(--amarelo);
+}
+.menu li:hover ul{
+    display: block;
+}
+@media screen and (max-width:2560px) and (orientation:portrait) {
+    body{
+        background-color: var(--azulEscuro);
+    }
+    header label{
+        display: block;
+    }
+    
+    .menu ul{
+        position: absolute;
+        width: 70%;
+        flex-direction: column;
+        margin-left: -100%;
+    }
+    
+    .menu li a{
+        border-top: 1px solid rgb(255, 242, 182);
+        background: var(--lilas);
+    }
+    
+    #btn-menu:checked ~ .menu ul{
+        margin-left: 0;
+    }
+}

@@ -1,14 +1,18 @@
-*{
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-    text-decoration: none;
+:root{
+    --azulClaro: #B9DEFF;
+    --azulEscuro: #002D55;
+    --amarelo: #FAFF00;
+    --lilas: #7174FF;
+    --cinzaEscuro: #363636;
+    --cinzaClaro: #D1CDCD
 }
 body{
-    background-color: #002D55;
+    background-color: var(--azulEscuro);
 }
-input::placeholder{
-    color: black;
+aside{
+    background: linear-gradient(to right, #004480, var(--azulEscuro));
+    height: 100vh;
+    width: calc(100vw - 390px);
 }
 form{
     border: 1px solid black;
@@ -20,48 +24,10 @@ form{
     transform: translate(-100%);
     left: 100%;
     transition: 1s;
-    background-color: #002D55;
+    background-color: var(--azulEscuro);
 }
 h2{
     font-weight: 500;
-}
-h3{
-    color: #B9DEFF;
-}
-input[type="email"], input[type="password"], input[type="text"]{
-    outline: none;
-    border: 2px solid rgb(41, 39, 39);
-    border-radius: 5px;
-    background-color: rgb(113, 116, 255);
-    display: block;
-    margin: 30px auto;
-    text-align: left;
-    padding: 10px;
-    width: 200px;
-    color: black;
-    transition: .5s;
-}
-input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focus{
-    width: 250px;
-    border-color: rgb(32, 32, 32);
-    box-shadow: 0 0 5px rgb(113, 116, 255);
-}
-input[type="submit"], input[type="button"], input[type="reset"], button{
-    outline: none;
-    border: 2px solid rgb(209, 205, 205);
-    background-color: rgb(113, 116, 255);
-    border-radius: 5px;
-    padding: 10px 10px;
-    margin: 20px;
-    margin-top: 10px;
-    transition: .5s;
-    text-decoration: none;
-}
-input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover, button:hover{
-    background-color: yellow;
-    color: #002D55;
-    padding: 15px 15px;
-    box-shadow: 0 0 5px rgb(54, 54, 54);
 }
 #btn-menu{
     display: none;
@@ -84,7 +50,7 @@ label{
     position: absolute;
     transform: translate(-50%);
     left: 50%;
-    background-color: #002D55;
+    background-color: var(--azulEscuro);
 }
 @media screen and (max-width:2560px) and (orientation:portrait) {
     label{

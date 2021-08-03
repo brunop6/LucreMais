@@ -13,22 +13,25 @@
         die();
     }
     $id = $_GET['id'];
-    list($descricao, $custo) = Despesa::selectDespesasLista($id);
+    list($descricao, $custo) = Despesa::selectDespesa($id);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Edição de despesa</title>
-    <link rel="stylesheet" href="../../fornecedor/fornecedor.css">
+    
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script type="text/javascript" src="./edita_despesa.js"></script>
+    <script type="text/javascript" src="./../../public/js/datalists.js"></script>
+
+    <link rel="stylesheet" href="./../../public/css/formStyle.css">
+    
+    <title>Edição de despesa</title>
 </head>
 <body>
-    <img src="../../Logo.png" alt="Logo do site" width="14%">
+    <img src="../../public/img/Logo.png" alt="Logo do site" width="14%">
     <form action="editar_despesa.php?id=<?php echo $id ?>" method="POST" >     
         <h3>Categoria</h3>
-        <p><input type="text" name="categoriaDespesa" id="categoriaDespesa" list="categorias" value="<?php echo $descricao ?>" oninput="preencherCategorias()" required></p>
+        <p><input type="text" name="categoriaDespesa" id="categoriaDespesa" list="categorias" value="<?php echo $descricao ?>" oninput="preencherCategoriaDespesa()" required></p>
         <datalist id="categorias">
 
         </datalist>

@@ -26,14 +26,16 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Editar Categoria</title>
-    <link rel="stylesheet" href="../../cadastro_item/aparenciaitem.css">
+
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script type="text/javascript" src="./edita_categoria.js"></script>
 
+    <link rel="stylesheet" href="./../../public/css/formStyle.css">
+    
+    <title>Editar Categoria</title>
 </head>
 <body>
-    <img src="../../Logo.png" alt="Logo do site" width="14%">
+    <img src="../../public/img/Logo.png" alt="Logo do site" width="14%">
     <form action="editar_categoria.php?id=<?php echo $id?>" method="POST">
         <h3>Categoria: <?php echo $id?></h3>
         <p><input type="text" name="categoria" id="categoria" value="<?php echo $descricaoCategoria?>" list="categorias" oninput="preencherCategorias()" required></p>

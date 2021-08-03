@@ -16,8 +16,12 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../estoque/estoque.css">
-    <title>Item</title>
+
+    <link rel="stylesheet" href="./../public/css/headerMenu.css">
+    <link rel="stylesheet" href="./../public/css/tableStyle.css">
+    <link rel="stylesheet" href="./../public/css/inputs.css">
+    
+    <title>Itens</title>
 </head>
 <body>
     <header>
@@ -25,7 +29,7 @@
         <label for="btn-menu">&#9776;</label>
         <nav class="menu">
             <ul>
-                <li><a href="../cadastro_item/cadastro_de_itens.php">Cadastrar itens</a></li>
+                <li><a href="./cadastro_item/cadastro_de_itens.php">Cadastrar itens</a></li>
                 <li><a href="./categoria/categoria.php">Categoria</a></li>
                 <li><a href="../Home.php">Página Principal</a></li>
             </ul>
@@ -58,7 +62,7 @@
                 }
             }
         ?>
-        
+        <br>
         <button onclick="verMais()" class="btn-plus">Ver mais...</button>
         <table style="width:100%; margin-top: 10px"; border="1px";>
             <tr>
@@ -73,7 +77,7 @@
                 preencherItem();
             ?>
         </table>
-        <script type="text/javascript" src="./../js/verMais.js"></script>
+        <script type="text/javascript" src="./../public/js/verMais.js"></script>
     </main>
 </body>
 </html>

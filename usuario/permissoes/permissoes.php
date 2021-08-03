@@ -32,7 +32,9 @@ list($idNiveisConta, $niveisConta) = Usuario::selectNiveisAcesso($emailUsuario);
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script type="text/javascript" src="./permissoes.js"></script>
 
-    <link rel="stylesheet" href="./../../Aparencia.css">
+    <link rel="stylesheet" href="./../../public/css/headerMenu.css">
+    <link rel="stylesheet" href="./../../public/css/sidebarMenu.css">
+    <link rel="stylesheet" href="./../../public/css/inputs.css">
     <link rel="stylesheet" href="./permissoes.css">
 
     <title>Permissões</title>
@@ -99,6 +101,7 @@ list($idNiveisConta, $niveisConta) = Usuario::selectNiveisAcesso($emailUsuario);
                 //Controle do número de usuários para edição
                 echo "<input type='hidden' name='numUsuarios' value='$i'>";
                 echo '<p><input type="submit" value="Salvar"></p>';
+                echo "<p><input type='button' value='Cadastrar funcionário' onclick='window.location.href=\"./../cadastro_funcionario/cadastro_funcionario.php\"'></p>";
             }
             ?>
         </form>

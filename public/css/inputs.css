@@ -1,0 +1,59 @@
+:root{
+    --azulClaro: #B9DEFF;
+    --azulEscuro: #002D55;
+    --amarelo: #FAFF00;
+    --lilas: #7174FF;
+    --cinzaEscuro: #363636;
+    --cinzaClaro: #D1CDCD
+}
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+body{
+    font-family: sans-serif;
+    background-color: var(--azulEscuro);
+}
+h1, h2, h4{
+    color: var(--azulClaro);
+}
+input::placeholder{
+    color: black;
+}
+input[type="text"], input[type="email"], input[type="number"], input[type="password"], input[type="date"], select{
+    outline: none;
+    border: 2px solid var(--cinzaEscuro);
+    border-radius: 5px;
+    background-color: var(--lilas);
+    display: block;
+    margin: 30px auto;
+    text-align: left;
+    padding: 10px;
+    width: 200px;
+    color: black;
+    transition: .5s;
+}
+input[type="text"]:focus, input[type="email"]:focus, input[type="number"]:focus, input[type="password"]:focus, input[type="date"]:focus, select:focus{
+    width: 250px;
+    border-color: var(--cinza);
+    box-shadow: 0 0 5px var(--lilas);
+}
+input[type="submit"], input[type="button"], input[type="reset"], button{
+    outline: none;
+    border: 2px solid var(--cinzaClaro);
+    background-color: var(--lilas);
+    border-radius: 5px;
+    padding: 10px 10px;
+    margin: 20px;
+    margin-top: 10px;
+    transition: .5s;
+    text-decoration: none;
+}
+input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hover, button:hover{
+    background-color: yellow;
+    color: var(--azulEscuro);
+    padding: 15px 15px;
+    box-shadow: 0 0 5px var(--cinzaEscuro);
+}

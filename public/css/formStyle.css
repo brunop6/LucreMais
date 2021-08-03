@@ -1,0 +1,12 @@
+@import url('inputs.css');
+
+body{
+    text-align: center;
+}
+h3{
+    color: var(--azulClaro);
+}
+hr{
+    width: 300px;
+    margin: auto;
+}

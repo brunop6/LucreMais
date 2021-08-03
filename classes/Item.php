@@ -22,7 +22,7 @@
     }
 
     public static function selectId($item, $email){
-      include '../includes/conecta_bd.inc';
+      include __DIR__.'./../includes/conecta_bd.inc';
 
       $query = "SELECT i.id
       FROM item i, usuario u
@@ -44,7 +44,7 @@
     }
 
     public static function selectItens($email){
-      include '../includes/conecta_bd.inc';
+      include __DIR__.'./../includes/conecta_bd.inc';
 
       $query = "SELECT i.nome, i.marca 
       FROM item i, usuario u
@@ -136,7 +136,7 @@
     }
 
     public static function selectItem($busca, $email){
-      include '../includes/conecta_bd.inc';
+      include __DIR__.'./../includes/conecta_bd.inc';
 
       $query = "SELECT DISTINCT i.nome, i.marca 
       FROM item i, usuario u
@@ -161,7 +161,7 @@
     }
  
     public function cadastrar_item(){
-      include '../includes/conecta_bd.inc';
+      include __DIR__.'./../includes/conecta_bd.inc';
 
       $query = "INSERT INTO item (idUsuario, idCategoria, marca, nome, quantidade, unidadeMedida, quantidadeMinima) VALUES ('$this->idUsuario','$this->idCategoria','$this->marca','$this->nome', '$this->quantidade', '$this->unidadeMedida','$this->quantidadeMinima')";
       

@@ -12,64 +12,67 @@
         header("Location: ./../Home.php");
         die();
     }
+
+    function preencherFornecedores(){
+        global $email;
+        include_once '../classes/Fornecedor.php';
+
+        list($id, $nomeFornecedor, $email, $telefone, $cnpj, $endereco, $dataCadastro, $dataAtualizacao, $nomeUsuario) = Fornecedor::selectFornecedores($email);
+
+        if(!empty($nomeFornecedor)){
+            $i = 0;
+            foreach($nomeFornecedor as $fornecedor){
+                if($email[$i] == NULL){
+                    $email[$i] = '';
+                }
+                if($cnpj[$i] == NULL){
+                    $cnpj[$i] = '';
+                }
+                if($endereco[$i] == NULL){
+                    $endereco[$i] = '';
+                }
+                echo "<tr>";
+                
+                echo "<td>$fornecedor</td>";
+                echo "<td>$email[$i]</td>";
+                echo "<td>$telefone[$i]</td>";
+                echo "<td>$cnpj[$i]</td>";
+                echo "<td>$endereco[$i]</td>";
+                echo "<td class='mais'>$dataCadastro[$i]</td>";
+                echo "<td class='mais'>$dataAtualizacao[$i]</td>";
+                echo "<td class='mais'>$nomeUsuario[$i]</td>";
+                echo "<td><a href='./edita_fornecedor.php?id=$id[$i]' style='color:#B9DEFF'>Editar</a></td>";
+
+                echo "</tr>";
+                $i++;
+            }
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="./../public/css/headerMenu.css">
+    <link rel="stylesheet" href="./../public/css/tableStyle.css">
+    <link rel="stylesheet" href="./../public/css/inputs.css">
+
     <title>Fornecedor</title>
-    <link rel="stylesheet" href="./fornecedor.css">
-    <?php
-        function preencherFornecedores(){
-            global $email;
-            include_once '../classes/Fornecedor.php';
-
-            list($id, $nomeFornecedor, $email, $telefone, $cnpj, $endereco, $dataCadastro, $dataAtualizacao, $nomeUsuario) = Fornecedor::selectFornecedores($email);
-
-            if(!empty($nomeFornecedor)){
-                $i = 0;
-                foreach($nomeFornecedor as $fornecedor){
-                    if($email[$i] == NULL){
-                        $email[$i] = '';
-                    }
-                    if($cnpj[$i] == NULL){
-                        $cnpj[$i] = '';
-                    }
-                    if($endereco[$i] == NULL){
-                        $endereco[$i] = '';
-                    }
-                    echo "<tr>";
-                    
-                    echo "<td>$fornecedor</td>";
-                    echo "<td>$email[$i]</td>";
-                    echo "<td>$telefone[$i]</td>";
-                    echo "<td>$cnpj[$i]</td>";
-                    echo "<td>$endereco[$i]</td>";
-                    echo "<td class='mais'>$dataCadastro[$i]</td>";
-                    echo "<td class='mais'>$dataAtualizacao[$i]</td>";
-                    echo "<td class='mais'>$nomeUsuario[$i]</td>";
-                    echo "<td><a href='./edita_fornecedor.php?id=$id[$i]' style='color:#B9DEFF'>Editar</a></td>";
-
-                    echo "</tr>";
-                    $i++;
-                }
-            }
-        }
-    ?>
 </head>
 <body>
-<header>
+    <header>
         <input type="checkbox" id="btn-menu">
         <label for="btn-menu">&#9776;</label>
         <nav class="menu">
             <ul>
-                <li><a href="../cadastro_fornecedor/cadastro_fornecedor.php">Cadastrar fornecedor</a></li>
+                <li><a href="./cadastro_fornecedor/cadastro_fornecedor.php">Cadastrar fornecedor</a></li>
                 <li><a href="../Home.php">Página Principal</a></li>
             </ul>
         </nav>
     </header>
-    <h1 style="color: #B9DEFF;">Listagem de Fornecedores<br></h1>
     <main>
+        <br>
         <button onclick="verMais()" class="btn-plus">Ver mais...</button>
 
         <table style="width:100%; margin-top: 10px"; border="1px">
@@ -88,7 +91,7 @@
                 ?>  
             </tr>
         </table>
-        <script type="text/javascript" src="./../js/verMais.js"></script>
+        <script type="text/javascript" src="./../public/js/verMais.js"></script>
     </main>
 </body>
 </html>

@@ -28,7 +28,7 @@
          * retorno do tipo matriz de strings
          */
         public static function selectFornecedores($email){
-            include '../includes/conecta_bd.inc';
+            include __DIR__.'./../includes/conecta_bd.inc';
 
             $query = "SELECT f.id, f.nomeFornecedor, f.email, f.telefone, f.cnpj, f.endereco, DATE_FORMAT(f.dataCadastro, '%d/%m/%Y %H:%i') AS dataCadastro, DATE_FORMAT(f.dataAtualizacao, '%d/%m/%Y %H:%i') AS dataAtualizacao, u.nomeUsuario 
             FROM fornecedor f, usuario u
@@ -68,7 +68,7 @@
         }
 
         public static function buscarFornecedor($busca, $email){
-            include '../includes/conecta_bd.inc';
+            include __DIR__.'./../includes/conecta_bd.inc';
 
             $query = "SELECT f.nomeFornecedor 
             FROM fornecedor f, usuario u
@@ -90,7 +90,7 @@
             return $nomeFornecedor;
         }
         public static function selectId($nomeFornecedor, $email){
-            include '../includes/conecta_bd.inc';
+            include __DIR__.'./../includes/conecta_bd.inc';
 
             $query = "SELECT f.id 
             FROM fornecedor f, usuario u
@@ -133,7 +133,7 @@
         }
 
         public function cadastrarFornecedor(){
-            include '../includes/conecta_bd.inc';
+            include __DIR__.'./../includes/conecta_bd.inc';
             $query = "INSERT INTO fornecedor (idUsuario, nomeFornecedor, email, telefone, cnpj, endereco) VALUES ('$this->idUsuario', '$this->nome', '$this->email', '$this->telefone', '$this->cnpj', '$this->endereco')";
             
             //Formato CNPJ XX. XXX. XXX/0001-XX

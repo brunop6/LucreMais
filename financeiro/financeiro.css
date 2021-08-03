@@ -13,3 +13,12 @@ h3{
 span{
     font-weight: 500;
 }
+#chart{
+    background-color: #B9DEFF;
+    border-radius: 12px;
+}
+.chart-container{
+    position: relative; 
+    margin: auto;
+    width:60%
+}

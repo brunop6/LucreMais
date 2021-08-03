@@ -168,12 +168,12 @@
         public function editarConta($id){
             include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "UPDATE usuario SET admin = '$this->admin', nomeUsuario = '$this->nomeUsuario', email = '$this->email' senha = '$this->senha' WHERE id = $id";
+            $query = "UPDATE usuario SET admin = '$this->admin', nomeUsuario = '$this->nomeUsuario', email = '$this->email', senha = '$this->senha' WHERE id = $id";
 
             $resultado = mysqli_query($conexao,$query);
 
             if($resultado){
-                return 'Edição realizada com sucesso!';
+                return true;
             }
             return mysqli_error($conexao);
         }
@@ -266,9 +266,9 @@
         public static function editarNivelAcesso($idUsuario, $idNivel){
             include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "UPDATE usuario 
-            SET idNivelUsuario = $idNivel
-            WHERE id = $idUsuario";
+            $query = "UPDATE nivelusuario
+            SET idNivel = $idNivel
+            WHERE idUsuario = $idUsuario";
 
             $resultado = mysqli_query($conexao, $query);
 
@@ -297,6 +297,20 @@
 
             $query = "INSERT INTO permissao (idNivel, idMenu, inserir, editar, excluir)
             VALUES ($idNivel, $idMenu, '$inserir', '$editar', '$excluir')";
+
+            $resultado = mysqli_query($conexao, $query);
+
+            if($resultado){
+                return true;
+            }
+            return mysqli_error($conexao);
+        }
+
+        public static function cadastrarNivelUsuario($idUsuario, $idNivel){
+            include __DIR__.'./../includes/conecta_bd.inc';
+            
+            $query = "INSERT INTO nivelusuario (idUsuario, idNivel) 
+            VALUES ('$idUsuario', '$idNivel')";
 
             $resultado = mysqli_query($conexao, $query);
 

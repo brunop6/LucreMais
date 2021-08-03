@@ -17,7 +17,11 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="./receitaFinanceiro.css">
+
+    <link rel="stylesheet" href="./../../public/css/headerMenu.css">
+    <link rel="stylesheet" href="./../../public/css/tableStyle.css">
+    <link rel="stylesheet" href="./../financeiro.css">
+    
     <title>Receita F.</title>
 </head>
 <body>
@@ -26,7 +30,7 @@
         <label for="btn-menu">&#9776;</label>
         <nav class="menu">
             <ul>
-                <li><a href="../../cadastro_receitaFinanceiro/cadastro_receitaFinanceiro.php">Cadastrar receita</a></li>
+                <li><a href="./cadastro_receitaFinanceiro/cadastro_receitaFinanceiro.php">Cadastrar receita</a></li>
                 <li><a href="./categoria/categoria.php">Categoria</a></li>
                 <li><a href="../financeiro.php">Voltar</a></li>
             </ul>
@@ -39,7 +43,7 @@
         
             function preencherReceitas(){
                 global $email;
-                list($id, $descricao, $custo, $nomeUsuario) = ReceitaFinanceiro::selectReceitaLista($email);
+                list($id, $descricao, $custo, $nomeUsuario) = ReceitaFinanceiro::selectReceitasMes($email);
                 if(!empty($descricao)){
                     $i = 0;
                     foreach($descricao as $descricao){
@@ -56,7 +60,7 @@
                 }
             }
 
-            $totalMensal = ReceitaFinanceiro::selectTotal($email);
+            $totalMensal = ReceitaFinanceiro::selectTotalMes($email);
         ?>
  
         <table style="width:100%; margin-top: 10px"; border="1px";>

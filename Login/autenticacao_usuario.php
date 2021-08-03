@@ -2,8 +2,10 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    
+    <link rel="stylesheet" href="./../public/css/formStyle.css">
+
     <title>Autenticação de Usuário</title>
-    <link rel="stylesheet" href="aparencial.css">
 </head>
 <body>
     <?php

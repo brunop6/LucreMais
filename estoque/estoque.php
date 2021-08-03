@@ -1,27 +1,18 @@
 <?php
-define('menu', 'Estoque');
-include_once "../classes/Usuario.php";
+    define('menu', 'Estoque');
+    include_once "../classes/Usuario.php";
 
-if (session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
-$idUsuario = $_SESSION['id_usuario'];
-$email = $_SESSION['email_usuario'];
+    if (session_status() !== PHP_SESSION_ACTIVE) {
+        session_start();
+    }
+    $idUsuario = $_SESSION['id_usuario'];
+    $email = $_SESSION['email_usuario'];
 
-if (!Usuario::verificarMenu($idUsuario, menu)) {
-    header("Location: ./../Home.php");
-    die();
-}
-?>
+    if (!Usuario::verificarMenu($idUsuario, menu)) {
+        header("Location: ./../Home.php");
+        die();
+    }
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <script type="text/javascript" src="./estoque.js"></script>
-    <link rel="stylesheet" href="./estoque.css">
-    <title>Estoque</title>
-    <?php
     if (isset($_GET['status'])) {
         $status = $_GET['status'];
     } else {
@@ -70,23 +61,34 @@ if (!Usuario::verificarMenu($idUsuario, menu)) {
                 echo "<td class='mais'>$dataCadastro[$i]</td>";
                 echo "<td class='mais'>$dataAtualizacao[$i]</td>";
                 echo "<td class='mais'>$nomeUsuario[$i]</td>";
-                echo "<td><a href='./edita_estoque.php?id=$id[$i]' style='color:#B9DEFF'>Editar</a></td>";
+                echo "<td><a href='./edita_estoque/edita_estoque.php?id=$id[$i]' style='color:#B9DEFF'>Editar</a></td>";
 
                 echo "</tr>";
                 $i++;
             }
         }
     }
-    ?>
-</head>
+?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
 
+    <script type="text/javascript" src="./estoque.js"></script>
+    
+    <link rel="stylesheet" href="./../public/css/headerMenu.css">
+    <link rel="stylesheet" href="./../public/css/tableStyle.css">
+    <link rel="stylesheet" href="estoque.css">
+    
+    <title>Estoque</title>
+</head>
 <body>
     <header>
         <input type="checkbox" id="btn-menu">
         <label for="btn-menu">&#9776;</label>
         <nav class="menu">
             <ul>
-                <li><a href="../cadastro_estoque/cadastro_estoque.php">Cadastrar Estoque</a></li>
+                <li><a href="./cadastro_estoque/cadastro_estoque.php">Cadastrar Estoque</a></li>
                 <li><a href="">Lista de Compras</a>
                     <ul>
                         <li><a href="./listaCompras/lista_compras.php">Visualizar no navegador</a></li>
@@ -120,8 +122,8 @@ if (!Usuario::verificarMenu($idUsuario, menu)) {
             <input type="text" id="categoria" placeholder="Categoria" value="<?php if(isset($_GET['categoria'])) echo $_GET['categoria']; ?>">
             <input type="number" id="lote" min="0" placeholder="Lote" value="<?php if(isset($_GET['lote'])) echo $_GET['lote']; ?>">
             <button onclick="alterarExibicao()">Buscar</button>
-            <button onclick="verMais()" class="btn-plus">Ver mais...</button>
         </div>
+        <button onclick="verMais()" class="btn-plus">Ver mais...</button>
         
         <table style="width:100%; margin-top: 10px" ; border="1px">
             <tr>
@@ -142,7 +144,7 @@ if (!Usuario::verificarMenu($idUsuario, menu)) {
             preencherEstoque($status, $marca, $nome, $categoria, $lote);
             ?>
         </table>
-        <script type="text/javascript" src="./../js/verMais.js"></script>
+        <script type="text/javascript" src="./../public/js/verMais.js"></script>
     </main>
 </body>
 

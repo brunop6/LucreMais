@@ -1,0 +1,18 @@
+:root{
+    --azulClaro: #B9DEFF;
+    --azulEscuro: #002D55;
+    --amarelo: #FAFF00;
+    --lilas: #7174FF;
+    --cinzaEscuro: #363636;
+    --cinzaClaro: #D1CDCD
+}
+.btn-plus{
+    display: block;
+    margin: auto;
+}
+table, th, td{
+    color: var(--azulClaro);
+    border-color: black;
+    border-collapse: collapse;
+    text-align: center;
+}
