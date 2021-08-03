@@ -367,21 +367,4 @@
             }
             return null;
         }
-        
-        public function editarContaUsusario($id){
-          include __DIR__.'./../includes/conecta_bd.inc';
-            
-          $data = date('d/m/Y');
-
-
-        $query = "UPDATE usuario SET senha = '$this->senha' WHERE id = $id";
-                
-
-          $resultado = mysqli_query($conexao, $query);
-
-          if($resultado){
-            return true;
-          } 
-          return mysqli_error($conexao);
-        }
     }
