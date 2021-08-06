@@ -15,7 +15,7 @@
     height: 100%;
     transition: all .4s ease;
 }
-.sidebar h1, p{
+.sidebar h3, .sidebar p{
     color: black !important;
 }
 .sidebar li a{

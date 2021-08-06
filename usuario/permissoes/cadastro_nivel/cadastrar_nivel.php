@@ -21,9 +21,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="./../../../Aparencia.css">
-    <link rel="stylesheet" href="./../permissoes.css">
-
+    <link rel="stylesheet" href="./../../../public/css/inputs.css">
+    
     <title>Cadastrar Novo Nível</title>
 </head>
 <body>
