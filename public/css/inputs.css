@@ -16,7 +16,7 @@ body{
     font-family: sans-serif;
     background-color: var(--azulEscuro);
 }
-h1, h2, h4{
+h1, h2, h4, p{
     color: var(--azulClaro);
 }
 input::placeholder{

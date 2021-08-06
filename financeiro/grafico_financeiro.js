@@ -14,16 +14,23 @@ $.ajax({
     let meses = [];
 
     //Conversão dos meses em valor numérico para forma escrita
-    result[0][1].forEach(function(value) {
-        meses.push(monthName(value));
-    });
+    if(result[0][1]){
+        result[0][1].forEach(function(value) {
+            meses.push(monthName(value));
+        });
+    }
     //Cálculos dos lucros
     receitas.forEach(function(value, index){
         lucros.push(value - despesas[index]);
     });
 
     //Renderização do gráfico
-    renderChart(meses, receitas, despesas, lucros);
+    if(meses.length > 0){
+        renderChart(meses, receitas, despesas, lucros);
+    }else{
+        console.log('Sem dados financeiros...');
+        document.querySelector('.chart-container').remove();
+    }
 });
 
 function renderChart(meses, receitas, despesas, lucros){
