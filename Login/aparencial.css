@@ -64,4 +64,8 @@ label{
     form{
         left: 200%;
     }
+    aside{
+        width: 100%;
+        background: transparent;
+    }
 }
