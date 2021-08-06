@@ -236,6 +236,9 @@ CREATE TABLE IF NOT EXISTS `receita` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `idUsuario` int(10) unsigned NOT NULL,
   `nome` varchar(50) NOT NULL,
+  `rendimento` double NOT NULL,
+  `unidadeMedida` varchar(50) NOT NULL,
+  `valor` double NOT NULL,
   `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
   `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
@@ -268,7 +271,7 @@ CREATE TABLE IF NOT EXISTS `receitaitem` (
   `idReceita` int(10) unsigned NOT NULL,
   `idItem` int(10) unsigned NOT NULL,
   `quantidade` double NOT NULL,
-  `unidadeMedida` varchar(50) NOT NULL DEFAULT '',
+  `unidadeMedida` varchar(50) NOT NULL,
   `custo` double NOT NULL,
   `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
   `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
@@ -290,6 +293,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `senha` varchar(50) NOT NULL,
   `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
   `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `statusUsuario` enum('0','1') DEFAULT '1' COMMENT '0 - Inativo, 1 - Ativo',
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_nomeUsuario` (`nomeUsuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

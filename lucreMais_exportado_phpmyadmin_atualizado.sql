@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 31-Jul-2021 às 00:10
+-- Tempo de geração: 03-Ago-2021 às 20:10
 -- Versão do servidor: 10.4.18-MariaDB
 -- versão do PHP: 8.0.5
 
@@ -309,6 +309,9 @@ CREATE TABLE `receita` (
   `id` int(10) UNSIGNED NOT NULL,
   `idUsuario` int(10) UNSIGNED NOT NULL,
   `nome` varchar(50) NOT NULL,
+  `rendimento` double NOT NULL,
+  `unidadeMedida` varchar(50) NOT NULL,
+  `valor` double NOT NULL,
   `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
   `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -339,7 +342,7 @@ CREATE TABLE `receitaitem` (
   `idReceita` int(10) UNSIGNED NOT NULL,
   `idItem` int(10) UNSIGNED NOT NULL,
   `quantidade` double NOT NULL,
-  `unidadeMedida` varchar(50) NOT NULL DEFAULT '',
+  `unidadeMedida` varchar(50) NOT NULL,
   `custo` double NOT NULL,
   `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
   `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -358,7 +361,8 @@ CREATE TABLE `usuario` (
   `email` varchar(150) NOT NULL,
   `senha` varchar(50) NOT NULL,
   `dataCadastro` datetime NOT NULL DEFAULT current_timestamp(),
-  `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `dataAtualizacao` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `statusUsuario` enum('0','1') DEFAULT '1' COMMENT '0 - Inativo, 1 - Ativo'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
