@@ -26,9 +26,9 @@
 
         /**
          * Caso a verificação do e-mail retorne true, o usuário cadastrado será o primeiro do grupo,
-         * possuindo então permissão de administrador (admin = '1')
+         * possuindo então permissão de administrador (admin = '1') e status ativo (statusUsuario = '1')
          */
-        $usuario = new Usuario('1', $nomeUsuario, $email, $senha);
+        $usuario = new Usuario('1', $nomeUsuario, $email, $senha, '1');
 
         $resultado = $usuario->cadastrarUsuario();
 

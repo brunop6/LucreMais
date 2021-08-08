@@ -1,26 +1,127 @@
 <?php
     include_once __DIR__.'./../includes/encrypt.inc';
-         
+    
     class Usuario{
         private $admin;
         private $nomeUsuario;
         private $email;
         private $senha;
-
-        function __construct($admin, $nomeUsuario, $email, $senha){
+        private $statusUsuario;
+        
+        function __construct($admin, $nomeUsuario, $email, $senha, $statusUsuario){
             $senha = encryptPassword($nomeUsuario, $email, $senha);
-
+            
             $this->admin = $admin; 
             $this->nomeUsuario = $nomeUsuario;
             $this->email = $email;
             $this->senha = $senha;
+            $this->statusUsuario = $statusUsuario;
+        }
+        
+        public function cadastrarUsuario(){
+            include __DIR__.'./../includes/conecta_bd.inc';
+        
+            $query = "INSERT INTO usuario (admin, nomeUsuario, email, senha, statusUsuario) VALUES ('$this->admin', '$this->nomeUsuario', '$this->email', '$this->senha', '$this->statusUsuario')";
+        
+            $resultado = mysqli_query($conexao, $query);
+        
+            if($resultado){
+                return true;
+            }
+            return mysqli_error($conexao);
         }
 
+        public static function cadastrarNivel($idUsuario, $descricaoNivel){
+            include __DIR__.'./../includes/conecta_bd.inc';
+
+            $query = "INSERT INTO nivel(idUsuario, descricao) 
+            VALUES ($idUsuario, '$descricaoNivel')";
+
+            $resultado = mysqli_query($conexao, $query);
+
+            if($resultado){
+                return true;
+            }
+            return mysqli_error($conexao);
+        }
+
+        public static function cadastrarPermissao($idNivel, $idMenu, $inserir, $editar, $excluir){
+            include __DIR__.'./../includes/conecta_bd.inc';
+
+            $query = "INSERT INTO permissao (idNivel, idMenu, inserir, editar, excluir)
+            VALUES ($idNivel, $idMenu, '$inserir', '$editar', '$excluir')";
+
+            $resultado = mysqli_query($conexao, $query);
+
+            if($resultado){
+                return true;
+            }
+            return mysqli_error($conexao);
+        }
+
+        public static function cadastrarNivelUsuario($idUsuario, $idNivel){
+            include __DIR__.'./../includes/conecta_bd.inc';
+            
+            $query = "INSERT INTO nivelusuario (idUsuario, idNivel) 
+            VALUES ('$idUsuario', '$idNivel')";
+
+            $resultado = mysqli_query($conexao, $query);
+
+            if($resultado){
+                return true;
+            }
+            return mysqli_error($conexao);
+        }
+        
+        public function editarConta($id){
+            include __DIR__.'./../includes/conecta_bd.inc';
+            
+            $query = "UPDATE usuario 
+            SET admin = '$this->admin', nomeUsuario = '$this->nomeUsuario', email = '$this->email', senha = '$this->senha', statusUsuario = '$this->statusUsuario' 
+            WHERE id = $id";
+            
+            $resultado = mysqli_query($conexao,$query);
+            
+            if($resultado){
+                return true;
+            }
+            return mysqli_error($conexao);
+        }
+        
+        public static function editarNivelAcesso($id, $idNivel){
+            include __DIR__.'./../includes/conecta_bd.inc';
+        
+            $query = "UPDATE nivelusuario
+            SET idNivel = $idNivel
+            WHERE idUsuario = $id";
+        
+            $resultado = mysqli_query($conexao, $query);
+        
+            if($resultado){
+                return true;
+            }
+            return mysqli_error($conexao).' - id: '.$id;
+        }
+        
+        public static function editarStatus($id, $status){
+            include __DIR__.'./../includes/conecta_bd.inc';
+
+            $query = "UPDATE usuario 
+            SET statusUsuario = '$status' 
+            WHERE id = $id";
+
+            $resultado = mysqli_query($conexao,$query);
+                        
+            if($resultado){
+                return true;
+            }
+            return mysqli_error($conexao).' - id: '.$id;
+        }
         public static function selectId($nomeUsuario){
             include __DIR__.'./../includes/conecta_bd.inc';
             
             $query = "SELECT id FROM usuario WHERE nomeUsuario = '$nomeUsuario'";
-
+            
             $resultado = mysqli_query($conexao, $query);
             
             if(mysqli_num_rows($resultado) > 0){
@@ -28,7 +129,7 @@
                     $id = $row['id'];
                 }
             }
-
+            
             mysqli_close($conexao);
             
             return $id;
@@ -152,32 +253,6 @@
             return array($id, $descricao);
         }
 
-        public function cadastrarUsuario(){
-            include __DIR__.'./../includes/conecta_bd.inc';
-
-            $query = "INSERT INTO usuario (admin, nomeUsuario, email, senha) VALUES ('$this->admin', '$this->nomeUsuario', '$this->email', '$this->senha')";
-        
-            $resultado = mysqli_query($conexao, $query);
-
-            if($resultado){
-                return true;
-            }
-            return mysqli_error($conexao);
-        }
-
-        public function editarConta($id){
-            include __DIR__.'./../includes/conecta_bd.inc';
-
-            $query = "UPDATE usuario SET admin = '$this->admin', nomeUsuario = '$this->nomeUsuario', email = '$this->email', senha = '$this->senha' WHERE id = $id";
-
-            $resultado = mysqli_query($conexao,$query);
-
-            if($resultado){
-                return true;
-            }
-            return mysqli_error($conexao);
-        }
-
         public static function verificarMenu($idUsuario, $menu){
             //Administradores possuem acesso liberado
             if(Usuario::admin($idUsuario)){
@@ -232,93 +307,63 @@
             return array($idMenu, $descricaoMenu);
         }
 
-        public static function selectContasVinculadas($idUsuario, $email){
+        public static function selectContasVinculadas($id, $email){
             include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "SELECT u.id as idUsuario, u.nomeUsuario, n.id as idNivelAcesso, n.descricao
-            FROM usuario u, nivelusuario nu, nivel n
-            WHERE nu.idUsuario = u.id
-                AND nu.idNivel = n.id
-                AND u.id <> $idUsuario
+            //Select administradores
+            $query = "SELECT u.admin, u.id as idUsuario, u.nomeUsuario, u.statusUsuario
+            FROM usuario u
+            WHERE u.id <> 1
+                AND u.admin = '$id'
                 AND u.email = '$email'";
-            
-            $resultado = mysqli_query($conexao, $query);
 
+            $admin = null;
             $idUsuario = null;
             $nomeUsuario = null;
             $idNivelAcesso = null;
             $nivelAcesso = null;
+            $statusUsuario = null;
+
+            $resultado = mysqli_query($conexao, $query);
+
+            $i = 0;
             if(mysqli_num_rows($resultado) > 0){
-                $i = 0;
                 while($row = mysqli_fetch_array($resultado)){
+                    $admin[$i] = $row['admin'];
+                    $idUsuario[$i] = $row['idUsuario'];
+                    $nomeUsuario[$i] = $row['nomeUsuario'];
+                    $idNivelAcesso[$i] = null;
+                    $nivelAcesso[$i] = null;
+                    $statusUsuario[$i] = $row['statusUsuario'];
+                    $i++;
+                }
+            }
+
+            //Select funcionários padrão
+            $query = "SELECT u.admin, u.id as idUsuario, u.nomeUsuario, n.id as idNivelAcesso, n.descricao, u.statusUsuario
+            FROM usuario u, nivelusuario nu, nivel n
+            WHERE nu.idUsuario = u.id
+                AND nu.idNivel = n.id
+                AND u.id <> $id
+                AND u.email = '$email'";
+            
+            $resultado = mysqli_query($conexao, $query);
+
+            if(mysqli_num_rows($resultado) > 0){
+                while($row = mysqli_fetch_array($resultado)){
+                    $admin[$i] = $row['admin'];
                     $idUsuario[$i] = $row['idUsuario'];
                     $nomeUsuario[$i] = $row['nomeUsuario'];
                     $idNivelAcesso[$i] = $row['idNivelAcesso'];
                     $nivelAcesso[$i] = $row['descricao'];
+                    $statusUsuario[$i] = $row['statusUsuario'];
                     $i++;
                 }
             }
             mysqli_close($conexao);
 
-            return array($idUsuario, $nomeUsuario, $idNivelAcesso, $nivelAcesso);
-        }
-
-        public static function editarNivelAcesso($idUsuario, $idNivel){
-            include __DIR__.'./../includes/conecta_bd.inc';
-
-            $query = "UPDATE nivelusuario
-            SET idNivel = $idNivel
-            WHERE idUsuario = $idUsuario";
-
-            $resultado = mysqli_query($conexao, $query);
-
-            if($resultado){
-                return true;
-            }
-            return mysqli_error($conexao).' - id: '.$idUsuario;
-        }
-        
-        public static function cadastrarNivel($idUsuario, $descricaoNivel){
-            include __DIR__.'./../includes/conecta_bd.inc';
-
-            $query = "INSERT INTO nivel(idUsuario, descricao) 
-            VALUES ($idUsuario, '$descricaoNivel')";
-
-            $resultado = mysqli_query($conexao, $query);
-
-            if($resultado){
-                return true;
-            }
-            return mysqli_error($conexao);
-        }
-
-        public static function cadastrarPermissao($idNivel, $idMenu, $inserir, $editar, $excluir){
-            include __DIR__.'./../includes/conecta_bd.inc';
-
-            $query = "INSERT INTO permissao (idNivel, idMenu, inserir, editar, excluir)
-            VALUES ($idNivel, $idMenu, '$inserir', '$editar', '$excluir')";
-
-            $resultado = mysqli_query($conexao, $query);
-
-            if($resultado){
-                return true;
-            }
-            return mysqli_error($conexao);
-        }
-
-        public static function cadastrarNivelUsuario($idUsuario, $idNivel){
-            include __DIR__.'./../includes/conecta_bd.inc';
-            
-            $query = "INSERT INTO nivelusuario (idUsuario, idNivel) 
-            VALUES ('$idUsuario', '$idNivel')";
-
-            $resultado = mysqli_query($conexao, $query);
-
-            if($resultado){
-                return true;
-            }
-            return mysqli_error($conexao);
-        }
+            return array($admin, $idUsuario, $nomeUsuario, $idNivelAcesso, $nivelAcesso, $statusUsuario);
+        }        
 
         /**
          * Somente uma pessoa por e-mail poderá cadastrar um usuário de maneira não autenticada;
@@ -358,6 +403,35 @@
                 }
             }
             switch ($admin) {
+                case '1':
+                    return true;
+                    break;
+                case '0':
+                    return false;
+                    break;
+            }
+            return null;
+        }
+
+        /**
+         * @return true -> usuário ativo
+         * @return false -> usuário demitido
+         * @return null -> id usuário inválido
+         */
+        public static function status($idUsuario){
+            include __DIR__.'./../includes/conecta_bd.inc';
+
+            $query = "SELECT statusUsuario FROM usuario WHERE id = $idUsuario";
+
+            $resultado = mysqli_query($conexao, $query);
+            
+            $status = null;
+            if(mysqli_num_rows($resultado) > 0 ){
+                while($row = mysqli_fetch_array($resultado)){
+                    $status = $row['statusUsuario'];
+                }
+            }
+            switch ($status) {
                 case '1':
                     return true;
                     break;

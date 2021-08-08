@@ -1,4 +1,7 @@
 <?php
+
+use Sabberworm\CSS\Value\Value;
+
 include './../../includes/validacao_cookies.inc';
 include_once './../../classes/Usuario.php';
 
@@ -17,7 +20,7 @@ if ($nivelUsuario != "Administrador") {
 }
 
 //Dados das contas vinculadas
-list($idUsuarios, $nomeUsuarios, $idNiveis, $niveisAcesso) = Usuario::selectContasVinculadas($idUsuario, $emailUsuario);
+list($admin, $idUsuarios, $nomeUsuarios, $idNiveis, $niveisAcesso, $statusUsuarios) = Usuario::selectContasVinculadas($idUsuario, $emailUsuario);
 
 //Níveis de acesso disponíveis para o grupo de contas
 list($idNiveisConta, $niveisConta) = Usuario::selectNiveisAcesso($emailUsuario);
@@ -81,21 +84,36 @@ list($idNiveisConta, $niveisConta) = Usuario::selectNiveisAcesso($emailUsuario);
                 $i = 0;
                 foreach ($idUsuarios as $idU) {
                     echo "<input type='hidden' name='usuario$i' value='$idU'>";
-                    echo "<p><b>$nomeUsuarios[$i]:</b>
-                    <select name='nivelUsuario$i'>
-                    ";
+                    echo "<p><b>$nomeUsuarios[$i]: </b>";
 
-                    //Formação das options
-                    $j = 0;
-                    foreach ($idNiveisConta as $idNivelConta) {
-                        echo "<option value='$idNivelConta'";
-                        if ($idNivelConta == $idNiveis[$i]) {
-                            echo 'selected';
+                    //Select de níveis de acesso somente para usuários padrão
+                    if($admin[$i] == '0'){
+                        echo "<select name='nivelUsuario$i'>";
+                        //Formação das options
+                        $j = 0;
+                        foreach ($idNiveisConta as $idNivelConta) {
+                            echo "<option value='$idNivelConta'";
+                            if ($idNivelConta == $idNiveis[$i]) {
+                                echo 'selected';
+                            }
+                            echo ">$niveisConta[$j]</option>\n";
+                            $j++;
                         }
-                        echo ">$niveisConta[$j]</option>\n";
-                        $j++;
+                        echo "</select>\n";
                     }
-                    echo "</select>\n</p>";
+                    echo "Status: ";
+                    echo "<label for='statusAtivo$i'>Ativo</label>";
+                    echo "<input type='radio' name='statusUsuario$i' id='statusAtivo$i' value='1'";
+                    if($statusUsuarios[$i] == '1'){
+                        echo 'checked';
+                    }
+                    echo '>';
+                    echo "<label for='statusInativo$i'>Inativo</label>";
+                    echo "<input type='radio' name='statusUsuario$i' id='statusInativo$i' value='0' ";
+                    if($statusUsuarios[$i] == '0'){
+                        echo 'checked';
+                    }
+                    echo '>';
                     $i++;
                 }
                 //Controle do número de usuários para edição

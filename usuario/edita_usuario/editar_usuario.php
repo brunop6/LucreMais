@@ -1,5 +1,5 @@
 <?php
-    if(!isset($_POST['nome']) || !isset($_POST['senha'])){
+    if(!isset($_POST['nome'])){
         header('location: ./edita_usuario.php');
         die();
     }
@@ -9,17 +9,30 @@
     if(session_status() !== PHP_SESSION_ACTIVE){
         session_start();
     }
+    
+    if(isset($_POST['senha'])){
+        $senha = $_POST['senha'];
+    }else{
+        $senha = $_SESSION['senha_usuario'];
+    }
+    
     $idUsuario = $_SESSION['id_usuario'];
     $emailUsuario = $_SESSION['email_usuario'];
     $nomeUsuario = $_POST['nome'];
-    $senha = $_POST['senha'];
+    $statusUsuario = $_POST['statusUsuario'];
+
+    if(Usuario::admin($idUsuario)){
+        $admin = 1;
+    }else{
+        $admin = 0;
+    }
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
 
     <link rel="stylesheet" href="./../../public/css/inputs.css">
 
@@ -27,13 +40,11 @@
 </head>
 <body>
     <?php
-        if(Usuario::admin($idUsuario)){
-            $admin = 1;
-        }else{
-            $admin = 0;
-        }
+        echo "<p hidden id='status'>$statusUsuario</p>";
+    ?>
 
-        $usuario = new Usuario($admin, $nomeUsuario, $emailUsuario, $senha);
+    <?php
+        $usuario = new Usuario($admin, $nomeUsuario, $emailUsuario, $senha, $statusUsuario);
 
         $resultado = $usuario->editarConta($idUsuario);
 
