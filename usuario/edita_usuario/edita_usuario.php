@@ -13,6 +13,7 @@
 
     <script src="./../../public/js/confirmar_senha.js"></script>
 
+    <link rel="icon" href="./../../public/img/icone-LucreMais.png">
     <link rel="stylesheet" href="./../../public/css/formStyle.css">
     
     <title>Edição de Usuário</title>

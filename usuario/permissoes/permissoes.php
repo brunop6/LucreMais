@@ -35,6 +35,7 @@ list($idNiveisConta, $niveisConta) = Usuario::selectNiveisAcesso($emailUsuario);
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script type="text/javascript" src="./permissoes.js"></script>
 
+    <link rel="icon" href="./../../public/img/icone-LucreMais.png">
     <link rel="stylesheet" href="./../../public/css/headerMenu.css">
     <link rel="stylesheet" href="./../../public/css/sidebarMenu.css">
     <link rel="stylesheet" href="./../../public/css/inputs.css">

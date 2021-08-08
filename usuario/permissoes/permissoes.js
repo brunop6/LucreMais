@@ -8,7 +8,7 @@ function desbloquearMenu(i){
     inputNivelAlterado.value = nivelAcesso;
 
     $.ajax({
-        url: 'selectMenusDisponiveis.php',
+        url: '/LucreMais/public/ajax/selectMenusDisponiveis.php',
         method: 'POST',
         data: {
             nivelAcesso: nivelAcesso,

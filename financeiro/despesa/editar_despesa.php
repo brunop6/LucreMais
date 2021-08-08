@@ -1,3 +1,16 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="icon" href="./../../public/img/icone-LucreMais.png">
+    <link rel="stylesheet" href="./../../public/css/inputs.css">
+
+    <title>Editar Despesa</title>
+</head>
+<body>
 <?php
     include_once './../../classes/Usuario.php';
     include_once './../../classes/Despesa.php';
@@ -27,3 +40,5 @@
     }
     echo "<p><a href='./despesa.php'><button>Retornar</button></a></p>";
 ?>
+</body>
+</html>

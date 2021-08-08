@@ -20,6 +20,7 @@
 <head>
     <meta charset="UTF-8">
 
+    <link rel="icon" href="./../public/img/icone-LucreMais.png">
     <link rel="stylesheet" href="./../public/css/editStyle.css">
     
     <title>Edição de item</title>

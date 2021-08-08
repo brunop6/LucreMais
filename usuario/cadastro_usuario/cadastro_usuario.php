@@ -5,6 +5,7 @@
     
     <script type="text/javascript" src="./../../public/js/confirmar_senha.js"></script>
     
+    <link rel="icon" href="./../../public/img/icone-LucreMais.png">
     <link rel="stylesheet" href="./../../public/css/inputs.css">
     <link rel="stylesheet" href="./../../login/aparencial.css">
 

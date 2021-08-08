@@ -62,6 +62,8 @@
 <head>
     <meta charset="UTF-8">
 
+    <link rel="icon" href="./public/img/icone-LucreMais.png">
+
     <link rel="stylesheet" href="./public/css/headerMenu.css">
     <link rel="stylesheet" href="./public/css/sidebarMenu.css">
     <link rel="stylesheet" href="./public/css/tableStyle.css">
