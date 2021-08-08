@@ -57,10 +57,9 @@
         <h3>Receita atual: <span class="receita"><?php echo "R$ ".number_format($receitaMensal, 2); ?></span></h3>
         <h3>Despesa atual: <span class="despesa"><?php echo "R$ ".number_format($despesaMensal, 2); ?></span></h3>        
         <h3>
-            Lucro: 
             <?php 
                 if($porcentagemLucro){
-                    echo number_format($porcentagemLucro, 2)."%";
+                    echo 'Lucro: '.number_format($porcentagemLucro, 2)."%";
                 }
             ?>
         </h3>

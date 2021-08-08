@@ -95,103 +95,194 @@
             return mysqli_error($conexao);
         }
 
-    	public static function converterMedidas($unimedPrinc, $unimedSec, $quantidadeSec, $itemNome){
-            switch ($unimedPrinc) {
+    	public static function converterMedidas($unimedItem, $unimedReceita, $quantidadeReceita, $itemNome){
+            switch ($unimedItem) {
                 case 'ML':
 
-					switch ($unimedSec) {
+					switch ($unimedReceita) {
 						case 'GRAMAS':
-							$novaQuantidade = $quantidadeSec;
+							$novaQuantidade = $quantidadeReceita;
 						break;
 
 						case 'COLHER_DE_SOPA':
-							$novaQuantidade = $quantidadeSec * 15;
+							$novaQuantidade = $quantidadeReceita * 15;
 						break;
 
 						case 'COLHER_DE_CHA':
-							$novaQuantidade = $quantidadeSec * 5;
+							$novaQuantidade = $quantidadeReceita * 5;
 						break;
 
 						case 'COLHER_DE_CAFE':
-							$novaQuantidade = $quantidadeSec * 2;
+							$novaQuantidade = $quantidadeReceita * 2;
 						break;
 
 						case 'XICARA':
-							$novaQuantidade = $quantidadeSec * 240;
+							$novaQuantidade = $quantidadeReceita * 240;
 						break;
 
 						case 'LITRO(S)':
-							$novaQuantidade = $quantidadeSec * 1000;
+							$novaQuantidade = $quantidadeReceita * 1000;
 						break;
 
 						case 'QUILO':
-							$novaQuantidade = $quantidadeSec * 1000;
+							$novaQuantidade = $quantidadeReceita * 1000;
 						break;
 					}
                 break;
 
 				case 'GRAMAS':
 
-					switch ($unimedSec) {
+					switch ($unimedReceita) {
 						case 'ML':
-							$novaQuantidade = $quantidadeSec;
+							$novaQuantidade = $quantidadeReceita;
 						break;
 
 						case 'COLHER_DE_SOPA':
-							$novaQuantidade = $quantidadeSec * 14;
+							//Valor padrão
+							$novaQuantidade = $quantidadeReceita * 14;
+
+							if(strpos($itemNome, 'AÇÚCAR') !== false || strpos($itemNome, 'AÇUCAR') !== false){
+								$novaQuantidade = $quantidadeReceita * 10;
+							}
+							if(strpos($itemNome, 'TRIGO') !== false){
+								$novaQuantidade = $quantidadeReceita * 7.5;
+							}
+							if(strpos($itemNome, 'CHOCOLATE EM PÓ') !== false){
+								$novaQuantidade = $quantidadeReceita * 6;
+							}
+							if(strpos($itemNome, 'COCO RALADO') !== false){
+								$novaQuantidade = $quantidadeReceita * 5;
+							}
 						break;
 
 						case 'COLHER_DE_CHA':
-							$novaQuantidade = $quantidadeSec * 4;
+							//Valor padrão
+							$novaQuantidade = $quantidadeReceita * 4;
+
+							if(strpos($itemNome, 'AÇÚCAR') !== false || strpos($itemNome, 'AÇUCAR') !== false){
+								$novaQuantidade = $quantidadeReceita * 3.5;
+							}
+							if(strpos($itemNome, 'TRIGO') !== false){
+								$novaQuantidade = $quantidadeReceita * 2.5;
+							}
+							if(strpos($itemNome, 'CHOCOLATE EM PÓ') !== false){
+								$novaQuantidade = $quantidadeReceita * 2;
+							}
+							if(strpos($itemNome, 'COCO RALADO') !== false){
+								$novaQuantidade = $quantidadeReceita * 1.5;
+							}
 						break;
 
 						case 'COLHER_DE_CAFE':
-							$novaQuantidade = $quantidadeSec * 1.5;
+							$novaQuantidade = $quantidadeReceita * 1.5;
 						break;
 
 						case 'XICARA':
-							$novaQuantidade = $quantidadeSec * 165;
+							//Valor padrão
+							$novaQuantidade = $quantidadeReceita * 165;
+
+							if(strpos($itemNome, 'MANTEIGA') !== false || strpos($itemNome, 'MARGARINA') !== false){
+								$novaQuantidade = $quantidadeReceita * 200;
+							}
+							if(strpos($itemNome, 'AÇÚCAR') !== false || strpos($itemNome, 'AÇUCAR') !== false){
+								$novaQuantidade = $quantidadeReceita * 160;
+							}
+							if(strpos($itemNome, 'TRIGO') !== false){
+								$novaQuantidade = $quantidadeReceita * 120;
+							}
+							if(strpos($itemNome, 'CHOCOLATE EM PÓ') !== false){
+								$novaQuantidade = $quantidadeReceita * 90;
+							}
+							if(strpos($itemNome, 'COCO RALADO') !== false){
+								$novaQuantidade = $quantidadeReceita * 80;
+							}
 						break;
 
 						case 'LITRO(S)':
-							$novaQuantidade = $quantidadeSec * 1000;
+							$novaQuantidade = $quantidadeReceita * 1000;
 						break;
 
 						case 'QUILO':
-							$novaQuantidade = $quantidadeSec * 1000;
+							$novaQuantidade = $quantidadeReceita * 1000;
 						break;
 					}
                 break;
 
 				case 'COLHER_DE_SOPA':
 
-					switch ($unimedSec) {
+					switch ($unimedReceita) {
 						case 'ML':
-							$novaQuantidade = $quantidadeSec / 15;
+							$novaQuantidade = $quantidadeReceita / 15;
 						break;
 
 						case 'GRAMAS':
-							$novaQuantidade = $quantidadeSec / 14;
+							//Valor padrão
+							$novaQuantidade = $quantidadeReceita / 14;
+
+							if(strpos($itemNome, 'AÇÚCAR') !== false || strpos($itemNome, 'AÇUCAR') !== false){
+								$novaQuantidade = $quantidadeReceita / 10;
+							}
+							if(strpos($itemNome, 'TRIGO') !== false){
+								$novaQuantidade = $quantidadeReceita / 7.5;
+							}
+							if(strpos($itemNome, 'CHOCOLATE EM PÓ') !== false){
+								$novaQuantidade = $quantidadeReceita / 6;
+							}
+							if(strpos($itemNome, 'COCO RALADO') !== false){
+								$novaQuantidade = $quantidadeReceita / 5;
+							}
 						break;
 
 						case 'COLHER_DE_CHA':
-							$novaQuantidade = $quantidadeSec / 3;
+							$novaQuantidade = $quantidadeReceita / 3;
+
+							if(strpos($itemNome, 'AÇÚCAR') !== false || strpos($itemNome, 'AÇUCAR') !== false){
+								$novaQuantidade = $quantidadeReceita / 2.85;
+							}
+							if(strpos($itemNome, 'TRIGO') !== false){
+								$novaQuantidade = $quantidadeReceita / 3;
+							}
+							if(strpos($itemNome, 'CHOCOLATE EM PÓ') !== false){
+								$novaQuantidade = $quantidadeReceita / 3;
+							}
+							if(strpos($itemNome, 'COCO RALADO') !== false){
+								$novaQuantidade = $quantidadeReceita / 3.33;
+							}
 						break;
 
 						case 'COLHER_DE_CAFE':
-							$novaQuantidade = $quantidadeSec / 9;
+							$novaQuantidade = $quantidadeReceita / 9;
 						break;
 
 						case 'XICARA':
-							$novaQuantidade = $quantidadeSec * 16;
+							//Valor padrão
+							$novaQuantidade = $quantidadeReceita * 16;
+
+							if(strpos($itemNome, 'CHOCOLATE EM PÓ') !== false){
+								$novaQuantidade = $quantidadeReceita * 15;
+							}
 						break;
 
 						case 'LITRO(S)':
-							$novaQuantidade = ($quantidadeSec /15) * 1000;
+							$novaQuantidade = ($quantidadeReceita /15) * 1000;
 						break;
 
 						case 'QUILO(S)':
-							$novaQuantidade = ($quantidadeSec /14) * 1000;
+							//Valor padrão
+							$novaQuantidade = ($quantidadeReceita / 14) * 1000;
+
+							if(strpos($itemNome, 'AÇÚCAR') !== false || strpos($itemNome, 'AÇUCAR') !== false){
+								$novaQuantidade = ($quantidadeReceita / 10) * 1000;
+							}
+							if(strpos($itemNome, 'TRIGO') !== false){
+								$novaQuantidade = ($quantidadeReceita / 7.5) * 1000;
+							}
+							if(strpos($itemNome, 'CHOCOLATE EM PÓ') !== false){
+								$novaQuantidade = ($quantidadeReceita / 6) * 1000;
+							}
+							if(strpos($itemNome, 'COCO RALADO') !== false){
+								$novaQuantidade = ($quantidadeReceita / 5) * 1000;
+							}
 						break;
 					}
 
@@ -199,167 +290,259 @@
 
                 case 'COLHER_DE_CHA':
 
-					switch ($unimedSec) {
+					switch ($unimedReceita) {
 						case 'ML':
-							$novaQuantidade = $quantidadeSec / 5;
+							$novaQuantidade = $quantidadeReceita / 5;
 						break;
 
 						case 'GRAMAS':
-							$novaQuantidade = $quantidadeSec / 4;
+							//Valor padrão
+							$novaQuantidade = $quantidadeReceita / 4;
+
+							if(strpos($itemNome, 'AÇÚCAR') !== false || strpos($itemNome, 'AÇUCAR') !== false){
+								$novaQuantidade = $quantidadeReceita / 3.5;
+							}
+							if(strpos($itemNome, 'TRIGO') !== false){
+								$novaQuantidade = $quantidadeReceita / 2.5;
+							}
+							if(strpos($itemNome, 'CHOCOLATE EM PÓ') !== false){
+								$novaQuantidade = $quantidadeReceita / 2;
+							}
+							if(strpos($itemNome, 'COCO RALADO') !== false){
+								$novaQuantidade = $quantidadeReceita / 1.5;
+							}
 						break;
 
 						case 'COLHER_DE_SOPA':
-							$novaQuantidade = $quantidadeSec * 3;
+							//Valor padrão
+							$novaQuantidade = $quantidadeReceita * 3;
+
+							if(strpos($itemNome, 'AÇÚCAR') !== false || strpos($itemNome, 'AÇUCAR') !== false){
+								$novaQuantidade = $quantidadeReceita * 2.85;
+							}
+							if(strpos($itemNome, 'TRIGO') !== false){
+								$novaQuantidade = $quantidadeReceita * 3;
+							}
+							if(strpos($itemNome, 'CHOCOLATE EM PÓ') !== false){
+								$novaQuantidade = $quantidadeReceita * 3;
+							}
+							if(strpos($itemNome, 'COCO RALADO') !== false){
+								$novaQuantidade = $quantidadeReceita * 3.33;
+							}
 						break;
 
 						case 'COLHER_DE_CAFE':
-							$novaQuantidade = $quantidadeSec / 3;
+							$novaQuantidade = $quantidadeReceita / 3;
 						break;
 
 						case 'XICARA':
-							$novaQuantidade = $quantidadeSec * 48;
+							$novaQuantidade = $quantidadeReceita * 48;
 						break;
 
 						case 'LITRO(S)':
-							$novaQuantidade = ($quantidadeSec /5) * 1000;
+							$novaQuantidade = ($quantidadeReceita /5) * 1000;
 						break;
 
 						case 'QUILO(S)':
-							$novaQuantidade = ($quantidadeSec /4) * 1000;
+							//Valor padrão
+							$novaQuantidade = ($quantidadeReceita /4) * 1000;
+
+							if(strpos($itemNome, 'AÇÚCAR') !== false || strpos($itemNome, 'AÇUCAR') !== false){
+								$novaQuantidade = ($quantidadeReceita / 3.5) * 1000;
+							}
+							if(strpos($itemNome, 'TRIGO') !== false){
+								$novaQuantidade = ($quantidadeReceita / 2.5) * 1000;
+							}
+							if(strpos($itemNome, 'CHOCOLATE EM PÓ') !== false){
+								$novaQuantidade = ($quantidadeReceita / 2) * 1000;
+							}
+							if(strpos($itemNome, 'COCO RALADO') !== false){
+								$novaQuantidade = ($quantidadeReceita / 1.5) * 1000;
+							}
 						break;
 					}
                 break;
 
 				case 'COLHER_DE_CAFE':
 
-					switch ($unimedSec) {
+					switch ($unimedReceita) {
 						case 'ML':
-							$novaQuantidade = $quantidadeSec / 2;
+							$novaQuantidade = $quantidadeReceita / 2;
 						break;
 
 						case 'GRAMAS':
-							$novaQuantidade = $quantidadeSec / 1.5;
+							$novaQuantidade = $quantidadeReceita / 1.5;
 						break;
 
 						case 'COLHER_DE_SOPA':
-							$novaQuantidade = $quantidadeSec * 9;
+							$novaQuantidade = $quantidadeReceita * 9;
 						break;
 
 						case 'COLHER_DE_CHA':
-							$novaQuantidade = $quantidadeSec * 3;
+							$novaQuantidade = $quantidadeReceita * 3;
 						break;
 
 						case 'XICARA':
-							$novaQuantidade = $quantidadeSec * 144;
+							$novaQuantidade = $quantidadeReceita * 144;
 						break;
 
 						case 'LITRO(S)':
-							$novaQuantidade = ($quantidadeSec /2) * 1000;
+							$novaQuantidade = ($quantidadeReceita /2) * 1000;
 						break;
 
 						case 'QUILO(S)':
-							$novaQuantidade = ($quantidadeSec /1.5) * 1000;
+							$novaQuantidade = ($quantidadeReceita /1.5) * 1000;
 						break;
 					}
 				break;
 
 				case 'XICARA':
 
-					switch ($unimedSec) {
+					switch ($unimedReceita) {
 						case 'ML':
-							$novaQuantidade = $quantidadeSec / 240;
+							$novaQuantidade = $quantidadeReceita / 240;
 						break;
 
 						case 'GRAMAS':
-							$novaQuantidade = $quantidadeSec / 165;
+							//Valor padrão
+							$novaQuantidade = $quantidadeReceita / 165;
+
+							if(strpos($itemNome, 'MANTEIGA') !== false || strpos($itemNome, 'MARGARINA') !== false){
+								$novaQuantidade = $quantidadeReceita / 200;
+							}
+							if(strpos($itemNome, 'AÇÚCAR') !== false || strpos($itemNome, 'AÇUCAR') !== false){
+								$novaQuantidade = $quantidadeReceita / 160;
+							}
+							if(strpos($itemNome, 'TRIGO') !== false){
+								$novaQuantidade = $quantidadeReceita / 120;
+							}
+							if(strpos($itemNome, 'CHOCOLATE EM PÓ') !== false){
+								$novaQuantidade = $quantidadeReceita / 90;
+							}
+							if(strpos($itemNome, 'COCO RALADO') !== false){
+								$novaQuantidade = $quantidadeReceita / 80;
+							}
 						break;
 
 						case 'COLHER_DE_SOPA':
-							$novaQuantidade = $quantidadeSec / 16;
+							//Valor padrão
+							$novaQuantidade = $quantidadeReceita / 16;
+
+							if(strpos($itemNome, 'CHOCOLATE EM PÓ') !== false){
+								$novaQuantidade = $quantidadeReceita / 15;
+							}
 						break;
 
 						case 'COLHER_DE_CHA':
-							$novaQuantidade = $quantidadeSec / 48;
+							$novaQuantidade = $quantidadeReceita / 48;
 						break;
 
 						case 'COLHER_DE_CAFE':
-							$novaQuantidade = $quantidadeSec / 144;
+							$novaQuantidade = $quantidadeReceita / 144;
 						break;
 
 						case 'LITRO(S)':
-							$novaQuantidade = ($quantidadeSec /240) * 1000;
+							$novaQuantidade = ($quantidadeReceita /240) * 1000;
 						break;
 
 						case 'QUILO(S)':
-							$novaQuantidade = ($quantidadeSec /165) * 1000;
+							$novaQuantidade = ($quantidadeReceita /165) * 1000;
 						break;
 					}
 				break;
 
 				case 'LITRO(S)':
 
-					switch ($unimedSec) {
+					switch ($unimedReceita) {
 
 						case 'ML':
-							$novaQuantidade = $quantidadeSec / 1000;
+							$novaQuantidade = $quantidadeReceita / 1000;
 						break;
 
 						case 'GRAMAS':
-							$novaQuantidade = $quantidadeSec / 1000;
+							$novaQuantidade = $quantidadeReceita / 1000;
 						break;
 
 						case 'COLHER_DE_SOPA':
-							$novaQuantidade = ($quantidadeSec * 15) / 1000;
+							$novaQuantidade = ($quantidadeReceita * 15) / 1000;
 						break;
 
 						case 'COLHER_DE_CHA':
-							$novaQuantidade = ($quantidadeSec * 5) / 1000;
+							$novaQuantidade = ($quantidadeReceita * 5) / 1000;
 						break;
 
 						case 'COLHER_DE_CAFE':
-							$novaQuantidade = ($quantidadeSec * 2) / 1000 ;
+							$novaQuantidade = ($quantidadeReceita * 2) / 1000 ;
 						break;
 
 						case 'XICARA':
-							$novaQuantidade = ($quantidadeSec * 240) / 1000 ;
+							$novaQuantidade = ($quantidadeReceita * 240) / 1000 ;
 						break;
 
 						case 'QUILO(S)':
-							$novaQuantidade = $quantidadeSec;
+							$novaQuantidade = $quantidadeReceita;
 						break;
 					}
 				break;
 
 				case 'QUILO(S)':
 
-					switch ($unimedSec) {
+					switch ($unimedReceita) {
 
 						case 'ML':
-							$novaQuantidade = $quantidadeSec / 1000;
+							$novaQuantidade = $quantidadeReceita / 1000;
 						break;
 
 						case 'GRAMAS':
-							$novaQuantidade = $quantidadeSec / 1000;
+							$novaQuantidade = $quantidadeReceita / 1000;
 						break;
 
 						case 'COLHER_DE_SOPA':
-							$novaQuantidade = ($quantidadeSec * 14) / 1000;
+							//Valor padrão
+							$novaQuantidade = ($quantidadeReceita * 14) / 1000;
+
+							if(strpos($itemNome, 'AÇÚCAR') !== false || strpos($itemNome, 'AÇUCAR') !== false){
+								$novaQuantidade = ($quantidadeReceita * 10) / 1000;
+							}
+							if(strpos($itemNome, 'TRIGO') !== false){
+								$novaQuantidade = ($quantidadeReceita * 7.5) / 1000;
+							}
+							if(strpos($itemNome, 'CHOCOLATE EM PÓ') !== false){
+								$novaQuantidade = ($quantidadeReceita * 6) / 1000;
+							}
+							if(strpos($itemNome, 'COCO RALADO') !== false){
+								$novaQuantidade = ($quantidadeReceita * 5) / 1000;
+							}
 						break;
 
 						case 'COLHER_DE_CHA':
-							$novaQuantidade = ($quantidadeSec * 4) / 1000;
+							//Valor padrão
+							$novaQuantidade = ($quantidadeReceita * 4) / 1000;
+
+							if(strpos($itemNome, 'AÇÚCAR') !== false || strpos($itemNome, 'AÇUCAR') !== false){
+								$novaQuantidade = ($quantidadeReceita * 3.5) / 1000;
+							}
+							if(strpos($itemNome, 'TRIGO') !== false){
+								$novaQuantidade = ($quantidadeReceita * 2.5) / 1000;
+							}
+							if(strpos($itemNome, 'CHOCOLATE EM PÓ') !== false){
+								$novaQuantidade = ($quantidadeReceita * 2) / 1000;
+							}
+							if(strpos($itemNome, 'COCO RALADO') !== false){
+								$novaQuantidade = ($quantidadeReceita * 1.5) / 1000;
+							}
 						break;
 
 						case 'COLHER_DE_CAFE':
-							$novaQuantidade = ($quantidadeSec * 1.5) / 1000 ;
+							$novaQuantidade = ($quantidadeReceita * 1.5) / 1000 ;
 						break;
 
 						case 'XICARA':
-							$novaQuantidade = ($quantidadeSec * 165) / 1000 ;
+							$novaQuantidade = ($quantidadeReceita * 165) / 1000 ;
 						break;
 
 						case 'LITRO(S)':
-							$novaQuantidade = $quantidadeSec;
+							$novaQuantidade = $quantidadeReceita;
 						break;
 					}
 				break;
