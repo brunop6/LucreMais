@@ -9,7 +9,9 @@
         private $statusUsuario;
         
         function __construct($admin, $nomeUsuario, $email, $senha, $statusUsuario){
-            $senha = encryptPassword($nomeUsuario, $email, $senha);
+            if($senha !== false){
+                $senha = encryptPassword($nomeUsuario, $email, $senha);
+            }
             
             $this->admin = $admin; 
             $this->nomeUsuario = $nomeUsuario;
@@ -75,10 +77,16 @@
         
         public function editarConta($id){
             include __DIR__.'./../includes/conecta_bd.inc';
-            
+
             $query = "UPDATE usuario 
-            SET admin = '$this->admin', nomeUsuario = '$this->nomeUsuario', email = '$this->email', senha = '$this->senha', statusUsuario = '$this->statusUsuario' 
+            SET admin = '$this->admin', nomeUsuario = '$this->nomeUsuario', email = '$this->email', ";
+
+            if($this->senha !== false){
+                $query .= "senha = '$this->senha', ";
+            }
+            $query .= "statusUsuario = '$this->statusUsuario' 
             WHERE id = $id";
+            
             
             $resultado = mysqli_query($conexao,$query);
             
@@ -117,6 +125,35 @@
             }
             return mysqli_error($conexao).' - id: '.$id;
         }
+
+        public static function infoUsuario($id){
+            include __DIR__.'./../includes/conecta_bd.inc';
+
+            $query = "SELECT admin, nomeUsuario, email, senha, statusUsuario 
+            FROM `usuario` 
+            WHERE id = $id";
+
+            $resultado = mysqli_query($conexao, $query);
+            
+            $admin = null;
+            $nomeUsuario = null;
+            $email = null;
+            $senha = null;
+            $statusUsuario = null;
+            if(mysqli_num_rows($resultado) > 0){
+                while($row = mysqli_fetch_array($resultado)){
+                    $admin = $row['admin'];
+                    $nomeUsuario = $row['nomeUsuario'];
+                    $email = $row['email'];
+                    $senha = $row['senha'];
+                    $statusUsuario = $row['statusUsuario'];
+                }
+            }
+
+            mysqli_close($conexao);
+
+            return array($admin, $nomeUsuario, $email, $senha, $statusUsuario);
+        }
         public static function selectId($nomeUsuario){
             include __DIR__.'./../includes/conecta_bd.inc';
             
@@ -124,6 +161,7 @@
             
             $resultado = mysqli_query($conexao, $query);
             
+            $id = null;
             if(mysqli_num_rows($resultado) > 0){
                 while($row = mysqli_fetch_array($resultado)){
                     $id = $row['id'];
