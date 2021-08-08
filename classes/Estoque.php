@@ -24,14 +24,18 @@
         public static function retornar_itens_em_falta($email){
             include '../../includes/conecta_bd.inc';
 
-            $query = "SELECT i.nome, i.marca 
-            FROM item i, estoque e, usuario u
-            WHERE i.id = e.idItem 
-                AND u.id = e.idUsuario
-                AND e.quantidade < i.quantidadeMinima
-                AND u.email = '$email'
-                AND e.statusItem = '1' 
-            ORDER BY e.lote, i.nome, i.marca";
+            $query = "SELECT i.nome, i.marca, SUM(e.quantidade)
+            FROM estoque e, item i, usuario u
+            WHERE (SELECT SUM(e.quantidade)
+                    FROM item i, estoque e, usuario u
+                    WHERE u.id = e.idUsuario
+                        AND u.email = '$email'
+                        AND e.statusItem = '1'
+                       GROUP BY i.id) < i.quantidadeMinima
+                        AND u.id = e.idUsuario
+                        AND u.email = '$email'
+                        AND e.statusItem = '1'
+            GROUP BY i.id";
 
             $resultado = mysqli_query($conexao, $query);
 

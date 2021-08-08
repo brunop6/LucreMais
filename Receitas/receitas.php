@@ -14,7 +14,7 @@
         die();
     }
     
-    list($idReceitas, $nomeReceitas) = Receita::selectReceitas($emailUsuario);
+    list($idReceitas, $nomeReceitas, $rendimento, $unidadeMedida, $valorVenda) = Receita::selectReceitas($emailUsuario);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -50,8 +50,8 @@
                     echo "
                     <div class='receita'>
                         <h3><a href='visualizarReceita.php?id=$id'>$nomeReceitas[$i]</a></h3>
-                        <p>Rendimento: ...</p>
-                        <p>Valor de venda: ...</p>
+                        <p>Rendimento: $rendimento[$i] $unidadeMedida[$i]</p>
+                        <p>Valor de venda: $valorVenda[$i]</p>
                     </div>";
                     $i++;
                 }
