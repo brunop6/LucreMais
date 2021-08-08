@@ -1,8 +1,8 @@
 <?php
     define('menu', 'Receitas');
-    include_once "./../classes/Usuario.php";
-    include_once "./../classes/Receita.php";
-    include_once "./../classes/Item.php";
+    include_once "./../../classes/Usuario.php";
+    include_once "./../../classes/Receita.php";
+    include_once "./../../classes/Item.php";
 
     if (session_status() !== PHP_SESSION_ACTIVE) {
         session_start();
@@ -11,11 +11,11 @@
     $emailUsuario = $_SESSION['email_usuario'];
 
     if(!Usuario::verificarMenu($idUsuario, menu)){
-        header("Location: ./../Home.php");
+        header("Location: ./../../Home.php");
         die();
     }
     if(!isset($_GET['id'])){
-        header("Location: ./receitas.php");
+        header("Location: ./../receitas.php");
         die();
     }
     $idReceita = $_GET['id'];
@@ -28,10 +28,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://kit.fontawesome.com/9c542dcfdc.js" crossorigin="anonymous"></script>
     
-    <link rel="icon" href="./../public/img/icone-LucreMais.png">
-    <link rel="stylesheet" href="./../public/css/headerMenu.css">
-    <link rel="stylesheet" href="./receitas.css">
+    <link rel="icon" href="./../../public/img/icone-LucreMais.png">
+    <link rel="stylesheet" href="./../../public/css/headerMenu.css">
+    <link rel="stylesheet" href="./../receitas.css">
 
     <title>Ver Receita</title>
 </head>
@@ -41,8 +43,8 @@
         <label for="btn-menu">&#9776;</label>
         <nav class="menu">
             <ul>
-                <li><a href="./cadastro_de_receitas.php">Habilitar Edição</a></li>
-                <li><a href="./receitas.php">Voltar</a></li>
+                <li><a href="#">Habilitar Edição</a></li>
+                <li><a href="./../receitas.php">Voltar</a></li>
             </ul>
         </nav>
     </header>
@@ -56,10 +58,20 @@
                 <?php
                     $i = 0;
                     $custoReceita = 0;
+                    $numMaximoReceitas = null;
                     foreach($idItem as $id){
                         $custoReceita += $custo[$i];
                         list($nomeItem, $marca, $quantidadeItem, $unidadeItem, $descricaoCategoria) = Item::selectItemLista($id);
                         
+                        //Nº máximo de receitas permitida pelo item
+                        $numReceitasItem = Receita::selectMaxReceitas($id, $quantidadeReceita[$i], $unidadeReceita[$i], $emailUsuario);
+
+                        //Nº de receitas limitado pelo item com menor disponibilidade
+                        if($numMaximoReceitas == null || $numReceitasItem < $numMaximoReceitas){
+                            $numMaximoReceitas = $numReceitasItem;
+                            $itemLimitante = "$nomeItem $marca";
+                        }
+
                         echo "<li><b>$nomeItem $marca:</b> $quantidadeReceita[$i] $unidadeReceita[$i] &#10142; R$ $custo[$i]</li>";
                         $i++;
                     }
@@ -70,9 +82,20 @@
         </div>
 
         <aside>
+            <!--<p><?php echo "Há $itemLimitante p/ $numMaximoReceitas receitas!"?></p>-->
+
+            <details>
+                <summary id="info"><i class="fas fa-info-circle"></i></summary>
+                <ul>
+                    <li><b><?php echo "Item limitante: $itemLimitante"?></b></li>
+                    <br>
+                    <li>Máximo de receitas: <?php echo $numMaximoReceitas?></li>
+                </ul>
+            </details>
+            <br>
             <form action="" method="POST">
                 <input type="submit" value="Realizar Receita">
-                <input type="number" name="quantidade" value="0" min="0">
+                <input type="number" name="quantidade" value="0" min="0" max="<?php echo $numMaximoReceitas?>">
             </form>
         </aside>
     </main>

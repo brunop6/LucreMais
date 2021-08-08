@@ -198,4 +198,52 @@
             }
             return mysqli_error($conexao);
         }
+
+        /**
+         * @return int -> Número máximo de receitas possíveis de serem realizadas com o item informado;
+         * @return null -> Receita não pode ser realizada (item inválido || estoque insuficiente)
+         */
+        public static function selectMaxReceitas($idItem, $quantidadeReceita, $unidadeMedidaRec, $email){
+            include __DIR__.'./../includes/conecta_bd.inc';
+
+            $query = "SELECT i.nome, SUM(e.quantidade) AS quantidadeEstoque, i.unidadeMedida
+            FROM estoque e, item i, usuario u
+            WHERE u.id = e.idUsuario
+                AND e.idItem = i.id
+                AND e.statusItem = '1'
+                AND u.email = '$email'
+                AND i.id = $idItem
+            GROUP BY i.id";
+
+            $resultado = mysqli_query($conexao, $query);
+
+            $nomeItem = null;
+            $quantidadeEstoque = null;
+            $unidadeMedidaItem = null;
+            $numMaxReceitas = null;
+            if(mysqli_num_rows($resultado) > 0){
+                while($row = mysqli_fetch_array($resultado)){
+                    $nomeItem = $row['nome'];
+                    $quantidadeEstoque = $row['quantidadeEstoque'];
+                    $unidadeMedidaItem = $row['unidadeMedida'];
+                }
+ 
+                if($unidadeMedidaItem != $unidadeMedidaRec){
+                    include_once __DIR__.'./Receita_Item.php';
+
+                    $unidadeMedidaRec = str_replace(" ", "_", $unidadeMedidaRec);
+    
+                    $quantidadeReceita = Receita_Item::converterMedidas($unidadeMedidaItem, $unidadeMedidaRec, $quantidadeReceita, $nomeItem);
+                }
+
+                if($quantidadeEstoque < $quantidadeReceita){
+                    return null;
+                }
+
+                $numMaxReceitas = floor($quantidadeEstoque / $quantidadeReceita);
+            }
+            mysqli_close($conexao);
+
+            return $numMaxReceitas;
+        }
     }

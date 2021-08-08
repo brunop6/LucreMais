@@ -1,6 +1,6 @@
 <?php
     define('menu', 'Receitas');
-    include_once "../classes/Usuario.php";
+    include_once "../../classes/Usuario.php";
 
     if (session_status() !== PHP_SESSION_ACTIVE) {
         session_start();
@@ -8,7 +8,7 @@
     $idUsuario = $_SESSION['id_usuario'];
 
     if(!Usuario::verificarMenu($idUsuario, menu)){
-        header("Location: ./../Home.php");
+        header("Location: ./../../Home.php");
         die();
     }
 ?>
@@ -17,9 +17,9 @@
 <head>
     <meta charset="UTF-8">
 
-    <link rel="icon" href="./../public/img/icone-LucreMais.png">
-    <link rel="stylesheet" href="./../public/css/headerMenu.css">
-    <link rel="stylesheet" href="./receitas.css">
+    <link rel="icon" href="./../../public/img/icone-LucreMais.png">
+    <link rel="stylesheet" href="./../../public/css/headerMenu.css">
+    <link rel="stylesheet" href="./../receitas.css">
     
     <title>Receita Paçoca</title>
 </head>
@@ -29,8 +29,8 @@
         <label for="btn-menu">&#9776;</label>
         <nav class="menu">
             <ul>
-                <li><a href="./cadastro_de_receitas.php">Habilitar Edição</a></li>
-                <li><a href="./receitas.php">Voltar</a></li>
+                <li><a href="#">Habilitar Edição</a></li>
+                <li><a href="./../receitas.php">Voltar</a></li>
             </ul>
         </nav>
     </header>

@@ -43,7 +43,7 @@
         global $email;
         include_once '../classes/Estoque.php';
 
-        list($id, $nomeItem, $marca, $categoria, $fornecedor, $quantidadeEstoque, $unidadeMedida, $preco, $quantidadeItem, $lote, $validade, $dataCadastro, $dataAtualizacao, $nomeUsuario) = Estoque::retornar_itens_estoque_filtro($status, $marca, $nome, $categoria, $lote, $email);
+        list($id, $nomeItem, $marca, $categoria, $fornecedor, $quantidadeEstoque, $unidadeMedida, $preco, $quantidadeItem, $lote, $validade, $dataCadastro, $dataAtualizacao, $nomeUsuario) = Estoque::retornar_itens_estoque($status, $marca, $nome, $categoria, $lote, $email);
 
         if (!empty($nomeItem)) {
             $i = 0;

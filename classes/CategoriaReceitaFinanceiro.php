@@ -81,7 +81,6 @@
             }
         }
 
-
         public static function selectCategoria($id){
             include __DIR__.'./../includes/conecta_bd.inc';
 
@@ -133,5 +132,4 @@
 
             return array($id, $descricao, $dataCadastro, $dataAtualizacao, $nomeUsuario);
         }
-
     }

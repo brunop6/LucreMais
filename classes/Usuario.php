@@ -154,6 +154,7 @@
 
             return array($admin, $nomeUsuario, $email, $senha, $statusUsuario);
         }
+        
         public static function selectId($nomeUsuario){
             include __DIR__.'./../includes/conecta_bd.inc';
             

@@ -102,8 +102,9 @@
 
       return array($id, $item, $quantidade, $descricaoCategoria, $quantidadeMinima, $unidadeMedida, $nomeUsuario);
     }
+    
     public static function selectItemLista($id){
-      include '../includes/conecta_bd.inc';
+      include __DIR__.'./../includes/conecta_bd.inc';
 
       $query = "SELECT i.nome, i.marca, i.quantidade, i.quantidadeMinima, i.unidadeMedida, c.descricaoCategoria 
       FROM item i, usuario u, categoria c 

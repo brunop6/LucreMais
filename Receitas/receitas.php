@@ -40,7 +40,7 @@
     </header>
     <main>
         <div class="receita">
-            <h3><a href="prototipo_visualizarReceita.php?id=1">PAÇOCA</a></h3>
+            <h3><a href="./visualizar_receita/prototipo_visualizarReceita.php">PAÇOCA</a></h3>
             <p>Rendimento: 1300 GRAMAS</p>
             <p>Valor de venda: R$32.90</p>
         </div>
@@ -50,7 +50,7 @@
                 foreach($idReceitas as $id){
                     echo "
                     <div class='receita'>
-                        <h3><a href='visualizarReceita.php?id=$id'>$nomeReceitas[$i]</a></h3>
+                        <h3><a href='./visualizar_receita/visualizarReceita.php?id=$id'>$nomeReceitas[$i]</a></h3>
                         <p>Rendimento: ...</p>
                         <p>Valor de venda: ...</p>
                     </div>";

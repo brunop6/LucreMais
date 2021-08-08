@@ -1,8 +1,10 @@
 :root{
     --azulClaro: #B9DEFF;
     --azulEscuro: #002D55;
-    --lilas: rgb(113, 116, 255);
-    --cinza: rgb(54, 54, 54);
+    --amarelo: #FAFF00;
+    --lilas: #7174FF;
+    --cinzaEscuro: #363636;
+    --cinzaClaro: #D1CDCD
 }
 aside{
     left: 0;
@@ -38,7 +40,7 @@ input[type="submit"]{
     text-decoration: none;
 }
 input[type="submit"]:hover{
-    background-color: yellow;
+    background-color: var(--amarelo);
     color: var(--azulEscuro);
     padding: 15px 15px;
     box-shadow: 0 0 5px var(--cinza);
@@ -64,7 +66,7 @@ main{
     color: var(--azulClaro);
 }
 .receita a{
-    color: yellow;
+    color: var(--amarelo);
 }
 .view-receita{
     padding-left: 20px;
@@ -85,6 +87,14 @@ main{
 main li{
     margin-left: 25px;
     padding-bottom: 5px;
+}
+details li{
+    color: var(--azulClaro);
+}
+summary{
+    cursor: pointer;
+    color: var(--amarelo);
+    font-size: 20px;
 }
 @media screen and (max-width:2560px) and (orientation:portrait) {
     body{

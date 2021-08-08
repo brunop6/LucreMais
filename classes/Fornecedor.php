@@ -89,6 +89,7 @@
 
             return $nomeFornecedor;
         }
+        
         public static function selectId($nomeFornecedor, $email){
             include __DIR__.'./../includes/conecta_bd.inc';
 
