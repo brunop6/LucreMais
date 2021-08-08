@@ -8,38 +8,33 @@
     <title>Autenticação de Usuário</title>
 </head>
 <body>
-    <?php
+    <?php      
+        include "./../includes/encrypt.inc";
+        include_once "./../classes/Usuario.php";
+        
         $usuario = $_POST["usuario"];
         $senha = $_POST["senha"];
-      
-        include "../includes/conecta_bd.inc";
-        include "../includes/encrypt.inc";
-        include_once "../classes/Usuario.php";
+
+        $idUsuario = Usuario::selectId($usuario);
+        list($admin, $res_usuario, $res_email, $res_senha, $statusUsuario) = Usuario::infoUsuario($idUsuario);
         
-        $query = "SELECT * FROM usuario WHERE nomeUsuario = '$usuario'";
-        
-        $resultado = mysqli_query($conexao, $query);
-        
-        $linhas = mysqli_num_rows($resultado);
-        
-        if($linhas == 0){
+        if(empty($idUsuario)){
             echo "<h3>Usuário não encontrado!</h3>";
             echo "<p><button><a href=\"login.php\">Voltar</button></p>";
         }else{
-            while($row = mysqli_fetch_array($resultado)){
-                $res_senha = $row["senha"];
-                $res_email = $row["email"];
-                $res_usuario = $row["nomeUsuario"];
-            }
-            
+            if($statusUsuario == '0'){
+                echo '<h3>Ops. Parece que essa conta foi desativada...</h3><br>';
+                echo '<p>É necessário que uma conta administradora desbloqueie seu acesso.</p>';
+                echo "<p><button><a href=\"login.php\">Voltar</button></p>";
+                
+                die();
+            }    
             $senha = encryptPassword($res_usuario, $res_email, $senha);
 
             if($senha != $res_senha){
                 echo "<h3>Senha incorreta!</h3>";
                 echo "<p><button><a href=\"login.php\">Voltar</button></p>";
             }else{
-                $idUsuario = Usuario::selectId($usuario);
-
                 if(Usuario::admin($idUsuario)){
                     $nivelAcesso = "Administrador";
                 }else{
@@ -52,6 +47,7 @@
                 $_SESSION["senha_usuario"] = $senha;
                 $_SESSION["email_usuario"] = $res_email;
                 $_SESSION["nivel_usuario"] = $nivelAcesso;
+                $_SESSION["status_usuario"] = $statusUsuario;
                     
                 header("Location: ./../Home.php");
             }

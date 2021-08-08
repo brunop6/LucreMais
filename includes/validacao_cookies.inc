@@ -12,6 +12,7 @@
 
         $usuario = $_SESSION['nome_usuario'];
         $senha = $_SESSION['senha_usuario'];
+        $statusUsuario = $_SESSION['status_usuario'];
 
         $query = "SELECT id, senha FROM usuario WHERE nomeUsuario = '$usuario'";
 
@@ -26,7 +27,7 @@
                 $res_senha = $row["senha"];
             }
 
-            if($_SESSION["senha_usuario"] != $res_senha){
+            if($_SESSION["senha_usuario"] != $res_senha || $statusUsuario == '0'){
                 header("Location: login/login.php");
             }
         }

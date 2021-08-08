@@ -10,10 +10,10 @@
         session_start();
     }
     
-    if(isset($_POST['senha'])){
+    if(strlen($_POST['senha']) > 0){
         $senha = $_POST['senha'];
     }else{
-        $senha = $_SESSION['senha_usuario'];
+        $senha = false;
     }
     
     $idUsuario = $_SESSION['id_usuario'];
@@ -49,10 +49,14 @@
         $resultado = $usuario->editarConta($idUsuario);
 
         if($resultado){
-            $senha = encryptPassword($nomeUsuario, $_SESSION['email_usuario'], $senha);
-
             $_SESSION['nome_usuario'] = $nomeUsuario;
-            $_SESSION['senha_usuario'] = $senha;
+            $_SESSION['status_usuario'] = $statusUsuario;
+
+            if($senha !== false){
+                $senha = encryptPassword($nomeUsuario, $_SESSION['email_usuario'], $senha);
+                
+                $_SESSION['senha_usuario'] = $senha;
+            }
             
             header('location: ./../../Home.php');
             die();

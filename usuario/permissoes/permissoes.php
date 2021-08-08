@@ -1,7 +1,4 @@
 <?php
-
-use Sabberworm\CSS\Value\Value;
-
 include './../../includes/validacao_cookies.inc';
 include_once './../../classes/Usuario.php';
 
