@@ -44,6 +44,19 @@
         <p><input type="submit" value="Cadastrar Receita" id="cadastrar"></p>
         
         <p><input type="text" name="nomeReceita" placeholder="Nome da receita" required></p>
+        
+        <p><input type="text" name="rendimento" placeholder="Rendimento" required></p>
+
+        <select name = "unidadeMedida" >
+            <option value="unidade_de_medida">Unidade de Medida</option> 
+            <option value="unidade(s)">Unidade</option>
+            <option value="ml">ML</option>
+            <option value="gramas">Grama</option>
+            <option value="quilos(s)">Quilo(s)</option>
+            <option value="litro(s)">Litro(s)</option>
+        </select>
+        
+        <p><input type="number" step="0.01" name="valorVenda" placeholder="Valor de venda" required></p>
 
         <p><input type="text" name="ingrediente1" placeholder="1° Ingrediente" oninput="preencherItens()" id="item" list="itens" required></p>
         

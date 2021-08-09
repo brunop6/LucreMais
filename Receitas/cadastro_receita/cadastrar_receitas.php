@@ -31,8 +31,11 @@
 <body>
 <?php
     $nomeReceita = $_POST["nomeReceita"];
+    $rendimento = $_POST["rendimento"];
+    $unidadeMedidaRec = $_POST["unidadeMedida"];
+    $valorVenda = $_POST["valorVenda"];
 
-    $receita = new Receita($idUsuario, $nomeReceita);
+    $receita = new Receita($idUsuario, $nomeReceita, $rendimento, $unidadeMedidaRec, $valorVenda);
     $result = $receita->cadastrarReceita();
 
     if(!$result){
@@ -67,9 +70,9 @@
         if(empty($idReceita) || empty($idItem)){
             break;
         }
-        $custo = Receita::valorItemReceita($idItem, $idReceita, $unidadeMedida[$i], $quantidade[$i]);
+        $custo = Receita::valorItemReceita($idItem, $unidadeMedida[$i], $quantidade[$i]);
         
-        $receitaItem = new Receita_Item($idReceita, $idItem, $quantidade[$i],$unidadeMedida[$i], $custo);
+        $receitaItem = new Receita_Item($idReceita, $idItem, $quantidade[$i], $unidadeMedida[$i], $custo);
         
         $result = $receitaItem->cadastrarReceita_Item();
 

@@ -69,10 +69,11 @@
                 $i++;
             }
 
+            
             //Atualização da receita p/ as condições do estoque atualizado
             $i = 0;
             foreach($idReceitaItem as $id){
-                $custo = Receita::valorItemReceita($idItem[$i], $idReceita, $unidadeMedidaRec[$i], $quantidadeRec[$i]);
+                $custo = Receita::valorItemReceita($idItem[$i], $unidadeMedidaRec[$i], $quantidadeRec[$i]);
         
                 $receitaItem = new Receita_Item($idReceita, $idItem[$i], $quantidadeRec[$i], $unidadeMedidaRec[$i], $custo);
 
@@ -86,6 +87,7 @@
                 }
                 $i++;
             }   
+            
         }
         
         if($resultadoBaixa){

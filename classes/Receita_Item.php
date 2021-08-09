@@ -48,7 +48,7 @@
             include __DIR__.'./../includes/conecta_bd.inc';
 
             $query = "SELECT id, idItem, quantidade, unidadeMedida, custo
-            FROM receitaitem WHERE idReceita = '$idReceita' ";
+            FROM receitaitem WHERE idReceita = '$idReceita'";
 
             $resultado = mysqli_query($conexao, $query);
             $id = null;
