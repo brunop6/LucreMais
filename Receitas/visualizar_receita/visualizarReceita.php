@@ -101,7 +101,7 @@
             <br>
             <form action="./../realizar_receita/realizarReceita.php?id=<?php echo $idReceita?>" method="POST">
                 <input type="submit" value="Realizar Receita">
-                <input type="number" name="quantidade" value="0" min="0" max="<?php echo $numMaximoReceitas?>">
+                <input type="number" name="quantidade" value="0" min="1" max="<?php echo $numMaximoReceitas?>">
             </form>
         </aside>
     </main>

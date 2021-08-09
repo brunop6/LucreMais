@@ -5,7 +5,7 @@
 		private $quantidade;
 		private $unidadeMedida;
 		private $custo;
-
+		
       	function __construct($idReceita, $idItem, $quantidade, $unidadeMedida, $custo)
         {
             $this->idReceita = $idReceita;
@@ -29,19 +29,36 @@
             return mysqli_error($conexao);
         }
 
+		public function editarReceita_Item($id){
+			include __DIR__.'./../includes/conecta_bd.inc';
+		
+			$query = "UPDATE receitaitem
+			SET idItem = $this->idItem, quantidade = $this->quantidade, unidadeMedida = '$this->unidadeMedida', custo = $this->custo
+			WHERE id = $id";
+		
+			$resultado = mysqli_query($conexao, $query);
+		
+			if($resultado){
+				return true;
+			}
+			return mysqli_error($conexao);
+		}
+
         public static function selectReceita_Itens($idReceita){
             include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "SELECT idItem, quantidade, unidadeMedida, custo
+            $query = "SELECT id, idItem, quantidade, unidadeMedida, custo
             FROM receitaitem WHERE idReceita = '$idReceita' ";
 
             $resultado = mysqli_query($conexao, $query);
+            $id = null;
             $idItem = null;
             $quantidade = null;
             $unidadeMedida = null;
             $custo = null;
             if(mysqli_num_rows($resultado) > 0){
                 while($row = mysqli_fetch_array($resultado)){
+                    $id[] = $row['id'];
                     $idItem[] = $row['idItem'];
                     $quantidade[] = $row['quantidade'];
                     $unidadeMedida[] = str_replace("_", " ", $row['unidadeMedida']);
@@ -50,7 +67,7 @@
             }
             mysqli_close($conexao);
 
-            return array ($idItem, $quantidade, $unidadeMedida, $custo);
+            return array ($id, $idItem, $quantidade, $unidadeMedida, $custo);
         }
 
 		public static function selectQuantidadeLote($idItem, $unimedRec, $quantidadeRec){
@@ -132,20 +149,6 @@
             return array($idEstoque, $quantUsadaLote);
 		}
 
-        public function editarReceita_Item(){
-            include __DIR__.'./../includes/conecta_bd.inc';
-
-            $query = "UPDATE receitaitem
-                SET idItem = '$this->idItem', quantidade = '$this->quantidade', unidadeMedida = $this->unidadeMedida
-                WHERE idReceita = '$this->idReceita'";
-
-            $resultado = mysqli_query($conexao, $query);
-
-            if($resultado){
-                return true;
-            }
-            return mysqli_error($conexao);
-        }
 
         public function apagarItem(){
             include __DIR__.'./../includes/conecta_bd.inc';

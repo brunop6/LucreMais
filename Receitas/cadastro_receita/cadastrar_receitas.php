@@ -63,6 +63,7 @@
     foreach($ingrediente as $item){
         $idReceita = Receita::selectId($nomeReceita, $email);
         $idItem = Item::selectId($item, $email);
+        
         if(empty($idReceita) || empty($idItem)){
             break;
         }

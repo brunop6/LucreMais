@@ -40,7 +40,7 @@
             }
             mysqli_close($conexao);
 
-            list($idItem, $quantidade, $unidadeMedida, $custo) = Receita_Item::selectReceita_Itens($idReceita);
+            list($idReceitaItem, $idItem, $quantidade, $unidadeMedida, $custo) = Receita_Item::selectReceita_Itens($idReceita);
 
             return array($nome, $idItem, $quantidade, $unidadeMedida, $custo);
         }
@@ -166,6 +166,18 @@
                     $i++;
                 }
 
+                /**
+                 * Se não houver estoque suficiente em direfentes lotes
+                 * O custo será calculado baseado no último lote ativo
+                 */
+                if($count < $quantidadeRec){
+                    while($count < $quantidadeRec){
+                        $custo[$i] = (($quantUsadaLote[$i-1])*$preco[$i-1])/$quantidadeItem;   
+                        $count++;
+                    }
+                    $i++;
+                }
+                
                 for($j=0; $j < $i; $j++){
                     $custoTotal+=$custo[$j];
                 }

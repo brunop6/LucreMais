@@ -292,4 +292,38 @@
             mysqli_close($conexao);
             return array($id, $item, $categoria, $quantidade, $unidadeMedida, $preco, $observacao, $data, $nome);
         }
+
+        public static function validarEstoque($id){
+            include __DIR__.'./../includes/conecta_bd.inc';
+
+            $query = "SELECT quantidade, validade  
+            FROM estoque 
+            WHERE id = $id";
+
+            $resultado = mysqli_query($conexao, $query);
+
+            $quantidade = null;
+            $validade = null;
+            if(mysqli_num_rows($resultado) > 0){
+                while($row = mysqli_fetch_array($resultado)){
+                    $quantidade = $row['quantidade'];
+                    $validade = $row['validade'];
+                }
+
+                if($validade < date('Y/m/d') || $quantidade == 0){
+                    $query = "UPDATE estoque
+                    SET statusItem = '0'
+                    WHERE id = $id";
+
+                    $resultado = mysqli_query($conexao, $query);
+
+                    if(!$resultado){
+                        return mysqli_error($conexao);
+                    }
+                }
+            }
+            mysqli_close($conexao);
+            
+            return true;
+        }
     }
