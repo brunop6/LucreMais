@@ -22,7 +22,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="icon" href="./../../../public/img/icone-LucreMais.png">
-    <link rel="stylesheet" href="./aparencia_CN.css">
+    <link rel="stylesheet" href="./../../../public/css/formStyle.css">
 
     <title>Cadastrar Novo Nível</title>
 </head>
@@ -179,8 +179,9 @@
             }else{
                 $excluir = 0;
             }
-            $resultado = Usuario::cadastrarPermissao($idNivel, $idMenu, $inserir, $editar, $excluir);
 
+            $resultado = Usuario::cadastrarPermissao($idNivel, $idMenu, $inserir, $editar, $excluir);
+            echo $idNivel, $idMenu, $inserir, $editar, $excluir;
             if(!$resultado){
                 echo "<h3>Erro ao cadastrar permissão do menu Financeiro: </h3>";
                 echo "<p>$resultado</p>";

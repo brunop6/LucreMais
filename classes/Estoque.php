@@ -296,7 +296,7 @@
         public static function validarEstoque($id){
             include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "SELECT quantidade, validade  
+            $query = "SELECT quantidade, DATE_FORMAT(validade, '%Y/%m/%d') as validade
             FROM estoque 
             WHERE id = $id";
 
