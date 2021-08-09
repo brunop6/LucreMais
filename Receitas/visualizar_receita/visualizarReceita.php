@@ -58,7 +58,7 @@
                 <?php
                     $i = 0;
                     $custoReceita = 0;
-                    $numMaximoReceitas = null;
+                    $numMaximoReceitas = false;
                     foreach($idItem as $id){
                         $custoReceita += $custo[$i];
                         list($nomeItem, $marca, $quantidadeItem, $unidadeItem, $descricaoCategoria) = Item::selectItemLista($id);
@@ -67,7 +67,7 @@
                         $numReceitasItem = Receita::selectMaxReceitas($id, $quantidadeReceita[$i], $unidadeReceita[$i], $emailUsuario);
 
                         //Nº de receitas limitado pelo item com menor disponibilidade
-                        if($numMaximoReceitas == null || $numReceitasItem < $numMaximoReceitas){
+                        if($numMaximoReceitas === false || $numReceitasItem < $numMaximoReceitas || $numReceitasItem == null){
                             $numMaximoReceitas = $numReceitasItem;
                             $itemLimitante = "$nomeItem $marca";
                         }
@@ -82,18 +82,24 @@
         </div>
 
         <aside>
-            <!--<p><?php echo "Há $itemLimitante p/ $numMaximoReceitas receitas!"?></p>-->
-
             <details>
                 <summary id="info"><i class="fas fa-info-circle"></i></summary>
                 <ul>
                     <li><b><?php echo "Item limitante: $itemLimitante"?></b></li>
                     <br>
-                    <li>Máximo de receitas: <?php echo $numMaximoReceitas?></li>
+
+                    <?php
+                        if(!empty($numMaximoReceitas)){
+                            echo "<li>Máximo de receitas: $numMaximoReceitas</li>";
+                        }else{
+                            $numMaximoReceitas = 0;
+                            echo "<li>Item em falta no estoque!</li>";
+                        }
+                    ?>   
                 </ul>
             </details>
             <br>
-            <form action="" method="POST">
+            <form action="./../realizar_receita/realizarReceita.php?id=<?php echo $idReceita?>" method="POST">
                 <input type="submit" value="Realizar Receita">
                 <input type="number" name="quantidade" value="0" min="0" max="<?php echo $numMaximoReceitas?>">
             </form>

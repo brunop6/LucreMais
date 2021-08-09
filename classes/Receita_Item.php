@@ -53,6 +53,85 @@
             return array ($idItem, $quantidade, $unidadeMedida, $custo);
         }
 
+		public static function selectQuantidadeLote($idItem, $unimedRec, $quantidadeRec){
+			include __DIR__.'./../includes/conecta_bd.inc';
+            
+
+            $query = "SELECT e.id, i.nome, i.unidadeMedida, e.quantidade as quantidadeEstoque, e.lote 
+            FROM item i, estoque e 
+            WHERE e.idItem = $idItem 
+                AND i.id = e.idItem
+                AND e.statusItem = '1'";
+
+            $resultado = mysqli_query($conexao, $query);
+            
+			$idEstoque = null;
+            $quantidadeEstoque = null;
+            $nomeItem = null;
+            $unimedItem = null;
+            $lote = null;
+            if(mysqli_num_rows($resultado) > 0){
+                while($row = mysqli_fetch_array($resultado)){ 
+					$idEstoque[] = $row['id'];                
+                    $quantidadeEstoque[] = $row['quantidadeEstoque'];   
+					$lote[] = $row['lote'];  
+					$nomeItem = $row['nome'];                
+                    $unimedItem = $row['unidadeMedida'];           
+                }
+            }
+                  
+            $i = 0;                 //Índice p/ utilizar as quantidades de estoque e preços dos respectivos lotes            
+            $count = 0;             //Contador p/ controlar a quantidade de vezes que o laço será executado
+            $quantUsadaLote = [];   //Variável p/ armazenar as quantidades de estoque utilizadas por lote
+            
+            /**
+             * ($quantidadeRec > $quantidadeEstoque[0])  -> Mútiplos lotes
+             * !($quantidadeRec > $quantidadeEstoque[0]) -> Cálculo simples
+             */
+            if($quantidadeRec > $quantidadeEstoque[0]){
+                foreach($lote as $value){
+                    while($count < $quantidadeRec){
+                        if($quantidadeEstoque[$i] > 0){
+                            $count++;
+                            $quantidadeEstoque[$i]--;
+
+                             /**
+                             * Se o lote acabar, ou a quantidade necessária for suprida,
+                             * é calculado a quantidade usada deste lote
+                             */
+                            if($quantidadeEstoque[$i] == 0 || $count == $quantidadeRec){ 
+                                $quantUsadaLote[$i] = $count;
+
+                                if(count($quantUsadaLote) >= 2){
+                                    for($j = 0; $j < count($quantUsadaLote)-1; $j++){
+                                        $quantUsadaLote[$i]-=$quantUsadaLote[$j];
+                                    }
+                                }
+                                
+                                //Conversão da unidade de medida
+                                if ($unimedItem != $unimedRec){
+                                    $quantUsadaLote[$i] = Receita_Item::converterMedidas($unimedItem, $unimedRec, $quantUsadaLote[$i], $nomeItem);
+								}
+                            }
+                        }else{
+                            break 1;
+                        }
+                    }    
+                    $i++;
+                }
+            }else{
+				$quantUsadaLote[0] = $quantidadeRec;
+                //Conversão da unidade de medida
+                if ($unimedItem != $unimedRec){
+                    $quantUsadaLote[0] = Receita_Item::converterMedidas($unimedItem, $unimedRec, $quantUsadaLote[0], $nomeItem);
+                }
+            }
+            
+            mysqli_close($conexao);
+
+            return array($idEstoque, $quantUsadaLote);
+		}
+
         public function editarReceita_Item(){
             include __DIR__.'./../includes/conecta_bd.inc';
 

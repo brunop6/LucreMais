@@ -37,7 +37,9 @@
         public function editar_estoque($id, $tipo){
             include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "UPDATE estoque SET idUsuario = $this->idUsuario, idFornecedor = $this->idFornecedor, idItem = $this->idItem, preco = $this->preco, lote = $this->lote, validade = '$this->validade', statusItem = '$this->statusItem' WHERE id = $id";
+            $query = "UPDATE estoque 
+            SET idUsuario = $this->idUsuario, idFornecedor = $this->idFornecedor, idItem = $this->idItem, preco = $this->preco, lote = $this->lote, validade = '$this->validade', statusItem = '$this->statusItem' 
+            WHERE id = $id";
 
             $resultado = mysqli_query($conexao, $query);
 
@@ -56,6 +58,31 @@
             return mysqli_error($conexao);
         }
 
+        public static function registrarBaixa($id, $idUsuario, $quantidadeRec){
+            include __DIR__.'./../includes/conecta_bd.inc';
+
+            $query = "UPDATE estoque
+            SET idUsuario = $idUsuario
+            WHERE id = $id";
+
+            $resultado = mysqli_query($conexao, $query);
+
+            if(!$resultado){
+                return mysqli_error($conexao);
+            }
+
+            $query = "CALL atualizaEstoque($id, $idUsuario, $quantidadeRec, 'Receita', 'S')";
+
+            $resultado = mysqli_query($conexao, $query);
+            
+            if(!$resultado){
+                return mysqli_error($conexao);
+            }
+            mysqli_close($conexao);
+
+            return true;
+        }
+        
         public static function retornar_itens_em_falta($email){
             include '../../includes/conecta_bd.inc';
 
