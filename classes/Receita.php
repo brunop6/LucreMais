@@ -2,16 +2,24 @@
     class Receita{
         private $nomeReceita;
         private $idUsuario;
+        private $rendimento;
+        private $unidadeMedida;
+        private $valorVenda;
 
-        function __construct($idUsuario, $nomeReceita){
+        function __construct($idUsuario, $nomeReceita, $rendimento, $unidadeMedida, $valorVenda){
             $this->idUsuario = $idUsuario;
             $this->nomeReceita = $nomeReceita;
+            $this->rendimento = $rendimento;
+            $this->unidadeMedida = $unidadeMedida;
+            $this->valorVenda = $valorVenda;
         }
 
         public function cadastrarReceita(){
             include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "INSERT INTO receita (idUsuario, nome) VALUES ($this->idUsuario, '$this->nomeReceita')";
+            $query = "INSERT INTO receita (idUsuario, nome, rendimento, unidadeMedida, valor)
+              VALUES ($this->idUsuario, '$this->nomeReceita', '$this->rendimento', 
+                '$this->unidadeMedida', '$this->valorVenda')";
 
             $resultado = mysqli_query($conexao, $query);
 
@@ -48,7 +56,7 @@
         public static function selectReceitas($email){
             include __DIR__.'./../includes/conecta_bd.inc';
 
-            $query = "SELECT r.id, r.nome 
+            $query = "SELECT r.id, r.nome, r.rendimento, r.unidadeMedida, r.valor 
             FROM receita r, usuario u
             WHERE u.id = r.idUsuario
                 AND u.email = '$email'";
@@ -57,15 +65,21 @@
             
             $id = null;
             $nome = null;
+            $rendimento = null;
+            $unidadeMedida = null;
+            $valorVenda = null;
             if(mysqli_num_rows($resultado) > 0){
                 while($row = mysqli_fetch_array($resultado)){
                     $id[] = $row['id'];
                     $nome[] = $row['nome'];
+                    $rendimento[] = $row['rendimento'];
+                    $unidadeMedida[] = $row['unidadeMedida'];
+                    $valorVenda[] = $row['valor'];
                 }
             }
             mysqli_close($conexao);
 
-            return array($id, $nome);
+            return array($id, $nome, $rendimento, $unidadeMedida, $valorVenda);
         }
 
         public static function selectId($nomeReceita, $email){
@@ -91,7 +105,7 @@
             return $id;
         }
         
-        public static function valorItemReceita($idItem, $idReceita, $unimedRec, $quantidadeRec){
+        public static function valorItemReceita($idItem, $unimedRec, $quantidadeRec){
             include __DIR__.'./../includes/conecta_bd.inc';
             
 
