@@ -16,8 +16,8 @@
         <form action="./autenticacao_usuario.php" method="POST">
             <img src="./../public/img/Logo.png" alt="Logo do site" width="90%">
             <h2>Login</h2>
-            <p><input type="text" name="usuario" placeholder="Usuário" id="em"></p>
-            <p><input type="password" name="senha" placeholder="Senha"></p>
+            <p><input type="text" name="usuario" placeholder="Usuário" id="em" required></p>
+            <p><input type="password" name="senha" placeholder="Senha" required></p>
             <p>
                 <input type="button" value="Cadastrar-se" onclick="window.location.href='./../usuario/cadastro_usuario/cadastro_usuario.php'"> 
                 <input type="submit" value="Entrar">

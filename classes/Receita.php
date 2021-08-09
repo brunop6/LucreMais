@@ -134,6 +134,8 @@
                     $lote[$i] = $row['lote']; 
                     $i++;                
                 }
+            }else{
+                return 0;
             }
                   
             $i = 0;                 //Índice p/ utilizar as quantidades de estoque e preços dos respectivos lotes            
