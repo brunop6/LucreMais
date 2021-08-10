@@ -27,12 +27,13 @@
 
         $nomeUsuario = $_POST['usuario'];
         $senha = $_POST['senha'];
+        $admin = $_POST['admin'];
     
         /**
          * admin = '0'          -> func. padrão
          * statusUsuario = '1'  -> ativo
          */
-        $usuario = new Usuario('0', $nomeUsuario, $email, $senha, '1');
+        $usuario = new Usuario($admin, $nomeUsuario, $email, $senha);
         $resultado = $usuario->cadastrarUsuario();
 
         $idUsuario = Usuario::selectId($nomeUsuario);
