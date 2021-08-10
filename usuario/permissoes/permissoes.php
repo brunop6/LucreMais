@@ -84,7 +84,19 @@ list($idNiveisConta, $niveisConta) = Usuario::selectNiveisAcesso($emailUsuario);
                 $i = 0;
                 foreach ($idUsuarios as $idU) {
                     echo "<input type='hidden' name='usuario$i' value='$idU'>";
-                    echo "<p><b>$nomeUsuarios[$i]: </b>";
+                    echo "<p><b>$nomeUsuarios[$i]: </b>
+                    <input type='radio' id='1' name='admin$i' value='2'";
+                    if ($admin[$i] == 1){
+                        echo ' checked ';
+                    }
+                    echo ">
+                        <label >Sim</label><br>
+                    <input type='radio' id='0' name='admin$i' value='1'";
+                    if ($admin[$i] == 0){
+                        echo ' checked ';
+                    }
+                    echo">
+                        <label >Não</label><br>";
 
                     //Select de níveis de acesso somente para usuários padrão
                     if($admin[$i] == '0'){
