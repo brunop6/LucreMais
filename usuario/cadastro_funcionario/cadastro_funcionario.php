@@ -52,6 +52,13 @@
                     }
                 ?>
             </select>
+            <p>Administrador</p>
+            <p>
+                <input type="radio" id="1" name="admin" value="1" required>
+                    <label >Sim</label><br>
+                <input type="radio" id="0" name="admin" value="0" required>
+                    <label >Não</label><br>
+            </p>
             <p><input type="submit" value="Cadastrar"> 
             <p><input type="button" value="Voltar" onclick="window.location.href='./../permissoes/permissoes.php'"></p>
        </form>
