@@ -441,4 +441,19 @@
             }
             return null;
         }
+        
+        public static function editarAdmin($idUsuario, $admin){
+            include __DIR__.'./../includes/conecta_bd.inc';
+
+            $query = "UPDATE usuario
+            SET admin = $admin
+            WHERE id = $idUsuario";
+
+            $resultado = mysqli_query($conexao, $query);
+
+            if($resultado){
+                return true;
+            }
+            return mysqli_error($conexao).' - id: '.$idUsuario;
+        }
     }
