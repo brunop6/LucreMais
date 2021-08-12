@@ -307,7 +307,7 @@
             return array($idMenu, $descricaoMenu);
         }
 
-        public static function selectContasVinculadas($id, $email){
+        public static function selectContasVinculadas($id, $email, $status){
             include __DIR__.'./../includes/conecta_bd.inc';
 
             //Select administradores
@@ -315,6 +315,7 @@
             FROM usuario u
             WHERE u.id <> 1
                 AND u.admin = '$id'
+                AND u.statusUsuario = '$status'
                 AND u.email = '$email'";
 
             $admin = null;
