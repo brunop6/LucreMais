@@ -14,13 +14,16 @@ $nomeUsuario = $_SESSION['nome_usuario'];
 $nivelUsuario = $_SESSION['nivel_usuario'];
 $emailUsuario = $_SESSION['email_usuario'];
 
+if (isset($_GET['status'])) {
+    $status = $_GET['status'];
+} else {
+    $status = 1;
+    }
+
 if ($nivelUsuario != "Administrador") {
     header('Location: ./../../Home.php');
     die();
 }
-
-//Dados das contas vinculadas
-list($admin, $idUsuarios, $nomeUsuarios, $idNiveis, $niveisAcesso, $statusUsuarios) = Usuario::selectContasVinculadas($idUsuario, $emailUsuario);
 
 //Níveis de acesso disponíveis para o grupo de contas
 list($idNiveisConta, $niveisConta) = Usuario::selectNiveisAcesso($emailUsuario);
@@ -73,8 +76,28 @@ list($idNiveisConta, $niveisConta) = Usuario::selectNiveisAcesso($emailUsuario);
         </ul>
     </div>
     <section id="main">
+        <div class="filtros">
+                <select id="status" onchange="alterarExibicao()">
+                    <?php
+                    if ($status == 1) {
+                        echo "
+                        <option value='1'>Ativos</option>
+                        <option value='0'>Inativos</option>
+                        ";
+                    } else {
+                        echo "
+                        <option value='0'>Inativos</option>
+                        <option value='1'>Ativos</option>
+                        ";
+                    }
+                    ?>
+                </select>
+        </div>
         <form action="./edita_permissoes/editar_permissoes.php" method="POST">
             <?php
+            //Dados das contas vinculadas
+            list($idUsuarios, $nomeUsuarios, $idNiveis, $niveisAcesso, $admin) = Usuario::selectContasVinculadas($idUsuario, $emailUsuario, $status);
+            
             if (empty($idUsuarios)) {
                 echo "<h3>Não há outras contas vinculadas a este e-mail!</h3>";
             } else {
