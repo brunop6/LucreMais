@@ -346,6 +346,7 @@
             WHERE nu.idUsuario = u.id
                 AND nu.idNivel = n.id
                 AND u.id <> $id
+                AND u.statusUsuario = '$status'
                 AND u.email = '$email'";
             
             $resultado = mysqli_query($conexao, $query);
