@@ -96,7 +96,7 @@ list($idNiveisConta, $niveisConta) = Usuario::selectNiveisAcesso($emailUsuario);
         <form action="./edita_permissoes/editar_permissoes.php" method="POST">
             <?php
             //Dados das contas vinculadas
-            list($idUsuarios, $nomeUsuarios, $idNiveis, $niveisAcesso, $admin) = Usuario::selectContasVinculadas($idUsuario, $emailUsuario, $status);
+            list($admin, $idUsuarios, $nomeUsuarios, $idNiveis, $niveisAcesso, $statusUsuarios) = Usuario::selectContasVinculadas($idUsuario, $emailUsuario, $status);
             
             if (empty($idUsuarios)) {
                 echo "<h3>Não há outras contas vinculadas a este e-mail!</h3>";
