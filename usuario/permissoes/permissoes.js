@@ -39,3 +39,8 @@ function desbloquearMenu(i){
         form.appendChild(btnSalvar);
     });
 }
+function alterarExibicao() {
+    let status = document.getElementById('status').value;
+    let url = "?status=" + status;
+    window.location.href = url;
+}
