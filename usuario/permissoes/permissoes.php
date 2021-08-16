@@ -187,9 +187,12 @@ list($idNiveisConta, $niveisConta) = Usuario::selectNiveisAcesso($emailUsuario);
             <?php
                 if(!empty($idUsuarios)){
                     echo "<p><input type='submit' value='Salvar'></p>";
-                    echo "<p><input type='button' value='Cadastrar funcionário' onclick='window.location.href=\"./../cadastro_funcionario/cadastro_funcionario.php\"'></p>";
                 }
             ?>
+
+            <p>
+                <input type="button" value="Cadastrar funcionário" onclick="window.location.href='./../cadastro_funcionario/cadastro_funcionario.php'">
+            </p>
         </form>
     </section>
 </body>

@@ -21,7 +21,7 @@
     <meta charset="UTF-8">
 
     <link rel="icon" href="./../public/img/icone-LucreMais.png">
-    <link rel="stylesheet" href="./../public/css/editStyle.css">
+    <link rel="stylesheet" href="./../public/css/formStyle.css">
     
     <title>Edição de item</title>
 </head>

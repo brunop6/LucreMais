@@ -29,7 +29,6 @@
             return mysqli_error($conexao);
         }
 
-        //*Adicionar mais atributos a tabela
         public static function infoReceita($idReceita){
             include __DIR__.'./../includes/conecta_bd.inc';
             include_once __DIR__.'./Receita_Item.php';
@@ -140,7 +139,7 @@
                   
             $i = 0;                 //Índice p/ utilizar as quantidades de estoque e preços dos respectivos lotes            
             $count = 0;             //Contador p/ controlar a quantidade de vezes que o laço será executado
-            $custoTotal = 0;        //Custo final do ingrediente
+            $custoTotal = 0;        //Custo final do item
             $quantUsadaLote = [];   //Variável p/ armazenar as quantidades de estoque utilizadas por lote
             $custo = [];            //Variável p/ armazenar os custos dos lotes
             

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="icon" href="./../../../public/img/icone-LucreMais.png">
-    <link rel="stylesheet" href="./../../../public/css/inputs.css">
+    <link rel="stylesheet" href="./../../../public/css/formStyle.css">
     
     <title>Cadastrar despesas</title>
 </head>
@@ -38,7 +38,7 @@
         echo "<br><p>Descrição: $descricao</p>";
         echo "<p>Custo: $custo</p>";
 
-        echo "<p><a href='cadastro_de_despesa.php'><button>Cadastrar novo item</button></a></p>";
+        echo "<p><a href='cadastro_de_despesa.php'><button>Cadastrar nova despesa</button></a></p>";
         echo "<p><a href='./../despesa.php'><button>Voltar</button></a></p>";
     }else{
         echo '<h2>Erro ao realizar cadastro...</h2> <br>';

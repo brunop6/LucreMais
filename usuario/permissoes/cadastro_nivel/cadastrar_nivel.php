@@ -181,7 +181,7 @@
             }
 
             $resultado = Usuario::cadastrarPermissao($idNivel, $idMenu, $inserir, $editar, $excluir);
-            echo $idNivel, $idMenu, $inserir, $editar, $excluir;
+
             if(!$resultado){
                 echo "<h3>Erro ao cadastrar permissão do menu Financeiro: </h3>";
                 echo "<p>$resultado</p>";
