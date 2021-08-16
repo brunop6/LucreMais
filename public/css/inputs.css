@@ -11,6 +11,7 @@
     padding: 0;
     list-style: none;
     text-decoration: none;
+    box-sizing: border-box;
 }
 body{
     font-family: sans-serif;
@@ -23,7 +24,9 @@ input::placeholder{
     color: black;
 }
 input[type='radio']{
-    margin-right: 10px;
+    cursor: pointer;
+    transform: scale(1.2);
+    margin: .25em;
 }
 input[type="text"], input[type="email"], input[type="number"], input[type="password"], input[type="date"], select{
     outline: none;
@@ -59,4 +62,7 @@ input[type="submit"]:hover, input[type="button"]:hover, input[type="reset"]:hove
     color: var(--azulEscuro);
     padding: 15px 15px;
     box-shadow: 0 0 5px var(--cinzaEscuro);
+}
+label{
+    cursor: pointer;
 }

@@ -174,7 +174,7 @@
                 AND e.idItem = i.id
                 AND u.email = '$email'
             ORDER BY ent.id DESC
-            LIMIT 10";
+            LIMIT 7";
 
             $resultado = mysqli_query($conexao, $query);
 
@@ -217,7 +217,7 @@
                 AND e.idItem = i.id
                 AND u.email = '$email'
             ORDER BY b.id DESC
-            LIMIT 10";
+            LIMIT 7";
 
             $resultado = mysqli_query($conexao, $query);
             $id = null;

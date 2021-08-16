@@ -45,7 +45,14 @@
             </ul>
         </nav>
     </header>
-    <main>
+    <main class="view">
+        <aside>
+            <form action="" method="POST">
+                <input type="submit" value="Realizar Receita">
+                <input type="number" name="quantidade" value="0" min="0">
+            </form>
+        </aside>
+
         <div class="view-receita">
             <h1><?php echo $nomeReceita?></h1>
             <br>
@@ -67,13 +74,6 @@
             <br>
             <p><b>Custo: R$ <?php echo number_format($custoReceita, 2) ?></b></p>
         </div>
-
-        <aside>
-            <form action="" method="POST">
-                <input type="submit" value="Realizar Receita">
-                <input type="number" name="quantidade" value="0" min="0">
-            </form>
-        </aside>
     </main>
 </body>
 </html>

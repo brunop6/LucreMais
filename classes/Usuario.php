@@ -313,10 +313,19 @@
             //Select administradores
             $query = "SELECT u.admin, u.id as idUsuario, u.nomeUsuario, u.statusUsuario
             FROM usuario u
-            WHERE u.id <> 1
-                AND u.admin = '$id'
+            WHERE u.id <> $id
                 AND u.statusUsuario = '$status'
-                AND u.email = '$email'";
+                AND u.email = '$email'
+                AND u.id NOT IN (
+                    SELECT u.id
+                    FROM usuario u, nivelusuario nu, nivel n
+                    WHERE nu.idUsuario = u.id
+                        AND nu.idNivel = n.id
+                        AND u.id <> $id
+                        AND u.statusUsuario = '$status'
+                        AND u.email = '$email'
+                )
+            ORDER BY u.id";
 
             $admin = null;
             $idUsuario = null;
@@ -347,7 +356,8 @@
                 AND nu.idNivel = n.id
                 AND u.id <> $id
                 AND u.statusUsuario = '$status'
-                AND u.email = '$email'";
+                AND u.email = '$email'
+            ORDER BY u.id";
             
             $resultado = mysqli_query($conexao, $query);
 
@@ -448,7 +458,7 @@
             include __DIR__.'./../includes/conecta_bd.inc';
 
             $query = "UPDATE usuario
-            SET admin = $admin
+            SET admin = '$admin'
             WHERE id = $idUsuario";
 
             $resultado = mysqli_query($conexao, $query);

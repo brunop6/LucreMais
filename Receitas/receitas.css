@@ -4,14 +4,6 @@
     --lilas: rgb(113, 116, 255);
     --cinza: rgb(54, 54, 54);
 }
-aside{
-    left: 0;
-    width: 300px;
-    height: 100%;
-    position: absolute;
-    display: block;
-    margin: 10px;
-}
 input[type="number"]{
     outline: none;
     border: 2px solid var(--cinza);
@@ -19,12 +11,12 @@ input[type="number"]{
     background-color: var(--lilas);
     text-align: left;
     padding: 10px;
-    width: 40px;
+    width: 60px;
     color: black;
     transition: .5s;
 }
 input[type="number"]:focus{
-    width: 50px;
+    width: 70px;
     border-color: var(--cinza);
     box-shadow: 0 0 5px var(--lilas);
 }
@@ -46,8 +38,11 @@ input[type="submit"]:hover{
 main{
     margin: 10px 20px;
     display: flex;
-    justify-content:center;
+    justify-content: center;
     flex-wrap: wrap;
+}
+main[class='view']{
+    justify-content: left;
 }
 .receita{
     margin: 10px;
@@ -55,7 +50,7 @@ main{
     display: block;
     position: relative;
     width: 25vw;
-    min-width: 200px;
+    min-width: 250px;
     min-height: 55px;
     background-color: rgb(113, 116, 255);
     border-radius: 10px;
@@ -66,14 +61,21 @@ main{
 .receita a{
     color: yellow;
 }
+aside{
+    min-width: 250px;
+    max-width: 210px;
+    margin: 10px;
+    flex: 1;
+}
 .view-receita{
-    padding-left: 20px;
-    width: 60%;
-    height: 100%;
-    position: absolute;
-    transform: translateX(-50%);
-    left: 50%;
-    background-color: rgb(255, 250, 250);
+    background-color: white;
+
+    min-width: 470px;
+    min-height: calc(470px * 1.41);
+    max-width: calc(70vw - 200px);
+
+    padding: 20px;
+    flex: 3;
 }
 .view-receita h1, h2, h3, li, p{
     text-align: left;
@@ -85,26 +87,4 @@ main{
 main li{
     margin-left: 25px;
     padding-bottom: 5px;
-}
-@media screen and (max-width:2560px) and (orientation:portrait) {
-    body{
-        background-image:url("Logo.png");
-        background-color: #002D55;
-    }
-    header label{
-        display: block;
-    }
-    .menu ul{
-        position: absolute;
-        width: 70%;
-        flex-direction: column;
-        margin-left: -100%;
-    }
-    .menu li a{
-        border-top: 1px solid rgb(255, 242, 182);
-        background:rgb(113, 116, 255);
-    }
-    #btn-menu:checked ~ .menu ul{
-        margin-left: 0;
-    }
 }

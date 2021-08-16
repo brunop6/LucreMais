@@ -8,9 +8,9 @@
 
         function __construct($idUsuario, $nomeReceita, $rendimento, $unidadeMedida, $valorVenda){
             $this->idUsuario = $idUsuario;
-            $this->nomeReceita = $nomeReceita;
+            $this->nomeReceita = mb_strtoupper($nomeReceita, mb_internal_encoding());
             $this->rendimento = $rendimento;
-            $this->unidadeMedida = $unidadeMedida;
+            $this->unidadeMedida = mb_strtoupper($unidadeMedida, mb_internal_encoding());
             $this->valorVenda = $valorVenda;
         }
 
@@ -74,7 +74,7 @@
                     $nome[] = $row['nome'];
                     $rendimento[] = $row['rendimento'];
                     $unidadeMedida[] = $row['unidadeMedida'];
-                    $valorVenda[] = $row['valor'];
+                    $valorVenda[] = number_format($row['valor'], 2);
                 }
             }
             mysqli_close($conexao);
