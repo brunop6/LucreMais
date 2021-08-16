@@ -53,9 +53,17 @@
                     }
                 ?>
             </select>
+            <p>Administrador</p>
+            <p>
+                <input type="radio" id="1" name="admin" class="admin" value="1">
+                <label for="1">Sim</label><br>
+
+                <input type="radio" id="0" name="admin" class="admin" value="0" checked>
+                <label for="0">Não</label><br>
+            </p>
             <p><input type="submit" value="Cadastrar"> 
             <p><input type="button" value="Voltar" onclick="window.location.href='./../permissoes/permissoes.php'"></p>
        </form>
-       
+       <script type="text/javascript" src="./cadastro_funcionario.js"></script>
 </body>
 </html>

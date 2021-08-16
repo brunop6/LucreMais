@@ -22,3 +22,24 @@ button, input[type="submit"], select{
 button:hover, input[type="submit"]:hover{
     background-color: yellow;
 }
+fieldset{
+    min-width: 225px;
+    padding: 10px;
+    border-width: 2px;
+    border-color: #B9DEFF;
+    border-style: solid;
+    border-radius: 8px;
+    margin: 15px;
+}
+legend{
+    text-align: center;
+    font-weight: 600;
+    color: #B9DEFF
+}
+select{
+    margin: 0 0 20px 0;
+}
+.contas{
+    display: flex;
+    flex-wrap: wrap;
+}

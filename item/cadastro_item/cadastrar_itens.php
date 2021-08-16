@@ -16,11 +16,11 @@
     include_once '../../classes/Item.php';
     include_once '../../classes/Fornecedor.php';
     include_once '../../classes/Categoria.php';
-    $marca = $_POST['marca'];
-    $nome = $_POST['nome'];
+    $marca = mb_strtoupper($_POST['marca'], mb_internal_encoding());
+    $nome =mb_strtoupper($_POST['nome'], mb_internal_encoding());
     $descricaoCategoria = mb_strtoupper($_POST['categoria'], mb_internal_encoding());
     $quantidade = $_POST['quantidade'];
-    $unidadeMedida = $_POST['unidade_de_medida'];
+    $unidadeMedida = mb_strtoupper($_POST['unidade_de_medida'], mb_internal_encoding());
     $quantidadeMinima = $_POST['quantidadeMinima'];
 
     session_start();

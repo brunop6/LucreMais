@@ -26,6 +26,7 @@
         $idUsuario = $_POST['usuario'.$i];
         $idNovoNivel = $_POST['nivelUsuario'.$i];
         $novoStatus = $_POST['statusUsuario'.$i];
+        $admin = $_POST['admin'.$i];
 
         $resultado = Usuario::editarNivelAcesso($idUsuario, $idNovoNivel);
 
@@ -42,6 +43,15 @@
             echo "<button onclick='window.location.href='./../permissoes.php''>Retornar às permissões</button>";
             break;
         }
+        
+        $resultado = Usuario::editarAdmin($idUsuario, $admin);
+
+        if(!$resultado){
+            echo $resultado;
+            echo "<button onclick='window.location.href='./../permissoes.php''>Retornar às permissões</button>";
+            break;
+        }
+        
     }
     if($resultado){
         header('Location: ./../permissoes.php');

@@ -48,7 +48,7 @@
             </ul>
         </nav>
     </header>
-    <main>
+    <main class="view">
         <div class="view-receita">
             <h1><?php echo $nomeReceita?></h1>
             <br>
@@ -80,17 +80,20 @@
             <br>
             <p><b>Custo: R$ <?php echo number_format($custoReceita, 2) ?></b></p>
         </div>
-
         <aside>
             <details>
                 <summary id="info"><i class="fas fa-info-circle"></i></summary>
                 <ul>
-                    <li><b><?php echo "Item limitante: $itemLimitante"?></b></li>
+                    <li>
+                        <b>Item limitante:</b> 
+                        <br>
+                        <?php echo " $itemLimitante"?>
+                    </li>
                     <br>
 
                     <?php
                         if(!empty($numMaximoReceitas)){
-                            echo "<li>Máximo de receitas: $numMaximoReceitas</li>";
+                            echo "<li><b>Máx. de receitas: </b>$numMaximoReceitas</li>";
                         }else{
                             $numMaximoReceitas = 0;
                             echo "<li>Item em falta no estoque!</li>";

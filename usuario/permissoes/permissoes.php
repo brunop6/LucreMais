@@ -11,13 +11,16 @@ $nomeUsuario = $_SESSION['nome_usuario'];
 $nivelUsuario = $_SESSION['nivel_usuario'];
 $emailUsuario = $_SESSION['email_usuario'];
 
+if (isset($_GET['status'])) {
+    $status = $_GET['status'];
+} else {
+    $status = 1;
+    }
+
 if ($nivelUsuario != "Administrador") {
     header('Location: ./../../Home.php');
     die();
 }
-
-//Dados das contas vinculadas
-list($admin, $idUsuarios, $nomeUsuarios, $idNiveis, $niveisAcesso, $statusUsuarios) = Usuario::selectContasVinculadas($idUsuario, $emailUsuario);
 
 //Níveis de acesso disponíveis para o grupo de contas
 list($idNiveisConta, $niveisConta) = Usuario::selectNiveisAcesso($emailUsuario);
@@ -71,54 +74,121 @@ list($idNiveisConta, $niveisConta) = Usuario::selectNiveisAcesso($emailUsuario);
         </ul>
     </div>
     <section id="main">
+        <div class="filtros">
+                <select id="status" onchange="alterarExibicao()">
+                    <?php
+                    if ($status == 1) {
+                        echo "
+                        <option value='1'>Ativos</option>
+                        <option value='0'>Inativos</option>
+                        ";
+                    } else {
+                        echo "
+                        <option value='0'>Inativos</option>
+                        <option value='1'>Ativos</option>
+                        ";
+                    }
+                    ?>
+                </select>
+        </div>
         <form action="./edita_permissoes/editar_permissoes.php" method="POST">
             <?php
-            if (empty($idUsuarios)) {
-                echo "<h3>Não há outras contas vinculadas a este e-mail!</h3>";
-            } else {
-                echo "<h3>Contas vinculadas:</h3><br>\n";
-
-                //Formação dos selects
-                $i = 0;
-                foreach ($idUsuarios as $idU) {
-                    echo "<input type='hidden' name='usuario$i' value='$idU'>";
-                    echo "<p><b>$nomeUsuarios[$i]: </b>";
-
-                    //Select de níveis de acesso somente para usuários padrão
-                    if($admin[$i] == '0'){
-                        echo "<select name='nivelUsuario$i'>";
-                        //Formação das options
-                        $j = 0;
-                        foreach ($idNiveisConta as $idNivelConta) {
-                            echo "<option value='$idNivelConta'";
-                            if ($idNivelConta == $idNiveis[$i]) {
-                                echo 'selected';
-                            }
-                            echo ">$niveisConta[$j]</option>\n";
-                            $j++;
-                        }
-                        echo "</select>\n";
+                //Dados das contas vinculadas
+                list($admin, $idUsuarios, $nomeUsuarios, $idNiveis, $niveisAcesso, $statusUsuarios) = Usuario::selectContasVinculadas($idUsuario, $emailUsuario, $status);
+                if (empty($idUsuarios)) {
+                    if($status == 1){
+                        echo "<h3>Não há outras contas ativas vinculadas a este e-mail!</h3>";   
+                    }else{
+                        echo "<h3>Não há outras contas inativas vinculadas a este e-mail!</h3>";
                     }
-                    echo "Status: ";
-                    echo "<label for='statusAtivo$i'>Ativo</label>";
-                    echo "<input type='radio' name='statusUsuario$i' id='statusAtivo$i' value='1'";
-                    if($statusUsuarios[$i] == '1'){
-                        echo 'checked';
-                    }
-                    echo '>';
-                    echo "<label for='statusInativo$i'>Inativo</label>";
-                    echo "<input type='radio' name='statusUsuario$i' id='statusInativo$i' value='0' ";
-                    if($statusUsuarios[$i] == '0'){
-                        echo 'checked';
-                    }
-                    echo '>';
-                    $i++;
+                } else {
+                    echo "<h3>Contas vinculadas:</h3>\n";
                 }
-                //Controle do número de usuários para edição
-                echo "<input type='hidden' name='numUsuarios' value='$i'>";
-                echo '<p><input type="submit" value="Salvar"></p>';
-            }
-            echo "<p><input type='button' value='Cadastrar funcionário' onclick='window.location.href=\"./../cadastro_funcionario/cadastro_funcionario.php\"'></p>";
+            ?>
+
+            <div class="contas">
+                <?php                
+                    if (!empty($idUsuarios)) {
+                        //Formação dos selects
+                        $i = 0;
+                        foreach ($idUsuarios as $idU) {
+                            echo "<input type='hidden' name='usuario$i' value='$idU'>";
+                            
+                            echo "<fieldset>
+                                <legend>$nomeUsuarios[$i]</legend>
+                                <b>Administrador:</b>
+                            
+                                <div class='inputs'>
+                                    <label for='admin1-$i'>Sim</label>
+                                    <input type='radio' id='admin1-$i' name='admin$i' value='1'
+                            ";
+                            if ($admin[$i] == '1'){
+                                echo ' checked ';
+                            }
+                            echo ">";
+
+                            echo "<label for='admin0-$i'>Não</label>
+                                <input type='radio' id='admin0-$i' name='admin$i' value='0'
+                            ";
+                            if ($admin[$i] == '0'){
+                                echo ' checked ';
+                            }
+                            echo">
+                                </div>
+                            ";
+                            
+                            echo "<br><b>Status: </b>
+                                <div class='inputs'>
+                            ";
+                            echo "<label for='statusAtivo$i'>Ativo</label>";
+                            echo "<input type='radio' name='statusUsuario$i' id='statusAtivo$i' value='1'";
+                            if($statusUsuarios[$i] == '1'){
+                                echo 'checked';
+                            }
+                            echo '>';
+                            echo "<label for='statusInativo$i'>Inativo</label>";
+                            echo "<input type='radio' name='statusUsuario$i' id='statusInativo$i' value='0' ";
+                            if($statusUsuarios[$i] == '0'){
+                                echo 'checked';
+                            }
+                            echo '>
+                                </div>
+                            ';
+
+                            //Select de níveis de acesso somente para usuários padrão
+                            if($admin[$i] == '0'){
+                                echo "<br><b>Nível de acesso: </b>
+                                    <br>
+                                    <select name='nivelUsuario$i'>
+                                ";
+                                //Formação das options
+                                $j = 0;
+                                foreach ($idNiveisConta as $idNivelConta) {
+                                    echo "<option value='$idNivelConta'";
+                                    if ($idNivelConta == $idNiveis[$i]) {
+                                        echo 'selected';
+                                    }
+                                    echo ">$niveisConta[$j]</option>\n";
+                                    $j++;
+                                }
+                                echo "</select>\n";
+                            }
+
+                            echo '</fieldset>';
+
+                            $i++;
+                        }
+                        //Controle do número de usuários para edição
+                        echo "<input type='hidden' name='numUsuarios' value='$i'>";
+                    }
+                ?>
+            </div>
+            
+            <?php
+                if(!empty($idUsuarios)){
+                    echo "<p><input type='submit' value='Salvar'></p>";
+                    echo "<p><input type='button' value='Cadastrar funcionário' onclick='window.location.href=\"./../cadastro_funcionario/cadastro_funcionario.php\"'></p>";
+                }
             ?>
         </form>
     </section>

@@ -28,24 +28,33 @@
 
         $nomeUsuario = $_POST['usuario'];
         $senha = $_POST['senha'];
+        $admin = $_POST['admin'];
     
         /**
          * admin = '0'          -> func. padrão
          * statusUsuario = '1'  -> ativo
          */
-        $usuario = new Usuario('0', $nomeUsuario, $email, $senha, '1');
+        $usuario = new Usuario($admin, $nomeUsuario, $email, $senha, '1');
         $resultado = $usuario->cadastrarUsuario();
 
         $idUsuario = Usuario::selectId($nomeUsuario);
 
         if($resultado){
-            $resultado = Usuario::cadastrarNivelUsuario($idUsuario, $nivelAcesso);
+            if($admin == '0'){
+                $resultado = Usuario::cadastrarNivelUsuario($idUsuario, $nivelAcesso);
+
+                if(!$resultado){
+                    echo '<h2>Erro ao vincular nível de acesso...</h2> <br>';
+                    echo "<p lang='en'>".$resultado."</p>";  
+                    echo "<p><a href='./../permissoes/permissoes.php'><button>Retornar às permissões</button></a></p>";
+                }
+            }
             header('location: ./../permissoes/permissoes.php');
             die();
         }else{
             echo '<h2>Erro ao realizar cadastro...</h2> <br>';
             echo "<p lang='en'>".$resultado."</p>";  
-            echo "<p><a href='../../Login/login.php'><button>Retornar ao login</button></a></p>";
+            echo "<p><a href='./../permissoes/permissoes.php'><button>Retornar às permissões</button></a></p>";
         } 
     ?>
 </body>

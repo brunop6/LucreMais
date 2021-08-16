@@ -346,15 +346,25 @@
             return array($idMenu, $descricaoMenu);
         }
 
-        public static function selectContasVinculadas($id, $email){
+        public static function selectContasVinculadas($id, $email, $status){
             include __DIR__.'./../includes/conecta_bd.inc';
 
             //Select administradores
             $query = "SELECT u.admin, u.id as idUsuario, u.nomeUsuario, u.statusUsuario
             FROM usuario u
-            WHERE u.id <> 1
-                AND u.admin = '$id'
-                AND u.email = '$email'";
+            WHERE u.id <> $id
+                AND u.statusUsuario = '$status'
+                AND u.email = '$email'
+                AND u.id NOT IN (
+                    SELECT u.id
+                    FROM usuario u, nivelusuario nu, nivel n
+                    WHERE nu.idUsuario = u.id
+                        AND nu.idNivel = n.id
+                        AND u.id <> $id
+                        AND u.statusUsuario = '$status'
+                        AND u.email = '$email'
+                )
+            ORDER BY u.id";
 
             $admin = null;
             $idUsuario = null;
@@ -384,7 +394,9 @@
             WHERE nu.idUsuario = u.id
                 AND nu.idNivel = n.id
                 AND u.id <> $id
-                AND u.email = '$email'";
+                AND u.statusUsuario = '$status'
+                AND u.email = '$email'
+            ORDER BY u.id";
             
             $resultado = mysqli_query($conexao, $query);
 
@@ -479,5 +491,20 @@
                     break;
             }
             return null;
+        }
+        
+        public static function editarAdmin($idUsuario, $admin){
+            include __DIR__.'./../includes/conecta_bd.inc';
+
+            $query = "UPDATE usuario
+            SET admin = '$admin'
+            WHERE id = $idUsuario";
+
+            $resultado = mysqli_query($conexao, $query);
+
+            if($resultado){
+                return true;
+            }
+            return mysqli_error($conexao).' - id: '.$idUsuario;
         }
     }
