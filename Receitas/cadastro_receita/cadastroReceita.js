@@ -1,10 +1,9 @@
-function inseriringrediente(){
-    document.getElementById("inserir").remove();  
+function inserirIngrediente(){
+    $("#inserir").remove();  
     
     //Controle da quantidade de ingredientes
-    let pNum = document.getElementById("numIngred")
-    let numIngred = parseInt(pNum.textContent);
-    numIngred++;
+    let pNum = $("#numIngred");
+    let numIngred = parseInt(pNum.text());
 
     //Novos elementos
     let hr = document.createElement("hr");
@@ -27,30 +26,18 @@ function inseriringrediente(){
 
     inputi.type = "text";
     inputi.name = "ingrediente"+numIngred;
+    inputi.className = 'ingrediente-'+numIngred;
     inputi.placeholder = numIngred+"° Ingrediente";
-
-    //Função para a alternância do funcionamento do datalist
-    inputi.addEventListener('focus', function(event){
-        let lastItem = document.querySelector('#item');
-        let datalist = document.querySelector('#itens');
-        
-        datalist.childNodes.forEach(function(child) {
-            child.remove();
-        });
-
-        lastItem.removeAttribute('id');
-        lastItem.removeAttribute('list');
-       
-        this.setAttribute('id', 'item');
-        this.setAttribute('list', 'itens');
-    });
-    inputi.addEventListener('input', preencherItens)
     
     inputq.type = "number";
+    inputq.step = "0.1";
     inputq.placeholder = "Quantidade";
     inputq.name = "quantidade"+numIngred;
+    inputq.id = "quantidade-"+numIngred;
 
     select.name = "unidade_de_medida"+numIngred;
+    select.id = "unidade_de_medida-"+numIngred;
+    
     option1.textContent = "Unidade de Medida";
     option1.value = "unidade_de_medida";
     option2.textContent = "ML";
@@ -72,8 +59,51 @@ function inseriringrediente(){
 
     inserir.textContent = "Inserir ingrediente";
     inserir.id = "inserir";
-    inserir.addEventListener("click", inseriringrediente);
 
+    inserir.addEventListener("click", inserirIngrediente);
+
+    //Função para a alternância do funcionamento do datalist
+    inputi.addEventListener('focus', function(event){
+        let lastItem = document.querySelector('#item');
+        let datalist = document.querySelector('#itens');
+        
+        datalist.childNodes.forEach(function(child) {
+            child.remove();
+        });
+
+        if(lastItem){
+            lastItem.removeAttribute('id');
+            lastItem.removeAttribute('list');
+        }
+
+        this.setAttribute('id', 'item');
+        this.setAttribute('list', 'itens');
+    });
+
+    //Adição das funções de cálculo
+    inputi.addEventListener('input', function(){
+        preencherItens();
+
+        if(this.value.length >= 3){
+            let index = this.className.substring(this.className.search('-') + 1, this.className.length);
+            
+            calcularItem(this.value, $('#quantidade-'+index).val(), $('#unidade_de_medida-'+index).val());
+        }
+    });
+
+    inputq.addEventListener('input', function(){
+        let index = this.id.substring(this.id.search('-') + 1, this.id.length);
+
+        calcularItem($('.ingrediente-'+index).val(), this.value, $('#unidade_de_medida-'+index).val());
+    });
+
+    select.addEventListener('change', function(){
+        let index = this.id.substring(this.id.search('-') + 1, this.id.length);
+
+        calcularItem($('.ingrediente-'+index).val(), $('#quantidade-'+index).val(), this.value);
+    });
+
+    //Atualização da página
     let form = document.getElementById("formulario");
 
     form.appendChild(hr);
@@ -98,5 +128,26 @@ function inseriringrediente(){
 
     document.body.appendChild(form);
 
-    pNum.textContent = numIngred;
+    numIngred++;
+    pNum.text(numIngred);
 }
+
+function calcularItem(nome, quantidade, unMedida){
+    $.ajax({
+        url: '/LucreMais/public/ajax/selectCustoItem.php',
+        method: 'POST',
+        data: {
+            item: nome.toUpperCase(),
+            quantidade: quantidade,
+            unidadeMedida: unMedida.toUpperCase()
+        },
+        dataType: 'json'
+    }).done(function(result){
+        console.log(result);
+        //Imprimir o valor no campo
+    }).fail(function(){
+        //Zerar o campo
+    });
+}
+
+window.onload = inserirIngrediente;

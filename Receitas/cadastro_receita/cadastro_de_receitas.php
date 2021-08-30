@@ -21,8 +21,8 @@
     <meta charset="UTF-8">
     
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script type="text/javascript" src="./criacampo.js"></script>
     <script type="text/javascript" src="./../../public/js/datalists.js"></script>
+    <script type="text/javascript" src="./cadastroReceita.js"></script>
 
     <link rel="icon" href="./../../public/img/icone-LucreMais.png">
     <link rel="stylesheet" href="./../../public/css/formStyle.css">
@@ -41,40 +41,26 @@
         <!--Parágrafo invisível para controle do número de ingredientes-->
         <p id="numIngred" hidden>1</p>
 
-        <p><input type="submit" value="Cadastrar Receita" id="cadastrar"></p>
-        
-        <p><input type="text" name="nomeReceita" placeholder="Nome da receita" required></p>
-        
-        <p><input type="text" name="rendimento" placeholder="Rendimento" required></p>
+        <div class="dadosReceita">
+            <p><input type="submit" value="Cadastrar Receita" id="cadastrar"></p>
+            
+            <p><input type="text" name="nomeReceita" placeholder="Nome da receita" required></p>
+            
+            <p><input type="text" name="rendimento" placeholder="Rendimento" required></p>
 
-        <select name = "unidadeMedida" >
-            <option value="unidade_de_medida">Unidade de Medida</option> 
-            <option value="unidade(s)">Unidade</option>
-            <option value="ml">ML</option>
-            <option value="gramas">Grama</option>
-            <option value="quilos(s)">Quilo(s)</option>
-            <option value="litro(s)">Litro(s)</option>
-        </select>
+            <select name = "unidadeMedida" >
+                <option value="unidade_de_medida">Unidade de Medida</option> 
+                <option value="unidade(s)">Unidade</option>
+                <option value="ml">ML</option>
+                <option value="gramas">Grama</option>
+                <option value="quilos(s)">Quilo(s)</option>
+                <option value="litro(s)">Litro(s)</option>
+            </select>
+            
+            <p><input type="number" step="0.01" name="valorVenda" placeholder="Valor de venda" required></p>
+        </div>
         
-        <p><input type="number" step="0.01" name="valorVenda" placeholder="Valor de venda" required></p>
-
-        <p><input type="text" name="ingrediente1" placeholder="1° Ingrediente" oninput="preencherItens()" id="item" list="itens" required></p>
-        
-        <p><input type="number" name="quantidade1" placeholder="Quantidade" required></p>
-
-        <select id="unidade_de_medida" name = "unidade_de_medida1" >
-            <option value="unidade_de_medida">Unidade de Medida</option> 
-            <option value="unidade(s)">Unidade</option>
-            <option value="ml">ML</option>
-            <option value="gramas">Grama</option>
-            <option value="colher_de_sopa">Colher de Sopa</option>
-            <option value="colher_de_cha">Colher de Chá</option>
-            <option value="colher_de_cafe">Colher de Café</option>
-            <option value="xicara">Xícara</opition>
-            <option value="quilo(s)">Quilo(s)</option>
-        </select>
-        
-        <p><button id="inserir" onclick="inseriringrediente()">Inserir ingrediente</button></p>
+        <p><button id="inserir" onclick="inserirIngrediente()">Inserir ingrediente</button></p>
     </form>
 </body>
 </html>

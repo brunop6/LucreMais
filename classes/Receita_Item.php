@@ -71,8 +71,7 @@
         }
 
 		public static function selectQuantidadeLote($idItem, $unimedRec, $quantidadeRec){
-			include __DIR__.'./../includes/conecta_bd.inc';
-            
+			include __DIR__.'./../includes/conecta_bd.inc';            
 
             $query = "SELECT e.id, i.nome, i.unidadeMedida, e.quantidade as quantidadeEstoque, e.lote 
             FROM item i, estoque e 
@@ -206,7 +205,7 @@
 							$novaQuantidade = $quantidadeReceita * 1000;
 						break;
 
-						case 'QUILO':
+						case 'QUILO(S)':
 							$novaQuantidade = $quantidadeReceita * 1000;
 						break;
 					}
@@ -284,7 +283,7 @@
 							$novaQuantidade = $quantidadeReceita * 1000;
 						break;
 
-						case 'QUILO':
+						case 'QUILO(S)':
 							$novaQuantidade = $quantidadeReceita * 1000;
 						break;
 					}

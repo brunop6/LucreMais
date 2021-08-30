@@ -53,7 +53,7 @@
         if(!empty($_POST["$indiceQuantidade"])){
             $quantidade[$i] = $_POST["$indiceQuantidade"];
         }
-        if(!empty($_POST["$indiceUnidadeMedida"])){
+        if(!empty($_POST["$indiceUnidadeMedida"]) && !empty($ingrediente[$i])){
             if($_POST["$indiceUnidadeMedida"] == "unidade_de_medida"){
                 echo "<h1>Erro ao realizar cadastro...</h1>";
                 echo "<p>Selecione uma unidade de medida para o item: $ingrediente[$i]</p>";

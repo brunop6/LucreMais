@@ -106,7 +106,7 @@
         
         public static function valorItemReceita($idItem, $unimedRec, $quantidadeRec){
             include __DIR__.'./../includes/conecta_bd.inc';
-            
+			include_once __DIR__.'./Receita_Item.php';
 
             $query = "SELECT e.preco, i.quantidade, i.unidadeMedida, i.nome, e.quantidade as quantidadeEstoque, e.lote  
             FROM item i, estoque e 
@@ -186,10 +186,10 @@
                  * O custo será calculado baseado no último lote ativo
                  */
                 if($count < $quantidadeRec){
-                    while($count < $quantidadeRec){
-                        $custo[$i] = (($quantUsadaLote[$i-1])*$preco[$i-1])/$quantidadeItem;   
-                        $count++;
-                    }
+                    $quantRestante = $quantidadeRec - $count;
+
+                    $custo[$i] = ($quantRestante*$preco[$i-1])/$quantidadeItem;   
+                    
                     $i++;
                 }
                 
