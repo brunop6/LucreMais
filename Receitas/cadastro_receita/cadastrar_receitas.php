@@ -24,7 +24,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="icon" href="./../../public/img/icone-LucreMais.png">
-    <link rel="stylesheet" href="./../../public/css/inputs.css">
+    <link rel="stylesheet" href="./../../public/css/formStyle.css">
     
     <title>Cadastro de Receita</title>
 </head>
@@ -35,12 +35,9 @@
     $unidadeMedidaRec = $_POST["unidadeMedida"];
     $valorVenda = $_POST["valorVenda"];
 
-    $receita = new Receita($idUsuario, $nomeReceita, $rendimento, $unidadeMedidaRec, $valorVenda);
-    $result = $receita->cadastrarReceita();
-
-    if(!$result){
+    if($unidadeMedidaRec == "unidade_de_medida"){
         echo "<h1>Erro ao realizar cadastro...</h1>";
-        echo "<p lang='en'>$result</p>";
+        echo "<p>Selecione uma unidade de medida para o rendimento!</p>";
         echo "<button><a href='./cadastro_de_receitas.php'>Voltar</a></button>";
         die();
     }
@@ -57,9 +54,25 @@
             $quantidade[$i] = $_POST["$indiceQuantidade"];
         }
         if(!empty($_POST["$indiceUnidadeMedida"])){
+            if($_POST["$indiceUnidadeMedida"] == "unidade_de_medida"){
+                echo "<h1>Erro ao realizar cadastro...</h1>";
+                echo "<p>Selecione uma unidade de medida para o item: $ingrediente[$i]</p>";
+                echo "<button><a href='./cadastro_de_receitas.php'>Voltar</a></button>";
+                die();
+            }
             $unidadeMedida[$i] = $_POST["$indiceUnidadeMedida"];  
             $unidadeMedida[$i] = mb_strtoupper($unidadeMedida[$i]);
         }
+    }
+
+    $receita = new Receita($idUsuario, $nomeReceita, $rendimento, $unidadeMedidaRec, $valorVenda);
+    $result = $receita->cadastrarReceita();
+
+    if(!$result){
+        echo "<h1>Erro ao realizar cadastro...</h1>";
+        echo "<p lang='en'>$result</p>";
+        echo "<button><a href='./cadastro_de_receitas.php'>Voltar</a></button>";
+        die();
     }
     
     $i = 1;

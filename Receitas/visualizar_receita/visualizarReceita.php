@@ -75,10 +75,12 @@
                         echo "<li><b>$nomeItem $marca:</b> $quantidadeReceita[$i] $unidadeReceita[$i] &#10142; R$ $custo[$i]</li>";
                         $i++;
                     }
+
+                    $custoTotal = $custoReceita + $custoReceita * 0.3;
                 ?>
             </ul>
             <br>
-            <p><b>Custo: R$ <?php echo number_format($custoReceita, 2) ?></b></p>
+            <p><b>Custo: R$ <?php echo number_format($custoReceita, 2)." + 30% &#10142; R$ ". number_format($custoTotal, 2) ?></b></p>
         </div>
         <aside>
             <details>
