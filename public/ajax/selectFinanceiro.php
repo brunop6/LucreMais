@@ -4,6 +4,8 @@
     include_once './../../classes/Despesa.php';
 
     $email = $_POST['email'];
+    $dataInicial = $_POST['buscar-data-inicio'];
+    $dataFinal = $_POST['buscar-data-final'];
     
     list($valorReceitas, $mesesReceitas) = ReceitaFinanceiro::selectUltimosMeses($email);
     list($custoDespesas, $mesesDespesas) = Despesa::selectUltimosMeses($email);

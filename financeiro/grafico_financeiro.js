@@ -1,5 +1,41 @@
 let emailUsuario = document.querySelector("#email-usuario").textContent;
 
+/* $(document).on('click', '#filtrar-grafico', function(){
+    $.ajax({
+        url: './../public/ajax/selectFinanceiro.php',
+        type: 'POST',
+        data:{
+            dataInicial: $('#buscar-data-inicio').val(),
+            dataFinal: $('#buscar-data-final').val(),
+        },
+        success: function(resposta){
+            let receitas = result[0][0];
+            let despesas = result[1][0];
+            let lucros = [];
+            let meses = [];
+        
+            //Conversão dos meses em valor numérico para forma escrita
+            if(result[0][1]){
+                result[0][1].forEach(function(value) {
+                    meses.push(monthName(value));
+                });
+            }
+            //Cálculos dos lucros
+            receitas.forEach(function(value, index){
+                lucros.push(value - despesas[index]);
+            });
+        
+            //Renderização do gráfico
+            if(meses.length > 0){
+                renderChart(meses, receitas, despesas, lucros);
+            }else{
+                console.log('Sem dados financeiros...');
+                document.querySelector('.chart-container').remove();
+            }
+        }
+    })
+}) */
+
 $.ajax({
     url: './../public/ajax/selectFinanceiro.php',
     method: 'POST',

@@ -22,3 +22,17 @@ span{
     margin: auto;
     width:60%
 }
+#buscar-data-inicio{
+    position: absolute;
+    left: 35%;
+}
+#buscar-data-final{
+    position: absolute;
+    left: 50%;
+}
+#filtar-grafico{
+    position: absolute;
+    left: 70%;
+    width: 10%;
+    height: 10%;
+}
