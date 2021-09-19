@@ -1,0 +1,21 @@
+.dadosReceita{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.dadosReceita .info{
+    margin-right: 10px
+}
+.dadosReceita .rendimento{
+    margin-left: 10px;
+}
+fieldset{
+    border-radius: 20px;
+    width: 260px;
+    margin: auto;
+    margin-bottom: 20px;
+}
+legend{
+    color: var(--azulClaro);
+    font-weight: bold;
+}
