@@ -34,6 +34,7 @@
         <nav class="menu">
             <ul>
                 <li><a href="./cadastro_receita/cadastro_de_receitas.php">Cadastrar Receita</a></li>
+                <li><a href="./receitas_realizadas/receitas_realizadas.php">Receitas Realizadas</a></li>
                 <li><a href="../Home.php">Página Principal</a></li>
             </ul>
         </nav>
