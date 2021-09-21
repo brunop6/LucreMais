@@ -144,4 +144,31 @@
 
       return array($totais, $meses);
     }
+
+    public static function selectMesesFiltroGrafico($dataInicial, $dataFinal, $email){
+      include __DIR__.'./../includes/conecta_bd.inc';
+
+      $query = "SELECT SUM(d.custo) as total, MONTH(d.dataCadastro) AS mes
+      FROM despesa d, usuario u
+      WHERE d.idUsuario = u.id
+        AND u.email = '$email'
+        BETWEEN MONTH('$dataInicial') AND MONTH('$dataFinal')
+      GROUP BY MONTH(d.dataCadastro)
+      ORDER BY MONTH(d.dataCadastro)";
+
+      $resultado = mysqli_query($conexao, $query);
+
+      $totais = null;
+      $meses = null;
+
+      if(mysqli_num_rows($resultado) > 0){
+        while($row = mysqli_fetch_array($resultado)){
+          $totais[] = $row['total'];
+          $meses[] = $row['mes'];
+        }
+      }
+      mysqli_close($conexao);
+
+      return array($totais, $meses);
+    }
   }

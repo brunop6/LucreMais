@@ -148,4 +148,34 @@
 
       return array($totais, $meses);
     }
+
+    public static function FiltroGrafico($dataInicial, $dataFinal, $email){
+      include __DIR__.'./../includes/conecta_bd.inc';
+
+    $query = "SELECT SUM(rec.valor) AS total, MONTH(rec.dataCadastro) AS mes
+    FROM receitafinanceiro rec, usuario u 
+    WHERE rec.idUsuario = u.id AND u.email = '$email' 
+        AND MONTH (rec.dataCadastro) BETWEEN MONTH ('$dataInicial') AND MONTH ('$dataFinal')
+        GROUP BY  MONTH(rec.dataCadastro)
+        ORDER BY MONTH(rec.dataCadastro)";
+        
+    /*"SELECT SUM(r.valor) AS total, MONTH(r.dataCadastro) AS mesInicial
+       FROM receitafinanceiro r, usuario u 
+       WHERE r.idUsuario = u.id AND u.email = '$email' 
+      AND r.dataCadastro between MONTH('$dataInicial') and MONTH('$dataFinal')";*/
+      $resultado = mysqli_query($conexao, $query);
+
+      $totais = null;
+      $meses = null;
+
+      if(mysqli_num_rows($resultado) > 0){
+        while($row = mysqli_fetch_array($resultado)){
+          $totais[] = $row['total'];
+          $meses[] = $row['mes'];
+        }
+      }
+      mysqli_close($conexao);
+
+      return array($totais, $meses);
+    }
   }

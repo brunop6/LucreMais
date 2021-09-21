@@ -4,11 +4,11 @@
     include_once './../../classes/Despesa.php';
 
     $email = $_POST['email'];
- //   $dataInicial = $_POST['buscar-data-inicio'];
- //   $dataFinal = $_POST['buscar-data-final'];
+    $dataInicial = $_POST['dataInicial'];
+    $dataFinal = $_POST['dataFinal'];
 
-    list($valorReceitas, $mesesReceitas) = ReceitaFinanceiro::selectUltimosMeses($email);
-    list($custoDespesas, $mesesDespesas) = Despesa::selectUltimosMeses($email);
+    list($valorReceitas, $mesesReceitas) = ReceitaFinanceiro::FiltroGrafico($dataInicial, $dataFinal, $email);
+    list($custoDespesas, $mesesDespesas) = Despesa::selectMesesFiltroGrafico($dataInicial, $dataFinal, $email);
       
     if(!empty($valorReceitas)){
         $i = 0;
