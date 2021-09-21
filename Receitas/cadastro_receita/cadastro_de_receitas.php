@@ -73,6 +73,8 @@
             <option value="xicara">Xícara</opition>
             <option value="quilo(s)">Quilo(s)</option>
         </select>
+
+        <label id="sugestao-preco"></label>
         
         <p><button id="inserir" onclick="inseriringrediente()">Inserir ingrediente</button></p>
     </form>

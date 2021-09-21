@@ -149,22 +149,20 @@
       return array($totais, $meses);
     }
 
-    public static function FiltroGrafico($dataInicial, $dataFinal){
+    public static function FiltroGrafico($dataInicial, $dataFinal, $email){
       include __DIR__.'./../includes/conecta_bd.inc';
 
-      $query = "SELECT SUM(r.valor) AS total, MONTH(r.dataCadastro) AS mesInicial
+    $query = "SELECT SUM(rec.valor) AS total, MONTH(rec.dataCadastro) AS mes
+    FROM receitafinanceiro rec, usuario u 
+    WHERE rec.idUsuario = u.id AND u.email = '$email' 
+        AND MONTH (rec.dataCadastro) BETWEEN MONTH ('$dataInicial') AND MONTH ('$dataFinal')
+        GROUP BY  MONTH(rec.dataCadastro)
+        ORDER BY MONTH(rec.dataCadastro)";
+        
+    /*"SELECT SUM(r.valor) AS total, MONTH(r.dataCadastro) AS mesInicial
        FROM receitafinanceiro r, usuario u 
-       WHERE r.idUsuario = u.id AND u.email = 'TESTE@GMAIL.COM' 
-      AND r.dataCadastro between MONTH('2021-08-01') and MONTH('2021-08-31')";
-
-    /*  SELECT SUM(rec.valor) AS total, DATE_FORMAT(rec.dataCadastro, '%Y-%m-%d') AS DATA
-      FROM receitafinanceiro rec, usuario u 
-          WHERE rec.idUsuario = u.id AND u.email = 'TESTE@GMAIL.COM' 
-          AND rec.dataCadastro between '2021-08-01' AND '2021-08-31'
-      GROUP BY DATE_FORMAT(rec.dataCadastro, '%Y-%m-%d')*/
-
-      print_r($query);
-
+       WHERE r.idUsuario = u.id AND u.email = '$email' 
+      AND r.dataCadastro between MONTH('$dataInicial') and MONTH('$dataFinal')";*/
       $resultado = mysqli_query($conexao, $query);
 
       $totais = null;

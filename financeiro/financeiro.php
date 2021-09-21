@@ -60,7 +60,7 @@
 
         <input type="date" name="buscar-data-inicio" id="buscar-data-inicio">
         <input type="date" name="buscar-data-final" id="buscar-data-final"> 
-        <button id="filtrar-grafico">Filtrar</button>
+       <button id="filtrar-grafico-financeiro">Filtrar</button>
 
         <h3>
             <?php 
@@ -73,6 +73,9 @@
     
     <div class="chart-container">
         <canvas id="chart"></canvas>
+    </div>
+    <div class="chart-container2">
+        <canvas id="chart2"></canvas>
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
