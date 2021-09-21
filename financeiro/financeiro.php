@@ -36,6 +36,7 @@
 
     <link rel="icon" href="./../public/img/icone-LucreMais.png">
     <link rel="stylesheet" href="./../public/css/headerMenu.css">
+    <link rel="stylesheet" href="./../public/css/inputs.css">
     <link rel="stylesheet" href="./financeiro.css">
     
     <title>Financeiro</title>
@@ -58,10 +59,6 @@
         <h3>Receita atual: <span class="receita"><?php echo "R$ ".number_format($receitaMensal, 2); ?></span></h3>
         <h3>Despesa atual: <span class="despesa"><?php echo "R$ ".number_format($despesaMensal, 2); ?></span></h3>
 
-        <input type="date" name="buscar-data-inicio" id="buscar-data-inicio">
-        <input type="date" name="buscar-data-final" id="buscar-data-final"> 
-       <button id="filtrar-grafico-financeiro">Filtrar</button>
-
         <h3>
             <?php 
                 if($porcentagemLucro){
@@ -70,6 +67,13 @@
             ?>
         </h3>
     </div>
+
+    <div class="filtro">
+        <input type="date" name="buscar-data-inicio" id="buscar-data-inicio">
+        <input type="date" name="buscar-data-final" id="buscar-data-final"> 
+        <button id="filtrar-grafico-financeiro">Filtrar</button>
+    </div>
+    
     
     <div class="chart-container">
         <canvas id="chart"></canvas>

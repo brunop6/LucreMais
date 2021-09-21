@@ -3,7 +3,7 @@ let ctx = document.getElementById('chart2');
 
  $(document).on('click', '#filtrar-grafico-financeiro', function(){
     document.querySelector('#chart').remove();
-    //document.querySelector('#chart2').remove();
+    document.querySelector('#chart2').style.display = '';
     $.ajax({
         url: './../public/ajax/selectFiltroGrafico.php',
         type: 'POST',

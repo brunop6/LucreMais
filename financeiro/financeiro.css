@@ -25,30 +25,25 @@ span{
 #chart2{
     background-color: #B9DEFF;
     border-radius: 12px;
+    display: none;
 }
 .chart-container2{
     position: relative; 
     margin: auto;
-    width:60%
+    width:60%;
 }
-#buscar-data-inicio{
-    position: absolute;
-    left: 35%;
-    top: 30%;
-}
-#buscar-data-final{
-    position: absolute;
-    left: 50%;
-    top: 30%;
+#buscar-data-inicio, #buscar-data-final{
+    flex: 1;
+    max-width: 150px;
+    margin: 10px 15px;
 }
 button {
-    padding: .5em 4em;
-    border: 0;
-    border-bottom: 3px solid;
-    color: #fff;
-    border-color: #044c2e;
-    display: block;
-    position: absolute;
-   left: 70%;
-   top: 30%;
+    flex: 1;
+    max-width: 150px;
+    margin: 10px 15px;
+}
+
+.filtro{
+    display: flex;
+    justify-content: center;
 }
